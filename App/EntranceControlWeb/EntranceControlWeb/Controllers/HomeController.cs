@@ -23,7 +23,50 @@ namespace EntranceControlWeb.Controllers
             return View();
         }
 
+        public IActionResult StaffEdit()
+        {
+            return View();
+        }
+
+        public IActionResult Staff()
+        {
+            return View();
+        }
+
+        public IActionResult Positions()
+        {
+            return View();
+        }
+
+        public IActionResult Offices()
+        {
+            return View();
+        }
+
+        public IActionResult SortByOff()
+        {
+            return View();
+        }
+
+        public IActionResult SortEdit()
+        {
+            return View();
+        }
         public IActionResult Entrance()
+        {
+            return View();
+        }
+        public IActionResult Rooms()
+        {
+            return View();
+        }
+
+        public IActionResult Doors()
+        {
+            return View();
+        }
+
+        public IActionResult Levels()
         {
             return View();
         }

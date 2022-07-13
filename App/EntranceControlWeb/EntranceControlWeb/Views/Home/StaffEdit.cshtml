@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Entrance";
+    ViewData["Title"] = "Staff Edit";
 
 }
 
@@ -82,7 +82,7 @@
 
                         </ul>
                     </div>
-                   
+
                 </div>
             </div>
         </nav>
@@ -90,76 +90,70 @@
     <div class="container">
         <div class="row my-3">
             <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
-            <h5 class="text-center">ДОСТУП</h5>
+            <h5 class="text-center">РЕДАКТИРОВАТЬ ИНФОРМАЦИЮ О СОТРУДНИКЕ</h5>
         </div>
-        <div class="row my-3">
-            <table class="table-dark table-bordered" style="width:1200px; color:black;">
-                <thead>
-                    <tr class="text-center">
-                        <th>ID Запись</th>
-                        <th>Дата входа</th>
-                        <th>Дата выхода</th>
-                        <th>Помещение</th>
-                        <th>Сотрудник</th>
-                        <th>Тип турникета</th>
-                        <th>Статус доступа</th>
-                    </tr>
-                </thead>
-
-
-                <tbody>
-                    <tr class="text-md-start">
-
-                        <td>IdЗапись</td>
-                        <td>ДатаВхода</td>
-                        <td>ДатаВыхода</td>
-                        <td>IdRoom.НаименованиеПомещения</td>
-                        <td>
-                            <a href="" class="text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">ФамилияИмяОтчетсво</a>
-                        </td>
-                        <td>IdType.НаименованиеТипаТурникета</td>
-                        <td>IdStat.НаименованиеСтатус</td>
-                    </tr>
-                </tbody>
-
-            </table>
-
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Карточка сотрудника</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img src="~/css/man.png" class="img-fluid" />
-                                </div>
-                                <div class="col-md-8">
-                                    <pre style="font-size: 15px">Фамилия: 
-Имя Отчество:
-Дата рождения:
-Должность:
-Отдел:
-Корпоративная почта:
-Рабочий телефон:
-Мобильный телефон:
-Уровень доступа:</pre>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Закрыть</button>
-                            
+        <form class="my-4">
+            <div class="card rounded">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <label for="inputSurname" class="col-sm-2 col-form-label">Фамилия</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputSurname">
                         </div>
                     </div>
+                    <div class="row mb-3">
+                        <label for="inputName" class="col-sm-2 col-form-label">Имя</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputName">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputLastname" class="col-sm-2 col-form-label">Отчество</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputLastname">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputDate" class="col-sm-2 col-form-label">Дата рождения</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="inputDate">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Корпоративня почта</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="inputEmail">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputPhone" class="col-sm-2 col-form-label">Мобильный телефон</label>
+                        <div class="col-sm-10">
+                            <input type="tel" class="form-control" id="inputPhone">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="formFile" class="col-sm-2 col-form-label">Выберите изображение</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="file" id="formFile">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-5">
+                            <a href="@Url.Action("Entrance", "Home")" type="button" class="btn btn-outline-primary">Назад</a>
+                            <button type="submit" class="btn btn-outline-primary">Сохранить изменения</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
+        </form>
 
-        </div>
+
+
+
     </div>
+
+
+
 </body>
 </html>

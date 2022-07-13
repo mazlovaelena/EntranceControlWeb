@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Entrance";
+    ViewData["Title"] = "Rooms";
 
 }
 
@@ -82,7 +82,7 @@
 
                         </ul>
                     </div>
-                   
+
                 </div>
             </div>
         </nav>
@@ -90,19 +90,16 @@
     <div class="container">
         <div class="row my-3">
             <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
-            <h5 class="text-center">ДОСТУП</h5>
+            <h5 class="text-center">ПОМЕЩЕНИЯ</h5>
         </div>
         <div class="row my-3">
             <table class="table-dark table-bordered" style="width:1200px; color:black;">
                 <thead>
                     <tr class="text-center">
-                        <th>ID Запись</th>
-                        <th>Дата входа</th>
-                        <th>Дата выхода</th>
-                        <th>Помещение</th>
-                        <th>Сотрудник</th>
-                        <th>Тип турникета</th>
-                        <th>Статус доступа</th>
+                        <th>ID Помещение</th>
+                        <th>Наименование помещения</th>
+                        <th>Уровень доступа</th>
+                        <th>Действие</th>
                     </tr>
                 </thead>
 
@@ -111,14 +108,12 @@
                     <tr class="text-md-start">
 
                         <td>IdЗапись</td>
-                        <td>ДатаВхода</td>
-                        <td>ДатаВыхода</td>
-                        <td>IdRoom.НаименованиеПомещения</td>
+                        <td>Наименование</td>
+                        <td>Наименование</td>
                         <td>
-                            <a href="" class="text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">ФамилияИмяОтчетсво</a>
+                            <a href="" class="table-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Редактировать</a>
+                            <a href="" class="text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Удалить</a>
                         </td>
-                        <td>IdType.НаименованиеТипаТурникета</td>
-                        <td>IdStat.НаименованиеСтатус</td>
                     </tr>
                 </tbody>
 
@@ -130,30 +125,46 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Карточка сотрудника</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Редактировать информацию</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form>
+                            <div class="modal-body">
+                                <div class="row mb-3">
+                                    <label for="inputTitle" class="col-sm-4 col-form-label">Наименование помещения</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="inputTitle">
+                                    </div>
+                                </div>
+                                                                    
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
+                                <a href="@Url.Action("RoomEdit", "Home")" type="button" class="btn btn-success">Сохранить</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel1">Подтвердите действие на сайте</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-md-4">
-                                    <img src="~/css/man.png" class="img-fluid" />
-                                </div>
-                                <div class="col-md-8">
-                                    <pre style="font-size: 15px">Фамилия: 
-Имя Отчество:
-Дата рождения:
-Должность:
-Отдел:
-Корпоративная почта:
-Рабочий телефон:
-Мобильный телефон:
-Уровень доступа:</pre>
-                                </div>
+                                <h5 class="text-center">
+                                    Вы действительно хотите удалить выбранную строку?
+                                    <br />Подтверждение данного действия приведет к удалению информации из базы данных
+                                </h5>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Закрыть</button>
-                            
+                            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
+                            <a href="@Url.Action("DelRoom", "Home")" type="button" class="btn btn-danger">Удалить</a>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Entrance";
+    ViewData["Title"] = "Sorting Edit";
 
 }
 
@@ -82,7 +82,7 @@
 
                         </ul>
                     </div>
-                   
+
                 </div>
             </div>
         </nav>
@@ -90,76 +90,86 @@
     <div class="container">
         <div class="row my-3">
             <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
-            <h5 class="text-center">ДОСТУП</h5>
+            <h5 class="text-center">РЕДАКТИРОВАТЬ ИНФОРМАЦИЮ</h5>
         </div>
-        <div class="row my-3">
-            <table class="table-dark table-bordered" style="width:1200px; color:black;">
-                <thead>
-                    <tr class="text-center">
-                        <th>ID Запись</th>
-                        <th>Дата входа</th>
-                        <th>Дата выхода</th>
-                        <th>Помещение</th>
-                        <th>Сотрудник</th>
-                        <th>Тип турникета</th>
-                        <th>Статус доступа</th>
-                    </tr>
-                </thead>
-
-
-                <tbody>
-                    <tr class="text-md-start">
-
-                        <td>IdЗапись</td>
-                        <td>ДатаВхода</td>
-                        <td>ДатаВыхода</td>
-                        <td>IdRoom.НаименованиеПомещения</td>
-                        <td>
-                            <a href="" class="text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">ФамилияИмяОтчетсво</a>
-                        </td>
-                        <td>IdType.НаименованиеТипаТурникета</td>
-                        <td>IdStat.НаименованиеСтатус</td>
-                    </tr>
-                </tbody>
-
-            </table>
-
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Карточка сотрудника</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img src="~/css/man.png" class="img-fluid" />
-                                </div>
-                                <div class="col-md-8">
-                                    <pre style="font-size: 15px">Фамилия: 
-Имя Отчество:
-Дата рождения:
-Должность:
-Отдел:
-Корпоративная почта:
-Рабочий телефон:
-Мобильный телефон:
-Уровень доступа:</pre>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Закрыть</button>
-                            
+        <form class="my-4">
+            <div class="card rounded">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <label for="inputDateBeg" class="col-sm-2 col-form-label">Время начала смены</label>
+                        <div class="col-sm-10">
+                            <input type="datetime-local" class="form-control" id="inputDateBeg">
                         </div>
                     </div>
+                    <div class="row mb-3">
+                        <label for="inputDateEnd" class="col-sm-2 col-form-label">Время завершения смены</label>
+                        <div class="col-sm-10">
+                            <input type="datetime-local" class="form-control" id="inputDateEnd">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="exampleDataList1" class="col-sm-2 col-form-label">Сотрудник</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" list="datalistOptions1" id="exampleDataList1" placeholder="Нажмите для выбора....">
+                            <datalist id="datalistOptions1">
+                                <option value="San Francisco" />
+                                <option value="New York" />
+                                <option value="Seattle" />
+                                <option value="Los Angeles" />
+                                <option value="Chicago" />
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="exampleDataList2" class="col-sm-2 col-form-label">Должность</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" list="datalistOptions2" id="exampleDataList2" placeholder="Нажмите для выбора....">
+                            <datalist id="datalistOptions2">
+                                <option value="San Francisco" />
+                                <option value="New York" />
+                                <option value="Seattle" />
+                                <option value="Los Angeles" />
+                                <option value="Chicago" />
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="exampleDataList3" class="col-sm-2 col-form-label">Отдел</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" list="datalistOptions3" id="exampleDataList3" placeholder="Нажмите для выбора....">
+                            <datalist id="datalistOptions3">
+                                <option value="San Francisco" />
+                                <option value="New York" />
+                                <option value="Seattle" />
+                                <option value="Los Angeles" />
+                                <option value="Chicago" />
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputPhone" class="col-sm-2 col-form-label">Рабочий телефон</label>
+                        <div class="col-sm-10">
+                            <input type="tel" class="form-control" id="inputPhone">
+                        </div>
+                    </div>
+                   
+                    <div class="row mb-3">
+                        <div class="col-5">
+                            <a href="@Url.Action("SortByOff", "Home")" type="button" class="btn btn-outline-dark">Назад</a>
+                            <button type="submit" class="btn btn-outline-primary">Сохранить изменения</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
+        </form>
 
-        </div>
+
+
+
     </div>
+
+
+
 </body>
 </html>
