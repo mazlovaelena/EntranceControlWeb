@@ -18,11 +18,7 @@ namespace EntranceControlWeb.Controllers
             _logger = logger;
         }
 
-        public IActionResult HomePage()
-        {
-            return View();
-        }
-
+        
         public IActionResult StaffEdit()
         {
             return View();
@@ -72,8 +68,13 @@ namespace EntranceControlWeb.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(int code)
         {
+            if (code == 404)
+            {
+                return View("Error");
+            }
+
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }

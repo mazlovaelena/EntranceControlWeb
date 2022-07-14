@@ -14,7 +14,7 @@ namespace EntranceControlWeb.Models
         public int IdPost { get; set; }
         public int IdOffice { get; set; }
 
-        public virtual OfficeViewModel IdOfficeNavigation { get; set; }
+        public virtual Office IdOfficeNavigation { get; set; }
         public virtual Position IdPostNavigation { get; set; }
         public virtual staff IdStaffNavigation { get; set; }
     }

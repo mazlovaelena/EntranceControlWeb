@@ -22,7 +22,7 @@ namespace EntranceControlWeb.Models
         public virtual DbSet<Authorize> Authorizes { get; set; }
         public virtual DbSet<Door> Doors { get; set; }
         public virtual DbSet<Entrance> Entrances { get; set; }
-        public virtual DbSet<OfficeViewModel> Offices { get; set; }
+        public virtual DbSet<Office> Offices { get; set; }
         public virtual DbSet<Position> Positions { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
         public virtual DbSet<SortingByOffice> SortingByOffices { get; set; }
@@ -74,7 +74,7 @@ namespace EntranceControlWeb.Models
 
             modelBuilder.Entity<Authorize>(entity =>
             {
-                entity.HasNoKey();
+                //entity.HasNoKey();
 
                 entity.ToTable("Authorize");
 
@@ -156,7 +156,7 @@ namespace EntranceControlWeb.Models
                     .HasConstraintName("FK__Entrance__ID_Sta__276EDEB3");
             });
 
-            modelBuilder.Entity<OfficeViewModel>(entity =>
+            modelBuilder.Entity<Office>(entity =>
             {
                 entity.HasKey(e => e.IdOffice)
                     .HasName("PK__Offices__F7DAFD3A29D9B49C");

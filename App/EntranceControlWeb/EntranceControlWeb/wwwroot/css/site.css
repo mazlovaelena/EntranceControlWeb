@@ -61,7 +61,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background-image: url(bg2.png);
+    background-image: url(../img/bg2.png);
     font-family: 'Fira Code', monospace;
     
 }

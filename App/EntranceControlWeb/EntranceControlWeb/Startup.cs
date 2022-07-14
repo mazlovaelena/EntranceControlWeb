@@ -52,6 +52,7 @@ namespace EntranceControlWeb
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseStatusCodePagesWithReExecute("/Home/Error", "?code={0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -64,7 +65,7 @@ namespace EntranceControlWeb
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Entrance}/{id?}");
+                    pattern: "{controller=Login}/{action=HomePage}/{id?}");
             });
         }
     }

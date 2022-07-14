@@ -1,4 +1,5 @@
-﻿@{
+﻿@model EntranceControlWeb.Models.LoginViewModel
+@{
     ViewData["Title"] = "Home Page";
    
 }
@@ -38,7 +39,7 @@
     </div>
     
     <div class="container my-5" style="width: 50% ">
-        <form class="my-4" method="post">
+        <form class="my-4" method="post" asp-controller="Login" asp-action="HomePage">
             <div class="card rounded shadow" style="background-color:transparent">
                 <div class="card-body">
                     <div class="row my-3">
@@ -46,17 +47,15 @@
                     </div>                    
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Адрес электронной почты</label>
-                        <input type="email" class="form-control border-info rounded-lg shadow" id="exampleInputEmail1" aria-describedby="emailHelp">
-
+                        <input type="email" asp-for="@Model.Email" class="form-control border-info rounded-lg shadow" id="exampleInputEmail1" placeholder="Введите E-mail..." value="@Model?.Email">
+                        <span for="exampleInputEmail1" style="color:red; background-color:floralwhite" asp-validation-for="@Model.Email"></span>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Пароль</label>
-                        <input type="password" class="form-control border-info rounded-lg shadow" id="exampleInputPassword1">
+                        <input type="password" asp-for="@Model.Password" class="form-control border-info rounded-lg shadow" id="exampleInputPassword1" placeholder="Введите пароль..." value="@Model?.Password">
+                        <span for="exampleInputPassword1" style="color:red; background-color:floralwhite" asp-validation-for="@Model.Password"></span>
                     </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Проверить меня</label>
-                    </div>
+                    
                     <div class="row">
                         <div class="col-md-1 m-3">
 
