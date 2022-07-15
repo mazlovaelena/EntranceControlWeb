@@ -55,7 +55,9 @@
                         <input type="password" asp-for="@Model.Password" class="form-control border-info rounded-lg shadow" id="exampleInputPassword1" placeholder="Введите пароль..." value="@Model?.Password">
                         <span for="exampleInputPassword1" style="color:red; background-color:floralwhite" asp-validation-for="@Model.Password"></span>
                     </div>
-                    
+                    <div class="row my-1">
+                        <h6 class="text-center text-danger"><strong> @ViewBag.Message</strong></h6>
+                    </div>
                     <div class="row">
                         <div class="col-md-1 m-3">
 

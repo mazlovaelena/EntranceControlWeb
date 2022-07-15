@@ -23,13 +23,15 @@ namespace EntranceControlWeb.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.Message = "Поля заполнены некорректно";
                 return View();
             }
 
             var user = _context.Users.FirstOrDefault(x => x.Email == model.Email && x.Password == model.Password);
             if (user == null)
             {
-                return View();
+                ViewBag.Message = "Неверный логин и/или пароль";
+                return View(model);
             }
 
             model.Users = _context.Users.ToList();

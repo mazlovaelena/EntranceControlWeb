@@ -151,78 +151,85 @@
 
             </table>
 
-                    @*Modal*@ 
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Редактировать информацию</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form method="post" asp-action="DoorEdit" asp-controller="Home" >
-                            <div class="modal-body">
-                                <div class="row mb-3">
-                                    <div class="col-sm-8">
-                                        <input hidden type="text" asp-for="@Model.IdDoor" class="form-control" id="inputTitle1" value="@Model?.IdDoor" name="IdDoor" readonly>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputTitle" class="col-sm-4 col-form-label">Наименование турникета</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" asp-for="@Model.TitleDoor" class="form-control" id="inputTitle" value="@Model?.TitleDoor" name="TitleDoor">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-sm-8">
-                                        <input hidden type="text" asp-for="@Model.IdRoom" class="form-control" id="inputTitle2" value="@Model?.IdRoom" readonly name="IdRoom">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="exampleDataList2" class="col-sm-4 col-form-label">Помещение</label>
-                                    <div class="col-sm-8">
-                                        <input class="form-control" asp-for="@Model.TitleRoom" list="datalistOptions2" id="exampleDataList2" placeholder="Нажмите для выбора...." value="@Model?.TitleRoom" name="TitleRoom">
-                                        <datalist id="datalistOptions2">
-                                            @foreach (var data in Model.Doors)
-                                            {
-                                                <option value="@data.IdRooms.TitleRoom" />
-                                            }
-
-                                        </datalist>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
-                                <button type="submit" class="btn btn-success">Сохранить</button>
-                            </div>
-                        </form>
-                    </div>
+                    @{Html.RenderPartial("DoorEdit"); }
                 </div>
             </div>
 
-            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel1">Подтвердите действие на сайте</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <h5 class="text-center">
-                                    Вы действительно хотите удалить выбранную строку?
-                                    <br />Подтверждение данного действия приведет к удалению информации из базы данных
-                                </h5>
+
+                    @*Modal*@
+                    <!--<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">-->
+                            @*<div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Редактировать информацию</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form method="post" asp-action="DoorEdit" asp-controller="Home">
+                                    <div class="modal-body">
+                                        <div class="row mb-3">
+                                            <div class="col-sm-8">
+                                                <input hidden type="text" asp-for="@Model.IdDoor" class="form-control" id="inputTitle1" value="@Model?.IdDoor" name="IdDoor" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputTitle" class="col-sm-4 col-form-label">Наименование турникета</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" asp-for="@Model.TitleDoor" class="form-control" id="inputTitle" value="@Model?.TitleDoor" name="TitleDoor">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-8">
+                                                <input hidden type="text" asp-for="@Model.IdRoom" class="form-control" id="inputTitle2" value="@Model?.IdRoom" readonly name="IdRoom">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="exampleDataList2" class="col-sm-4 col-form-label">Помещение</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" asp-for="@Model.TitleRoom" list="datalistOptions2" id="exampleDataList2" placeholder="Нажмите для выбора...." value="@Model?.TitleRoom" name="TitleRoom">
+                                                <datalist id="datalistOptions2">
+                                                    @foreach (var data in Model.Doors)
+                                                    {
+                                                        <option value="@data.IdRooms.TitleRoom" />
+                                                    }
+
+                                                </datalist>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
+                                        <button type="submit" class="btn btn-success">Сохранить</button>
+                                    </div>
+                                </form>
+                            </div>*@
+                        <!--</div>
+                    </div>-->
+
+                    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel1">Подтвердите действие на сайте</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <h5 class="text-center">
+                                            Вы действительно хотите удалить выбранную строку?
+                                            <br />Подтверждение данного действия приведет к удалению информации из базы данных
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
+                                    <a href="@Url.Action("DelDoor", "Home")" type="button" class="btn btn-danger">Удалить</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
-                            <a href="@Url.Action("DelDoor", "Home")" type="button" class="btn btn-danger">Удалить</a>
-                        </div>
                     </div>
-                </div>
-            </div>
 
                 </div>
             </div>

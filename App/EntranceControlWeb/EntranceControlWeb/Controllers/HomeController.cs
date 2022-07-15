@@ -68,7 +68,7 @@ namespace EntranceControlWeb.Controllers
                 door.TitleRoom = edit.IdRooms.TitleRoom;
                 
             }
-            return View(door);
+            return PartialView(door);
         }
 
 
