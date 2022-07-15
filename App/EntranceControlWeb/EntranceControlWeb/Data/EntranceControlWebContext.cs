@@ -103,7 +103,7 @@ namespace EntranceControlWeb.Models
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.IdRoomNavigation)
+                entity.HasOne(d => d.IdRooms)
                     .WithMany(p => p.Doors)
                     .HasForeignKey(d => d.IdRoom)
                     .OnDelete(DeleteBehavior.ClientSetNull)

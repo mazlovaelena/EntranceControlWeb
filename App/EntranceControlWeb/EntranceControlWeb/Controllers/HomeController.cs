@@ -12,13 +12,67 @@ namespace EntranceControlWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private EntranceControlWebContext _context;
+        
+        public HomeController(ILogger<HomeController> logger, EntranceControlWebContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        
+        //***ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ТУРНИКЕТЫ"***
+        //Отображение страницы
+        public IActionResult Doors(DoorViewModel door)
+        {
+            door.Doors = _context.Doors.ToList();
+            door.Rooms = _context.Rooms.ToList();
+            return View(door);
+        }
+
+        //Удаление записи
+        public IActionResult DelDoor(int id)
+        {
+            var data = _context.Doors.FirstOrDefault(x => x.IdDoor == id);
+            if(data != null)
+            {
+                _context.Doors.Remove(data);
+            }
+
+           return RedirectToAction(nameof(Doors));
+
+        }
+
+        //Редактирование записи
+        [HttpPost]
+        public IActionResult DoorEdit(DoorViewModel door)
+        {
+            var edit = _context.Doors.FirstOrDefault(x => x.IdDoor == door.IdDoor);
+            edit.IdDoor = door.IdDoor;
+            edit.TitleDoor = door.TitleDoor;
+            edit.IdRooms.IdRoom = door.IdRoom;
+            edit.IdRooms.TitleRoom = door.TitleRoom;
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Doors));
+        }
+
+        public IActionResult DoorEdit(DoorViewModel door, int id)
+        {
+            var view = _context.Doors.FirstOrDefault(x => x.IdDoor == id);
+            if(id != 0)
+            {
+                var edit = _context.Doors.FirstOrDefault(x => x.IdDoor == id);
+                door.IdDoor = edit.IdDoor;
+                door.TitleDoor = edit.TitleDoor;
+                door.IdRoom = edit.IdRooms.IdRoom;
+                door.TitleRoom = edit.IdRooms.TitleRoom;
+                
+            }
+            return View(door);
+        }
+
+
+
         public IActionResult StaffEdit()
         {
             return View();
@@ -57,10 +111,7 @@ namespace EntranceControlWeb.Controllers
             return View();
         }
 
-        public IActionResult Doors()
-        {
-            return View();
-        }
+        
 
         public IActionResult Levels()
         {

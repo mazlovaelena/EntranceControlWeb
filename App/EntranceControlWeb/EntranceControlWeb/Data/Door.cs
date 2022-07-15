@@ -16,7 +16,7 @@ namespace EntranceControlWeb.Models
         public string TitleDoor { get; set; }
         public int IdRoom { get; set; }
 
-        public virtual Room IdRoomNavigation { get; set; }
+        public Room IdRooms { get; set; }
         public virtual ICollection<Entrance> Entrances { get; set; }
     }
 }

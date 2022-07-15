@@ -1,4 +1,5 @@
-﻿@{
+﻿@model EntranceControlWeb.Models.DoorViewModel;
+@{
     ViewData["Title"] = "Doors";
 
 }
@@ -26,7 +27,10 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="nav-link text-primary" href="#">ник</a>
+                @if (User.Identity.IsAuthenticated)
+                {
+            <a class="nav-link text-primary">Аккаунт: @User.Identity.Name </a>
+                }
                 <a class="nav-link text-danger" asp-area="" asp-controller="Login" asp-action="LogOut">Выйти</a>
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
@@ -99,53 +103,90 @@
                         <th>ID Турникет</th>
                         <th>Наименование турникета</th>
                         <th>Помещение</th>
-                        <th>Действие</th>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            if (User.IsInRole(UserRole.Admin.ToString()))
+                            {
+                                <th>Действия</th>
+                            }
+                            else if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                            {
+                                <th>Действия</th>
+                            }
+                        }
                     </tr>
                 </thead>
 
+                @foreach (var data in Model.Doors)
+                {
+                    <tbody>
+                        <tr class="text-md-start">
 
-                <tbody>
-                    <tr class="text-md-start">
+                            <td>@data.IdDoor</td>
+                            <td>@data.TitleDoor</td>
+                            <td>@data.IdRooms.TitleRoom</td>
 
-                        <td>IdЗапись</td>
-                        <td>Наименование</td>
-                        <td>Наименование</td>
-                        <td>
-                            <a href="" class="table-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Редактировать</a>
-                            <a href="" class="text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Удалить</a>
-                        </td>
-                    </tr>
-                </tbody>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                if (User.IsInRole(UserRole.Admin.ToString()))
+                                {
+                                    <td>
+                                        <a href="@Url.Action("DoorEdit", "Home", new { id = @data.IdDoor })" class="text-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Редактировать</a>
+                                        <a href="@Url.Action("DelDoor", "Home", new { id = @data.IdDoor })" class="text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Удалить</a>
+                                    </td>
+
+                                }
+                                else if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                                {
+                                    <td>
+                                        <a href="@Url.Action("", new { id = @data.IdDoor })" class="text-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Редактировать</a>
+                                        <a href="@Url.Action("", new { id = @data.IdDoor })" class="text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Удалить</a>
+                                    </td>
+                                }
+                            }
+
+                        </tr>
+                    </tbody>
+                }
 
             </table>
 
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    @*Modal*@ 
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Редактировать информацию</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form>
+                        <form method="post" asp-action="DoorEdit" asp-controller="Home" >
                             <div class="modal-body">
+                                <div class="row mb-3">
+                                    <div class="col-sm-8">
+                                        <input hidden type="text" asp-for="@Model.IdDoor" class="form-control" id="inputTitle1" value="@Model?.IdDoor" name="IdDoor" readonly>
+                                    </div>
+                                </div>
                                 <div class="row mb-3">
                                     <label for="inputTitle" class="col-sm-4 col-form-label">Наименование турникета</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="inputTitle">
+                                        <input type="text" asp-for="@Model.TitleDoor" class="form-control" id="inputTitle" value="@Model?.TitleDoor" name="TitleDoor">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-8">
+                                        <input hidden type="text" asp-for="@Model.IdRoom" class="form-control" id="inputTitle2" value="@Model?.IdRoom" readonly name="IdRoom">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="exampleDataList2" class="col-sm-4 col-form-label">Помещение</label>
                                     <div class="col-sm-8">
-                                        <input class="form-control" list="datalistOptions2" id="exampleDataList2" placeholder="Нажмите для выбора....">
+                                        <input class="form-control" asp-for="@Model.TitleRoom" list="datalistOptions2" id="exampleDataList2" placeholder="Нажмите для выбора...." value="@Model?.TitleRoom" name="TitleRoom">
                                         <datalist id="datalistOptions2">
-                                            <option value="San Francisco" />
-                                            <option value="New York" />
-                                            <option value="Seattle" />
-                                            <option value="Los Angeles" />
-                                            <option value="Chicago" />
+                                            @foreach (var data in Model.Doors)
+                                            {
+                                                <option value="@data.IdRooms.TitleRoom" />
+                                            }
+
                                         </datalist>
                                     </div>
                                 </div>
@@ -153,7 +194,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
-                                <a href="@Url.Action("DoorEdit", "Home")" type="button" class="btn btn-success">Сохранить</a>
+                                <button type="submit" class="btn btn-success">Сохранить</button>
                             </div>
                         </form>
                     </div>
@@ -183,7 +224,7 @@
                 </div>
             </div>
 
-        </div>
-    </div>
+                </div>
+            </div>
 </body>
 </html>
