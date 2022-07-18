@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 
 namespace EntranceControlWeb.Controllers
 {
@@ -68,7 +69,7 @@ namespace EntranceControlWeb.Controllers
                 door.TitleRoom = edit.IdRooms.TitleRoom;
 
             }
-            return PartialView(door);
+            return Json(door);
         }
 
 
