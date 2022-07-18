@@ -59,14 +59,14 @@ namespace EntranceControlWeb.Controllers
         public IActionResult DoorEdit(DoorViewModel door, int id)
         {
             var view = _context.Doors.FirstOrDefault(x => x.IdDoor == id);
-            if(id != 0)
+            if (id != 0)
             {
                 var edit = _context.Doors.FirstOrDefault(x => x.IdDoor == id);
                 door.IdDoor = edit.IdDoor;
                 door.TitleDoor = edit.TitleDoor;
                 door.IdRoom = edit.IdRooms.IdRoom;
                 door.TitleRoom = edit.IdRooms.TitleRoom;
-                
+
             }
             return PartialView(door);
         }

@@ -131,7 +131,7 @@
                                 if (User.IsInRole(UserRole.Admin.ToString()))
                                 {
                                     <td>
-                                        <a href="@Url.Action("DoorEdit", "Home", new { id = @data.IdDoor })" class="text-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Редактировать</a>
+                                        <a href="@Url.Action("DoorEdit", "Home", new { id = @data.IdDoor })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdDoor">Редактировать</a>
                                         <a href="@Url.Action("DelDoor", "Home", new { id = @data.IdDoor })" class="text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Удалить</a>
                                     </td>
 
@@ -150,6 +150,24 @@
                 }
 
             </table>
+            <script>
+                $('.editClick').on('click', function () {
+                    // ...
+                    console.log('edit clicked');
+                    const doorId = $(this).data('id');
+                    // обращение на сервер
+                    $.get('/Home/DoorEdit' + doorId, function (result) {
+                        // результат содержит данные о двери
+                        $('#exampleModal #inputTitle1').val(result.IdDoor);
+                        // другие параметры по аналогии
+                        $('#exampleModal #inputTitle').val(result.TitleDoor);
+                        $('#exampleModal #inputTitle2').val(result.IdRoom);
+                        $('#exampleModal #exampleDataList2').val(result.TitleRoom);
+                    });
+
+                });
+                     
+            </script>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -159,9 +177,9 @@
 
 
                     @*Modal*@
-                    <!--<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">-->
-                            @*<div class="modal-content">
+                    @*<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Редактировать информацию</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -204,9 +222,9 @@
                                         <button type="submit" class="btn btn-success">Сохранить</button>
                                     </div>
                                 </form>
-                            </div>*@
-                        <!--</div>
-                    </div>-->
+                            </div>
+                        </div>
+                    </div>*@
 
                     <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
