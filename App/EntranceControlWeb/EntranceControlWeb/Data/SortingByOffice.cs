@@ -7,6 +7,7 @@ namespace EntranceControlWeb.Models
 {
     public partial class SortingByOffice
     {
+        public int IdItem { get; set; }
         public TimeSpan TimeBegin { get; set; }
         public TimeSpan TimeEnd { get; set; }
         public string WorkPhone { get; set; }
@@ -14,8 +15,8 @@ namespace EntranceControlWeb.Models
         public int IdPost { get; set; }
         public int IdOffice { get; set; }
 
-        public virtual Office IdOfficeNavigation { get; set; }
-        public virtual Position IdPostNavigation { get; set; }
-        public virtual staff IdStaffNavigation { get; set; }
+        public virtual Office IdOffices { get; set; }
+        public virtual Position IdPosts { get; set; }
+        public virtual staff IdStaffs { get; set; }
     }
 }

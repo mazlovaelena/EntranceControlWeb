@@ -15,9 +15,9 @@ namespace EntranceControlWeb.Models
         public int IdDoor { get; set; }
         public int IdStatus { get; set; }
 
-        public virtual Door IdDoorNavigation { get; set; }
-        public virtual Room IdRoomNavigation { get; set; }
-        public virtual staff IdStaffNavigation { get; set; }
-        public virtual AccessStatus IdStatusNavigation { get; set; }
+        public virtual Door IdDoors { get; set; }
+        public virtual Room IdRooms { get; set; }
+        public virtual staff IdStaffs { get; set; }
+        public virtual AccessStatus IdStatusS { get; set; }
     }
 }

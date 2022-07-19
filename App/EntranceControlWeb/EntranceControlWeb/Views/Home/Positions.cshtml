@@ -1,4 +1,5 @@
-﻿@{
+﻿@model EntranceControlWeb.Models.PositionViewModel;
+@{
     ViewData["Title"] = "Positions";
 
 }
@@ -101,24 +102,66 @@
                     <tr class="text-center">
                         <th>ID Должность</th>
                         <th>Наименование должности</th>
-                        <th>Действие</th>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            if (User.IsInRole(UserRole.Admin.ToString()))
+                            {
+                                <th>Действия</th>
+                            }
+                            else if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                            {
+                                <th>Действия</th>
+                            }
+                        }
                     </tr>
                 </thead>
 
+                @foreach (var data in Model.Positions)
+                {
+                    <tbody>
+                        <tr class="text-md-start">
 
-                <tbody>
-                    <tr class="text-md-start">
+                            <td>@data.IdPost</td>
+                            <td>@data.TitlePost</td>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                if (User.IsInRole(UserRole.Admin.ToString()))
+                                {
+                                    <td>
+                                        <a href="@Url.Action("PosEdit", "Home", new { id = @data.IdPost })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdPost">Редактировать</a>
+                                        <a href="@Url.Action("DelPos", "Home", new { id = @data.IdPost })" class="text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Удалить</a>
+                                    </td>
 
-                        <td>IdЗапись</td>
-                        <td>НаименованиеДолжность</td>
-                        <td>
-                            <a href="" class="table-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Редактировать</a>
-                            <a href="" class="text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Удалить</a>
-                        </td>
-                    </tr>
-                </tbody>
-
+                                }
+                                else if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                                {
+                                    <td>
+                                        <a href="@Url.Action("PosEdit", "Home", new { id = @data.IdPost })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdPost">Редактировать</a>
+                                        <a href="@Url.Action("DelPos", "Home", new { id = @data.IdPost })" class="text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Удалить</a>
+                                    </td>
+                                }
+                            }
+                        </tr>
+                    </tbody>
+                }
             </table>
+
+            <script>
+                $('.editClick').on('click', function () {
+                    // ...
+                    console.log('edit clicked');
+                    const posId = $(this).data('id');
+                    // обращение на сервер
+                    $.get('/Home/PosEdit/' + posId, function (result) {
+                        // результат содержит данные о двери
+                        $('#exampleModal #inputTitle').val(result.idPost);
+                        $('#exampleModal #inputTitle1').val(result.titlePost);
+                       
+                    });
+
+                });
+
+            </script>
 
 
             <!-- Modal -->
@@ -129,19 +172,20 @@
                             <h5 class="modal-title" id="exampleModalLabel">Редактировать информацию</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form>
+                        <form method="post" asp-controller="Home" asp-action="PosEdit">
                             <div class="modal-body">
                                 <div class="row mb-3">
-                                    <label for="inputTitle" class="col-sm-4 col-form-label">Наименование должности</label>
+                                    <input hidden asp-for="@Model.IdPost" value="@Model?.IdPost" readonly type="text" class="form-control" id="inputTitle">
+                                    <label for="inputTitle1" class="col-sm-4 col-form-label">Наименование должности</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="inputTitle">
+                                        <input asp-for="@Model.TitlePost" value="@Model?.TitlePost" type="text" class="form-control" id="inputTitle1">
                                     </div>
                                 </div>
 
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
-                                <a href="@Url.Action("PosEdit", "Home")" type="button" class="btn btn-success">Сохранить</a>
+                                <button type="submit" class="btn btn-success">Сохранить</button>
                             </div>
                         </form>
                     </div>

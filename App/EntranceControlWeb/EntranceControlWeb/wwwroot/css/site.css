@@ -62,8 +62,8 @@ body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
     background-image: url(../img/bg2.png);
+    background-size: cover;
     font-family: 'Fira Code', monospace;
-    
 }
 .footer {
   position: absolute;

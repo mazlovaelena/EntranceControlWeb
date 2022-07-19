@@ -74,16 +74,18 @@ namespace EntranceControlWeb.Models
 
             modelBuilder.Entity<Authorize>(entity =>
             {
-                //entity.HasNoKey();
+                entity.HasKey(e => e.IdItem);
 
                 entity.ToTable("Authorize");
 
-                entity.Property(e => e.DateAuth).HasColumnType("date");
+                entity.Property(e => e.IdItem).HasColumnName("ID_Item");
+
+                entity.Property(e => e.DateAuth).HasColumnType("datetime");
 
                 entity.Property(e => e.IdUser).HasColumnName("ID_User");
 
-                entity.HasOne(d => d.IdUserNavigation)
-                    .WithMany()
+                entity.HasOne(d => d.IdUsers)
+                    .WithMany(p => p.Authorizes)
                     .HasForeignKey(d => d.IdUser)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Authorize__ID_Us__15502E78");
@@ -131,25 +133,25 @@ namespace EntranceControlWeb.Models
 
                 entity.Property(e => e.IdStatus).HasColumnName("ID_Status");
 
-                entity.HasOne(d => d.IdDoorNavigation)
+                entity.HasOne(d => d.IdDoors)
                     .WithMany(p => p.Entrances)
                     .HasForeignKey(d => d.IdDoor)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Entrance__ID_Doo__267ABA7A");
 
-                entity.HasOne(d => d.IdRoomNavigation)
+                entity.HasOne(d => d.IdRooms)
                     .WithMany(p => p.Entrances)
                     .HasForeignKey(d => d.IdRoom)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Entrance__ID_Roo__25869641");
 
-                entity.HasOne(d => d.IdStaffNavigation)
+                entity.HasOne(d => d.IdStaffs)
                     .WithMany(p => p.Entrances)
                     .HasForeignKey(d => d.IdStaff)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Entrance__ID_Sta__24927208");
 
-                entity.HasOne(d => d.IdStatusNavigation)
+                entity.HasOne(d => d.IdStatusS)
                     .WithMany(p => p.Entrances)
                     .HasForeignKey(d => d.IdStatus)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -196,7 +198,7 @@ namespace EntranceControlWeb.Models
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.IdLevelNavigation)
+                entity.HasOne(d => d.IdLevels)
                     .WithMany(p => p.Rooms)
                     .HasForeignKey(d => d.IdLevel)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -205,7 +207,9 @@ namespace EntranceControlWeb.Models
 
             modelBuilder.Entity<SortingByOffice>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.IdItem);
+
+                entity.Property(e => e.IdItem).HasColumnName("ID_Item");
 
                 entity.Property(e => e.IdOffice).HasColumnName("ID_Office");
 
@@ -218,20 +222,20 @@ namespace EntranceControlWeb.Models
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.IdOfficeNavigation)
-                    .WithMany()
+                entity.HasOne(d => d.IdOffices)
+                    .WithMany(p => p.SortingByOffices)
                     .HasForeignKey(d => d.IdOffice)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__SortingBy__ID_Of__2B3F6F97");
 
-                entity.HasOne(d => d.IdPostNavigation)
-                    .WithMany()
+                entity.HasOne(d => d.IdPosts)
+                    .WithMany(p => p.SortingByOffices)
                     .HasForeignKey(d => d.IdPost)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__SortingBy__ID_Po__2A4B4B5E");
 
-                entity.HasOne(d => d.IdStaffNavigation)
-                    .WithMany()
+                entity.HasOne(d => d.IdStaffs)
+                    .WithMany(p => p.SortingByOffices)
                     .HasForeignKey(d => d.IdStaff)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__SortingBy__ID_St__29572725");
@@ -242,7 +246,9 @@ namespace EntranceControlWeb.Models
                 entity.HasKey(e => e.IdUser)
                     .HasName("PK__Users__ED4DE44294F49FE9");
 
-                entity.Property(e => e.IdUser).HasColumnName("ID_User");
+                entity.Property(e => e.IdUser)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID_User");
 
                 entity.Property(e => e.Email)
                     .IsRequired()
@@ -298,7 +304,7 @@ namespace EntranceControlWeb.Models
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.IdLevelNavigation)
+                entity.HasOne(d => d.IdLevels)
                     .WithMany(p => p.staff)
                     .HasForeignKey(d => d.IdLevel)
                     .OnDelete(DeleteBehavior.ClientSetNull)

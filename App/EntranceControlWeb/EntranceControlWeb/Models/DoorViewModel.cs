@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace EntranceControlWeb.Models
 {
     public class DoorViewModel
-    { 
-        public List<Door> Doors { get; set;}
+    {
+        public List<Door> Doors { get; set; }
         public int IdDoor { get; set; }
         [Required(ErrorMessage = "Заполните это поле")]
         public string TitleDoor { get; set; }

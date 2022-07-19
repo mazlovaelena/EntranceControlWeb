@@ -1,4 +1,5 @@
-﻿@{
+﻿@model EntranceControlWeb.Models.SortingByOfficeViewModel;
+@{
     ViewData["Title"] = "Sorting Edit";
 
 }
@@ -95,58 +96,59 @@
             <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
             <h5 class="text-center">РЕДАКТИРОВАТЬ ИНФОРМАЦИЮ</h5>
         </div>
-        <form class="my-4">
+        <form class="my-4" method="post" asp-action="SortEdit" asp-controller="Home">
             <div class="card rounded">
                 <div class="card-body">
                     <div class="row mb-3">
+                        <input hidden readonly asp-for="@Model.IdItem" value="@Model?.IdItem" type="text" class="form-control" id="IdItem">
                         <label for="inputDateBeg" class="col-sm-2 col-form-label">Время начала смены</label>
                         <div class="col-sm-10">
-                            <input type="datetime-local" class="form-control" id="inputDateBeg">
+                            <input asp-for="@Model.TimeBegin" value="@Model?.TimeBegin" type="datetime-local" class="form-control" id="inputDateBeg">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="inputDateEnd" class="col-sm-2 col-form-label">Время завершения смены</label>
                         <div class="col-sm-10">
-                            <input type="datetime-local" class="form-control" id="inputDateEnd">
+                            <input asp-for="@Model.TimeEnd" value="@Model?.TimeEnd" type="datetime-local" class="form-control" id="inputDateEnd">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="exampleDataList1" class="col-sm-2 col-form-label">Сотрудник</label>
+                        <label for="idStaff" class="col-sm-2 col-form-label">Сотрудник</label>
                         <div class="col-sm-10">
-                            <input class="form-control" list="datalistOptions1" id="exampleDataList1" placeholder="Нажмите для выбора....">
-                            <datalist id="datalistOptions1">
-                                <option value="San Francisco" />
-                                <option value="New York" />
-                                <option value="Seattle" />
-                                <option value="Los Angeles" />
-                                <option value="Chicago" />
-                            </datalist>
+                            <select name="idStaff" class="form-control" id="idStaff">
+
+                                @foreach (var data in Model.Sortings)
+                                {
+                                    <option value="@data.IdStaff">@data.IdStaffs.Surname @data.IdStaffs.Name @data.IdStaffs.LastName</option>
+                                }
+
+                            </select>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="exampleDataList2" class="col-sm-2 col-form-label">Должность</label>
+                        <label for="idPost" class="col-sm-2 col-form-label">Должность</label>
                         <div class="col-sm-10">
-                            <input class="form-control" list="datalistOptions2" id="exampleDataList2" placeholder="Нажмите для выбора....">
-                            <datalist id="datalistOptions2">
-                                <option value="San Francisco" />
-                                <option value="New York" />
-                                <option value="Seattle" />
-                                <option value="Los Angeles" />
-                                <option value="Chicago" />
-                            </datalist>
+                            <select name="idPost" class="form-control" id="idPost">
+
+                                @foreach (var data in Model.Sortings)
+                                {
+                                    <option value="@data.IdPost">@data.IdPosts.TitlePost</option>
+                                }
+
+                            </select>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="exampleDataList3" class="col-sm-2 col-form-label">Отдел</label>
+                        <label for="idOffice" class="col-sm-2 col-form-label">Отдел</label>
                         <div class="col-sm-10">
-                            <input class="form-control" list="datalistOptions3" id="exampleDataList3" placeholder="Нажмите для выбора....">
-                            <datalist id="datalistOptions3">
-                                <option value="San Francisco" />
-                                <option value="New York" />
-                                <option value="Seattle" />
-                                <option value="Los Angeles" />
-                                <option value="Chicago" />
-                            </datalist>
+                            <select name="idOffice" class="form-control" id="idOffice">
+
+                                @foreach (var data in Model.Sortings)
+                                {
+                                    <option value="@data.IdOffice">@data.IdOffices.TitleOffice</option>
+                                }
+
+                            </select>
                         </div>
                     </div>
                     <div class="row mb-3">

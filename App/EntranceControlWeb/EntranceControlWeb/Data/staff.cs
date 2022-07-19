@@ -10,6 +10,7 @@ namespace EntranceControlWeb.Models
         public staff()
         {
             Entrances = new HashSet<Entrance>();
+            SortingByOffices = new HashSet<SortingByOffice>();
         }
 
         public int IdStaff { get; set; }
@@ -22,7 +23,8 @@ namespace EntranceControlWeb.Models
         public string Image { get; set; }
         public int IdLevel { get; set; }
 
-        public virtual AccessLevel IdLevelNavigation { get; set; }
+        public virtual AccessLevel IdLevels { get; set; }
         public virtual ICollection<Entrance> Entrances { get; set; }
+        public virtual ICollection<SortingByOffice> SortingByOffices { get; set; }
     }
 }

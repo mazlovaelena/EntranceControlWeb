@@ -139,8 +139,8 @@
                                 else if (User.IsInRole(UserRole.SysAdmin.ToString()))
                                 {
                                     <td>
-                                        <a href="@Url.Action("", new { id = @data.IdDoor })" class="text-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Редактировать</a>
-                                        <a href="@Url.Action("", new { id = @data.IdDoor })" class="text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Удалить</a>
+                                        <a href="@Url.Action("DoorEdit", "Home", new { id = @data.IdDoor })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdDoor">Редактировать</a>
+                                        <a href="@Url.Action("DelDoor", "Home", new { id = @data.IdDoor })" class="text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Удалить</a>
                                     </td>
                                 }
                             }
@@ -156,28 +156,19 @@
                     console.log('edit clicked');
                     const doorId = $(this).data('id');
                     // обращение на сервер
-                    $.get('/Home/DoorEdit' + doorId, function (result) {
+                    $.get('/Home/DoorEdit/' + doorId, function (result) {
                         // результат содержит данные о двери
-                        $('#exampleModal #inputTitle1').val(result.IdDoor);
-                        // другие параметры по аналогии
-                        $('#exampleModal #inputTitle').val(result.TitleDoor);
-                        $('#exampleModal #inputTitle2').val(result.IdRoom);
-                        $('#exampleModal #exampleDataList2').val(result.TitleRoom);
+                        $('#exampleModal #inputTitle1').val(result.idDoor);
+                        $('#exampleModal #inputTitle').val(result.titleDoor);
+                        $('#exampleModal #idRoom').val(result.titleRoom);
                     });
 
                 });
                      
             </script>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    @{Html.RenderPartial("DoorEdit"); }
-                </div>
-            </div>
-
-
-                    @*Modal*@
-                    @*<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+           @*Modal*@
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -198,21 +189,16 @@
                                             </div>
                                         </div>
                                         <div class="row mb-3">
+                                            <label for="idRoom" class="col-sm-4 col-form-label">Помещение</label>
                                             <div class="col-sm-8">
-                                                <input hidden type="text" asp-for="@Model.IdRoom" class="form-control" id="inputTitle2" value="@Model?.IdRoom" readonly name="IdRoom">
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <label for="exampleDataList2" class="col-sm-4 col-form-label">Помещение</label>
-                                            <div class="col-sm-8">
-                                                <input class="form-control" asp-for="@Model.TitleRoom" list="datalistOptions2" id="exampleDataList2" placeholder="Нажмите для выбора...." value="@Model?.TitleRoom" name="TitleRoom">
-                                                <datalist id="datalistOptions2">
+                                                <select name="idRoom" class="form-control" id="idRoom">
+                                                
                                                     @foreach (var data in Model.Doors)
                                                     {
-                                                        <option value="@data.IdRooms.TitleRoom" />
+                                                        <option value="@data.IdRoom">@data.IdRooms.TitleRoom</option>
                                                     }
 
-                                                </datalist>
+                                                </select>
                                             </div>
                                         </div>
 
@@ -224,7 +210,7 @@
                                 </form>
                             </div>
                         </div>
-                    </div>*@
+                    </div>
 
                     <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">

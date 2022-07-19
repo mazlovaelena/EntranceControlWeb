@@ -8,6 +8,7 @@ namespace EntranceControlWeb.Models
     public partial class SortingByOfficeViewModel
     {
         public List<SortingByOffice> Sortings { get; set; }
+        public int IdItem { get; set; }
         public TimeSpan TimeBegin { get; set; }
         public TimeSpan TimeEnd { get; set; }
         public string WorkPhone { get; set; }

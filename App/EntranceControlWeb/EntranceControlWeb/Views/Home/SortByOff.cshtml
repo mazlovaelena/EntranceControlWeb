@@ -1,4 +1,5 @@
-﻿@{
+﻿@model EntranceControlWeb.Models.SortingByOfficeViewModel;
+@{
     ViewData["Title"] = "Sort By Offices";
 
 }
@@ -99,33 +100,45 @@
             <table class="table-dark table-bordered" style="width:1200px; color:black;">
                 <thead>
                     <tr class="text-center">
+                        <th>ID Запись</th>
                         <th>Время начала смены</th>
                         <th>Время завершения смены</th>
                         <th>Сотрудник</th>
                         <th>Должность</th>
                         <th>Отдел</th>
                         <th>Рабочий телефон</th>
-                        <th>Действия</th>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            if (User.IsInRole(UserRole.Admin.ToString()))
+                            {
+                                <th>Действия</th>
+                            }
+                            else if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                            {
+                                <th>Действия</th>
+                            }
+                        }
                     </tr>
                 </thead>
 
-
-                <tbody>
-                    <tr class="text-md-start">
-
-                        <td>время</td>
-                        <td>время</td>
-                        <td>ФИО</td>
-                        <td>Должность</td>
-                        <td>отдел</td>
-                        <td>098765434567</td>
+                @foreach (var data in Model.Sortings)
+                {
+                   <tbody>
+                      <tr class="text-md-start">
+                        <td>@data.IdItem</td>
+                        <td>@data.TimeBegin</td>
+                        <td>@data.TimeEnd</td>
+                        <td>@data.IdStaffs.Surname @data.IdStaffs.Name @data.IdStaffs.LastName</td>
+                        <td>@data.IdPosts.TitlePost</td>
+                        <td>@data.IdOffices.TitleOffice</td>
+                        <td>@data.WorkPhone</td>
                         <td>
-                            <a href="@Url.Action("SortEdit", "Home")"class="text-primary">Редактировать</a>
+                            <a href="@Url.Action("SortEdit", "Home", new { id = @data.IdItem})"class="text-primary">Редактировать</a>
                             <a href="" class="text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Удалить</a>
                         </td>
-                    </tr>
-                </tbody>
-
+                      </tr>
+                   </tbody>
+                }
             </table>
 
 

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model EntranceControlWeb.Models.OfficeViewModel;
+@{
     ViewData["Title"] = "Offices";
 
 }
@@ -101,26 +102,65 @@
                     <tr class="text-center">
                         <th>ID Отдел</th>
                         <th>Наименование отдела</th>
-                        <th>Действие</th>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            if (User.IsInRole(UserRole.Admin.ToString()))
+                            {
+                                <th>Действия</th>
+                            }
+                            else if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                            {
+                                <th>Действия</th>
+                            }
+                        }
                     </tr>
                 </thead>
 
+                @foreach (var data in Model.Offices)
+                {
+                    <tbody>
+                        <tr class="text-md-start">
 
-                <tbody>
-                    <tr class="text-md-start">
+                            <td>@data.IdOffice</td>
+                            <td>@data.TitleOffice</td>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                if (User.IsInRole(UserRole.Admin.ToString()))
+                                {
+                                    <td>
+                                        <a href="@Url.Action("OfficeEdit", "Home", new { id = @data.IdOffice })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdOffice">Редактировать</a>
+                                        <a href="@Url.Action("DelOffice", "Home", new { id = @data.IdOffice })" class="text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Удалить</a>
+                                    </td>
 
-                        <td>IdЗапись</td>
-                        <td>НаименованиеОтдела</td>
-                        <td>
-                            <a href="" class="table-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Редактировать</a>
-                            <a href="" class="text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Удалить</a>
-                        </td>
-                    </tr>
-                </tbody>
-
+                                }
+                                else if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                                {
+                                    <td>
+                                        <a href="@Url.Action("OfficeEdit", "Home", new { id = @data.IdOffice })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdOffice">Редактировать</a>
+                                        <a href="@Url.Action("DelOffice", "Home", new { id = @data.IdOffice })" class="text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Удалить</a>
+                                    </td>
+                                }
+                            }
+                        </tr>
+                    </tbody>
+                }
             </table>
 
+            <script>
+                $('.editClick').on('click', function () {
+                    // ...
+                    console.log('edit clicked');
+                    const officeId = $(this).data('id');
+                    // обращение на сервер
+                    $.get('/Home/OfficeEdit/' + officeId, function (result) {
+                        // результат содержит данные о двери
+                        $('#exampleModal #inputTitle').val(result.idOffice);
+                        $('#exampleModal #inputTitle1').val(result.titleOffice);
+                    });
 
+                });
+
+            </script>
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -128,20 +168,21 @@
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Редактировать информацию</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form>
+                        </div> 
+                        <form method="post" asp-controller="Home" asp-action="OfficeEdit">
                             <div class="modal-body">
                                 <div class="row mb-3">
-                                    <label for="inputTitle" class="col-sm-4 col-form-label">Наименование отдела</label>
+                                    <input hidden asp-for="@Model.IdOffice" value="@Model?.IdOffice" readonly type="text" class="form-control" id="inputTitle">
+                                    <label for="inputTitle1" class="col-sm-4 col-form-label">Наименование отдела</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="inputTitle">
+                                        <input asp-for="@Model.TitleOffice" value="@Model?.TitleOffice" type="text" class="form-control" id="inputTitle1">
                                     </div>
                                 </div>
 
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
-                                <a href="@Url.Action("OfficeEdit", "Home")" type="button" class="btn btn-success">Сохранить</a>
+                                <button type="submit" class="btn btn-success">Сохранить</button>
                             </div>
                         </form>
                     </div>
