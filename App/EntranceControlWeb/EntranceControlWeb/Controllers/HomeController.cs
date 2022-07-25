@@ -323,39 +323,29 @@ namespace EntranceControlWeb.Controllers
                 sort.IdStaff = edit.IdStaff;
                 sort.IdPost = edit.IdPost;
                 sort.IdOffice = edit.IdOffice;
+                return Json(sort);
             }
             return View(sort);
         }
 
         #endregion
 
-        public IActionResult StaffEdit()
+        #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "СОТРУДНИКИ"
+        //Отображение данных
+        public IActionResult Staff(StaffViewModel staff)
         {
-            return View();
+            staff.Staffs = _context.staff.ToList();
+            staff.Levels = _context.AccessLevels.ToList();
+            return View(staff);
         }
 
-        public IActionResult Staff()
-        {
-            return View();
-        }
+        #endregion
 
 
-
-
-
-
-        public IActionResult SortEdit()
-        {
-            return View();
-        }
         public IActionResult Entrance()
         {
             return View();
         }
-
-
-
-
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

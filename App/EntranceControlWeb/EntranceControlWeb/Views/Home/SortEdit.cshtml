@@ -10,6 +10,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
+    <link rel="icon" href="/img/icon.ico" sizes="64x64" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <script src="~/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="~/css/site.css" />
@@ -96,11 +99,11 @@
             <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
             <h5 class="text-center">РЕДАКТИРОВАТЬ ИНФОРМАЦИЮ</h5>
         </div>
-        <form class="my-4" method="post" asp-action="SortEdit" asp-controller="Home">
+        <form class="my-4" method="post" asp-action="SortEdit" asp-controller="Home" id="editSorting">
             <div class="card rounded">
                 <div class="card-body">
                     <div class="row mb-3">
-                        <input hidden readonly asp-for="@Model.IdItem" value="@Model?.IdItem" type="text" class="form-control" id="IdItem">
+                        <input hidden readonly asp-for="@Model.IdItem" value="@Model?.IdItem" type="text" class="form-control" id="inputIdItem">
                         <label for="inputDateBeg" class="col-sm-2 col-form-label">Время начала смены</label>
                         <div class="col-sm-10">
                             <input asp-for="@Model.TimeBegin" value="@Model?.TimeBegin" type="datetime-local" class="form-control" id="inputDateBeg">
@@ -115,7 +118,7 @@
                     <div class="row mb-3">
                         <label for="idStaff" class="col-sm-2 col-form-label">Сотрудник</label>
                         <div class="col-sm-10">
-                            <select name="idStaff" class="form-control" id="idStaff">
+                            <select name="idStaff" class="form-control" id="inputIdStaff">
 
                                 @foreach (var data in Model.Sortings)
                                 {
@@ -128,7 +131,7 @@
                     <div class="row mb-3">
                         <label for="idPost" class="col-sm-2 col-form-label">Должность</label>
                         <div class="col-sm-10">
-                            <select name="idPost" class="form-control" id="idPost">
+                            <select name="idPost" class="form-control" id="inputIdPost">
 
                                 @foreach (var data in Model.Sortings)
                                 {
@@ -141,7 +144,7 @@
                     <div class="row mb-3">
                         <label for="idOffice" class="col-sm-2 col-form-label">Отдел</label>
                         <div class="col-sm-10">
-                            <select name="idOffice" class="form-control" id="idOffice">
+                            <select name="idOffice" class="form-control" id="inputIdOffice">
 
                                 @foreach (var data in Model.Sortings)
                                 {
@@ -154,7 +157,7 @@
                     <div class="row mb-3">
                         <label for="inputPhone" class="col-sm-2 col-form-label">Рабочий телефон</label>
                         <div class="col-sm-10">
-                            <input type="tel" class="form-control" id="inputPhone">
+                            <input type="tel" asp-for="@Model.WorkPhone" value="@Model?.WorkPhone" class="form-control" id="inputPhone">
                         </div>
                     </div>
                    
