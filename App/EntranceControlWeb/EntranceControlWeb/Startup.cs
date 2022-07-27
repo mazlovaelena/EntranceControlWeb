@@ -65,7 +65,7 @@ namespace EntranceControlWeb
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Login}/{action=HomePage}/{id?}");
+                    pattern: "{controller=Home}/{action=Staff}/{id?}");
             });
         }
     }

@@ -22,6 +22,15 @@ namespace EntranceControlWeb.Models
         public string MobPhone { get; set; }
         public string Image { get; set; }
 
+        public List<Position> Positions { get; set; }
+        public int IdPost { get; set; }
+        public string TitlePost { get; set; }
+
+        public List<Office> Offices { get; set; }
+        public int IdOffice { get; set; }
+        public string TitleOffice { get; set; }
+
+
         public List<AccessLevel> Levels { get; set; }
         public int IdLevel { get; set; }
         public string TitleLevel { get; set; }

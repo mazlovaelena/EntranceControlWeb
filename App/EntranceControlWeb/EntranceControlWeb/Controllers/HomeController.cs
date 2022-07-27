@@ -336,16 +336,82 @@ namespace EntranceControlWeb.Controllers
         {
             staff.Staffs = _context.staff.ToList();
             staff.Levels = _context.AccessLevels.ToList();
+            staff.Positions = _context.Positions.ToList();
+            staff.Offices = _context.Offices.ToList();
             return View(staff);
         }
 
+        //Редактирование данных
+        [HttpPost]
+        public IActionResult StaffEdit (StaffViewModel staff)
+        {
+            var edit = _context.staff.FirstOrDefault(x => x.IdStaff == staff.IdStaff);
+            edit.IdStaff = staff.IdStaff;
+            edit.Surname = staff.Surname;
+            edit.Name = staff.Name;
+            edit.LastName = staff.LastName;
+            edit.Birthday = staff.Birthday;
+            edit.CorpEmail = staff.CorpEmail;
+            edit.MobPhone = staff.MobPhone;
+            edit.Image = staff.Image;
+            edit.IdLevel = staff.IdLevel;
+
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Staff));
+        }
+        public IActionResult StaffEdit(StaffViewModel staff, int id)
+        {
+            var view = _context.staff.FirstOrDefault(x => x.IdStaff == id);
+            if(id != 0)
+            {
+                var edit = _context.staff.FirstOrDefault(x => x.IdStaff == id);
+
+                staff.IdStaff = edit.IdStaff;
+                staff.Surname = edit.Surname;
+                staff.Name = edit.Name;
+                staff.LastName = edit.LastName;
+                staff.Birthday = edit.Birthday;
+                staff.CorpEmail = edit.CorpEmail;
+                staff.MobPhone = edit.MobPhone;
+                staff.Image = edit.Image;
+                staff.IdLevel = edit.IdLevel;
+            }
+            return View(staff);
+        }
         #endregion
 
-
-        public IActionResult Entrance()
+        #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ДОСТУП"
+        //Отображение данных
+        public IActionResult Entrance(EntranceViewModel entr)
         {
-            return View();
+            entr.Entrances = _context.Entrances.ToList();
+            entr.Staffs = _context.staff.ToList();
+            entr.Rooms = _context.Rooms.ToList();
+            entr.Doors = _context.Doors.ToList();
+            entr.Statuses = _context.AccessStatuses.ToList();
+            return View(entr);
         }
+        public IActionResult ViewStaff(int id)
+        {
+            var viewmodel = new StaffViewModel();
+            var view = _context.staff.FirstOrDefault(x => x.IdStaff == id);
+            if(view != null)
+            {
+                viewmodel.IdStaff = view.IdStaff;
+                viewmodel.Surname = view.Surname;
+                viewmodel.Name = view.Name;
+                viewmodel.LastName = view.LastName;
+                viewmodel.Birthday = view.Birthday;
+                viewmodel.CorpEmail = view.CorpEmail;
+                viewmodel.MobPhone = view.MobPhone;
+                viewmodel.Image = view.Image;                      
+                
+            }
+            return Json(viewmodel);
+        }
+
+        #endregion
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

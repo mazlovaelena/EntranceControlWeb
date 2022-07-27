@@ -1,4 +1,5 @@
-﻿@{
+﻿@model EntranceControlWeb.Models.StaffViewModel;
+@{
     ViewData["Title"] = "Staff Edit";
 
 }
@@ -11,9 +12,7 @@
     <title>@ViewData["Title"]</title>
     <link rel="icon" href="/img/icon.ico" sizes="64x64" />
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
-    <script src="~/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>    
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -92,60 +91,62 @@
                 </div>
             </div>
         </nav>
-    </header>
+    </header>   
     <div class="container">
         <div class="row my-3">
             <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
             <h5 class="text-center">РЕДАКТИРОВАТЬ ИНФОРМАЦИЮ О СОТРУДНИКЕ</h5>
         </div>
-        <form class="my-4">
+        <form class="my-4" method="post" asp-action="StaffEdit" asp-controller="Home" id="formStaff">
             <div class="card rounded">
                 <div class="card-body">
                     <div class="row mb-3">
                         <label for="inputSurname" class="col-sm-2 col-form-label">Фамилия</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputSurname">
+                            <input type="text" hidden readonly asp-for="@Model.IdStaff" value="@Model?.IdStaff" class="form-control" id="inputIdStaff">
+                            <input type="text" hidden readonly asp-for="@Model.IdLevel" value="@Model?.IdLevel" class="form-control" id="inputIdLevel">
+                            <input type="text" asp-for="@Model.Surname" value="@Model?.Surname" class="form-control" id="inputSurname">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="inputName" class="col-sm-2 col-form-label">Имя</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputName">
+                            <input type="text" asp-for="@Model.Name" value="@Model?.Name" class="form-control" id="inputName">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="inputLastname" class="col-sm-2 col-form-label">Отчество</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputLastname">
+                            <input type="text" asp-for="@Model.LastName" value="@Model?.LastName" class="form-control" id="inputLastname">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="inputDate" class="col-sm-2 col-form-label">Дата рождения</label>
                         <div class="col-sm-10">
-                            <input type="date" class="form-control" id="inputDate">
+                            <input type="datetime" asp-for="@Model.Birthday" value="@Model?.Birthday" class="form-control" id="inputDate">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Корпоративня почта</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="inputEmail">
+                            <input type="email" asp-for="@Model.CorpEmail" value="@Model?.CorpEmail" class="form-control" id="inputEmail">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="inputPhone" class="col-sm-2 col-form-label">Мобильный телефон</label>
                         <div class="col-sm-10">
-                            <input type="tel" class="form-control" id="inputPhone">
+                            <input type="tel" asp-for="@Model.MobPhone" value="@Model?.MobPhone" class="form-control" id="inputPhone">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="formFile" class="col-sm-2 col-form-label">Выберите изображение</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="file" id="formFile">
+                            <input class="form-control" asp-for="@Model.Image" value="@Model?.Image" type="text" id="formFile">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-5">
-                            <a href="@Url.Action("Entrance", "Home")" type="button" class="btn btn-outline-primary">Назад</a>
+                            <a href="@Url.Action("Staff", "Home")" type="button" class="btn btn-outline-primary">Назад</a>
                             <button type="submit" class="btn btn-outline-primary">Сохранить изменения</button>
                         </div>
                     </div>

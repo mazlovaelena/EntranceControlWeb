@@ -20,7 +20,20 @@ namespace EntranceControlWeb.Models
         public List<AccessLevel> Levels { get; set; }
         public int IdLevel { get; set; }
         public string TitleLevel { get; set; }
-       
-       
+
+        public List<Position> Positions { get; set; }
+        public int IdPost { get; set; }
+        public string TitlePost { get; set; }
+
+        public List<SortingByOffice> Sortings { get; set; }
+        public int IdItem { get; set; }
+        public TimeSpan TimeBegin { get; set; }
+        public TimeSpan TimeEnd { get; set; }
+        public string WorkPhone { get; set; }
+
+        public List<Office> Offices { get; set; }
+        public int IdOffice { get; set; }
+        public string TitleOffice { get; set; }
+
     }
 }

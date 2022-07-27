@@ -1,4 +1,5 @@
-﻿@{
+﻿@model EntranceControlWeb.Models.EntranceViewModel;
+@{
     ViewData["Title"] = "Entrance";
 
 }
@@ -11,9 +12,7 @@
     <title>@ViewData["Title"]</title>
     <link rel="icon" href="/img/icon.ico" sizes="64x64" />
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
-    <script src="~/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>    
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -112,28 +111,50 @@
                     </tr>
                 </thead>
 
+                @foreach (var data in Model.Entrances)
+                {
+                    <tbody>
+                        <tr class="text-md-start">
 
-                <tbody>
-                    <tr class="text-md-start">
-
-                        <td>IdЗапись</td>
-                        <td>ДатаВхода</td>
-                        <td>ДатаВыхода</td>
-                        <td>IdRoom.НаименованиеПомещения</td>
-                        <td>
-                            <a href="" class="text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">ФамилияИмяОтчетсво</a>
-                        </td>
-                        <td>IdType.НаименованиеТипаТурникета</td>
-                        <td>IdStat.НаименованиеСтатус</td>
-                    </tr>
-                </tbody>
-
+                            <td>@data.IdRecord</td>
+                            <td>@data.DateEntr</td>
+                            <td>@data.DateExit</td>
+                            <td>@data.IdRooms.TitleRoom</td>
+                            <td>
+                                <a href=@Url.Action("ViewStaff", "Home", new {id = @data.IdStaff }) class="text-dark editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdStaff">@data.IdStaffs.Surname @data.IdStaffs.Name @data.IdStaffs.LastName</a>
+                            </td>
+                            <td>@data.IdDoors.TitleDoor</td>
+                            <td>@data.IdStatusS.TitleStatus</td>
+                        </tr>
+                    </tbody>
+                }
             </table>
 
+            <script>
+                $('.editClick').on('click', function () {
+                    // ...
+                    console.log('edit clicked');
+                    const staffId = $(this).data('id');
+                    // обращение на сервер
+                    $.get('/Home/ViewStaff/' + staffId, function (result) {
+                        // результат содержит данные о двери
+                        $('#exampleModal #inputId').val(result.idStaff);
+                        $('#exampleModal #inputSurname').val(result.surname);
+                        $('#exampleModal #inputName').val(result.name);
+                        $('#exampleModal #inputLastName').val(result.lastName);
+                        $('#exampleModal #inputBirthday').val(result.birthday);
+                        $('#exampleModal #inputCorpEmail').val(result.corpEmail);
+                        $('#exampleModal #inputMobPhone').val(result.mobPhone);
+                        $('#exampleModal #imgstaff').val(result.image);
+                    });
+
+                });
+
+            </script>
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Карточка сотрудника</h5>
@@ -142,24 +163,66 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <img src="~/css/man.png" class="img-fluid" />
-                                </div>
+                                    <img src="@Model.Image" class="img-fluid" id="imgstaff"/>
+                                </div>                     
                                 <div class="col-md-8">
-                                    <pre style="font-size: 15px">Фамилия: 
-Имя Отчество:
-Дата рождения:
-Должность:
-Отдел:
-Корпоративная почта:
-Рабочий телефон:
-Мобильный телефон:
-Уровень доступа:</pre>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="text-start" for="inputSurname"> Фамилия: </label>
+                                            <input hidden type="text" asp-for="@Model.IdStaff" class="form-control" id="inputId" value="@Model?.IdStaff" readonly>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" asp-for="@Model.Surname" class="border-0" style="width: 157px" id="inputSurname" value="@Model?.Surname" readonly/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="text-start" for="inputName"> Имя: </label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" asp-for="@Model.Name" class="border-0" style="width: 157px" id="inputName" value="@Model?.Name" readonly/>
+                                        </div>                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="text-start" for="inputLastName"> Отчество: </label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" asp-for="@Model.LastName" class="border-0" style="width: 157px" id="inputLastName" value="@Model?.LastName" readonly/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="text-start" for="inputBirthday"> Дата рождения: </label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="datetime" asp-for="@Model.Birthday" class="border-0" style="width: 157px" id="inputBirthday" value="@Model?.Birthday" readonly />
+                                        </div>                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="text-start" for="inputCorpEmail">  Корпоративная почта: </label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" asp-for="@Model.CorpEmail" class="border-0" style="width: 157px" id="inputCorpEmail" value="@Model?.CorpEmail" readonly/>
+                                        </div>                                       
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="text-start" for="inputMobPhone"> Мобильный телефон:  </label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" asp-for="@Model.MobPhone" class="border-0" style="width: 157px" id="inputMobPhone" value="@Model?.MobPhone" readonly/>
+                                        </div>                     
+                                        
+                                    </div>
+                                                                        
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Закрыть</button>
-                            
+
                         </div>
                     </div>
                 </div>
