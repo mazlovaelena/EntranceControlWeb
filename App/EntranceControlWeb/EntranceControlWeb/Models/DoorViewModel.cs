@@ -10,11 +10,14 @@ namespace EntranceControlWeb.Models
     {
         public List<Door> Doors { get; set; }
         public int IdDoor { get; set; }
+
         [Required(ErrorMessage = "Заполните это поле")]
         public string TitleDoor { get; set; }
 
         public List<Room> Rooms { get; set; }
+        [Required(ErrorMessage = "Выберите значение")]
         public int IdRoom { get; set; }
+        [Required(ErrorMessage = "Выберите значение")]
         public string TitleRoom { get; set; }
     }
 }

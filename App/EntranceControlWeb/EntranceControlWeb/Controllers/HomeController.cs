@@ -33,11 +33,15 @@ namespace EntranceControlWeb.Controllers
         public IActionResult DelDoor(int id)
         {
             var data = _context.Doors.FirstOrDefault(x => x.IdDoor == id);
+            var entr = _context.Entrances.FirstOrDefault(x => x.IdDoor == id);
+            
             if (data != null)
             {
+                _context.Entrances.Remove(entr);
                 _context.Doors.Remove(data);
             }
 
+            _context.SaveChanges();
             return RedirectToAction(nameof(Doors));
 
         }
@@ -67,6 +71,24 @@ namespace EntranceControlWeb.Controllers
             }
             return Json(viewmodel);
         }
+        //Создание записи
+        [HttpPost]
+        public IActionResult CreateDoor (DoorViewModel door)
+        {
+            var create = new Door { TitleDoor = door.TitleDoor, IdRoom = door.IdRoom };
+
+            if (ModelState.IsValid)
+            {
+                _context.Doors.Add(create);
+                _context.SaveChanges();
+            }
+            return RedirectToAction(nameof(Doors));
+
+        }
+        public IActionResult CreateDoor()
+        {
+            return View();
+        }
         #endregion
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "УРОВНИ ДОСТУПА"
@@ -79,32 +101,24 @@ namespace EntranceControlWeb.Controllers
             return View(acclev);
         }
         //Удаление записи
-        [HttpPost]
-        public IActionResult DelLevel(AccessLevelViewModel acclev)
-        {
-            var data = _context.AccessLevels.FirstOrDefault(x => x.IdLevel == acclev.IdLevel);
-
-            //data.IdLevel = acclev.IdLevel;
-            //data.TitleLevel = acclev.TitleLevel;
-
-            _context.AccessLevels.Remove(data);
-
-            return RedirectToAction(nameof(Levels));
-        }
         public IActionResult DelLevel(int id)
         {
-            var viewmodel = new AccessLevelViewModel();
             var data = _context.AccessLevels.FirstOrDefault(x => x.IdLevel == id);
-            if (data != null)
+            var entr = _context.staff.FirstOrDefault(x => x.IdLevel == id);
+            var room = _context.Rooms.FirstOrDefault(x => x.IdLevel == id);
+
+            if(data != null)
             {
-                viewmodel.IdLevel = data.IdLevel;
-                viewmodel.TitleLevel = data.TitleLevel;
+                _context.staff.Remove(entr);
+                _context.Rooms.Remove(room);
+                _context.AccessLevels.Remove(data);
 
             }
 
-            return Json(viewmodel);
-
+            _context.SaveChanges();            
+            return RedirectToAction(nameof(Levels));
         }
+        
         //Редактирование записи
         [HttpPost]
         public IActionResult LevelEdit(AccessLevelViewModel acclev)
@@ -142,11 +156,15 @@ namespace EntranceControlWeb.Controllers
         public IActionResult DelOffice(int id)
         {
             var data = _context.Offices.FirstOrDefault(x => x.IdOffice == id);
+            var office = _context.SortingByOffices.FirstOrDefault(x => x.IdOffice == id);
+
             if (data != null)
             {
+                _context.SortingByOffices.Remove(office);
                 _context.Offices.Remove(data);
             }
 
+            _context.SaveChanges();
             return RedirectToAction(nameof(Offices));
 
         }
@@ -166,6 +184,7 @@ namespace EntranceControlWeb.Controllers
         {
             var viewmodel = new OfficeViewModel();
             var view = _context.Offices.FirstOrDefault(x => x.IdOffice == id);
+
             if (view != null)
             {
                 viewmodel.IdOffice = view.IdOffice;
@@ -187,11 +206,15 @@ namespace EntranceControlWeb.Controllers
         public IActionResult DelPos(int id)
         {
             var data = _context.Positions.FirstOrDefault(x => x.IdPost == id);
+            var office = _context.SortingByOffices.FirstOrDefault(x => x.IdOffice == id);
+
             if (data != null)
             {
+                _context.SortingByOffices.Remove(office);
                 _context.Positions.Remove(data);
             }
 
+            _context.SaveChanges();
             return RedirectToAction(nameof(Positions));
 
         }
@@ -234,11 +257,17 @@ namespace EntranceControlWeb.Controllers
         public IActionResult DelRoom(int id)
         {
             var data = _context.Rooms.FirstOrDefault(x => x.IdRoom == id);
+            var entr = _context.Entrances.FirstOrDefault(x => x.IdRoom == id);
+            var door = _context.Doors.FirstOrDefault(x => x.IdRoom == id);
+
             if (data != null)
             {
+                _context.Entrances.Remove(entr);
+                _context.Doors.Remove(door);
                 _context.Rooms.Remove(data);
             }
 
+            _context.SaveChanges();
             return RedirectToAction(nameof(Rooms));
 
         }
@@ -378,6 +407,24 @@ namespace EntranceControlWeb.Controllers
                 staff.IdLevel = edit.IdLevel;
             }
             return View(staff);
+        }
+        //Удаление записи
+        public IActionResult DelStaff (int id)
+        {
+            var data = _context.staff.FirstOrDefault(x => x.IdStaff == id);
+            var sort = _context.SortingByOffices.FirstOrDefault(x => x.IdStaff == id);
+            var entr = _context.Entrances.FirstOrDefault(x => x.IdStaff == id);
+           
+            if (data != null)
+            {
+                _context.Entrances.Remove(entr);
+                _context.SortingByOffices.Remove(sort);
+                _context.staff.Remove(data);                
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Staff));
+
         }
         #endregion
 

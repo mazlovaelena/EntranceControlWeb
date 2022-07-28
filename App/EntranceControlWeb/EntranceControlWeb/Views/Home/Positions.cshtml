@@ -132,7 +132,7 @@
                                 {
                                     <td>
                                         <a href="@Url.Action("PosEdit", "Home", new { id = @data.IdPost })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdPost">Редактировать</a>
-                                        <a href="@Url.Action("DelPos", "Home", new { id = @data.IdPost })" class="text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Удалить</a>
+                                        <a href="@Url.Action("DelPos", "Home", new { id = @data.IdPost })" class="text-danger" data-id="@data.IdPost">Удалить</a>
                                     </td>
 
                                 }
@@ -140,7 +140,7 @@
                                 {
                                     <td>
                                         <a href="@Url.Action("PosEdit", "Home", new { id = @data.IdPost })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdPost">Редактировать</a>
-                                        <a href="@Url.Action("DelPos", "Home", new { id = @data.IdPost })" class="text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Удалить</a>
+                                        <a href="@Url.Action("DelPos", "Home", new { id = @data.IdPost })" class="text-danger" data-id="@data.IdPost">Удалить</a>
                                     </td>
                                 }
                             }
@@ -193,30 +193,7 @@
                         </form>
                     </div>
                 </div>
-            </div>
-
-            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel1">Подтвердите действие на сайте</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <h5 class="text-center">
-                                    Вы действительно хотите удалить выбранную строку?
-                                    <br />Подтверждение данного действия приведет к удалению информации из базы данных
-                                </h5>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
-                            <a href="@Url.Action("DelPos", "Home")" type="button" class="btn btn-danger">Удалить</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </div>            
 
         </div>
     </div>
