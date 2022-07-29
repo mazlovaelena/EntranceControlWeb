@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -9,31 +10,35 @@ namespace EntranceControlWeb.Models
     {
         public List<staff> Staffs { get; set; }
         public int IdStaff { get; set; }
+
+        [Required(ErrorMessage = "Заполните это поле")]
         public string Surname { get; set; }
+
+        [Required(ErrorMessage = "Заполните это поле")]
         public string Name { get; set; }
+
+        [Required(ErrorMessage = "Заполните это поле")]
         public string LastName { get; set; }
+
+        [Required(ErrorMessage = "Заполните это поле")]
         public DateTime Birthday { get; set; }
+
+        [Required(ErrorMessage = "Заполните это поле")]
         public string CorpEmail { get; set; }
+
+        [Required(ErrorMessage = "Заполните это поле")]
         public string MobPhone { get; set; }
+
+        [Required(ErrorMessage = "Заполните это поле")]
         public string Image { get; set; }
 
         public List<AccessLevel> Levels { get; set; }
+
+        [Required(ErrorMessage = "Выберите значение")]
         public int IdLevel { get; set; }
-        public string TitleLevel { get; set; }
 
-        public List<Position> Positions { get; set; }
-        public int IdPost { get; set; }
-        public string TitlePost { get; set; }
-
-        public List<SortingByOffice> Sortings { get; set; }
-        public int IdItem { get; set; }
-        public TimeSpan TimeBegin { get; set; }
-        public TimeSpan TimeEnd { get; set; }
-        public string WorkPhone { get; set; }
-
-        public List<Office> Offices { get; set; }
-        public int IdOffice { get; set; }
-        public string TitleOffice { get; set; }
+        [Required(ErrorMessage = "Выберите значение")]
+        public string TitleLevel { get; set; }     
 
     }
 }

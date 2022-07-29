@@ -1,6 +1,6 @@
-﻿@model EntranceControlWeb.Models.SortingByOfficeViewModel;
+﻿@model EntranceControlWeb.Models.AccessLevelViewModel;
 @{
-    ViewData["Title"] = "Sort By Offices";
+    ViewData["Title"] = "Create Item";
 
 }
 
@@ -12,13 +12,15 @@
     <title>@ViewData["Title"]</title>
     <link rel="icon" href="/img/icon.ico" sizes="64x64" />
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
-    <script src="~/js/bootstrap.bundle.min.js"></script>    
+    <script src="~/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     @*@await RenderSectionAsync("Scripts", required: false)*@
 </head>
 <body>
@@ -95,93 +97,29 @@
     <div class="container">
         <div class="row my-3">
             <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
-            <h5 class="text-center">РАСПРЕДЕЛЕНИЕ ПО ОТДЕЛАМ</h5>
+            <h5 class="text-center">СОЗДАНИЕ ЗАПИСИ</h5>
         </div>
-        <div class="row my-3">
-            <table class="table-dark table-bordered" style="width:1200px; color:black;">
-                <thead>
-                    <tr class="text-center">
-                        <th>ID Запись</th>
-                        <th>Время начала смены</th>
-                        <th>Время завершения смены</th>
-                        <th>Сотрудник</th>
-                        <th>Должность</th>
-                        <th>Отдел</th>
-                        <th>Рабочий телефон</th>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            if (User.IsInRole(UserRole.Admin.ToString()))
-                            {
-                                <th>Действия</th>
-                            }
-                            else if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                            {
-                                <th>Действия</th>
-                            }
-                        }
-                    </tr>
-                </thead>
-
-                @foreach (var data in Model.Sortings)
-                {
-                    <tbody>
-                        <tr class="text-md-start">
-                            <td>@data.IdItem</td>
-                            <td>@data.TimeBegin</td>
-                            <td>@data.TimeEnd</td>
-                            <td>@data.IdStaffs.Surname @data.IdStaffs.Name @data.IdStaffs.LastName</td>
-                            <td>@data.IdPosts.TitlePost</td>
-                            <td>@data.IdOffices.TitleOffice</td>
-                            <td>@data.WorkPhone</td>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                if (User.IsInRole(UserRole.Admin.ToString()))
-                                {
-                                    <td>
-                                        <a href="@Url.Action("SortEdit", "Home", new { id = @data.IdItem })" class="text-success" data-id="@data.IdItem">Редактировать</a>
-                                        <a href="@Url.Action("DelSort", "Home", new { id = @data.IdItem })" class="text-danger" data-id="@data.IdItem">Удалить</a>
-                                    </td>
-
-                                }
-                                else if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                                {
-                                    <td>
-                                        <a href="@Url.Action("SortEdit", "Home", new { id = @data.IdItem })" class="text-success" data-id="@data.IdItem">Редактировать</a>
-                                        <a href="@Url.Action("DelSort", "Home", new { id = @data.IdItem })" class="text-danger" data-id="@data.IdItem">Удалить</a>
-                                    </td>
-                                }
-                            }
-                        </tr>
-                    </tbody>
-                }
-            </table>
-
-            @if (User.Identity.IsAuthenticated)
-            {
-                if (User.IsInRole(UserRole.Admin.ToString()))
-                {
-                    <div class="row m-3">
-                        <div class="col-2"></div>
-
-                        <div class="col-8">
-                            <a href="@Url.Action("CreateSort", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a>
+        <form class="my-4" method="post" asp-action="CreateLevel" asp-controller="Home">
+            <div class="card rounded">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <label for="inputTitle" class="col-sm-4 col-form-label">Наименование уровня доступа</label>
+                        <div class="col-sm-8">
+                           <input type="text" asp-for="@Model.TitleLevel" value="@Model?.TitleLevel" class="form-control" id="inputTitle">
+                           <span for="inputTitle" class="text-danger" asp-validation-for="@Model.TitleLevel"></span>
                         </div>
-
-                        <div class="col-2"></div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-7">
+                            <a href="@Url.Action("Levels", "Home")" type="button" class="btn btn-outline-primary">Назад</a>
+                            <button type="submit" class="btn btn-outline-success">Сохранить изменения</button>
+                        </div>
                     </div>
 
-                }
-                else if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                {
-                    <div class="row">
-
-                        <a href="@Url.Action("CreateSort", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a>
-
-                    </div>
-                }
-            }
-
-        </div>
+                </div>
+            </div>
+        </form>
     </div>
 </body>
 </html>

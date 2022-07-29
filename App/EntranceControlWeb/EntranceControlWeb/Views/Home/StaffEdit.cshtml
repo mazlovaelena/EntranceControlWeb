@@ -12,13 +12,15 @@
     <title>@ViewData["Title"]</title>
     <link rel="icon" href="/img/icon.ico" sizes="64x64" />
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
-    <script src="~/js/bootstrap.bundle.min.js"></script>    
+    <script src="~/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     @*@await RenderSectionAsync("Scripts", required: false)*@
 </head>
 <body>
@@ -62,7 +64,7 @@
                                 <a class="nav-link active" asp-controller="Home" asp-action="Doors">Турникеты</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Home" asp-action="Levels">Настройка уровня доступа</a>
+                                <a class="nav-link active text-danger" asp-controller="Login" asp-action="LogOut">Выход</a>
                             </li>
 
 
@@ -100,48 +102,55 @@
         <form class="my-4" method="post" asp-action="StaffEdit" asp-controller="Home" id="formStaff">
             <div class="card rounded">
                 <div class="card-body">
+                    <input type="text" hidden readonly asp-for="@Model.IdStaff" value="@Model?.IdStaff" class="form-control" id="inputIdStaff">
+                    <input type="text" hidden readonly asp-for="@Model.IdLevel" value="@Model?.IdLevel" class="form-control" id="inputIdLevel">
                     <div class="row mb-3">
-                        <label for="inputSurname" class="col-sm-2 col-form-label">Фамилия</label>
-                        <div class="col-sm-10">
-                            <input type="text" hidden readonly asp-for="@Model.IdStaff" value="@Model?.IdStaff" class="form-control" id="inputIdStaff">
-                            <input type="text" hidden readonly asp-for="@Model.IdLevel" value="@Model?.IdLevel" class="form-control" id="inputIdLevel">
+                        <label for="inputSurname" class="col-sm-4 col-form-label">Фамилия</label>
+                        <div class="col-sm-8">
                             <input type="text" asp-for="@Model.Surname" value="@Model?.Surname" class="form-control" id="inputSurname">
+                            <span for="inputTitle" class="text-danger" asp-validation-for="@Model.Surname"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="inputName" class="col-sm-2 col-form-label">Имя</label>
-                        <div class="col-sm-10">
+                        <label for="inputName" class="col-sm-4 col-form-label">Имя</label>
+                        <div class="col-sm-8">
                             <input type="text" asp-for="@Model.Name" value="@Model?.Name" class="form-control" id="inputName">
+                            <span for="inputTitle" class="text-danger" asp-validation-for="@Model.Name"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="inputLastname" class="col-sm-2 col-form-label">Отчество</label>
-                        <div class="col-sm-10">
+                        <label for="inputLastname" class="col-sm-4 col-form-label">Отчество</label>
+                        <div class="col-sm-8">
                             <input type="text" asp-for="@Model.LastName" value="@Model?.LastName" class="form-control" id="inputLastname">
+                            <span for="inputTitle" class="text-danger" asp-validation-for="@Model.LastName"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="inputDate" class="col-sm-2 col-form-label">Дата рождения</label>
-                        <div class="col-sm-10">
+                        <label for="inputDate" class="col-sm-4 col-form-label">Дата рождения</label>
+                        <div class="col-sm-8">
                             <input type="datetime" asp-for="@Model.Birthday" value="@Model?.Birthday" class="form-control" id="inputDate">
+                            <span for="inputTitle" class="text-danger" asp-validation-for="@Model.Birthday"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Корпоративня почта</label>
-                        <div class="col-sm-10">
+                        <label for="inputEmail" class="col-sm-4 col-form-label">Корпоративная почта</label>
+                        <div class="col-sm-8">
                             <input type="email" asp-for="@Model.CorpEmail" value="@Model?.CorpEmail" class="form-control" id="inputEmail">
+                            <span for="inputTitle" class="text-danger" asp-validation-for="@Model.CorpEmail"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="inputPhone" class="col-sm-2 col-form-label">Мобильный телефон</label>
-                        <div class="col-sm-10">
+                        <label for="inputPhone" class="col-sm-4 col-form-label">Мобильный телефон</label>
+                        <div class="col-sm-8">
                             <input type="tel" asp-for="@Model.MobPhone" value="@Model?.MobPhone" class="form-control" id="inputPhone">
+                            <span for="inputTitle" class="text-danger" asp-validation-for="@Model.MobPhone"></span>
                         </div>
-                    </div>
+                    </div>                    
                     <div class="row mb-3">
-                        <label for="formFile" class="col-sm-2 col-form-label">Выберите изображение</label>
-                        <div class="col-sm-10">
+                        <label for="formFile" class="col-sm-4 col-form-label">Выберите изображение</label>
+                        <div class="col-sm-8">
                             <input class="form-control" asp-for="@Model.Image" value="@Model?.Image" type="text" id="formFile">
+                            <span for="inputTitle" class="text-danger" asp-validation-for="@Model.Image"></span>
                         </div>
                     </div>
                     <div class="row mb-3">

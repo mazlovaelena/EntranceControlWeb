@@ -76,18 +76,18 @@ namespace EntranceControlWeb.Controllers
         public IActionResult CreateDoor (DoorViewModel door)
         {
             var create = new Door { TitleDoor = door.TitleDoor, IdRoom = door.IdRoom };
-
-            if (ModelState.IsValid)
-            {
-                _context.Doors.Add(create);
-                _context.SaveChanges();
-            }
+                       
+            _context.Doors.Add(create);            
+            _context.SaveChanges();            
             return RedirectToAction(nameof(Doors));
 
         }
         public IActionResult CreateDoor()
         {
-            return View();
+            var door = new DoorViewModel();
+            door.Doors = _context.Doors.ToList();
+            door.Rooms = _context.Rooms.ToList();
+            return View(door);
         }
         #endregion
 
@@ -143,6 +143,20 @@ namespace EntranceControlWeb.Controllers
             }
             return Json(viewmodel);
         }
+        //Создание записи
+        [HttpPost]
+        public IActionResult CreateLevel(AccessLevelViewModel lev)
+        {
+            var create = new AccessLevel { TitleLevel = lev.TitleLevel };
+
+            _context.AccessLevels.Add(create);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Levels));
+        }
+        public IActionResult CreateLevel()
+        {
+            return View();
+        }
         #endregion
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ОТДЕЛЫ"
@@ -193,6 +207,20 @@ namespace EntranceControlWeb.Controllers
             }
             return Json(viewmodel);
         }
+        //Создание записи
+        [HttpPost]
+        public IActionResult CreateOffice(OfficeViewModel off)
+        {
+            var create = new Office { TitleOffice = off.TitleOffice };
+
+            _context.Offices.Add(create);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Offices));
+        }
+        public IActionResult CreateOffice()
+        {
+            return View();
+        }
         #endregion
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ДОЛЖНОСТИ"
@@ -241,6 +269,20 @@ namespace EntranceControlWeb.Controllers
 
             }
             return Json(viewmodel);
+        }
+        //Создание записи
+        [HttpPost]
+        public IActionResult CreatePost(Position pos)
+        {
+            var create = new Position { TitlePost = pos.TitlePost };
+
+            _context.Positions.Add(create);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Positions));
+        }
+        public IActionResult CreatePost()
+        {
+            return View();
         }
         #endregion
 
@@ -297,6 +339,24 @@ namespace EntranceControlWeb.Controllers
             }
             return Json(viewmodel);
         }
+        //Создание записи
+        [HttpPost]
+        public IActionResult CreateRoom(RoomViewModel room)
+        {
+            var create = new Room { TitleRoom = room.TitleRoom, IdLevel = room.IdLevel };
+
+            _context.Rooms.Add(create);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Rooms));
+
+        }
+        public IActionResult CreateRoom()
+        {
+            var room = new RoomViewModel();            
+            room.Rooms = _context.Rooms.ToList();
+            room.Levels = _context.AccessLevels.ToList();
+            return View(room);
+        }
         #endregion
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "РАСПРЕДЕЛЕНИЕ ПО ОТДЕЛАМ"
@@ -341,7 +401,12 @@ namespace EntranceControlWeb.Controllers
         }
         public IActionResult SortEdit(SortingByOfficeViewModel sort, int id)
         {
-            var view = _context.SortingByOffices.FirstOrDefault(x => x.IdItem == id);
+            sort.Sortings = _context.SortingByOffices.ToList();
+            sort.Staffs = _context.staff.ToList();
+            sort.Positions = _context.Positions.ToList();
+            sort.Offices = _context.Offices.ToList();
+
+            var view = _context.SortingByOffices.FirstOrDefault(x => x.IdItem == id);            
             if (id != 0)
             {
                 var edit = _context.SortingByOffices.FirstOrDefault(x => x.IdItem == id);
@@ -352,11 +417,38 @@ namespace EntranceControlWeb.Controllers
                 sort.IdStaff = edit.IdStaff;
                 sort.IdPost = edit.IdPost;
                 sort.IdOffice = edit.IdOffice;
-                return Json(sort);
+                
             }
             return View(sort);
         }
+        //Создание записи
+        [HttpPost]
+        public IActionResult CreateSort(SortingByOfficeViewModel sort)
+        {
+            var create = new SortingByOffice
+            {
+                TimeBegin = sort.TimeBegin,
+                TimeEnd = sort.TimeEnd,
+                WorkPhone = sort.WorkPhone,
+                IdStaff = sort.IdStaff,
+                IdPost = sort.IdPost,
+                IdOffice = sort.IdOffice,
+            };
 
+            _context.SortingByOffices.Add(create);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(SortByOff));
+        }
+        public IActionResult CreateSort()
+        {
+            var sort = new SortingByOfficeViewModel();
+            sort.Sortings = _context.SortingByOffices.ToList();
+            sort.Staffs = _context.staff.ToList();
+            sort.Positions = _context.Positions.ToList();
+            sort.Offices = _context.Offices.ToList();
+
+            return View(sort);
+        }
         #endregion
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "СОТРУДНИКИ"
@@ -365,8 +457,7 @@ namespace EntranceControlWeb.Controllers
         {
             staff.Staffs = _context.staff.ToList();
             staff.Levels = _context.AccessLevels.ToList();
-            staff.Positions = _context.Positions.ToList();
-            staff.Offices = _context.Offices.ToList();
+           
             return View(staff);
         }
 
@@ -425,6 +516,35 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Staff));
 
+        }
+        //Создание записи
+        [HttpPost]
+        public IActionResult CreateStaff (StaffViewModel staff)
+        {
+            var create = new staff
+            {
+                Surname = staff.Surname,
+                Name = staff.Name,
+                LastName = staff.LastName,
+                Birthday = staff.Birthday,
+                CorpEmail = staff.CorpEmail,
+                MobPhone = staff.MobPhone,
+                Image = staff.Image,
+                IdLevel = staff.IdLevel,
+
+            };
+
+            _context.staff.Add(create);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Staff));
+        }
+        public IActionResult CreateStaff()
+        {
+            var staff = new StaffViewModel();
+            staff.Staffs = _context.staff.ToList();
+            staff.Levels = _context.AccessLevels.ToList();
+
+            return View(staff);
         }
         #endregion
 

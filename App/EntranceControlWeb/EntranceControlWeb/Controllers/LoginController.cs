@@ -56,7 +56,7 @@ namespace EntranceControlWeb.Controllers
         public async Task<IActionResult> LogOut()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction("HomePage", "Login");
+            return RedirectToAction(nameof(HomePage));
         }
 
         private async Task Authenticate(User user)

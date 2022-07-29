@@ -10,15 +10,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
-    <link rel="icon" href="/img/icon.ico" sizes="64x64" />   
+    <link rel="icon" href="/img/icon.ico" sizes="64x64" />
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
-    <script src="~/js/bootstrap.bundle.min.js"></script>    
+    <script src="~/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     @*@await RenderSectionAsync("Scripts", required: false)*@
 </head>
 <body>
@@ -82,7 +84,7 @@
                                 <a class="nav-link active" asp-controller="Home" asp-action="....">Руководство администратора</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active text-danger" asp-controller="Home" asp-action="....">Выход</a>
+                                <a class="nav-link active text-danger" asp-controller="Login" asp-action="LogOut">Выход</a>
                             </li>
 
                         </ul>
@@ -130,37 +132,45 @@
                                             Уровень доступа: @data.IdLevels.TitleLevel
                                         </div>
                                     </div>
-                                        @if (User.Identity.IsAuthenticated)
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        if (User.IsInRole(UserRole.Admin.ToString()))
                                         {
-                                            if (User.IsInRole(UserRole.Admin.ToString()))
-                                            {
-                                                <div class="col-4">
-                                                    <div class="row">
-                                                        <a class="btn btn-outline-success" data-id="@data.IdStaff" href="@Url.Action("StaffEdit", "Home", new { id = @data.IdStaff })">Редактировать</a> <br />
+                                            <div class="col-4">
+                                                <div class="row my-1">
+                                                    <a class="btn btn-outline-success" data-id="@data.IdStaff" href="@Url.Action("StaffEdit", "Home", new { id = @data.IdStaff })">Редактировать</a> <br />
 
-                                                    </div>
-                                                    <div class="row">
-
-                                                        <a class="btn btn-outline-danger" data-id="@data.IdStaff" href="@Url.Action("DelStaff", "Home", new { id = @data.IdStaff })">Удалить запись</a>
-                                                    </div>
                                                 </div>
-                                            }
-                                            else if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                                            {
-                                                <div class="col-4">
-                                                    <div class="row">
-                                                        <a class="btn btn-outline-success" data-id="@data.IdStaff" href="@Url.Action("StaffEdit", "Home", new { id = @data.IdStaff })">Редактировать</a> <br />
+                                                <div class="row my-1">
 
-                                                    </div>
-                                                    <div class="row">
-
-                                                        <a class="btn btn-outline-danger" data-id="@data.IdStaff" href="@Url.Action("DelStaff", "Home", new { id = @data.IdStaff })">Удалить запись</a>
-                                                    </div>
+                                                    <a class="btn btn-outline-danger" data-id="@data.IdStaff" href="@Url.Action("DelStaff", "Home", new { id = @data.IdStaff })">Удалить запись</a>
                                                 </div>
-                                            }
+                                                <div class="row my-1">
 
+                                                    <a href="@Url.Action("CreateStaff", "Home")" class="btn btn-outline-primary">Создать запись</a>
+                                                </div>
+                                            </div>
                                         }
-                                    
+                                        else if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                                        {
+                                            <div class="col-4">
+                                                <div class="row my-1">
+                                                    <a class="btn btn-outline-success" data-id="@data.IdStaff" href="@Url.Action("StaffEdit", "Home", new { id = @data.IdStaff })">Редактировать</a> <br />
+
+                                                </div>
+                                                <div class="row my-1">
+
+                                                    <a class="btn btn-outline-danger" data-id="@data.IdStaff" href="@Url.Action("DelStaff", "Home", new { id = @data.IdStaff })">Удалить запись</a>
+                                                </div>
+                                                <div class="row my-1">
+
+                                                    <a href="@Url.Action("CreateStaff", "Home")" class="btn btn-outline-primary">Создать запись</a>
+                                                </div>
+                                            </div>
+                                        }
+
+                                    }
+
                                 </div>
                             </div>
                         </div>
