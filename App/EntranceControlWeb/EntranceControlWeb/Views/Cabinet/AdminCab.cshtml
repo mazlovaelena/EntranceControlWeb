@@ -1,6 +1,5 @@
-﻿@model EntranceControlWeb.Models.PositionViewModel;
-@{
-    ViewData["Title"] = "Create Item";
+﻿@{
+    ViewData["Title"] = "Cabinet";
 
 }
 
@@ -142,6 +141,7 @@
                                     </li>
                                 }
                             }
+
                             <li class="nav-item">
                                 <a class="nav-link active text-danger" asp-controller="Login" asp-action="LogOut">Выход</a>
                             </li>
@@ -156,29 +156,35 @@
     <div class="container">
         <div class="row my-3">
             <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
-            <h5 class="text-center">СОЗДАНИЕ ЗАПИСИ</h5>
+            <h5 class="text-center">ЛИЧНЫЙ КАБИНЕТ НАЧАЛЬНИКА ОХРАНЫ</h5>
         </div>
-        <form class="my-4" method="post" asp-action="CreatePost" asp-controller="Home">
-            <div class="card rounded">
-                <div class="card-body">
-                    <div class="row mb-3">
-                        <label for="inputTitle" class="col-sm-4 col-form-label">Наименование должности</label>
-                        <div class="col-sm-8">
-                           <input type="text" asp-for="@Model.TitlePost" value="@Model?.TitlePost" class="form-control" id="inputTitle">
-                           <span for="inputTitle" class="text-danger" asp-validation-for="@Model.TitlePost"></span>
-                        </div>
-                    </div>
-                    
-                    <div class="row mb-3">
-                        <div class="col-7">
-                            <a href="@Url.Action("Positions", "Home")" type="button" class="btn btn-outline-primary">Назад</a>
-                            <button type="submit" class="btn btn-outline-success">Сохранить изменения</button>
-                        </div>
-                    </div>
+        <div class="row my-2">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <p>
+                    Вы вошли под логином @User.Identity.Name.
 
-                </div>
+                </p>
+                <p>
+                    Роль на сайте: адмиистратор.
+                </p>
+            }
+        </div>
+        <div class="row my-2">
+            <div class="col-4">
+                <a class="btn btn-outline-dark" href="@Url.Action("Users", "Cabinet")">Просмотр пользователей сайта</a>
             </div>
-        </form>
+            <div class="col-4">
+                <a class="btn btn-outline-dark" href="@Url.Action("Chart", "Cabinet")">Просмотр диаграммы посещаемости</a>
+            </div>
+            <div class="col-4">
+                <a class="btn btn-outline-dark">Скачать файл базы данных</a>
+            </div>
+
+        </div>
+
     </div>
+
+
 </body>
 </html>

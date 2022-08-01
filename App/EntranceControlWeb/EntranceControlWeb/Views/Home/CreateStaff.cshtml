@@ -45,44 +45,103 @@
                             <li class="nav-item">
                                 <a class="nav-link active" asp-controller="Home" asp-action="Entrance">Доступ</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Home" asp-action="Staff">Сотрудники</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Home" asp-action="Positions">Должности</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Home" asp-action="Offices">Отделы</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Home" asp-action="SortByOff">Распределение по отделам</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Home" asp-action="Rooms">Помещения</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Home" asp-action="Doors">Турникеты</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Home" asp-action="Levels">Настройка уровня доступа</a>
-                            </li>
-
-
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                if (User.IsInRole(UserRole.Admin.ToString()))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="Staff">Сотрудники</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="Positions">Должности</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="Offices">Отделы</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="SortByOff">Распределение по отделам</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="Rooms">Помещения</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="Doors">Турникеты</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="Levels">Настройка уровня доступа</a>
+                                    </li>
+                                }
+                                else if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="Staff">Сотрудники</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="Positions">Должности</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="Offices">Отделы</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="SortByOff">Распределение по отделам</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="Rooms">Помещения</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="Doors">Турникеты</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="Levels">Настройка уровня доступа</a>
+                                    </li>
+                                }
+                            }
                         </ul>
                         <hr />
                         <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Home" asp-action=".....">Личный кабинет</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Home" asp-action="....">Руководство сотрудника</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Home" asp-action="....">Руководство начальника</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Home" asp-action="....">Руководство администратора</a>
-                            </li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                if (User.IsInRole(UserRole.User.ToString()))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Cabinet" asp-action="UserCab">Личный кабинет</a>
+                                    </li>
+                                }
+                                else if (User.IsInRole(UserRole.Admin.ToString()))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Cabinet" asp-action="AdminCab">Личный кабинет</a>
+                                    </li>
+                                }
+                                else if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Cabinet" asp-action="SysAdminCab">Личный кабинет</a>
+                                    </li>
+                                }
+                            }
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                if (User.IsInRole(UserRole.User.ToString()))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="....">Руководство сотрудника</a>
+                                    </li>
+                                }
+                                else if (User.IsInRole(UserRole.Admin.ToString()))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="....">Руководство начальника</a>
+                                    </li>
+                                }
+                                else if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="....">Руководство администратора</a>
+                                    </li>
+                                }
+                            }
                             <li class="nav-item">
                                 <a class="nav-link active text-danger" asp-controller="Login" asp-action="LogOut">Выход</a>
                             </li>
