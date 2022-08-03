@@ -47,6 +47,7 @@ namespace EntranceControlWeb.Models
         public int IdStatus { get; set; }
         public string TitleStatus { get; set; }
 
+        public int [] Months { get; set; }
 
     }
 }

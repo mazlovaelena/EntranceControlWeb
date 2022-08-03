@@ -19,7 +19,7 @@ namespace EntranceControlWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> HomePage(LoginViewModel model)
+        public async Task<IActionResult> HomePage(UserViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -38,10 +38,10 @@ namespace EntranceControlWeb.Controllers
 
             await Authenticate(user);
 
-            //if(_context.Users.Any(x => x.Email == model.Email))
-            //{
-            //    var VM = new AuthorizeViewModel();
-            //    var DateTimeAuth = new Authorize { DateAuth = DateTime.Now, IdUser = VM.IdUser};
+            //if (_context.Users.Any(x => x.Email == user.Email))
+            //{                
+            //    var DateTimeAuth = new Authorize { DateAuth = DateTime.Now, IdUser = user.IdUser };
+
             //    _context.Authorizes.Add(DateTimeAuth);
             //    _context.SaveChanges();
             //}

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model EntranceControlWeb.Models.AuthorizeViewModel;
+@{
     ViewData["Title"] = "Cabinet";
 
 }
@@ -154,9 +155,48 @@
         </nav>
     </header>
     <div class="container">
+        <div class="row my-3">
+            <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
+            <h5 class="text-center">ПРОСМОТР ПОСЕТИТЕЛЕЙ САЙТА</h5>
+        </div>
+        <div class="row my-3">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Пользователь
+                        </th>
+                        <th>
+                            Роль на сайте
+                        </th>
+                        <th>
+                            Дата авторизации
+                        </th>
+                    </tr>
+                </thead>
 
+                @foreach (var data in Model.Authorizes)
+                {
+                    <tbody>
+                        <tr>
+                            <td>
+                                @data.IdUsers.Email
+                            </td>
+                            <td>
+                                @data.IdUsers.UserRole
+                            </td>
+                            <td>
+                                @data.DateAuth
+                            </td>
+                        </tr>
+                    </tbody>
+                }
 
-
+            </table>
+        </div>
+        <div class="row my-3">
+            <button class="btn-outline-dark">Сохранить отчетный файл</button>
+        </div>
     </div>
 </body>
 </html>

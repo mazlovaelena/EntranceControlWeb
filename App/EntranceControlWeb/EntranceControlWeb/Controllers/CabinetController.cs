@@ -26,13 +26,29 @@ namespace EntranceControlWeb.Controllers
         {
             return View();
         }
-        public IActionResult Users()
+        public IActionResult SysAdminCab()
         {
             return View();
         }
-        public IActionResult Chart()
+        public IActionResult Users(AuthorizeViewModel auth)
         {
-            return View();
+            auth.Authorizes = _context.Authorizes.ToList();
+            auth.Users = _context.Users.ToList();
+
+            return View(auth);
+        }
+        public IActionResult Chart(EntranceViewModel model)
+        {
+            model.Entrances = _context.Entrances.ToList();
+
+            for(int i = 1; i < 32; i++)
+            {
+                int date = _context.Entrances.ToList().Count(x => x.DateEntr.Day.ToString().Contains((char)i));
+                model.Months = new int[] { date };
+                continue;
+            }
+            
+            return View(model);
         }
     }
 }

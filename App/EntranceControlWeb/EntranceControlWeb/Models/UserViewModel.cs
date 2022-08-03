@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -9,8 +10,10 @@ namespace EntranceControlWeb.Models
     {
         public List<User> Users { get; set; }
         public int IdUser { get; set; }
+        [Required(ErrorMessage = "Заполните это поле")]
         public string Email { get; set; }
+        [Required(ErrorMessage = "Заполните это поле")]
         public string Password { get; set; }
-        public string UserRole { get; set; }
+        public UserRole UserRole { get; set; }
     }
 }
