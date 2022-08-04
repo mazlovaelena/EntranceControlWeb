@@ -171,15 +171,53 @@
             }
         </div>
         <div class="row my-2">
-            <div class="col-4">
-                <a class="btn btn-outline-dark" href="@Url.Action("Users", "Cabinet")">Просмотр пользователей сайта</a>
-            </div>
-            <div class="col-4">
-                <a class="btn btn-outline-dark" href="@Url.Action("Chart", "Cabinet")">Просмотр диаграммы посещаемости</a>
-            </div>
-            <div class="col-4">
-                <a class="btn btn-outline-dark">Скачать файл базы данных</a>
-            </div>
+            <form method="post" asp-action="EntranceReport" asp-controller="Cabinet">
+                <div class="row my-2">
+                    <div class="row my-3" hidden>
+                        <table class="table-dark table-bordered" style="width:1200px; color:black;" hidden>
+                            <thead>
+                                <tr class="text-center">
+                                    <th>ID Запись</th>
+                                    <th>Дата входа</th>
+                                    <th>Дата выхода</th>
+                                    <th>Помещение</th>
+                                    <th>Сотрудник</th>
+                                    <th>Тип турникета</th>
+                                    <th>Статус доступа</th>
+                                </tr>
+                            </thead>
+
+                            @foreach (var data in Model.Entrances)
+                            {
+                                <tbody>
+                                    <tr class="text-md-start">
+
+                                        <td>@data.IdRecord</td>
+                                        <td>@data.DateEntr</td>
+                                        <td>@data.DateExit</td>
+                                        <td>@data.IdRooms.TitleRoom</td>
+                                        <td>
+                                            @data.IdStaffs.Surname @data.IdStaffs.Name @data.IdStaffs.LastName
+                                        </td>
+                                        <td>@data.IdDoors.TitleDoor</td>
+                                        <td>@data.IdStatusS.TitleStatus</td>
+                                    </tr>
+                                </tbody>
+                            }
+                        </table>
+                    </div>
+                    <div class="col-4">
+                        <a class="btn btn-outline-dark" href="@Url.Action("Users", "Cabinet")">Просмотр пользователей сайта</a>
+                    </div>
+                    <div class="col-4">
+                        <a class="btn btn-outline-dark" href="@Url.Action("Chart", "Cabinet")">Просмотр диаграммы посещаемости</a>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-outline-dark" asp-controller="Cabinet" asp-action="EntranceReport">Скачать файл базы данных</button>
+                    </div>
+
+                </div>
+            </form>
 
         </div>
 

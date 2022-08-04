@@ -1,4 +1,4 @@
-﻿@model EntranceControlWeb.Models.EntranceViewModel;
+﻿@model List<Entrance>;
 @{
     ViewData["Title"] = "Cabinet";
 
@@ -165,16 +165,22 @@
                  const ctxx = document.getElementById('myChart').getContext('2d');
                  const myCharts = new Chart(ctxx, {
                                                type: 'line',
-                                               data: {
-                                               labels: ['1','2', '3', '4','5','6','7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18','19','20','21','22','23','24','25','26','27','27','28','29','30','31'],
+                     data: {
+                         labels: [@foreach (var people in Model)
+                             { @people.IdStaffs.Surname @people.IdStaffs.Name @people.IdStaffs.LastName
+                             }],
                                                    datasets: [
                                                        {
-                                                           label: 'Количество посетителей в месяц',
+                                                           label: '---',
                                                            backgroundColor: 'rgb(0, 145, 255)',
                                                            borderColor: 'rgb(0, 145, 255)',
                                                            borderWidth: 2,
                                                            tension: 0.2,
-                                                           data: [ @Model.Months[0], @Model.Months[1], @Model.Months[2], @Model.Months[3], @Model.Months[4], @Model.Months[5], @Model.Months[6], @Model.Months[7], @Model.Months[8], @Model.Months[9], @Model.Months[10], @Model.Months[11], @Model.Months[12], @Model.Months[13], @Model.Months[14], @Model.Months[15], @Model.Months[16], @Model.Months[17], @Model.Months[18], @Model.Months[19], @Model.Months[20], @Model.Months[21], @Model.Months[22], @Model.Months[23], @Model.Months[24], @Model.Months[25], @Model.Months[26], @Model.Months[27], @Model.Months[28], @Model.Months[29], @Model.Months[30] ]
+                                                           data: [ @foreach(var item in Model)
+                                                                    {
+                                                               
+                                                                    }
+                                                           ]
                                                           }] 
                                                },
                                                options: {

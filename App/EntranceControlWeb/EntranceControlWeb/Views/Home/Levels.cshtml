@@ -257,31 +257,10 @@
             </div>
 
             @if (User.Identity.IsAuthenticated)
-            {
-                if (User.IsInRole(UserRole.Admin.ToString()))
+            {               
+                if (User.IsInRole(UserRole.SysAdmin.ToString()))
                 {
                      <div class="row mb-3 my-4">
-                         <div class="col-4">
-                            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal2">Настроить доступ для сотрудника</button>
-
-                         </div>
-                         <div class="col-4">
-                            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal3">Настроить доступ для помещения</button>
-                         </div>
-                        
-                     </div>
-
-                }
-                else if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                {
-                     <div class="row mb-3 my-4">
-                        <div class="col-4">
-                            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal2">Настроить доступ для сотрудника</button>
-
-                        </div>
-                        <div class="col-4">
-                            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal3">Настроить доступ для помещения</button>
-                        </div>
                         <div class="col-4">
                             <a href="@Url.Action("CreateLevel", "Home")" class="btn btn-outline-primary">Создать запись</a>
                         </div>
@@ -289,97 +268,14 @@
                 }
             }
             
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel2">Настройка уровня доступа для сотрудника</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form>
-                            <div class="modal-body">
-                                <div class="row mb-3">
-                                    <label for="exampleDataList1" class="col-sm-4 col-form-label">Сотрудник</label>
-                                    <div class="col-sm-8">
-                                        <input class="form-control" list="datalistOptions1" id="exampleDataList1" placeholder="Нажмите для выбора....">
-                                        <datalist id="datalistOptions1">
-                                            <option value="San Francisco" />
-                                            <option value="New York" />
-                                            <option value="Seattle" />
-                                            <option value="Los Angeles" />
-                                            <option value="Chicago" />
-                                        </datalist>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="exampleDataList2" class="col-sm-4 col-form-label">Уровень доступа</label>
-                                    <div class="col-sm-8">
-                                        <input class="form-control" list="datalistOptions2" id="exampleDataList2" placeholder="Нажмите для выбора....">
-                                        <datalist id="datalistOptions1">
-                                            <option value="San Francisco" />
-                                            <option value="New York" />
-                                            <option value="Seattle" />
-                                            <option value="Los Angeles" />
-                                            <option value="Chicago" />
-                                        </datalist>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
-                                <a href="@Url.Action("LevelStaffEdit", "Home")" type="button" class="btn btn-success">Сохранить</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+            <div class="row m-2 text-center">
+                <p class="text-center" style="font-size:17px">
+                    Для настройки уровня доступа необходимо перейти на страницу <a class="text-primary" href="@Url.Action("Staff", "Home")">"Сотрудники"</a> или <a class="text-primary" href="@Url.Action("Rooms", "Home")">"Помещения"</a> и выбрать <a class="text-success">"Редактировать"</a> в соответсвующей ячейке таблицы.
+                    <strong>Внимание!</strong> Права настройки уровня доступа есть только у начальника охары и системного администратора сайта.
+                </p>
+                
             </div>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel3">Настройка уровня доступа для помещения</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form>
-                            <div class="modal-body">
-                                <div class="row mb-3">
-                                    <label for="exampleDataList1" class="col-sm-4 col-form-label">Помещение</label>
-                                    <div class="col-sm-8">
-                                        <input class="form-control" list="datalistOptions1" id="exampleDataList1" placeholder="Нажмите для выбора....">
-                                        <datalist id="datalistOptions1">
-                                            <option value="San Francisco" />
-                                            <option value="New York" />
-                                            <option value="Seattle" />
-                                            <option value="Los Angeles" />
-                                            <option value="Chicago" />
-                                        </datalist>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="exampleDataList2" class="col-sm-4 col-form-label">Уровень доступа</label>
-                                    <div class="col-sm-8">
-                                        <input class="form-control" list="datalistOptions2" id="exampleDataList2" placeholder="Нажмите для выбора....">
-                                        <datalist id="datalistOptions1">
-                                            <option value="San Francisco" />
-                                            <option value="New York" />
-                                            <option value="Seattle" />
-                                            <option value="Los Angeles" />
-                                            <option value="Chicago" />
-                                        </datalist>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
-                                <a href="@Url.Action("LevelRoomEdit", "Home")" type="button" class="btn btn-success">Сохранить</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 
