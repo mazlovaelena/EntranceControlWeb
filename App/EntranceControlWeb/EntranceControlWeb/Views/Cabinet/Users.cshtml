@@ -155,48 +155,61 @@
         </nav>
     </header>
     <div class="container">
-        <div class="row my-3">
-            <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
-            <h5 class="text-center">ПРОСМОТР ПОСЕТИТЕЛЕЙ САЙТА</h5>
-        </div>
-        <div class="row my-3">
-            <table>
-                <thead>
-                    <tr>
-                        <th>
-                            Пользователь
-                        </th>
-                        <th>
-                            Роль на сайте
-                        </th>
-                        <th>
-                            Дата авторизации
-                        </th>
-                    </tr>
-                </thead>
+        <form method="post" asp-action="UserReport" asp-controller="Cabinet">
 
-                @foreach (var data in Model.Authorizes)
-                {
-                    <tbody>
+
+            <div class="row my-3">
+                <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
+                <h5 class="text-center">ПРОСМОТР ПОСЕТИТЕЛЕЙ САЙТА</h5>
+            </div>
+            <div class="row my-3">
+                <table class="table-dark table-bordered" style="width:1200px; color:black;">
+                    <thead class="text-center">
                         <tr>
-                            <td>
-                                @data.IdUsers.Email
-                            </td>
-                            <td>
-                                @data.IdUsers.UserRole
-                            </td>
-                            <td>
-                                @data.DateAuth
-                            </td>
+                            <th>
+                                Пользователь
+                            </th>
+                            <th>
+                                Роль на сайте
+                            </th>
+                            <th>
+                                Дата авторизации
+                            </th>
                         </tr>
-                    </tbody>
-                }
+                    </thead>
 
-            </table>
-        </div>
-        <div class="row my-3">
-            <button class="btn-outline-dark">Сохранить отчетный файл</button>
-        </div>
+                    @foreach (var data in Model.Authorizes)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @data.IdUsers.Email
+                                </td>                               
+                                <td>
+                                    @data.IdUsers.UserRole
+                                </td>
+                                <td>
+                                    @data.DateAuth
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+
+                </table>
+            </div>
+            <div class="row my-3">
+                <div class="col-4">
+
+                </div>
+                <div class="col-4">
+                    <button type="submit" asp-action="UserReport" asp-controller="Cabinet" class="btn btn-outline-dark">Сохранить отчетный файл</button>
+                </div>
+                <div class="col-4">
+
+                </div>
+
+            </div>
+        </form>
     </div>
 </body>
 </html>

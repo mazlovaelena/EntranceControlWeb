@@ -23,8 +23,8 @@ namespace EntranceControlWeb.Controllers
     {
         private EntranceControlWebContext _context;
         private readonly IWebHostEnvironment _appEnvironment;
-        
-        public CabinetController (EntranceControlWebContext context, IWebHostEnvironment appEnvironment)
+
+        public CabinetController(EntranceControlWebContext context, IWebHostEnvironment appEnvironment)
         {
             _appEnvironment = appEnvironment;
             _context = context;
@@ -46,9 +46,14 @@ namespace EntranceControlWeb.Controllers
             return View(entr);
         }
         [Authorize]
-        public IActionResult SysAdminCab()
+        public IActionResult SysAdminCab(EntranceViewModel entr)
         {
-            return View();
+            entr.Entrances = _context.Entrances.ToList();
+            entr.Staffs = _context.staff.ToList();
+            entr.Rooms = _context.Rooms.ToList();
+            entr.Doors = _context.Doors.ToList();
+            entr.Statuses = _context.AccessStatuses.ToList();
+            return View(entr);
         }
         [Authorize]
         public IActionResult Users(AuthorizeViewModel auth)
@@ -56,9 +61,104 @@ namespace EntranceControlWeb.Controllers
             auth.Authorizes = _context.Authorizes.ToList();
             auth.Users = _context.Users.ToList();
 
+            if (User.IsInRole(UserRole.Admin.ToString()))
+            {
+                auth.Authorizes = _context.Authorizes
+                     .Where(x => x.IdUsers.UserRole == UserRole.User).ToList();
+            }
+            else
+            {
+                auth.Authorizes = _context.Authorizes.ToList();
+            }
+
             return View(auth);
         }
+
         [Authorize]
+        [HttpPost]
+        public IActionResult UserReport()
+        {
+            if (User.IsInRole(UserRole.Admin.ToString()))
+            {
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                FileStream fs = new("UserReport.xls", FileMode.Create);
+
+                using (ExcelPackage Ep = new(fs))
+                {
+                    var Sheet1 = Ep.Workbook.Worksheets.Add("Посетители сайта");
+                    Sheet1.Cells["A1"].Value = "ID_Запись";
+                    Sheet1.Cells["B1"].Value = "ДатаАвторизации";
+                    Sheet1.Cells["C1"].Value = "Пользователь";
+
+                    var row1 = 2;
+                    foreach (var entrance in _context.Authorizes
+                    .Where(x => x.IdUsers.UserRole == UserRole.User).ToList())
+                    {
+                        _context.Users.ToList();
+                        Sheet1.Cells[string.Format("A{0}", row1)].Value = entrance.IdItem;
+                        Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.DateAuth.ToString();
+                        Sheet1.Cells[string.Format("C{0}", row1)].Value = entrance.IdUsers.Email;
+                        row1++;
+                    }
+                    Sheet1.Cells["A:AZ"].AutoFitColumns();
+
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    var xlFile = new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UserReport.xls"));
+
+                    Ep.Save();
+                    fs.Close();
+
+                }
+                string file_path = Path.Combine(_appEnvironment.ContentRootPath, "UserReport.xls");
+                // Тип файла - content-type
+                string file_type = "application/octet-stream";
+                // Имя файла - необязательно
+                string file_name = "UserReport.xls";
+                return PhysicalFile(file_path, file_type, file_name);
+            }
+            else
+            {
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                FileStream fs = new FileStream("UserReport.xls", FileMode.Create);
+
+                using (ExcelPackage Ep = new ExcelPackage(fs))
+                {
+                    var Sheet1 = Ep.Workbook.Worksheets.Add("Посетители сайта");
+                    Sheet1.Cells["A1"].Value = "ID_Запись";
+                    Sheet1.Cells["B1"].Value = "ДатаАвторизации";
+                    Sheet1.Cells["C1"].Value = "Пользователь";
+
+                    var row1 = 2;
+                    foreach (var entrance in _context.Authorizes.ToList())
+                    {
+                        _context.Users.ToList();
+                        Sheet1.Cells[string.Format("A{0}", row1)].Value = entrance.IdItem;
+                        Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.DateAuth.ToString();
+                        Sheet1.Cells[string.Format("C{0}", row1)].Value = entrance.IdUsers.Email;
+                        row1++;
+                    }
+                    Sheet1.Cells["A:AZ"].AutoFitColumns();
+
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    var xlFile = new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UserReport.xls"));
+
+                    Ep.Save();
+                    fs.Close();
+                }
+                string file_path = Path.Combine(_appEnvironment.ContentRootPath, "UserReport.xls");
+                // Тип файла - content-type
+                string file_type = "application/octet-stream";
+                // Имя файла - необязательно
+                string file_name = "UserReport.xls";
+                return PhysicalFile(file_path, file_type, file_name);
+
+            }
+        }
+    
+
+
+
+            [Authorize]
         public IActionResult Chart()
         {
             var data = _context.Entrances
@@ -80,7 +180,7 @@ namespace EntranceControlWeb.Controllers
         public IActionResult EntranceReport()
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            FileStream fs = new FileStream("EntranceReport.xls", FileMode.OpenOrCreate);
+            FileStream fs = new FileStream("EntranceReport.xls", FileMode.Create);
             using (ExcelPackage Ep = new ExcelPackage(fs))
             {
 
@@ -96,13 +196,17 @@ namespace EntranceControlWeb.Controllers
                 var row1 = 2;
                 foreach (var entrance in _context.Entrances.ToList())
                 {
+                    _context.staff.ToList();
+                    _context.Rooms.ToList();
+                    _context.Doors.ToList();
+                    _context.AccessStatuses.ToList();
                     Sheet1.Cells[string.Format("A{0}", row1)].Value = entrance.IdRecord;
                     Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.DateEntr.ToString();
                     Sheet1.Cells[string.Format("C{0}", row1)].Value = entrance.DateExit.ToString();
-                    Sheet1.Cells[string.Format("D{0}", row1)].Value = entrance.IdRoom;
-                    Sheet1.Cells[string.Format("E{0}", row1)].Value = entrance.IdStaff;
-                    Sheet1.Cells[string.Format("F{0}", row1)].Value = entrance.IdDoor;
-                    Sheet1.Cells[string.Format("G{0}", row1)].Value = entrance.IdStatus;
+                    Sheet1.Cells[string.Format("D{0}", row1)].Value = entrance.IdRooms.TitleRoom;
+                    Sheet1.Cells[string.Format("E{0}", row1)].Value = entrance.IdStaffs.Surname;
+                    Sheet1.Cells[string.Format("F{0}", row1)].Value = entrance.IdDoors.TitleDoor;
+                    Sheet1.Cells[string.Format("G{0}", row1)].Value = entrance.IdStatusS.TitleStatus;
                     row1++;
                 }
                 Sheet1.Cells["A:AZ"].AutoFitColumns();
@@ -122,6 +226,7 @@ namespace EntranceControlWeb.Controllers
                 var row2 = 2;
                 foreach (var entrance in _context.staff.ToList())
                 {
+                    _context.AccessLevels.ToList();
                     Sheet2.Cells[string.Format("A{0}", row2)].Value = entrance.IdStaff;
                     Sheet2.Cells[string.Format("B{0}", row2)].Value = entrance.Surname;
                     Sheet2.Cells[string.Format("C{0}", row2)].Value = entrance.Name;
@@ -130,7 +235,7 @@ namespace EntranceControlWeb.Controllers
                     Sheet2.Cells[string.Format("F{0}", row2)].Value = entrance.CorpEmail;
                     Sheet2.Cells[string.Format("G{0}", row2)].Value = entrance.MobPhone;
                     Sheet2.Cells[string.Format("H{0}", row2)].Value = entrance.Image;
-                    Sheet2.Cells[string.Format("I{0}", row2)].Value = entrance.IdLevel;
+                    Sheet2.Cells[string.Format("I{0}", row2)].Value = entrance.IdLevels.TitleLevel;
 
                     row2++;
                 }
@@ -162,11 +267,11 @@ namespace EntranceControlWeb.Controllers
                 }
                 Sheet4.Cells["A:AZ"].AutoFitColumns();
 
-                var Sheet5 = Ep.Workbook.Worksheets.Add("СотрудникиОтделы");
+                var Sheet5 = Ep.Workbook.Worksheets.Add("РаспределениеПоОтделам");
                 Sheet5.Cells["A1"].Value = "ID_Запись";
-                Sheet5.Cells["B1"].Value = "ID_Сотрудника";
-                Sheet5.Cells["C1"].Value = "ID_Отдела";
-                Sheet5.Cells["D1"].Value = "ID_Должности";
+                Sheet5.Cells["B1"].Value = "Сотрудник";
+                Sheet5.Cells["C1"].Value = "Отдел";
+                Sheet5.Cells["D1"].Value = "Должности";
                 Sheet5.Cells["E1"].Value = "ВремяНачалаРаботы";
                 Sheet5.Cells["F1"].Value = "ВремяЗавершенияРаботы";
                 Sheet5.Cells["G1"].Value = "ТелефонРабочий";
@@ -174,13 +279,16 @@ namespace EntranceControlWeb.Controllers
                 var row5 = 2;
                 foreach (var entrance in _context.SortingByOffices.ToList())
                 {
+                    _context.staff.ToList();
+                    _context.Offices.ToList();
+                    _context.Positions.ToList();
                     Sheet5.Cells[string.Format("A{0}", row5)].Value = entrance.IdItem;
-                    Sheet5.Cells[string.Format("A{0}", row5)].Value = entrance.IdStaff;
-                    Sheet5.Cells[string.Format("B{0}", row5)].Value = entrance.IdOffice;
-                    Sheet5.Cells[string.Format("C{0}", row5)].Value = entrance.IdPost;
-                    Sheet5.Cells[string.Format("D{0}", row5)].Value = entrance.TimeBegin.ToString();
-                    Sheet5.Cells[string.Format("E{0}", row5)].Value = entrance.TimeEnd.ToString();
-                    Sheet5.Cells[string.Format("F{0}", row5)].Value = entrance.WorkPhone;
+                    Sheet5.Cells[string.Format("B{0}", row5)].Value = entrance.IdStaffs.Surname;
+                    Sheet5.Cells[string.Format("C{0}", row5)].Value = entrance.IdOffices.TitleOffice;
+                    Sheet5.Cells[string.Format("D{0}", row5)].Value = entrance.IdPosts.TitlePost;
+                    Sheet5.Cells[string.Format("E{0}", row5)].Value = entrance.TimeBegin.ToString();
+                    Sheet5.Cells[string.Format("F{0}", row5)].Value = entrance.TimeEnd.ToString();
+                    Sheet5.Cells[string.Format("G{0}", row5)].Value = entrance.WorkPhone;
                     row5++;
                 }
                 Sheet5.Cells["A:AZ"].AutoFitColumns();
@@ -188,14 +296,15 @@ namespace EntranceControlWeb.Controllers
                 var Sheet6 = Ep.Workbook.Worksheets.Add("Помещения");
                 Sheet6.Cells["A1"].Value = "ID_Помещения";
                 Sheet6.Cells["B1"].Value = "НаименованиеПомещения";
-                Sheet6.Cells["C1"].Value = "ID_УровеньДоступа";
+                Sheet6.Cells["C1"].Value = "УровеньДоступа";
 
                 var row6 = 2;
                 foreach (var entrance in _context.Rooms.ToList())
                 {
+                    _context.AccessLevels.ToList();
                     Sheet6.Cells[string.Format("A{0}", row6)].Value = entrance.IdRoom;
                     Sheet6.Cells[string.Format("B{0}", row6)].Value = entrance.TitleRoom;
-                    Sheet6.Cells[string.Format("B{0}", row6)].Value = entrance.IdLevel;
+                    Sheet6.Cells[string.Format("C{0}", row6)].Value = entrance.IdLevels.TitleLevel;
                     row6++;
                 }
                 Sheet6.Cells["A:AZ"].AutoFitColumns();
@@ -203,14 +312,15 @@ namespace EntranceControlWeb.Controllers
                 var Sheet7 = Ep.Workbook.Worksheets.Add("ТипыТурникетов");
                 Sheet7.Cells["A1"].Value = "ID_ТипТурникета";
                 Sheet7.Cells["B1"].Value = "НаименованиеТипаТурникета";
-                Sheet7.Cells["C1"].Value = "ID_Помещение";
+                Sheet7.Cells["C1"].Value = "Помещение";
 
                 var row7 = 2;
                 foreach (var entrance in _context.Doors.ToList())
                 {
+                    _context.Rooms.ToList();
                     Sheet7.Cells[string.Format("A{0}", row7)].Value = entrance.IdDoor;
                     Sheet7.Cells[string.Format("B{0}", row7)].Value = entrance.TitleDoor;
-                    Sheet7.Cells[string.Format("B{0}", row7)].Value = entrance.IdRoom;
+                    Sheet7.Cells[string.Format("C{0}", row7)].Value = entrance.IdRooms.TitleRoom;
                     row7++;
                 }
                 Sheet7.Cells["A:AZ"].AutoFitColumns();

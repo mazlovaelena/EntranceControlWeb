@@ -38,13 +38,13 @@ namespace EntranceControlWeb.Controllers
 
             await Authenticate(user);
 
-            //if (_context.Users.Any(x => x.Email == user.Email))
-            //{                
-            //    var DateTimeAuth = new Authorize { DateAuth = DateTime.Now, IdUser = user.IdUser };
+            if (_context.Users.Any(x => x.IdUser == user.IdUser))
+            {
+                var DateTimeAuth = new Authorize { DateAuth = DateTime.Now, IdUser = user.IdUser };
 
-            //    _context.Authorizes.Add(DateTimeAuth);
-            //    _context.SaveChanges();
-            //}
+                _context.Authorizes.Add(DateTimeAuth);
+                _context.SaveChanges();
+            }
             return RedirectToAction("Entrance", "Home");
 
         }
