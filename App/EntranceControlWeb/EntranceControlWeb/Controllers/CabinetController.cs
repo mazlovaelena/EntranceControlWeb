@@ -59,16 +59,19 @@ namespace EntranceControlWeb.Controllers
             return View(auth);
         }
         [Authorize]
-        public IActionResult Chart(EntranceViewModel model)
+        public IActionResult Chart()
         {
-            model.Entrances = _context.Entrances.ToList();
-
-            var data = _context.Entrances            
-            .GroupBy(p => p.IdStaff)
-            .Select(g => new { Name = g.Key, Count = g.Count() })
+            var data = _context.Entrances
+            .GroupBy(p => p.DateEntr.Day)
+            .Select(g => new ChartItemViewModel { ID = g.Key, Count = g.Count() })
             .ToList();
+
+            var VM = new ChartViewModel
+            {
+                Chart = data,
+            };
            
-            return View(model);
+            return View(VM);
         }       
         
 
@@ -77,7 +80,7 @@ namespace EntranceControlWeb.Controllers
         public IActionResult EntranceReport()
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            FileStream fs = new FileStream("EntranceReport.xls", FileMode.Create);
+            FileStream fs = new FileStream("EntranceReport.xls", FileMode.OpenOrCreate);
             using (ExcelPackage Ep = new ExcelPackage(fs))
             {
 

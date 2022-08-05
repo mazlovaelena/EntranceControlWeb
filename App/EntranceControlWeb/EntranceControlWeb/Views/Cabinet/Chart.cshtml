@@ -1,4 +1,4 @@
-﻿@model List<Entrance>;
+﻿@model EntranceControlWeb.Models.ChartViewModel;
 @{
     ViewData["Title"] = "Cabinet";
 
@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
     <script src="~/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/js/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
@@ -157,31 +158,28 @@
     <div class="container">
         <div class="row my-3">
             <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
-            <h5 class="text-center">ЛИЧНЫЙ КАБИНЕТ АДМИНИСТРАТОРА</h5>
+            <h5 class="text-center">ПРОСМОТР ДИАГРАММЫ ПОСЕЩАЕМОСТИ</h5>
         </div>
         <div class="row my-3">
             <canvas id="myChart" style="background-color: whitesmoke; border-radius: 8px; border-color: darkslategray; border-style: groove; "></canvas>
             <script>
+                var dataStaff = @Json.Serialize(Model.Chart.Select(x => x.ID).ToList());
+                var dataDays = @Json.Serialize(Model.Chart.Select(x => x.Count).ToList());
+
                  const ctxx = document.getElementById('myChart').getContext('2d');
                  const myCharts = new Chart(ctxx, {
-                                               type: 'line',
+                                               type: 'bar',
                      data: {
-                         labels: [@foreach (var people in Model)
-                             { @people.IdStaffs.Surname @people.IdStaffs.Name @people.IdStaffs.LastName
-                             }],
+                         labels: dataStaff ,
                                                    datasets: [
                                                        {
-                                                           label: '---',
-                                                           backgroundColor: 'rgb(0, 145, 255)',
-                                                           borderColor: 'rgb(0, 145, 255)',
+                                                           label: 'Количество посетителей',
+                                                           backgroundColor: ['rgb(150, 204, 255)'],
+                                                           borderColor: ['rgb(0, 145, 255)'],
                                                            borderWidth: 2,
                                                            tension: 0.2,
-                                                           data: [ @foreach(var item in Model)
-                                                                    {
-                                                               
-                                                                    }
-                                                           ]
-                                                          }] 
+                                                           data: dataDays
+                                                          }]
                                                },
                                                options: {
                                                     scales: {
@@ -189,11 +187,11 @@
                                                             display: true,
                                                             title: {
                                                                     display: true,
-                                                                    text: 'Дата'
+                                                                    text: 'День'
                                                             }
                                                         },
                                                         y: {
-                                                            beginAtZero: true,
+                                                          
                                                             display: true,
 
                                                             title: {

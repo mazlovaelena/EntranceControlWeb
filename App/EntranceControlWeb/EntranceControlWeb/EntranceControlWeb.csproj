@@ -65,8 +65,4 @@
     <Folder Include="wwwroot\lib\bootstrap\dist\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\Entrance.xlsx" />
-  </ItemGroup>
-
 </Project>
