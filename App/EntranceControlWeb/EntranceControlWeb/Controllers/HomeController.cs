@@ -34,13 +34,13 @@ namespace EntranceControlWeb.Controllers
         {
             var data = _context.Doors.FirstOrDefault(x => x.IdDoor == id);
             var entr = _context.Entrances.FirstOrDefault(x => x.IdDoor == id);
-            
-            if (data != null)
+
+            if (entr != null)
             {
                 _context.Entrances.Remove(entr);
                 _context.Doors.Remove(data);
             }
-
+           
             _context.SaveChanges();
             return RedirectToAction(nameof(Doors));
 
@@ -234,7 +234,7 @@ namespace EntranceControlWeb.Controllers
         public IActionResult DelPos(int id)
         {
             var data = _context.Positions.FirstOrDefault(x => x.IdPost == id);
-            var office = _context.SortingByOffices.FirstOrDefault(x => x.IdOffice == id);
+            var office = _context.SortingByOffices.FirstOrDefault(x => x.IdPost == id);
 
             if (data != null)
             {
@@ -466,6 +466,10 @@ namespace EntranceControlWeb.Controllers
         public IActionResult StaffEdit (StaffViewModel staff)
         {
             var edit = _context.staff.FirstOrDefault(x => x.IdStaff == staff.IdStaff);
+
+            staff.Staffs = _context.staff.ToList();
+            staff.Levels = _context.AccessLevels.ToList();
+
             edit.IdStaff = staff.IdStaff;
             edit.Surname = staff.Surname;
             edit.Name = staff.Name;
@@ -482,10 +486,16 @@ namespace EntranceControlWeb.Controllers
         }
         public IActionResult StaffEdit(StaffViewModel staff, int id)
         {
+            staff.Staffs = _context.staff.ToList();
+            staff.Levels = _context.AccessLevels.ToList();
+
             var view = _context.staff.FirstOrDefault(x => x.IdStaff == id);
             if(id != 0)
             {
                 var edit = _context.staff.FirstOrDefault(x => x.IdStaff == id);
+
+                staff.Staffs = _context.staff.ToList();
+                staff.Levels = _context.AccessLevels.ToList();
 
                 staff.IdStaff = edit.IdStaff;
                 staff.Surname = edit.Surname;

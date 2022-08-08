@@ -125,20 +125,20 @@
                             {
                                 if (User.IsInRole(UserRole.User.ToString()))
                                 {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="....">Руководство сотрудника</a>
+                                    <li class="nav-item" style="position: relative; left: 950px">
+                                        <a class="nav-link active" href="~/RukUser.pdf" target="_blank">Руководство пользователя</a>
                                     </li>
                                 }
                                 else if (User.IsInRole(UserRole.Admin.ToString()))
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="....">Руководство начальника</a>
+                                        <a class="nav-link active" href="~/RukAdmin.pdf" target="_blank">Руководство начальника</a>
                                     </li>
                                 }
                                 else if (User.IsInRole(UserRole.SysAdmin.ToString()))
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="....">Руководство администратора</a>
+                                        <a class="nav-link active" href="~/RukSysAdmin.pdf" target="_blank">Руководство администратора</a>
                                     </li>
                                 }
                             }
@@ -200,7 +200,7 @@
                                 {
                                     <td>
                                         <a href="@Url.Action("RoomEdit", "Home", new { id = @data.IdRoom })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdRoom">Редактировать</a>
-                            
+
                                     </td>
                                 }
                             }
@@ -211,77 +211,79 @@
 
             @if (User.Identity.IsAuthenticated)
             {
-                
+
                 if (User.IsInRole(UserRole.SysAdmin.ToString()))
                 {
-                    <div class="row">
-
-                        <a href="@Url.Action("CreateRoom", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a>
+                    <div class="row m-2">
+                        <div class="col-2"></div>
+                        <div class="col-8"> <a href="@Url.Action("CreateRoom", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
+                        <div class="col-2"></div>
 
                     </div>
+                   
                 }
             }
 
-                <script>
-                    $('.editClick').on('click', function () {
-                        // ...
-                        console.log('edit clicked');
-                        const roomId = $(this).data('id');
-                        // обращение на сервер
-                        $.get('/Home/RoomEdit/' + roomId, function (result) {
-                            // результат содержит данные о двери
-                            $('#exampleModal #inputTitle').val(result.idRoom);
-                            $('#exampleModal #inputTitle1').val(result.titleRoom);
-                            $('#exampleModal #inputTitle2').val(result.idLevel);
-                        });
-
+            <script>
+                $('.editClick').on('click', function () {
+                    // ...
+                    console.log('edit clicked');
+                    const roomId = $(this).data('id');
+                    // обращение на сервер
+                    $.get('/Home/RoomEdit/' + roomId, function (result) {
+                        // результат содержит данные о двери
+                        $('#exampleModal #inputTitle').val(result.idRoom);
+                        $('#exampleModal #inputTitle1').val(result.titleRoom);
+                        $('#exampleModal #inputTitle2').val(result.idLevel);
                     });
 
-                </script>
+                });
 
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Редактировать информацию</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <form method="post" asp-action="RoomEdit" asp-controller="Home">
-                                <div class="modal-body">
-                                    <div class="row mb-3">
-                                        <input hidden readonly asp-for="@Model.IdRoom" value="@Model?.IdRoom" type="text" class="form-control" id="inputTitle">
-                                        <label for="inputTitle1" class="col-sm-4 col-form-label">Наименование помещения</label>
-                                        <div class="col-sm-8">
-                                            <input asp-for="@Model.TitleRoom" value="@Model?.TitleRoom" type="text" class="form-control" id="inputTitle1">
-                                            <span for="inputTitle" class="text-danger" asp-validation-for="@Model.TitleRoom"></span>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label for="#inputTitle2" class="col-sm-4 col-form-label">Уровень доступа</label>
-                                        <div class="col-sm-8">
-                                            <select name="idLevel" class="form-control" id="#inputTitle2">
+            </script>
 
-                                                @foreach (var data in Model.Rooms)
-                                                {
-                                                    <option value="@data.IdLevel">@data.IdLevels.TitleLevel</option>
-                                                }
-                                            </select>
-                                            <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdLevel"></span>
-                                            <span for="idRoom" class="text-danger" asp-validation-for="@Model.TitleLevel"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
-                                    <button type="submit" class="btn btn-success">Сохранить</button>
-                                </div>
-                            </form>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Редактировать информацию</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
+                        <form method="post" asp-action="RoomEdit" asp-controller="Home">
+                            <div class="modal-body">
+                                <div class="row mb-3">
+                                    <input hidden readonly asp-for="@Model.IdRoom" value="@Model?.IdRoom" type="text" class="form-control" id="inputTitle">
+                                    <label for="inputTitle1" class="col-sm-4 col-form-label">Наименование помещения</label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="@Model.TitleRoom" value="@Model?.TitleRoom" type="text" class="form-control" id="inputTitle1">
+                                        <span for="inputTitle" class="text-danger" asp-validation-for="@Model.TitleRoom"></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="#inputTitle2" class="col-sm-4 col-form-label">Уровень доступа</label>
+                                    <div class="col-sm-8">
+                                        <select name="idLevel" class="form-control" id="#inputTitle2">
+
+                                            @foreach (var data in Model.Rooms)
+                                            {
+                                                <option value="@data.IdLevel">@data.IdLevels.TitleLevel</option>
+                                            }
+                                        </select>
+                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdLevel"></span>
+                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.TitleLevel"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
+                                <button type="submit" class="btn btn-success">Сохранить</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-
             </div>
+
+        </div>
     </div>
 </body>
 </html>

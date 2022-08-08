@@ -125,20 +125,20 @@
                             {
                                 if (User.IsInRole(UserRole.User.ToString()))
                                 {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="....">Руководство сотрудника</a>
+                                    <li class="nav-item" style="position: relative; left: 950px">
+                                        <a class="nav-link active" href="~/RukUser.pdf" target="_blank">Руководство пользователя</a>
                                     </li>
                                 }
                                 else if (User.IsInRole(UserRole.Admin.ToString()))
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="....">Руководство начальника</a>
+                                        <a class="nav-link active" href="~/RukAdmin.pdf" target="_blank">Руководство начальника</a>
                                     </li>
                                 }
                                 else if (User.IsInRole(UserRole.SysAdmin.ToString()))
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="....">Руководство администратора</a>
+                                        <a class="nav-link active" href="~/RukSysAdmin.pdf" target="_blank">Руководство администратора</a>
                                     </li>
                                 }
                             }
@@ -216,9 +216,11 @@
             {
                  if (User.IsInRole(UserRole.SysAdmin.ToString()))
                 {
-                    <div class="row">
-
-                        <a href="@Url.Action("CreateDoor", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a>
+                    
+                    <div class="row m-2">
+                        <div class="col-2"></div>
+                        <div class="col-8"> <a href="@Url.Action("CreateDoor", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
+                        <div class="col-2"></div>           
 
                     </div>
                 }

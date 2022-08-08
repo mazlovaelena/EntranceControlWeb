@@ -1,16 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
 using EntranceControlWeb.Models;
 using Microsoft.AspNetCore.Authorization;
-using System.ComponentModel;
 using OfficeOpenXml;
-using OfficeOpenXml.Attributes;
-using OfficeOpenXml.Table;
-using Microsoft.Extensions.Logging;
 using System.IO;
 using LicenseContext = OfficeOpenXml.LicenseContext;
 using System.Data;

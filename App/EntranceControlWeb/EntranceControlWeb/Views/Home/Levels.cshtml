@@ -126,20 +126,20 @@
                             {
                                 if (User.IsInRole(UserRole.User.ToString()))
                                 {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="....">Руководство сотрудника</a>
+                                    <li class="nav-item" style="position: relative; left: 950px">
+                                        <a class="nav-link active" href="~/RukUser.pdf" target="_blank">Руководство пользователя</a>
                                     </li>
                                 }
                                 else if (User.IsInRole(UserRole.Admin.ToString()))
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="....">Руководство начальника</a>
+                                        <a class="nav-link active" href="~/RukAdmin.pdf" target="_blank">Руководство начальника</a>
                                     </li>
                                 }
                                 else if (User.IsInRole(UserRole.SysAdmin.ToString()))
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="....">Руководство администратора</a>
+                                        <a class="nav-link active" href="~/RukSysAdmin.pdf" target="_blank">Руководство администратора</a>
                                     </li>
                                 }
                             }
@@ -200,7 +200,7 @@
                                 {
                                     <td>
                                         <a href="@Url.Action("LevelEdit", "Home", new { id = @data.IdLevel })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdLevel">Редактировать</a>
-                            
+
                                     </td>
                                 }
                             }
@@ -257,25 +257,27 @@
             </div>
 
             @if (User.Identity.IsAuthenticated)
-            {               
+            {
                 if (User.IsInRole(UserRole.SysAdmin.ToString()))
                 {
-                     <div class="row mb-3 my-4">
-                        <div class="col-4">
-                            <a href="@Url.Action("CreateLevel", "Home")" class="btn btn-outline-primary">Создать запись</a>
-                        </div>
-                     </div>
+                    <div class="row m-2">
+                        <div class="col-2"></div>
+                        <div class="col-8"> <a href="@Url.Action("CreateLevel", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
+                        <div class="col-2"></div>
+
+                    </div>
+                  
                 }
             }
-            
+
             <div class="row m-2 text-center">
                 <p class="text-center" style="font-size:17px">
                     Для настройки уровня доступа необходимо перейти на страницу <a class="text-primary" href="@Url.Action("Staff", "Home")">"Сотрудники"</a> или <a class="text-primary" href="@Url.Action("Rooms", "Home")">"Помещения"</a> и выбрать <a class="text-success">"Редактировать"</a> в соответсвующей ячейке таблицы.
                     <strong>Внимание!</strong> Права настройки уровня доступа есть только у начальника охары и системного администратора сайта.
                 </p>
-                
+
             </div>
-            
+
         </div>
     </div>
 
