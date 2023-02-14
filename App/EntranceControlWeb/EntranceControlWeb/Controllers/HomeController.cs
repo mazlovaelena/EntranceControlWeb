@@ -377,6 +377,7 @@ namespace EntranceControlWeb.Controllers
             if (data != null)
             {
                 _context.SortingByOffices.Remove(data);
+                _context.SaveChanges();
             }
 
             return RedirectToAction(nameof(SortByOff));
