@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace EntranceControlWeb.Models
 {
+    //Модель представления таблицы "Турникеты"
     public class DoorViewModel
     {
         public List<Door> Doors { get; set; }

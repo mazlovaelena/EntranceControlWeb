@@ -19,22 +19,26 @@ namespace EntranceControlWeb.Models
 
         public virtual DbSet<AccessLevel> AccessLevels { get; set; }
         public virtual DbSet<AccessStatus> AccessStatuses { get; set; }
+        public virtual DbSet<ActivityStatus> ActivityStatuses { get; set; }
         public virtual DbSet<Authorize> Authorizes { get; set; }
         public virtual DbSet<Door> Doors { get; set; }
         public virtual DbSet<Entrance> Entrances { get; set; }
+        public virtual DbSet<LastingStatus> LastingStatuses { get; set; }
         public virtual DbSet<Office> Offices { get; set; }
+        public virtual DbSet<Pass> Passes { get; set; }
         public virtual DbSet<Position> Positions { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
         public virtual DbSet<SortingByOffice> SortingByOffices { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Visitor> Visitors { get; set; }
         public virtual DbSet<staff> staff { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-G6IA9JI;initial catalog=EntranceControlWeb; trusted_connection=yes;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=DESKTOP-G6IA9JI;Database=EntranceControlWeb;Trusted_Connection=True;");
             }
         }
 
@@ -67,6 +71,20 @@ namespace EntranceControlWeb.Models
                 entity.Property(e => e.IdStatus).HasColumnName("ID_Status");
 
                 entity.Property(e => e.TitleStatus)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<ActivityStatus>(entity =>
+            {
+                entity.HasKey(e => e.IdActiv);
+
+                entity.ToTable("ActivityStatus");
+
+                entity.Property(e => e.IdActiv).HasColumnName("ID_Activ");
+
+                entity.Property(e => e.TitleActiv)
                     .IsRequired()
                     .HasMaxLength(20)
                     .IsUnicode(false);
@@ -127,35 +145,46 @@ namespace EntranceControlWeb.Models
 
                 entity.Property(e => e.IdDoor).HasColumnName("ID_Door");
 
-                entity.Property(e => e.IdRoom).HasColumnName("ID_Room");
+                entity.Property(e => e.IdPass).HasColumnName("ID_Pass");
 
-                entity.Property(e => e.IdStaff).HasColumnName("ID_Staff");
+                entity.Property(e => e.IdRoom).HasColumnName("ID_Room");
 
                 entity.Property(e => e.IdStatus).HasColumnName("ID_Status");
 
                 entity.HasOne(d => d.IdDoors)
                     .WithMany(p => p.Entrances)
                     .HasForeignKey(d => d.IdDoor)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Entrance__ID_Doo__267ABA7A");
+
+                entity.HasOne(d => d.IdPasses)
+                    .WithMany(p => p.Entrances)
+                    .HasForeignKey(d => d.IdPass)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Entrance_Passes");
 
                 entity.HasOne(d => d.IdRooms)
                     .WithMany(p => p.Entrances)
                     .HasForeignKey(d => d.IdRoom)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Entrance__ID_Roo__25869641");
 
-                entity.HasOne(d => d.IdStaffs)
-                    .WithMany(p => p.Entrances)
-                    .HasForeignKey(d => d.IdStaff)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Entrance__ID_Sta__24927208");
-
-                entity.HasOne(d => d.IdStatusS)
+                entity.HasOne(d => d.IdStatuses)
                     .WithMany(p => p.Entrances)
                     .HasForeignKey(d => d.IdStatus)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Entrance__ID_Sta__276EDEB3");
+            });
+
+            modelBuilder.Entity<LastingStatus>(entity =>
+            {
+                entity.HasKey(e => e.IdLong);
+
+                entity.ToTable("LastingStatus");
+
+                entity.Property(e => e.IdLong).HasColumnName("ID_Long");
+
+                entity.Property(e => e.TitleLong)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Office>(entity =>
@@ -169,6 +198,29 @@ namespace EntranceControlWeb.Models
                     .IsRequired()
                     .HasMaxLength(20)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Pass>(entity =>
+            {
+                entity.HasKey(e => e.IdPass);
+
+                entity.Property(e => e.IdPass).HasColumnName("ID_Pass");
+
+                entity.Property(e => e.IdActiv).HasColumnName("ID_Activ");
+
+                entity.Property(e => e.IdLong).HasColumnName("ID_Long");
+
+                entity.HasOne(d => d.IdActivs)
+                    .WithMany(p => p.Passes)
+                    .HasForeignKey(d => d.IdActiv)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Passes_ActivityStatus");
+
+                entity.HasOne(d => d.IdLongs)
+                    .WithMany(p => p.Passes)
+                    .HasForeignKey(d => d.IdLong)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Passes_LastingStatus");
             });
 
             modelBuilder.Entity<Position>(entity =>
@@ -189,7 +241,9 @@ namespace EntranceControlWeb.Models
                 entity.HasKey(e => e.IdRoom)
                     .HasName("PK__Rooms__43DC0E41839B1C10");
 
-                entity.Property(e => e.IdRoom).HasColumnName("ID_Room");
+                entity.Property(e => e.IdRoom)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("ID_Room");
 
                 entity.Property(e => e.IdLevel).HasColumnName("ID_Level");
 
@@ -199,10 +253,10 @@ namespace EntranceControlWeb.Models
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.IdLevels)
-                    .WithMany(p => p.Rooms)
-                    .HasForeignKey(d => d.IdLevel)
+                    .WithOne(p => p.Rooms)
+                    .HasForeignKey<Room>(d => d.IdRoom)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Rooms__ID_Level__1ED998B2");
+                    .HasConstraintName("FK_Rooms_AccessLevel");
             });
 
             modelBuilder.Entity<SortingByOffice>(entity =>
@@ -225,13 +279,11 @@ namespace EntranceControlWeb.Models
                 entity.HasOne(d => d.IdOffices)
                     .WithMany(p => p.SortingByOffices)
                     .HasForeignKey(d => d.IdOffice)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__SortingBy__ID_Of__2B3F6F97");
 
                 entity.HasOne(d => d.IdPosts)
                     .WithMany(p => p.SortingByOffices)
                     .HasForeignKey(d => d.IdPost)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__SortingBy__ID_Po__2A4B4B5E");
 
                 entity.HasOne(d => d.IdStaffs)
@@ -261,6 +313,40 @@ namespace EntranceControlWeb.Models
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<Visitor>(entity =>
+            {
+                entity.HasKey(e => e.Idvisitor);
+
+                entity.Property(e => e.Idvisitor).HasColumnName("IDVisitor");
+
+                entity.Property(e => e.Fio)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("FIO");
+
+                entity.Property(e => e.IdLevel).HasColumnName("ID_Level");
+
+                entity.Property(e => e.IdPass).HasColumnName("ID_Pass");
+
+                entity.Property(e => e.MobilePhone)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdLevels)
+                    .WithMany(p => p.Visitors)
+                    .HasForeignKey(d => d.IdLevel)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Visitors_AccessLevel");
+
+                entity.HasOne(d => d.IdPasses)
+                    .WithMany(p => p.Visitors)
+                    .HasForeignKey(d => d.IdPass)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Visitors_Passes");
+            });
+
             modelBuilder.Entity<staff>(entity =>
             {
                 entity.HasKey(e => e.IdStaff)
@@ -278,6 +364,8 @@ namespace EntranceControlWeb.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.IdLevel).HasColumnName("ID_Level");
+
+                entity.Property(e => e.IdPass).HasColumnName("ID_Pass");
 
                 entity.Property(e => e.Image)
                     .IsRequired()
@@ -305,10 +393,14 @@ namespace EntranceControlWeb.Models
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.IdLevels)
-                    .WithMany(p => p.staff)
+                    .WithMany(p => p.staffs)
                     .HasForeignKey(d => d.IdLevel)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Staff__ID_Level__1BFD2C07");
+
+                entity.HasOne(d => d.IdPasses)
+                    .WithMany(p => p.staffs)
+                    .HasForeignKey(d => d.IdPass)
+                    .HasConstraintName("FK_Staff_Passes");
             });
 
             OnModelCreatingPartial(modelBuilder);

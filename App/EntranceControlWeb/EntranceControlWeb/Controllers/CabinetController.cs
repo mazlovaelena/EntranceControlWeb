@@ -103,9 +103,9 @@ namespace EntranceControlWeb.Controllers
 
                 }
                 string file_path = Path.Combine(_appEnvironment.ContentRootPath, "UserReport.xls");
-                // Тип файла - content-type
+                //Тип файла -content - type
                 string file_type = "application/octet-stream";
-                // Имя файла - необязательно
+                //Имя файла -необязательно
                 string file_name = "UserReport.xls";
                 return PhysicalFile(file_path, file_type, file_name);
             }
@@ -139,19 +139,16 @@ namespace EntranceControlWeb.Controllers
                     fs.Close();
                 }
                 string file_path = Path.Combine(_appEnvironment.ContentRootPath, "UserReport.xls");
-                // Тип файла - content-type
+               
                 string file_type = "application/octet-stream";
-                // Имя файла - необязательно
+                
                 string file_name = "UserReport.xls";
                 return PhysicalFile(file_path, file_type, file_name);
 
             }
         }
-    
 
-
-
-            [Authorize]
+        [Authorize]
         public IActionResult Chart()
         {
             var data = _context.Entrances
@@ -163,10 +160,42 @@ namespace EntranceControlWeb.Controllers
             {
                 Chart = data,
             };
-           
-            return View(VM);
-        }       
-        
+
+            return View(/*VM*/);
+        }
+
+        [Authorize]
+        public IActionResult WorkTime(EntranceViewModel vm, SortingByOfficeViewModel sm)
+        {
+            //var vm = new EntranceViewModel();
+            //var sm = new SortingByOfficeViewModel();
+            //var timefact = Convert.ToDouble(vm.DateExit.TimeOfDay) - Convert.ToDouble(vm.DateEntr.TimeOfDay);
+            //vm.Entrances = _context.Entrances.ToList();
+            //sm.Sortings = _context.SortingByOffices.ToList();
+            //var wm = new WorkTimeCalc();
+
+            //var calc = _context.Entrances
+            //    .GroupBy(x => x.IdStaff)
+
+            //    .Select(y => new WorkTimeCalc
+            //    {
+            //        ID = y.Key,
+            //        TimeEntr = (string)vm.DateEntr.TimeOfDay.ToString().Where(y => vm.IdStaff == wm.ID),
+            //        TimeExt = (string)vm.DateExit.TimeOfDay.ToString().Where(y => vm.IdStaff == wm.ID),
+            //        TimeBeg = (string)sm.TimeBegin.ToString().Where(y => sm.IdStaff == wm.ID),
+            //        TimeEnd = (string)sm.TimeEnd.ToString().Where(y => sm.IdStaff == wm.ID)
+
+            //    })
+            //    .ToList();
+
+
+            //var mod = new WorkTimeViewModel
+            //{
+            //    WorkTime = calc
+            //};
+
+            return View();
+        }
 
         [Authorize]
         [HttpPost]
@@ -197,9 +226,9 @@ namespace EntranceControlWeb.Controllers
                     Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.DateEntr.ToString();
                     Sheet1.Cells[string.Format("C{0}", row1)].Value = entrance.DateExit.ToString();
                     Sheet1.Cells[string.Format("D{0}", row1)].Value = entrance.IdRooms.TitleRoom;
-                    Sheet1.Cells[string.Format("E{0}", row1)].Value = entrance.IdStaffs.Surname;
+                    Sheet1.Cells[string.Format("E{0}", row1)].Value = entrance.IdPass;
                     Sheet1.Cells[string.Format("F{0}", row1)].Value = entrance.IdDoors.TitleDoor;
-                    Sheet1.Cells[string.Format("G{0}", row1)].Value = entrance.IdStatusS.TitleStatus;
+                    Sheet1.Cells[string.Format("G{0}", row1)].Value = entrance.IdStatuses.TitleStatus;
                     row1++;
                 }
                 Sheet1.Cells["A:AZ"].AutoFitColumns();
@@ -346,17 +375,19 @@ namespace EntranceControlWeb.Controllers
 
                 Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
                 var xlFile = new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "EntranceReport.xls"));
-                
+
                 Ep.Save();
                 fs.Close();
             }
             string file_path = Path.Combine(_appEnvironment.ContentRootPath, "EntranceReport.xls");
-            // Тип файла - content-type
+            
             string file_type = "application/octet-stream";
-            // Имя файла - необязательно
+            
             string file_name = "EntranceReport.xls";
             return PhysicalFile(file_path, file_type, file_name);
 
         }
+
+
     }
 }

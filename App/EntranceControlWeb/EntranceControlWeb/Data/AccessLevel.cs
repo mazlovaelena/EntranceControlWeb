@@ -9,14 +9,15 @@ namespace EntranceControlWeb.Models
     {
         public AccessLevel()
         {
-            Rooms = new HashSet<Room>();
-            staff = new HashSet<staff>();
+            Visitors = new HashSet<Visitor>();
+            staffs = new HashSet<staff>();
         }
 
         public int IdLevel { get; set; }
         public string TitleLevel { get; set; }
 
-        public virtual ICollection<Room> Rooms { get; set; }
-        public virtual ICollection<staff> staff { get; set; }
+        public virtual Room Rooms { get; set; }
+        public virtual ICollection<Visitor> Visitors { get; set; }
+        public virtual ICollection<staff> staffs { get; set; }
     }
 }

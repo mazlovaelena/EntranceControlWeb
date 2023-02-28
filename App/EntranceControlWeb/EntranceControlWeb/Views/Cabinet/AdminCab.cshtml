@@ -181,7 +181,7 @@
                                 <th>Дата входа</th>
                                 <th>Дата выхода</th>
                                 <th>Помещение</th>
-                                <th>Сотрудник</th>
+                                <th>№ пропуска</th>
                                 <th>Тип турникета</th>
                                 <th>Статус доступа</th>
                             </tr>
@@ -196,11 +196,9 @@
                                     <td>@data.DateEntr</td>
                                     <td>@data.DateExit</td>
                                     <td>@data.IdRooms.TitleRoom</td>
-                                    <td>
-                                        @data.IdStaffs.Surname @data.IdStaffs.Name @data.IdStaffs.LastName
-                                    </td>
+                                    <td>@data.IdPass</td>
                                     <td>@data.IdDoors.TitleDoor</td>
-                                    <td>@data.IdStatusS.TitleStatus</td>
+                                    <td>@data.IdStatuses.TitleStatus</td>
                                 </tr>
                             </tbody>
                         }
@@ -211,6 +209,9 @@
                 </div>
                 <div class="col-4">
                     <a class="btn btn-outline-dark" href="@Url.Action("Users", "Cabinet")">Просмотр пользователей сайта</a>
+                </div>
+                <div class="col-4">
+                    <a class="btn btn-outline-dark" href="@Url.Action("WorkTime", "Cabinet")">Просмотр рабочего времени</a>
                 </div>
                 <div class="col-4">
                     <button type="submit" class="btn btn-outline-dark" asp-controller="Cabinet" asp-action="EntranceReport">Скачать файл базы данных</button>

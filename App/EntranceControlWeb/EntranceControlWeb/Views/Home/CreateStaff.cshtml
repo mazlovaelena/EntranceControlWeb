@@ -219,6 +219,13 @@
                         </div>
                     </div>
                     <div class="row mb-3">
+                        <label for="inputPhone" class="col-sm-4 col-form-label">№ пропуска</label>
+                        <div class="col-sm-8">
+                            <input type="tel" asp-for="@Model.IdPass" value="@Model?.IdPass" class="form-control" id="inputPhone">
+                            <span for="inputTitle" class="text-danger" asp-validation-for="@Model.IdPass"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
                         <label for="formFile" class="col-sm-4 col-form-label">Выберите изображение</label>
                         <div class="col-sm-8">
                             <input class="form-control" asp-for="@Model.Image" value="@Model?.Image" type="text" id="formFile">

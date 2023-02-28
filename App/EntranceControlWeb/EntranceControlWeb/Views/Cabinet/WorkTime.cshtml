@@ -1,6 +1,6 @@
-﻿@model EntranceControlWeb.Models.StaffViewModel;
+﻿@model EntranceControlWeb.Models.WorkTimeViewModel;
 @{
-    ViewData["Title"] = "Staff";
+    ViewData["Title"] = "WorkTime";
 
 }
 
@@ -142,6 +142,7 @@
                                     </li>
                                 }
                             }
+
                             <li class="nav-item">
                                 <a class="nav-link active text-danger" asp-controller="Login" asp-action="LogOut">Выход</a>
                             </li>
@@ -156,83 +157,56 @@
     <div class="container">
         <div class="row my-3">
             <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
-            <h5 class="text-center">СОТРУДНИКИ</h5>
+            <h5 class="text-center">ЛИЧНЫЙ КАБИНЕТ НАЧАЛЬНИКА ОХРАНЫ</h5>
         </div>
-
-        <div class="row my-3 mb-2">
-
-            @foreach (var data in Model.Staffs)
+        <div class="row my-2">
+            @if (User.Identity.IsAuthenticated)
             {
-           
-                <div class="card rounded m-3 shadow-lg">
-                    <div class="row g-0">
-                        <div class="col-md-3">
-                            <img src="@data.Image" class="img-fluid rounded-start m-2" style="width: 200px; height: 200px">
-                        </div>
-                        <div class="col-md-9">
-                            <div class="card-body" style="font-size: 17px">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <input hidden type="text" asp-for="@Model.IdStaff" class="form-control" id="inputIdStaff" value="@Model?.IdStaff" readonly>
-                                        <input hidden type="text" asp-for="@Model.IdLevel" class="form-control" id="inputIdLevel" value="@Model?.IdLevel" readonly>
-                                        <div class="row">
-                                            ФИО: @data.Surname @data.Name @data.LastName
-                                        </div>
-                                        <div class="row">
-                                            Дата рождения: @data.Birthday
-                                        </div>
-                                        <div class="row">
-                                            Корпоративная почта: @data.CorpEmail
-                                        </div>
-                                        <div class="row">
-                                            Мобильный телефон: @data.MobPhone
-                                        </div>
-                                        <div class="row">
-                                            Уровень доступа: @data.IdLevels.TitleLevel
-                                        </div>
-                                        <div class="row">
-                                            № пропуска: @data.IdPass
-                                        </div>
-                                    </div>
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
-                                        if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                                        {
-                                            <div class="col-4">
-                                                <div class="row my-1">
-                                                    <a class="btn btn-outline-success" data-id="@data.IdStaff" href="@Url.Action("StaffEdit", "Home", new { id = @data.IdStaff })">Редактировать</a> <br />
+                <p>
+                    Вы вошли под логином @User.Identity.Name.
 
-                                                </div>
-                                                <div class="row my-1">
-
-                                                    <a class="btn btn-outline-danger" data-id="@data.IdStaff" href="@Url.Action("DelStaff", "Home", new { id = @data.IdStaff })">Удалить запись</a>
-                                                </div>
-                                                <div class="row my-1">
-
-                                                    <a href="@Url.Action("CreateStaff", "Home")" class="btn btn-outline-primary">Создать запись</a>
-                                                </div>
-                                            </div>
-                                        }
-                                        else if (User.IsInRole(UserRole.Admin.ToString()))
-                                        {
-                                            <div class="col-4">
-                                                <div class="row my-1">
-                                                    <a class="btn btn-outline-success" data-id="@data.IdStaff" href="@Url.Action("StaffEdit", "Home", new { id = @data.IdStaff })">Редактировать</a> <br />
-
-                                                </div>
-                                            </div>
-                                        }
-
-                                     }
-                                     
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-            }       
+                </p>
+                <p>
+                    Роль на сайте: адмиистратор.
+                </p>
+            }
         </div>
+        <form method="post" asp-action="EntranceReport" asp-controller="Cabinet">
+            <div class="row my-2">
+                <div class="row my-3" hidden>
+                    <table class="table-dark table-bordered" style="width:1200px; color:black;">
+                        <thead>
+                            <tr class="text-center">
+                                <th>ID Сотрудник</th>
+                                <th>Фактическое время работы</th>
+                                <th>Время работы по плану</th>                               
+                            </tr>
+                        </thead>
+
+                        @foreach (var data in Model.WorkTime)
+                        {
+                            <tbody>
+                                <tr class="text-md-start">
+
+                                    <td>@data.ID</td>
+                                    <td>@data.TimeFact</td>
+                                    <td>@data.TimeWork</td>                                   
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                </div>
+                <div class="col-4">
+                    <a class="btn btn-outline-dark" href="@Url.Action("Chart", "Cabinet")">Просмотр диаграммы посещаемости</a>
+                </div>              
+                <div class="col-4">
+                    <button type="submit" class="btn btn-outline-dark" asp-controller="Cabinet" asp-action="WorkReport">Cохранить файл отчета</button>
+                </div>
+
+            </div>
+        </form>
     </div>
+
+
 </body>
 </html>

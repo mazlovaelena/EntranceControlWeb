@@ -1,5 +1,6 @@
 ﻿using EntranceControlWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,27 @@ namespace EntranceControlWeb.Controllers
         }
 
         #region  ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ТУРНИКЕТЫ"
+
+        //public async Task<IActionResult> SortDoor(Sorting sortOrder = Sorting.DoorAsc)
+        //{
+        //    IQueryable<Door> doors = _context.Doors.Include(x => x.TitleDoor);
+
+        //    ViewData["DoorSort"] = sortOrder == Sorting.DoorAsc ? Sorting.DoorDesc : Sorting.DoorAsc;
+        //    ViewData["RoomSort"] = sortOrder == Sorting.RoomAsc ? Sorting.RoomDesc : Sorting.RoomAsc;
+
+        //    doors = sortOrder switch
+        //    {
+        //        Sorting.DoorDesc => doors.OrderByDescending(s => s.TitleDoor),
+        //        Sorting.DoorAsc => doors.OrderBy(s => s.TitleDoor),
+        //        Sorting.RoomAsc => doors.OrderBy(s => s.IdRooms.TitleRoom),
+        //        Sorting.RoomDesc => doors.OrderByDescending(s => s.IdRooms.TitleRoom),
+
+        //    };
+        //    return View(await doors.AsNoTracking().ToListAsync());
+        //}
+
+
+
         //Отображение страницы
         public IActionResult Doors(DoorViewModel door)
         {
@@ -40,7 +62,7 @@ namespace EntranceControlWeb.Controllers
                 _context.Entrances.Remove(entr);
                 _context.Doors.Remove(data);
             }
-           
+
             _context.SaveChanges();
             return RedirectToAction(nameof(Doors));
 
@@ -70,15 +92,16 @@ namespace EntranceControlWeb.Controllers
 
             }
             return Json(viewmodel);
+            
         }
         //Создание записи
         [HttpPost]
-        public IActionResult CreateDoor (DoorViewModel door)
+        public IActionResult CreateDoor(DoorViewModel door)
         {
             var create = new Door { TitleDoor = door.TitleDoor, IdRoom = door.IdRoom };
-                       
-            _context.Doors.Add(create);            
-            _context.SaveChanges();            
+
+            _context.Doors.Add(create);
+            _context.SaveChanges();
             return RedirectToAction(nameof(Doors));
 
         }
@@ -87,7 +110,7 @@ namespace EntranceControlWeb.Controllers
             var door = new DoorViewModel();
             door.Doors = _context.Doors.ToList();
             door.Rooms = _context.Rooms.ToList();
-            return View(door);
+            return View(/*door*/);
         }
         #endregion
 
@@ -106,20 +129,22 @@ namespace EntranceControlWeb.Controllers
             var data = _context.AccessLevels.FirstOrDefault(x => x.IdLevel == id);
             var entr = _context.staff.FirstOrDefault(x => x.IdLevel == id);
             var room = _context.Rooms.FirstOrDefault(x => x.IdLevel == id);
+            var vis = _context.Visitors.FirstOrDefault(x => x.IdLevel == id);
 
-            if(data != null)
+            if (data != null)
             {
+                _context.Visitors.Remove(vis);
                 _context.staff.Remove(entr);
                 _context.Rooms.Remove(room);
                 _context.AccessLevels.Remove(data);
 
             }
 
-            _context.SaveChanges();            
+            _context.SaveChanges();
             return RedirectToAction(nameof(Levels));
         }
-        
-        //Редактирование записи
+ 
+       //Редактирование записи
         [HttpPost]
         public IActionResult LevelEdit(AccessLevelViewModel acclev)
         {
@@ -142,6 +167,7 @@ namespace EntranceControlWeb.Controllers
 
             }
             return Json(viewmodel);
+            
         }
         //Создание записи
         [HttpPost]
@@ -206,6 +232,7 @@ namespace EntranceControlWeb.Controllers
 
             }
             return Json(viewmodel);
+            
         }
         //Создание записи
         [HttpPost]
@@ -269,10 +296,11 @@ namespace EntranceControlWeb.Controllers
 
             }
             return Json(viewmodel);
+            
         }
         //Создание записи
         [HttpPost]
-        public IActionResult CreatePost(Position pos)
+        public IActionResult CreatePost(Position pos, int id)
         {
             var create = new Position { TitlePost = pos.TitlePost };
 
@@ -338,6 +366,7 @@ namespace EntranceControlWeb.Controllers
 
             }
             return Json(viewmodel);
+           
         }
         //Создание записи
         [HttpPost]
@@ -352,7 +381,7 @@ namespace EntranceControlWeb.Controllers
         }
         public IActionResult CreateRoom()
         {
-            var room = new RoomViewModel();            
+            var room = new RoomViewModel();
             room.Rooms = _context.Rooms.ToList();
             room.Levels = _context.AccessLevels.ToList();
             return View(room);
@@ -407,7 +436,7 @@ namespace EntranceControlWeb.Controllers
             sort.Positions = _context.Positions.ToList();
             sort.Offices = _context.Offices.ToList();
 
-            var view = _context.SortingByOffices.FirstOrDefault(x => x.IdItem == id);            
+            var view = _context.SortingByOffices.FirstOrDefault(x => x.IdItem == id);
             if (id != 0)
             {
                 var edit = _context.SortingByOffices.FirstOrDefault(x => x.IdItem == id);
@@ -418,7 +447,7 @@ namespace EntranceControlWeb.Controllers
                 sort.IdStaff = edit.IdStaff;
                 sort.IdPost = edit.IdPost;
                 sort.IdOffice = edit.IdOffice;
-                
+
             }
             return View(sort);
         }
@@ -457,14 +486,14 @@ namespace EntranceControlWeb.Controllers
         public IActionResult Staff(StaffViewModel staff)
         {
             staff.Staffs = _context.staff.ToList();
-            staff.Levels = _context.AccessLevels.ToList();
-           
+            staff.Levels = _context.AccessLevels.ToList();     
+
             return View(staff);
         }
 
         //Редактирование данных
         [HttpPost]
-        public IActionResult StaffEdit (StaffViewModel staff)
+        public IActionResult StaffEdit(StaffViewModel staff)
         {
             var edit = _context.staff.FirstOrDefault(x => x.IdStaff == staff.IdStaff);
 
@@ -480,6 +509,7 @@ namespace EntranceControlWeb.Controllers
             edit.MobPhone = staff.MobPhone;
             edit.Image = staff.Image;
             edit.IdLevel = staff.IdLevel;
+            edit.IdPass = staff.IdPass;
 
             _context.SaveChanges();
 
@@ -491,7 +521,7 @@ namespace EntranceControlWeb.Controllers
             staff.Levels = _context.AccessLevels.ToList();
 
             var view = _context.staff.FirstOrDefault(x => x.IdStaff == id);
-            if(id != 0)
+            if (id != 0)
             {
                 var edit = _context.staff.FirstOrDefault(x => x.IdStaff == id);
 
@@ -507,21 +537,20 @@ namespace EntranceControlWeb.Controllers
                 staff.MobPhone = edit.MobPhone;
                 staff.Image = edit.Image;
                 staff.IdLevel = edit.IdLevel;
+                staff.IdPass = edit.IdPass;
             }
             return View(staff);
         }
         //Удаление записи
-        public IActionResult DelStaff (int id)
+        public IActionResult DelStaff(int id)
         {
             var data = _context.staff.FirstOrDefault(x => x.IdStaff == id);
-            var sort = _context.SortingByOffices.FirstOrDefault(x => x.IdStaff == id);
-            var entr = _context.Entrances.FirstOrDefault(x => x.IdStaff == id);
-           
+            var sort = _context.SortingByOffices.FirstOrDefault(x => x.IdStaff == id);            
+
             if (data != null)
             {
-                _context.Entrances.Remove(entr);
                 _context.SortingByOffices.Remove(sort);
-                _context.staff.Remove(data);                
+                _context.staff.Remove(data);
             }
 
             _context.SaveChanges();
@@ -530,7 +559,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Создание записи
         [HttpPost]
-        public IActionResult CreateStaff (StaffViewModel staff)
+        public IActionResult CreateStaff(StaffViewModel staff)
         {
             var create = new staff
             {
@@ -542,6 +571,7 @@ namespace EntranceControlWeb.Controllers
                 MobPhone = staff.MobPhone,
                 Image = staff.Image,
                 IdLevel = staff.IdLevel,
+                IdPass = staff.IdPass,
 
             };
 
@@ -574,7 +604,7 @@ namespace EntranceControlWeb.Controllers
         {
             var viewmodel = new StaffViewModel();
             var view = _context.staff.FirstOrDefault(x => x.IdStaff == id);
-            if(view != null)
+            if (view != null)
             {
                 viewmodel.IdStaff = view.IdStaff;
                 viewmodel.Surname = view.Surname;
@@ -583,10 +613,11 @@ namespace EntranceControlWeb.Controllers
                 viewmodel.Birthday = view.Birthday;
                 viewmodel.CorpEmail = view.CorpEmail;
                 viewmodel.MobPhone = view.MobPhone;
-                viewmodel.Image = view.Image;                      
-                
+                viewmodel.Image = view.Image;
+
             }
             return Json(viewmodel);
+           
         }
 
         #endregion

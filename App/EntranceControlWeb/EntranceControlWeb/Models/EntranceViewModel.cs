@@ -22,6 +22,9 @@ namespace EntranceControlWeb.Models
         public string MobPhone { get; set; }
         public string Image { get; set; }
 
+        public List<Pass> Passes { get; set; }
+        public int IdPass { get; set; }
+
         public List<Position> Positions { get; set; }
         public int IdPost { get; set; }
         public string TitlePost { get; set; }
@@ -47,6 +50,6 @@ namespace EntranceControlWeb.Models
         public int IdStatus { get; set; }
         public string TitleStatus { get; set; }
 
-       
+
     }
 }

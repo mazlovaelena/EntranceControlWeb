@@ -164,7 +164,7 @@
                         <th>Дата входа</th>
                         <th>Дата выхода</th>
                         <th>Помещение</th>
-                        <th>Сотрудник</th>
+                        <th>№ пропуска</th>
                         <th>Тип турникета</th>
                         <th>Статус доступа</th>
                     </tr>
@@ -179,30 +179,9 @@
                             <td>@data.DateEntr</td>
                             <td>@data.DateExit</td>
                             <td>@data.IdRooms.TitleRoom</td>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                if (User.IsInRole(UserRole.User.ToString()))
-                                {
-                                    <td>
-                                        @data.IdStaffs.Surname @data.IdStaffs.Name @data.IdStaffs.LastName
-                                    </td>
-                                }
-                                else if (User.IsInRole(UserRole.Admin.ToString()))
-                                {
-                                    <td>
-                                        <a href=@Url.Action("ViewStaff", "Home", new {id = @data.IdStaff }) class="text-dark editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdStaff">@data.IdStaffs.Surname @data.IdStaffs.Name @data.IdStaffs.LastName</a>
-                                    </td>
-                                }
-                                else if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                                {
-                                    <td>
-                                        <a href=@Url.Action("ViewStaff", "Home", new {id = @data.IdStaff }) class="text-dark editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdStaff">@data.IdStaffs.Surname @data.IdStaffs.Name @data.IdStaffs.LastName</a>
-                                    </td>
-                                }
-                            }
-
+                            <td>@data.IdPass</td>
                             <td>@data.IdDoors.TitleDoor</td>
-                            <td>@data.IdStatusS.TitleStatus</td>
+                            <td>@data.IdStatuses.TitleStatus</td>
                         </tr>
                     </tbody>
                 }

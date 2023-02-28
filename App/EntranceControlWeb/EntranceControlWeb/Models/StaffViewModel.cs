@@ -38,7 +38,10 @@ namespace EntranceControlWeb.Models
         public int IdLevel { get; set; }
 
         [Required(ErrorMessage = "Выберите значение")]
-        public string TitleLevel { get; set; }     
+        public string TitleLevel { get; set; }
+        [Required(ErrorMessage = "Заполните это поле")]
+
+        public int IdPass { get; set; }
 
     }
 }
