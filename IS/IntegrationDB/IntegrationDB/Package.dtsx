@@ -7,107 +7,47 @@
   DTS:CreatorName="DESKTOP-G6IA9JI\мечта"
   DTS:DTSID="{9B6C9025-286D-43AD-AA48-35A9B549E194}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LastModifiedProductVersion="16.0.948.0"
   DTS:LocaleID="1049"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="34"
-  DTS:VersionGUID="{22B8D1C9-8DEE-41B2-B277-F7C1DB42306D}">
+  DTS:VersionBuild="39"
+  DTS:VersionGUID="{F162C0D1-45F3-4E6F-A4FA-73947A0B8F8B}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[DESKTOP-G6IA9JI.EntranceControlWeb]"
       DTS:CreationName="OLEDB"
-      DTS:DTSID="{E8CFF630-BA46-4E82-800E-937E297CEC74}"
+      DTS:DTSID="{1C4E295E-86B3-4BF3-8703-181FB6B5A6DC}"
       DTS:ObjectName="DESKTOP-G6IA9JI.EntranceControlWeb">
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="1"
           DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=DESKTOP-G6IA9JI;Initial Catalog=EntranceControlWeb;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DESKTOP-G6IA9JI.EntranceControlWeb 1]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{5C4E10F5-C248-48F2-AE66-3ED59D765A0D}"
-      DTS:ObjectName="DESKTOP-G6IA9JI.EntranceControlWeb 1">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=DESKTOP-G6IA9JI;Initial Catalog=EntranceControlWeb;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DESKTOP-G6IA9JI.EntranceControlWeb 2]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{89D38B15-3578-4B4B-8328-CA968AAC12D2}"
-      DTS:ObjectName="DESKTOP-G6IA9JI.EntranceControlWeb 2">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=DESKTOP-G6IA9JI;Initial Catalog=EntranceControlWeb;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DESKTOP-G6IA9JI.EntranceControlWeb 3]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{3DCE50F6-2F6C-4510-AD55-D2CB2F10E55E}"
-      DTS:ObjectName="DESKTOP-G6IA9JI.EntranceControlWeb 3">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=DESKTOP-G6IA9JI;Initial Catalog=EntranceControlWeb;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+          DTS:ConnectionString="Data Source=DESKTOP-G6IA9JI;Initial Catalog=EntranceControlWeb;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package-{1C4E295E-86B3-4BF3-8703-181FB6B5A6DC}DESKTOP-G6IA9JI.EntranceControlWeb;Auto Translate=False;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[DESKTOP-G6IA9JI.EntranceControlWeb1]"
       DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
-      DTS:DTSID="{2BC654C7-EE8F-4D99-BBE0-D687D049F54E}"
+      DTS:DTSID="{E9A120F0-2A5F-453F-9228-84F055AD2E7B}"
       DTS:ObjectName="DESKTOP-G6IA9JI.EntranceControlWeb1">
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=DESKTOP-G6IA9JI;Initial Catalog=EntranceControlWeb;Integrated Security=True;Application Name=SSIS-Package-{2BC654C7-EE8F-4D99-BBE0-D687D049F54E}DESKTOP-G6IA9JI.EntranceControlWeb1;" />
+          DTS:ConnectionString="Data Source=DESKTOP-G6IA9JI;Initial Catalog=EntranceControlWeb;Integrated Security=True;Application Name=SSIS-Package-{E9A120F0-2A5F-453F-9228-84F055AD2E7B}DESKTOP-G6IA9JI.EntranceControlWeb1;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[Диспетчер соединений Excel]"
+      DTS:refId="Package.ConnectionManagers[Excel Connection Manager]"
       DTS:CreationName="EXCEL"
-      DTS:DTSID="{C0872A38-C918-4EB6-9AA0-56E4F13AF9E5}"
-      DTS:ObjectName="Диспетчер соединений Excel">
+      DTS:DTSID="{26AB873B-9BBE-4389-A010-8FCF895D3F46}"
+      DTS:ObjectName="Excel Connection Manager">
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="0"
           DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\мечта\Desktop\EntranceControlWeb\IS\ExportDB.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[Диспетчер соединений Excel 1]"
-      DTS:CreationName="EXCEL"
-      DTS:DTSID="{B448FBE6-1B36-4188-9763-DA37C84A9B81}"
-      DTS:ObjectName="Диспетчер соединений Excel 1">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="0"
-          DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\мечта\Desktop\EntranceControlWeb\IS\ExportDB.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[Диспетчер соединений Excel 2]"
-      DTS:CreationName="EXCEL"
-      DTS:DTSID="{E06E7854-E2FF-4E9D-B459-F3120D2D742B}"
-      DTS:ObjectName="Диспетчер соединений Excel 2">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="0"
-          DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\мечта\Desktop\EntranceControlWeb\IS\ExportDB.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\мечта\Desktop\EntranceControlWeb\IS\ExportDB.xls;Extended Properties=&quot;Excel 8.0;HDR=YES&quot;;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -126,9 +66,236 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{E8CFF630-BA46-4E82-800E-937E297CEC74}"
+          SQLTask:Connection="{1C4E295E-86B3-4BF3-8703-181FB6B5A6DC}"
           SQLTask:BypassPrepare="False"
-          SQLTask:SqlStatementSource="delete from Entrance&#xA;delete from SortingByOffices&#xA;delete from Staff&#xA;DBCC CHECKIDENT (Staff, RESEED, 0)&#xA;delete from Rooms&#xA;DBCC CHECKIDENT (Rooms, RESEED, 0)&#xA;delete from Doors&#xA;DBCC CHECKIDENT (Doors, RESEED, 0)&#xA;delete from Positions&#xA;DBCC CHECKIDENT (Positions, RESEED, 0)&#xA;delete from Offices&#xA;DBCC CHECKIDENT (Offices, RESEED, 0)&#xA;delete from AccessLevel&#xA;DBCC CHECKIDENT (AccessLevel, RESEED, 0)&#xA;delete from AccessStatus&#xA;DBCC CHECKIDENT (AccessStatus, RESEED, 0)&#xA;&#xA;&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="delete from Entrance&#xA;DBCC CHECKIDENT (Entrance, RESEED, 0)&#xA;delete from SortingByOffices&#xA;DBCC CHECKIDENT (SortingByOffices, RESEED, 0)&#xA;delete from Staff&#xA;DBCC CHECKIDENT (Staff, RESEED, 0)&#xA;delete from Doors&#xA;DBCC CHECKIDENT (Doors, RESEED, 0)&#xA;delete from Rooms&#xA;DBCC CHECKIDENT (Rooms, RESEED, 0)&#xA;delete from Positions&#xA;DBCC CHECKIDENT (Positions, RESEED, 0)&#xA;delete from Offices&#xA;DBCC CHECKIDENT (Offices, RESEED, 0)&#xA;delete from Visitors&#xA;DBCC CHECKIDENT (Visitors, RESEED, 0)&#xA;delete from Passes&#xA;DBCC CHECKIDENT (Passes, RESEED, 0)&#xA;delete from AccessLevel&#xA;DBCC CHECKIDENT (AccessLevel, RESEED, 0)&#xA;delete from AccessStatus&#xA;DBCC CHECKIDENT (AccessStatus, RESEED, 0)&#xA;delete from ActivityStatus&#xA;DBCC CHECKIDENT (ActivityStatus, RESEED, 0)&#xA;delete from LastingStatus&#xA;DBCC CHECKIDENT (LastingStatus, RESEED, 0)&#xA;&#xA;&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Задача потока данных Длительность пропуска"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Задача потока данных"
+      DTS:DTSID="{9F38CE43-1E51-471F-B98A-DA2EAB408BBF}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Задача потока данных Длительность пропуска"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Задача потока данных Длительность пропуска\Источник &quot;Excel&quot;"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Источник &quot;Excel&quot;;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;1"
+              description="Источник &quot;Excel&quot;"
+              name="Источник &quot;Excel&quot;"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания команды, в секундах. Величина 0 означает неограниченное время ожидания."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowset">LastingStatus$</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает переменную, содержащую имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Команда SQL для выполнения."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="Переменная, содержащая команду SQL для выполнения."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает используемый режим доступа к базе данных."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Сопоставление между параметрами в команде SQL и переменными."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Задача потока данных Длительность пропуска\Источник &quot;Excel&quot;.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
+                  description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных Длительность пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;]"
+                  name="Выход источника &quot;Excel&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных Длительность пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[TitleLong]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных Длительность пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[TitleLong]"
+                      length="255"
+                      lineageId="Package\Задача потока данных Длительность пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[TitleLong]"
+                      name="TitleLong"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Длительность пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Long]"
+                      dataType="wstr"
+                      length="255"
+                      name="ID_Long" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Длительность пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[TitleLong]"
+                      dataType="wstr"
+                      length="255"
+                      name="TitleLong" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Задача потока данных Длительность пропуска\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;]"
+                  isErrorOut="true"
+                  name="Вывод ошибок источника &quot;Excel&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных Длительность пропуска\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TitleLong]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Задача потока данных Длительность пропуска\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TitleLong]"
+                      name="TitleLong" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Длительность пропуска\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных Длительность пропуска\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Длительность пропуска\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных Длительность пропуска\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Задача потока данных Длительность пропуска\Назначение ADO NET"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Загружает данные в базы данных, поддерживающие ADO.NET, в которых используются таблицы или представления. Загружает данные в новую или существующую таблицу. Пример: использование поставщика ADO.NET для ODBC, чтобы загрузить данные в назначение ODBC.Корпорация Майкрософт (Microsoft Corporation). Microsoft SQL Server © Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support2"
+              description="Загружает данные в базы данных, поддерживающие ADO.NET, в которых используются таблицы или представления. Загружает данные в новую или существующую таблицу. Пример: использование поставщика ADO.NET для ODBC, чтобы загрузить данные в назначение ODBC."
+              name="Назначение ADO NET"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Имя таблицы в целевой базе данных."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"dbo"."LastingStatus"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Укажите число строк в пакете. Значение по умолчанию - 0, при котором размер совпадает с внутренним буфером служб SSIS. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания для выполнения команды (в секундах). Значение 0 указывает на бесконечное время работы. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Указывает, нужно ли использовать интерфейс SqlBulkCopy для повышения производительности операций массовой вставки. Этот интерфейс поддерживается не всеми поставщиками."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Задача потока данных Длительность пропуска\Назначение ADO NET.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-G6IA9JI.EntranceControlWeb1]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-G6IA9JI.EntranceControlWeb1]"
+                  description="Диспетчер управляемых соединений"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Задача потока данных Длительность пропуска\Назначение ADO NET.Inputs[Вход назначения ADO NET]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Вход назначения ADO NET">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Задача потока данных Длительность пропуска\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[TitleLong]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="TitleLong"
+                      externalMetadataColumnId="Package\Задача потока данных Длительность пропуска\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[TitleLong]"
+                      lineageId="Package\Задача потока данных Длительность пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[TitleLong]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Длительность пропуска\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Long]"
+                      dataType="i4"
+                      name="ID_Long" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Длительность пропуска\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[TitleLong]"
+                      dataType="wstr"
+                      length="20"
+                      name="TitleLong" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных Длительность пропуска\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Вывод ошибок назначения ADO NET"
+                  synchronousInputId="Package\Задача потока данных Длительность пропуска\Назначение ADO NET.Inputs[Вход назначения ADO NET]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных Длительность пропуска\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных Длительность пропуска\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Длительность пропуска\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных Длительность пропуска\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Задача потока данных Длительность пропуска.Paths[Выход источника &quot;Excel&quot;]"
+              endId="Package\Задача потока данных Длительность пропуска\Назначение ADO NET.Inputs[Вход назначения ADO NET]"
+              name="Выход источника &quot;Excel&quot;"
+              startId="Package\Задача потока данных Длительность пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;]" />
+          </paths>
+        </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -170,7 +337,7 @@
                   dataType="System.String"
                   description="Команда SQL для выполнения."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
                 <property
                   dataType="System.String"
                   description="Переменная, содержащая команду SQL для выполнения."
@@ -188,8 +355,8 @@
               <connections>
                 <connection
                   refId="Package\Задача потока данных Должности\Источник &quot;Excel&quot;.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Диспетчер соединений Excel]"
-                  connectionManagerRefId="Package.ConnectionManagers[Диспетчер соединений Excel]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
                   description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
                   name="OleDbConnection" />
               </connections>
@@ -397,7 +564,7 @@
                   dataType="System.String"
                   description="Команда SQL для выполнения."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
                 <property
                   dataType="System.String"
                   description="Переменная, содержащая команду SQL для выполнения."
@@ -415,8 +582,8 @@
               <connections>
                 <connection
                   refId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Диспетчер соединений Excel 2]"
-                  connectionManagerRefId="Package.ConnectionManagers[Диспетчер соединений Excel 2]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
                   description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
                   name="OleDbConnection" />
               </connections>
@@ -425,15 +592,6 @@
                   refId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;]"
                   name="Выход источника &quot;Excel&quot;">
                   <outputColumns>
-                    <outputColumn
-                      refId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Staff]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Преобразование"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Staff]"
-                      lineageId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Staff]"
-                      name="ID_Staff"
-                      truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[DateEntr]"
                       dataType="date"
@@ -479,13 +637,18 @@
                       lineageId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Status]"
                       name="ID_Status"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Pass]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Pass]"
+                      lineageId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Pass]"
+                      name="ID_Pass"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Staff]"
-                      dataType="r8"
-                      name="ID_Staff" />
                     <externalMetadataColumn
                       refId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Record]"
                       dataType="wstr"
@@ -511,6 +674,10 @@
                       refId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Status]"
                       dataType="r8"
                       name="ID_Status" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Pass]"
+                      dataType="r8"
+                      name="ID_Pass" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -535,6 +702,11 @@
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
+                      refId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ID_Pass]"
+                      dataType="r8"
+                      lineageId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ID_Pass]"
+                      name="ID_Pass" />
+                    <outputColumn
                       refId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ID_Room]"
                       dataType="r8"
                       lineageId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ID_Room]"
@@ -555,11 +727,6 @@
                       lineageId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
-                    <outputColumn
-                      refId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ID_Staff]"
-                      dataType="r8"
-                      lineageId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ID_Staff]"
-                      name="ID_Staff" />
                   </outputColumns>
                   <externalMetadataColumns />
                 </output>
@@ -615,41 +782,41 @@
                   name="Вход назначения ADO NET">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Копия DateEntr]"
+                      refId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Copy of ID_Pass]"
+                      cachedDataType="r8"
+                      cachedName="Copy of ID_Pass"
+                      externalMetadataColumnId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Pass]"
+                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Pass]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Copy of DateEntr]"
                       cachedDataType="dbTimeStamp"
-                      cachedName="Копия DateEntr"
+                      cachedName="Copy of DateEntr"
                       externalMetadataColumnId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[DateEntr]"
-                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия DateEntr]" />
+                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of DateEntr]" />
                     <inputColumn
-                      refId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Копия DateExit]"
+                      refId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Copy of DateExit]"
                       cachedDataType="dbTimeStamp"
-                      cachedName="Копия DateExit"
+                      cachedName="Copy of DateExit"
                       externalMetadataColumnId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[DateExit]"
-                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия DateExit]" />
+                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of DateExit]" />
                     <inputColumn
-                      refId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Копия ID_Staff]"
+                      refId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Copy of ID_Room]"
                       cachedDataType="r8"
-                      cachedName="Копия ID_Staff"
-                      externalMetadataColumnId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Staff]"
-                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Staff]" />
-                    <inputColumn
-                      refId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Копия ID_Room]"
-                      cachedDataType="r8"
-                      cachedName="Копия ID_Room"
+                      cachedName="Copy of ID_Room"
                       externalMetadataColumnId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Room]"
-                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Room]" />
+                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Room]" />
                     <inputColumn
-                      refId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Копия ID_Door]"
+                      refId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Copy of ID_Door]"
                       cachedDataType="r8"
-                      cachedName="Копия ID_Door"
+                      cachedName="Copy of ID_Door"
                       externalMetadataColumnId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Door]"
-                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Door]" />
+                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Door]" />
                     <inputColumn
-                      refId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Копия ID_Status]"
+                      refId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Copy of ID_Status]"
                       cachedDataType="r8"
-                      cachedName="Копия ID_Status"
+                      cachedName="Copy of ID_Status"
                       externalMetadataColumnId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Status]"
-                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Status]" />
+                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Status]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -666,9 +833,9 @@
                       dataType="dbTimeStamp"
                       name="DateExit" />
                     <externalMetadataColumn
-                      refId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Staff]"
+                      refId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Pass]"
                       dataType="i4"
-                      name="ID_Staff" />
+                      name="ID_Pass" />
                     <externalMetadataColumn
                       refId="Package\Задача потока данных Доступ\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Room]"
                       dataType="i4"
@@ -747,10 +914,10 @@
                       cachedName="ID_Status"
                       lineageId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Status]" />
                     <inputColumn
-                      refId="Package\Задача потока данных Доступ\Преобразование данных.Inputs[Входные данные преобразования данных].Columns[ID_Staff]"
+                      refId="Package\Задача потока данных Доступ\Преобразование данных.Inputs[Входные данные преобразования данных].Columns[ID_Pass]"
                       cachedDataType="r8"
-                      cachedName="ID_Staff"
-                      lineageId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Staff]" />
+                      cachedName="ID_Pass"
+                      lineageId="Package\Задача потока данных Доступ\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Pass]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -763,12 +930,12 @@
                   synchronousInputId="Package\Задача потока данных Доступ\Преобразование данных.Inputs[Входные данные преобразования данных]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия DateEntr]"
+                      refId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of DateEntr]"
                       dataType="dbTimeStamp"
                       errorOrTruncationOperation="Преобразование"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия DateEntr]"
-                      name="Копия DateEntr"
+                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of DateEntr]"
+                      name="Copy of DateEntr"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
@@ -783,12 +950,12 @@
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия DateExit]"
+                      refId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of DateExit]"
                       dataType="dbTimeStamp"
                       errorOrTruncationOperation="Преобразование"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия DateExit]"
-                      name="Копия DateExit"
+                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of DateExit]"
+                      name="Copy of DateExit"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
@@ -803,12 +970,12 @@
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Room]"
+                      refId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Room]"
                       dataType="r8"
                       errorOrTruncationOperation="Преобразование"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Room]"
-                      name="Копия ID_Room"
+                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Room]"
+                      name="Copy of ID_Room"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
@@ -823,12 +990,12 @@
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Door]"
+                      refId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Door]"
                       dataType="r8"
                       errorOrTruncationOperation="Преобразование"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Door]"
-                      name="Копия ID_Door"
+                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Door]"
+                      name="Copy of ID_Door"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
@@ -843,12 +1010,12 @@
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Status]"
+                      refId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Status]"
                       dataType="r8"
                       errorOrTruncationOperation="Преобразование"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Status]"
-                      name="Копия ID_Status"
+                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Status]"
+                      name="Copy of ID_Status"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
@@ -863,19 +1030,19 @@
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Staff]"
+                      refId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Pass]"
                       dataType="r8"
                       errorOrTruncationOperation="Преобразование"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Staff]"
-                      name="Копия ID_Staff"
+                      lineageId="Package\Задача потока данных Доступ\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Pass]"
+                      name="Copy of ID_Pass"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
                           containsID="true"
                           dataType="System.Int32"
                           description="Указывает входной столбец, служащий источником данных для преобразования."
-                          name="SourceInputColumnLineageID">#{Package\Задача потока данных Доступ\Источник "Excel".Outputs[Выход источника "Excel"].Columns[ID_Staff]}</property>
+                          name="SourceInputColumnLineageID">#{Package\Задача потока данных Доступ\Источник "Excel".Outputs[Выход источника "Excel"].Columns[ID_Pass]}</property>
                         <property
                           dataType="System.Boolean"
                           description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
@@ -964,7 +1131,7 @@
                   dataType="System.String"
                   description="Команда SQL для выполнения."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
                 <property
                   dataType="System.String"
                   description="Переменная, содержащая команду SQL для выполнения."
@@ -982,8 +1149,8 @@
               <connections>
                 <connection
                   refId="Package\Задача потока данных Отделы\Источник &quot;Excel&quot;.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Диспетчер соединений Excel]"
-                  connectionManagerRefId="Package.ConnectionManagers[Диспетчер соединений Excel]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
                   description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
                   name="OleDbConnection" />
               </connections>
@@ -1191,7 +1358,7 @@
                   dataType="System.String"
                   description="Команда SQL для выполнения."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
                 <property
                   dataType="System.String"
                   description="Переменная, содержащая команду SQL для выполнения."
@@ -1209,8 +1376,8 @@
               <connections>
                 <connection
                   refId="Package\Задача потока данных Помещения\Источник &quot;Excel&quot;.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Диспетчер соединений Excel]"
-                  connectionManagerRefId="Package.ConnectionManagers[Диспетчер соединений Excel]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
                   description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
                   name="OleDbConnection" />
               </connections>
@@ -1408,6 +1575,704 @@
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
+      DTS:refId="Package\Задача потока данных Посетители"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Задача потока данных"
+      DTS:DTSID="{0ae7c200-c685-481b-bc6d-ce302b10701d}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Задача потока данных Посетители"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Источник &quot;Excel&quot;;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;1"
+              description="Источник &quot;Excel&quot;"
+              name="Источник &quot;Excel&quot;"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания команды, в секундах. Величина 0 означает неограниченное время ожидания."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowset">Visitors$</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает переменную, содержащую имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Команда SQL для выполнения."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="Переменная, содержащая команду SQL для выполнения."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает используемый режим доступа к базе данных."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Сопоставление между параметрами в команде SQL и переменными."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
+                  description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;]"
+                  name="Выход источника &quot;Excel&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[FIO]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[FIO]"
+                      length="255"
+                      lineageId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[FIO]"
+                      name="FIO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[MobilePhone]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[MobilePhone]"
+                      length="255"
+                      lineageId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[MobilePhone]"
+                      name="MobilePhone"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Level]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Level]"
+                      length="255"
+                      lineageId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Level]"
+                      name="ID_Level"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Pass]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Pass]"
+                      length="255"
+                      lineageId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Pass]"
+                      name="ID_Pass"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[IDVisitor]"
+                      dataType="wstr"
+                      length="255"
+                      name="IDVisitor" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[FIO]"
+                      dataType="wstr"
+                      length="255"
+                      name="FIO" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[MobilePhone]"
+                      dataType="r8"
+                      name="MobilePhone" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Level]"
+                      dataType="r8"
+                      name="ID_Level" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Pass]"
+                      dataType="r8"
+                      name="ID_Pass" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;]"
+                  isErrorOut="true"
+                  name="Вывод ошибок источника &quot;Excel&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[FIO]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[FIO]"
+                      name="FIO" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[MobilePhone]"
+                      dataType="r8"
+                      lineageId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[MobilePhone]"
+                      name="MobilePhone" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ID_Level]"
+                      dataType="r8"
+                      lineageId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ID_Level]"
+                      name="ID_Level" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ID_Pass]"
+                      dataType="r8"
+                      lineageId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ID_Pass]"
+                      name="ID_Pass" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Задача потока данных Посетители\Назначение ADO NET"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Загружает данные в базы данных, поддерживающие ADO.NET, в которых используются таблицы или представления. Загружает данные в новую или существующую таблицу. Пример: использование поставщика ADO.NET для ODBC, чтобы загрузить данные в назначение ODBC.Корпорация Майкрософт (Microsoft Corporation). Microsoft SQL Server © Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support2"
+              description="Загружает данные в базы данных, поддерживающие ADO.NET, в которых используются таблицы или представления. Загружает данные в новую или существующую таблицу. Пример: использование поставщика ADO.NET для ODBC, чтобы загрузить данные в назначение ODBC."
+              name="Назначение ADO NET"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Имя таблицы в целевой базе данных."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"dbo"."Visitors"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Укажите число строк в пакете. Значение по умолчанию - 0, при котором размер совпадает с внутренним буфером служб SSIS. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания для выполнения команды (в секундах). Значение 0 указывает на бесконечное время работы. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Указывает, нужно ли использовать интерфейс SqlBulkCopy для повышения производительности операций массовой вставки. Этот интерфейс поддерживается не всеми поставщиками."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Задача потока данных Посетители\Назначение ADO NET.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-G6IA9JI.EntranceControlWeb1]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-G6IA9JI.EntranceControlWeb1]"
+                  description="Диспетчер управляемых соединений"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Задача потока данных Посетители\Назначение ADO NET.Inputs[Вход назначения ADO NET]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Вход назначения ADO NET">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Задача потока данных Посетители\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[FIO]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="FIO"
+                      externalMetadataColumnId="Package\Задача потока данных Посетители\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[FIO]"
+                      lineageId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[FIO]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных Посетители\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Copy of MobilePhone]"
+                      cachedDataType="r8"
+                      cachedName="Copy of MobilePhone"
+                      externalMetadataColumnId="Package\Задача потока данных Посетители\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[MobilePhone]"
+                      lineageId="Package\Задача потока данных Посетители\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of MobilePhone]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных Посетители\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Copy of ID_Level]"
+                      cachedDataType="r8"
+                      cachedName="Copy of ID_Level"
+                      externalMetadataColumnId="Package\Задача потока данных Посетители\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Level]"
+                      lineageId="Package\Задача потока данных Посетители\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Level]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных Посетители\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Copy of ID_Pass]"
+                      cachedDataType="r8"
+                      cachedName="Copy of ID_Pass"
+                      externalMetadataColumnId="Package\Задача потока данных Посетители\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Pass]"
+                      lineageId="Package\Задача потока данных Посетители\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Pass]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Посетители\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[IDVisitor]"
+                      dataType="i4"
+                      name="IDVisitor" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Посетители\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[FIO]"
+                      dataType="wstr"
+                      length="100"
+                      name="FIO" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Посетители\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[MobilePhone]"
+                      dataType="wstr"
+                      length="20"
+                      name="MobilePhone" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Посетители\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Level]"
+                      dataType="i4"
+                      name="ID_Level" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Посетители\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Pass]"
+                      dataType="i4"
+                      name="ID_Pass" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных Посетители\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Вывод ошибок назначения ADO NET"
+                  synchronousInputId="Package\Задача потока данных Посетители\Назначение ADO NET.Inputs[Вход назначения ADO NET]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных Посетители\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных Посетители\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Посетители\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных Посетители\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Задача потока данных Посетители\Преобразование данных"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Преобразование данных;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;0"
+              description="Преобразование данных"
+              name="Преобразование данных"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Задача потока данных Посетители\Преобразование данных.Inputs[Входные данные преобразования данных]"
+                  name="Входные данные преобразования данных">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Задача потока данных Посетители\Преобразование данных.Inputs[Входные данные преобразования данных].Columns[MobilePhone]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="MobilePhone"
+                      lineageId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[MobilePhone]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных Посетители\Преобразование данных.Inputs[Входные данные преобразования данных].Columns[ID_Level]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ID_Level"
+                      lineageId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Level]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных Посетители\Преобразование данных.Inputs[Входные данные преобразования данных].Columns[ID_Pass]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ID_Pass"
+                      lineageId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Pass]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных Посетители\Преобразование данных.Outputs[Выходные данные преобразования данных]"
+                  exclusionGroup="1"
+                  name="Выходные данные преобразования данных"
+                  synchronousInputId="Package\Задача потока данных Посетители\Преобразование данных.Inputs[Входные данные преобразования данных]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных Посетители\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of MobilePhone]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Задача потока данных Посетители\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of MobilePhone]"
+                      name="Copy of MobilePhone"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Указывает входной столбец, служащий источником данных для преобразования."
+                          name="SourceInputColumnLineageID">#{Package\Задача потока данных Посетители\Источник "Excel".Outputs[Выход источника "Excel"].Columns[MobilePhone]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Задача потока данных Посетители\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Level]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Задача потока данных Посетители\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Level]"
+                      name="Copy of ID_Level"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Указывает входной столбец, служащий источником данных для преобразования."
+                          name="SourceInputColumnLineageID">#{Package\Задача потока данных Посетители\Источник "Excel".Outputs[Выход источника "Excel"].Columns[ID_Level]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Задача потока данных Посетители\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Pass]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Задача потока данных Посетители\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Pass]"
+                      name="Copy of ID_Pass"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Указывает входной столбец, служащий источником данных для преобразования."
+                          name="SourceInputColumnLineageID">#{Package\Задача потока данных Посетители\Источник "Excel".Outputs[Выход источника "Excel"].Columns[ID_Pass]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Указывает, используются ли в столбце более производительные, не зависящие от локалей процедуры синтаксического анализа."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Задача потока данных Посетители\Преобразование данных.Outputs[Выходные данные ошибок преобразования данных]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Выходные данные ошибок преобразования данных"
+                  synchronousInputId="Package\Задача потока данных Посетители\Преобразование данных.Inputs[Входные данные преобразования данных]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных Посетители\Преобразование данных.Outputs[Выходные данные ошибок преобразования данных].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных Посетители\Преобразование данных.Outputs[Выходные данные ошибок преобразования данных].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Посетители\Преобразование данных.Outputs[Выходные данные ошибок преобразования данных].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных Посетители\Преобразование данных.Outputs[Выходные данные ошибок преобразования данных].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Задача потока данных Посетители.Paths[Выход источника &quot;Excel&quot;]"
+              endId="Package\Задача потока данных Посетители\Преобразование данных.Inputs[Входные данные преобразования данных]"
+              name="Выход источника &quot;Excel&quot;"
+              startId="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;]" />
+            <path
+              refId="Package\Задача потока данных Посетители.Paths[Выходные данные преобразования данных]"
+              endId="Package\Задача потока данных Посетители\Назначение ADO NET.Inputs[Вход назначения ADO NET]"
+              name="Выходные данные преобразования данных"
+              startId="Package\Задача потока данных Посетители\Преобразование данных.Outputs[Выходные данные преобразования данных]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Задача потока данных Пропуска"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Задача потока данных"
+      DTS:DTSID="{5BCA74A7-0760-4749-BD60-8CFB6423E4D6}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Задача потока данных Пропуска"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Источник &quot;Excel&quot;;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;1"
+              description="Источник &quot;Excel&quot;"
+              name="Источник &quot;Excel&quot;"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания команды, в секундах. Величина 0 означает неограниченное время ожидания."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowset">Passes$</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает переменную, содержащую имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Команда SQL для выполнения."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="Переменная, содержащая команду SQL для выполнения."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает используемый режим доступа к базе данных."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Сопоставление между параметрами в команде SQL и переменными."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
+                  description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;]"
+                  name="Выход источника &quot;Excel&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Long]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Long]"
+                      lineageId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Long]"
+                      name="ID_Long"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Activ]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Activ]"
+                      lineageId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Activ]"
+                      name="ID_Activ"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Pass]"
+                      dataType="wstr"
+                      length="255"
+                      name="ID_Pass" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Long]"
+                      dataType="r8"
+                      name="ID_Long" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Activ]"
+                      dataType="r8"
+                      name="ID_Activ" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;]"
+                  isErrorOut="true"
+                  name="Вывод ошибок источника &quot;Excel&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ID_Long]"
+                      dataType="r8"
+                      lineageId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ID_Long]"
+                      name="ID_Long" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ID_Activ]"
+                      dataType="r8"
+                      lineageId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ID_Activ]"
+                      name="ID_Activ" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Задача потока данных Пропуска\Назначение ADO NET"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Загружает данные в базы данных, поддерживающие ADO.NET, в которых используются таблицы или представления. Загружает данные в новую или существующую таблицу. Пример: использование поставщика ADO.NET для ODBC, чтобы загрузить данные в назначение ODBC.Корпорация Майкрософт (Microsoft Corporation). Microsoft SQL Server © Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support2"
+              description="Загружает данные в базы данных, поддерживающие ADO.NET, в которых используются таблицы или представления. Загружает данные в новую или существующую таблицу. Пример: использование поставщика ADO.NET для ODBC, чтобы загрузить данные в назначение ODBC."
+              name="Назначение ADO NET"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Имя таблицы в целевой базе данных."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"dbo"."Passes"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Укажите число строк в пакете. Значение по умолчанию - 0, при котором размер совпадает с внутренним буфером служб SSIS. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания для выполнения команды (в секундах). Значение 0 указывает на бесконечное время работы. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Указывает, нужно ли использовать интерфейс SqlBulkCopy для повышения производительности операций массовой вставки. Этот интерфейс поддерживается не всеми поставщиками."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Задача потока данных Пропуска\Назначение ADO NET.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-G6IA9JI.EntranceControlWeb1]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-G6IA9JI.EntranceControlWeb1]"
+                  description="Диспетчер управляемых соединений"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Задача потока данных Пропуска\Назначение ADO NET.Inputs[Вход назначения ADO NET]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Вход назначения ADO NET">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Задача потока данных Пропуска\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[ID_Long]"
+                      cachedDataType="r8"
+                      cachedName="ID_Long"
+                      externalMetadataColumnId="Package\Задача потока данных Пропуска\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Long]"
+                      lineageId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Long]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных Пропуска\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[ID_Activ]"
+                      cachedDataType="r8"
+                      cachedName="ID_Activ"
+                      externalMetadataColumnId="Package\Задача потока данных Пропуска\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Activ]"
+                      lineageId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Activ]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Пропуска\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Pass]"
+                      dataType="i4"
+                      name="ID_Pass" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Пропуска\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Long]"
+                      dataType="i4"
+                      name="ID_Long" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Пропуска\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Activ]"
+                      dataType="i4"
+                      name="ID_Activ" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных Пропуска\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Вывод ошибок назначения ADO NET"
+                  synchronousInputId="Package\Задача потока данных Пропуска\Назначение ADO NET.Inputs[Вход назначения ADO NET]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных Пропуска\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных Пропуска\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Пропуска\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных Пропуска\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Задача потока данных Пропуска.Paths[Выход источника &quot;Excel&quot;]"
+              endId="Package\Задача потока данных Пропуска\Назначение ADO NET.Inputs[Вход назначения ADO NET]"
+              name="Выход источника &quot;Excel&quot;"
+              startId="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
       DTS:refId="Package\Задача потока данных Распределение"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Задача потока данных"
@@ -1446,7 +2311,7 @@
                   dataType="System.String"
                   description="Команда SQL для выполнения."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
                 <property
                   dataType="System.String"
                   description="Переменная, содержащая команду SQL для выполнения."
@@ -1464,8 +2329,8 @@
               <connections>
                 <connection
                   refId="Package\Задача потока данных Распределение\Источник &quot;Excel&quot;.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Диспетчер соединений Excel]"
-                  connectionManagerRefId="Package.ConnectionManagers[Диспетчер соединений Excel]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
                   description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
                   name="OleDbConnection" />
               </connections>
@@ -1537,15 +2402,18 @@
                       name="ID_Staff" />
                     <externalMetadataColumn
                       refId="Package\Задача потока данных Распределение\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[TimeBegin]"
-                      dataType="date"
+                      dataType="wstr"
+                      length="255"
                       name="TimeBegin" />
                     <externalMetadataColumn
                       refId="Package\Задача потока данных Распределение\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[TimeEnd]"
-                      dataType="date"
+                      dataType="wstr"
+                      length="255"
                       name="TimeEnd" />
                     <externalMetadataColumn
                       refId="Package\Задача потока данных Распределение\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[WorkPhone]"
-                      dataType="r8"
+                      dataType="wstr"
+                      length="255"
                       name="WorkPhone" />
                     <externalMetadataColumn
                       refId="Package\Задача потока данных Распределение\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Post]"
@@ -1555,6 +2423,11 @@
                       refId="Package\Задача потока данных Распределение\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Office]"
                       dataType="r8"
                       name="ID_Office" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Распределение\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Item]"
+                      dataType="wstr"
+                      length="255"
+                      name="ID_Item" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -1564,17 +2437,20 @@
                   <outputColumns>
                     <outputColumn
                       refId="Package\Задача потока данных Распределение\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TimeBegin]"
-                      dataType="date"
+                      dataType="wstr"
+                      length="255"
                       lineageId="Package\Задача потока данных Распределение\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TimeBegin]"
                       name="TimeBegin" />
                     <outputColumn
                       refId="Package\Задача потока данных Распределение\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TimeEnd]"
-                      dataType="date"
+                      dataType="wstr"
+                      length="255"
                       lineageId="Package\Задача потока данных Распределение\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TimeEnd]"
                       name="TimeEnd" />
                     <outputColumn
                       refId="Package\Задача потока данных Распределение\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[WorkPhone]"
-                      dataType="r8"
+                      dataType="wstr"
+                      length="255"
                       lineageId="Package\Задача потока данных Распределение\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[WorkPhone]"
                       name="WorkPhone" />
                     <outputColumn
@@ -1659,44 +2535,48 @@
                   name="Вход назначения ADO NET">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Копия TimeBegin]"
+                      refId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Copy of TimeBegin]"
                       cachedDataType="dbTime2"
-                      cachedName="Копия TimeBegin"
+                      cachedName="Copy of TimeBegin"
                       externalMetadataColumnId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[TimeBegin]"
-                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия TimeBegin]" />
+                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of TimeBegin]" />
                     <inputColumn
-                      refId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Копия TimeEnd]"
+                      refId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Copy of TimeEnd]"
                       cachedDataType="dbTime2"
-                      cachedName="Копия TimeEnd"
+                      cachedName="Copy of TimeEnd"
                       externalMetadataColumnId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[TimeEnd]"
-                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия TimeEnd]" />
+                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of TimeEnd]" />
                     <inputColumn
-                      refId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Копия WorkPhone]"
+                      refId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Copy of WorkPhone]"
                       cachedDataType="r8"
-                      cachedName="Копия WorkPhone"
+                      cachedName="Copy of WorkPhone"
                       externalMetadataColumnId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[WorkPhone]"
-                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия WorkPhone]" />
+                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of WorkPhone]" />
                     <inputColumn
-                      refId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Копия ID_Staff]"
+                      refId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Copy of ID_Staff]"
                       cachedDataType="r8"
-                      cachedName="Копия ID_Staff"
+                      cachedName="Copy of ID_Staff"
                       externalMetadataColumnId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Staff]"
-                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Staff]" />
+                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Staff]" />
                     <inputColumn
-                      refId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Копия ID_Post]"
+                      refId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Copy of ID_Post]"
                       cachedDataType="r8"
-                      cachedName="Копия ID_Post"
+                      cachedName="Copy of ID_Post"
                       externalMetadataColumnId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Post]"
-                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Post]" />
+                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Post]" />
                     <inputColumn
-                      refId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Копия ID_Office]"
+                      refId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Copy of ID_Office]"
                       cachedDataType="r8"
-                      cachedName="Копия ID_Office"
+                      cachedName="Copy of ID_Office"
                       externalMetadataColumnId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Office]"
-                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Office]" />
+                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Office]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Item]"
+                      dataType="i4"
+                      name="ID_Item" />
                     <externalMetadataColumn
                       refId="Package\Задача потока данных Распределение\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[TimeBegin]"
                       dataType="dbTime2"
@@ -1783,15 +2663,15 @@
                       cachedName="ID_Post"
                       lineageId="Package\Задача потока данных Распределение\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Post]" />
                     <inputColumn
-                      refId="Package\Задача потока данных Распределение\Преобразование данных.Inputs[Входные данные преобразования данных].Columns[ID_Office]"
-                      cachedDataType="r8"
-                      cachedName="ID_Office"
-                      lineageId="Package\Задача потока данных Распределение\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Office]" />
-                    <inputColumn
                       refId="Package\Задача потока данных Распределение\Преобразование данных.Inputs[Входные данные преобразования данных].Columns[ID_Staff]"
                       cachedDataType="r8"
                       cachedName="ID_Staff"
                       lineageId="Package\Задача потока данных Распределение\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Staff]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных Распределение\Преобразование данных.Inputs[Входные данные преобразования данных].Columns[ID_Office]"
+                      cachedDataType="r8"
+                      cachedName="ID_Office"
+                      lineageId="Package\Задача потока данных Распределение\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Office]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -1804,12 +2684,12 @@
                   synchronousInputId="Package\Задача потока данных Распределение\Преобразование данных.Inputs[Входные данные преобразования данных]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия TimeBegin]"
+                      refId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of TimeBegin]"
                       dataType="dbTime2"
                       errorOrTruncationOperation="Преобразование"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия TimeBegin]"
-                      name="Копия TimeBegin"
+                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of TimeBegin]"
+                      name="Copy of TimeBegin"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
@@ -1824,12 +2704,12 @@
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия TimeEnd]"
+                      refId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of TimeEnd]"
                       dataType="dbTime2"
                       errorOrTruncationOperation="Преобразование"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия TimeEnd]"
-                      name="Копия TimeEnd"
+                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of TimeEnd]"
+                      name="Copy of TimeEnd"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
@@ -1844,12 +2724,12 @@
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия WorkPhone]"
+                      refId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of WorkPhone]"
                       dataType="r8"
                       errorOrTruncationOperation="Преобразование"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия WorkPhone]"
-                      name="Копия WorkPhone"
+                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of WorkPhone]"
+                      name="Copy of WorkPhone"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
@@ -1864,12 +2744,12 @@
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Post]"
+                      refId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Post]"
                       dataType="r8"
                       errorOrTruncationOperation="Преобразование"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Post]"
-                      name="Копия ID_Post"
+                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Post]"
+                      name="Copy of ID_Post"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
@@ -1884,12 +2764,12 @@
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Office]"
+                      refId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Office]"
                       dataType="r8"
                       errorOrTruncationOperation="Преобразование"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Office]"
-                      name="Копия ID_Office"
+                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Office]"
+                      name="Copy of ID_Office"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
@@ -1904,12 +2784,12 @@
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Staff]"
+                      refId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Staff]"
                       dataType="r8"
                       errorOrTruncationOperation="Преобразование"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия ID_Staff]"
-                      name="Копия ID_Staff"
+                      lineageId="Package\Задача потока данных Распределение\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Copy of ID_Staff]"
+                      name="Copy of ID_Staff"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
@@ -2005,7 +2885,7 @@
                   dataType="System.String"
                   description="Команда SQL для выполнения."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
                 <property
                   dataType="System.String"
                   description="Переменная, содержащая команду SQL для выполнения."
@@ -2023,8 +2903,8 @@
               <connections>
                 <connection
                   refId="Package\Задача потока данных Сотрудники\Источник &quot;Excel&quot;.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Диспетчер соединений Excel]"
-                  connectionManagerRefId="Package.ConnectionManagers[Диспетчер соединений Excel]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
                   description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
                   name="OleDbConnection" />
               </connections>
@@ -2111,6 +2991,16 @@
                       lineageId="Package\Задача потока данных Сотрудники\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Level]"
                       name="ID_Level"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Сотрудники\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Pass]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных Сотрудники\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Pass]"
+                      length="255"
+                      lineageId="Package\Задача потока данных Сотрудники\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Pass]"
+                      name="ID_Pass"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -2146,7 +3036,8 @@
                       name="CorpEmail" />
                     <externalMetadataColumn
                       refId="Package\Задача потока данных Сотрудники\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[MobPhone]"
-                      dataType="r8"
+                      dataType="wstr"
+                      length="255"
                       name="MobPhone" />
                     <externalMetadataColumn
                       refId="Package\Задача потока данных Сотрудники\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[Image]"
@@ -2157,6 +3048,11 @@
                       refId="Package\Задача потока данных Сотрудники\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Level]"
                       dataType="r8"
                       name="ID_Level" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Сотрудники\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Pass]"
+                      dataType="wstr"
+                      length="255"
+                      name="ID_Pass" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -2196,7 +3092,8 @@
                       name="CorpEmail" />
                     <outputColumn
                       refId="Package\Задача потока данных Сотрудники\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[MobPhone]"
-                      dataType="r8"
+                      dataType="wstr"
+                      length="255"
                       lineageId="Package\Задача потока данных Сотрудники\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[MobPhone]"
                       name="MobPhone" />
                     <outputColumn
@@ -2216,6 +3113,12 @@
                       lineageId="Package\Задача потока данных Сотрудники\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Сотрудники\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ID_Pass]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Задача потока данных Сотрудники\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ID_Pass]"
+                      name="ID_Pass" />
                     <outputColumn
                       refId="Package\Задача потока данных Сотрудники\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorColumn]"
                       dataType="i4"
@@ -2318,17 +3221,24 @@
                       externalMetadataColumnId="Package\Задача потока данных Сотрудники\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Level]"
                       lineageId="Package\Задача потока данных Сотрудники\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Level]" />
                     <inputColumn
-                      refId="Package\Задача потока данных Сотрудники\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Копия MobPhone]"
-                      cachedDataType="r8"
-                      cachedName="Копия MobPhone"
-                      externalMetadataColumnId="Package\Задача потока данных Сотрудники\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[MobPhone]"
-                      lineageId="Package\Задача потока данных Сотрудники\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия MobPhone]" />
+                      refId="Package\Задача потока данных Сотрудники\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[ID_Pass]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ID_Pass"
+                      externalMetadataColumnId="Package\Задача потока данных Сотрудники\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Pass]"
+                      lineageId="Package\Задача потока данных Сотрудники\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[ID_Pass]" />
                     <inputColumn
                       refId="Package\Задача потока данных Сотрудники\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Копия Birthday]"
                       cachedDataType="dbDate"
                       cachedName="Копия Birthday"
                       externalMetadataColumnId="Package\Задача потока данных Сотрудники\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[Birthday]"
                       lineageId="Package\Задача потока данных Сотрудники\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия Birthday]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных Сотрудники\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[Копия MobPhone]"
+                      cachedDataType="r8"
+                      cachedName="Копия MobPhone"
+                      externalMetadataColumnId="Package\Задача потока данных Сотрудники\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[MobPhone]"
+                      lineageId="Package\Задача потока данных Сотрудники\Преобразование данных.Outputs[Выходные данные преобразования данных].Columns[Копия MobPhone]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -2374,6 +3284,10 @@
                       refId="Package\Задача потока данных Сотрудники\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Level]"
                       dataType="i4"
                       name="ID_Level" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Сотрудники\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Pass]"
+                      dataType="i4"
+                      name="ID_Pass" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -2520,6 +3434,233 @@
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
+      DTS:refId="Package\Задача потока данных Статус активности"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Задача потока данных"
+      DTS:DTSID="{D0DBAC26-DAC5-4286-BD2E-D1C8300F3EDA}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Задача потока данных Статус активности"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Задача потока данных Статус активности\Источник &quot;Excel&quot;"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Источник &quot;Excel&quot;;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;1"
+              description="Источник &quot;Excel&quot;"
+              name="Источник &quot;Excel&quot;"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания команды, в секундах. Величина 0 означает неограниченное время ожидания."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowset">ActivityStatus$</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает переменную, содержащую имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Команда SQL для выполнения."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="Переменная, содержащая команду SQL для выполнения."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает используемый режим доступа к базе данных."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Сопоставление между параметрами в команде SQL и переменными."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Задача потока данных Статус активности\Источник &quot;Excel&quot;.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
+                  description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных Статус активности\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;]"
+                  name="Выход источника &quot;Excel&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных Статус активности\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[TitleActiv]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных Статус активности\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[TitleActiv]"
+                      length="255"
+                      lineageId="Package\Задача потока данных Статус активности\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[TitleActiv]"
+                      name="TitleActiv"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Статус активности\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ID_Activ]"
+                      dataType="wstr"
+                      length="255"
+                      name="ID_Activ" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Статус активности\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[TitleActiv]"
+                      dataType="wstr"
+                      length="255"
+                      name="TitleActiv" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Задача потока данных Статус активности\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;]"
+                  isErrorOut="true"
+                  name="Вывод ошибок источника &quot;Excel&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных Статус активности\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TitleActiv]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Задача потока данных Статус активности\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TitleActiv]"
+                      name="TitleActiv" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Статус активности\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных Статус активности\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Статус активности\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных Статус активности\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Задача потока данных Статус активности\Назначение ADO NET"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Загружает данные в базы данных, поддерживающие ADO.NET, в которых используются таблицы или представления. Загружает данные в новую или существующую таблицу. Пример: использование поставщика ADO.NET для ODBC, чтобы загрузить данные в назначение ODBC.Корпорация Майкрософт (Microsoft Corporation). Microsoft SQL Server © Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support2"
+              description="Загружает данные в базы данных, поддерживающие ADO.NET, в которых используются таблицы или представления. Загружает данные в новую или существующую таблицу. Пример: использование поставщика ADO.NET для ODBC, чтобы загрузить данные в назначение ODBC."
+              name="Назначение ADO NET"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Имя таблицы в целевой базе данных."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"dbo"."ActivityStatus"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Укажите число строк в пакете. Значение по умолчанию - 0, при котором размер совпадает с внутренним буфером служб SSIS. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания для выполнения команды (в секундах). Значение 0 указывает на бесконечное время работы. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Указывает, нужно ли использовать интерфейс SqlBulkCopy для повышения производительности операций массовой вставки. Этот интерфейс поддерживается не всеми поставщиками."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Задача потока данных Статус активности\Назначение ADO NET.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-G6IA9JI.EntranceControlWeb1]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-G6IA9JI.EntranceControlWeb1]"
+                  description="Диспетчер управляемых соединений"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Задача потока данных Статус активности\Назначение ADO NET.Inputs[Вход назначения ADO NET]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Вход назначения ADO NET">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Задача потока данных Статус активности\Назначение ADO NET.Inputs[Вход назначения ADO NET].Columns[TitleActiv]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="TitleActiv"
+                      externalMetadataColumnId="Package\Задача потока данных Статус активности\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[TitleActiv]"
+                      lineageId="Package\Задача потока данных Статус активности\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;].Columns[TitleActiv]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Статус активности\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[ID_Activ]"
+                      dataType="i4"
+                      name="ID_Activ" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных Статус активности\Назначение ADO NET.Inputs[Вход назначения ADO NET].ExternalColumns[TitleActiv]"
+                      dataType="wstr"
+                      length="20"
+                      name="TitleActiv" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных Статус активности\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Вывод ошибок назначения ADO NET"
+                  synchronousInputId="Package\Задача потока данных Статус активности\Назначение ADO NET.Inputs[Вход назначения ADO NET]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных Статус активности\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных Статус активности\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Статус активности\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных Статус активности\Назначение ADO NET.Outputs[Вывод ошибок назначения ADO NET].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Задача потока данных Статус активности.Paths[Выход источника &quot;Excel&quot;]"
+              endId="Package\Задача потока данных Статус активности\Назначение ADO NET.Inputs[Вход назначения ADO NET]"
+              name="Выход источника &quot;Excel&quot;"
+              startId="Package\Задача потока данных Статус активности\Источник &quot;Excel&quot;.Outputs[Выход источника &quot;Excel&quot;]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
       DTS:refId="Package\Задача потока данных Статус Доступа"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Задача потока данных"
@@ -2558,7 +3699,7 @@
                   dataType="System.String"
                   description="Команда SQL для выполнения."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
                 <property
                   dataType="System.String"
                   description="Переменная, содержащая команду SQL для выполнения."
@@ -2576,8 +3717,8 @@
               <connections>
                 <connection
                   refId="Package\Задача потока данных Статус Доступа\Источник &quot;Excel&quot;.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Диспетчер соединений Excel]"
-                  connectionManagerRefId="Package.ConnectionManagers[Диспетчер соединений Excel]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
                   description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
                   name="OleDbConnection" />
               </connections>
@@ -2617,17 +3758,17 @@
                   name="Вывод ошибок источника &quot;Excel&quot;">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Задача потока данных Статус Доступа\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TitleStatus]"
-                      dataType="wstr"
-                      length="255"
-                      lineageId="Package\Задача потока данных Статус Доступа\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TitleStatus]"
-                      name="TitleStatus" />
-                    <outputColumn
                       refId="Package\Задача потока данных Статус Доступа\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorCode]"
                       dataType="i4"
                       lineageId="Package\Задача потока данных Статус Доступа\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных Статус Доступа\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TitleStatus]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Задача потока данных Статус Доступа\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TitleStatus]"
+                      name="TitleStatus" />
                     <outputColumn
                       refId="Package\Задача потока данных Статус Доступа\Источник &quot;Excel&quot;.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorColumn]"
                       dataType="i4"
@@ -2785,7 +3926,7 @@
                   dataType="System.String"
                   description="Команда SQL для выполнения."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
                 <property
                   dataType="System.String"
                   description="Переменная, содержащая команду SQL для выполнения."
@@ -2803,8 +3944,8 @@
               <connections>
                 <connection
                   refId="Package\Задача потока данных Турникеты\Источник &quot;Excel&quot;.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Диспетчер соединений Excel]"
-                  connectionManagerRefId="Package.ConnectionManagers[Диспетчер соединений Excel]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
                   description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
                   name="OleDbConnection" />
               </connections>
@@ -3040,7 +4181,7 @@
                   dataType="System.String"
                   description="Команда SQL для выполнения."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
                 <property
                   dataType="System.String"
                   description="Переменная, содержащая команду SQL для выполнения."
@@ -3058,8 +4199,8 @@
               <connections>
                 <connection
                   refId="Package\Задача потока данных Уровень  Доступа\Источник &quot;Excel&quot;.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Диспетчер соединений Excel]"
-                  connectionManagerRefId="Package.ConnectionManagers[Диспетчер соединений Excel]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
                   description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
                   name="OleDbConnection" />
               </connections>
@@ -3231,6 +4372,54 @@
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
     <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{D746A8D7-94AE-48F0-B03E-3741B6C11A93}"
+      DTS:From="Package\Задача потока данных Распределение"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Задача потока данных Посетители" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{D36BAA62-4BFC-4112-AEB5-200AC0A6610D}"
+      DTS:From="Package\Задача потока данных Посетители"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Задача потока данных Пропуска" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{53A53D80-837E-4689-94A3-E35DBC13AC49}"
+      DTS:From="Package\Задача потока данных Уровень  Доступа"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Задача потока данных Статус активности" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{C3EEFC8D-6D52-41B2-881B-1369CAAAF26D}"
+      DTS:From="Package\Задача потока данных Статус активности"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Задача потока данных Длительность пропуска" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{3164BFDF-9EA1-44E1-956C-C3C2F8DB35E9}"
+      DTS:From="Package\Задача потока данных Длительность пропуска"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\Задача потока данных Отделы" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{C7DC8CDC-33C3-4C4A-9DF3-0EEBF61667A7}"
+      DTS:From="Package\Задача потока данных Пропуска"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\Задача потока данных Доступ" />
+    <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Ограничение]"
       DTS:CreationName=""
       DTS:DTSID="{E226FC07-5B2F-4EBF-A95D-9BFC104D23FC}"
@@ -3246,14 +4435,6 @@
       DTS:LogicalAnd="True"
       DTS:ObjectName="Ограничение 1"
       DTS:To="Package\Задача потока данных Уровень  Доступа" />
-    <DTS:PrecedenceConstraint
-      DTS:refId="Package.PrecedenceConstraints[Ограничение 2]"
-      DTS:CreationName=""
-      DTS:DTSID="{AA8619F1-E565-4CF1-B42C-B8A4C3CE36BE}"
-      DTS:From="Package\Задача потока данных Уровень  Доступа"
-      DTS:LogicalAnd="True"
-      DTS:ObjectName="Ограничение 2"
-      DTS:To="Package\Задача потока данных Отделы" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Ограничение 3]"
       DTS:CreationName=""
@@ -3294,29 +4475,21 @@
       DTS:LogicalAnd="True"
       DTS:ObjectName="Ограничение 7"
       DTS:To="Package\Задача потока данных Распределение" />
-    <DTS:PrecedenceConstraint
-      DTS:refId="Package.PrecedenceConstraints[Ограничение 8]"
-      DTS:CreationName=""
-      DTS:DTSID="{4A2EEFE2-8195-4F1E-9DE9-82E8CEF93034}"
-      DTS:From="Package\Задача потока данных Распределение"
-      DTS:LogicalAnd="True"
-      DTS:ObjectName="Ограничение 8"
-      DTS:To="Package\Задача потока данных Доступ" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
-<!--В данном разделе CDATA содержатся сведения о макете пакета. В данном разделе содержатся сведения о координатах (x,y), ширине и высоте.-->
-<!--В случае возникновения ошибки при редактировании этого раздела вручную его можно удалить. -->
-<!--Пакет можно загрузить обычным образом, но прежние сведения о макете будут утеряны, и конструктор автоматически перераспределит элементы в области конструктора.-->
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
 <Objects
   Version="8">
-  <!--Все приведенные ниже узлы будут содержать свойства, не влияющие на поведение среды выполнения.-->
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
   <Package
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="208.8,41.6"
+          Size="207.2,41.6"
           Id="Package\Задача &quot;Выполнение SQL&quot;"
           TopLeft="81.666663421525,31.6333335847325" />
         <NodeLayout
@@ -3326,7 +4499,7 @@
         <NodeLayout
           Size="226.4,41.6"
           Id="Package\Задача потока данных Доступ"
-          TopLeft="98.9583294010828,784.416671772136" />
+          TopLeft="121.81547264748,922.063732526114" />
         <NodeLayout
           Size="229.6,56.8"
           Id="Package\Задача потока данных Отделы"
@@ -3357,18 +4530,18 @@
           TopLeft="47.4999981125196,204.533334958818" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Ограничение]"
-          TopLeft="183.783330767022,73.2333335847325">
+          TopLeft="183.383330767022,73.2333335847325">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,41.166667324437"
+              EndConnector="0,41.1666673244375"
               Start="0,0"
-              End="0,33.666667324437">
+              End="0,33.6666673244375">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,33.666667324437" />
+                    End="0,33.6666673244375" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3391,40 +4564,6 @@
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,41.0333340496487" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Ограничение 2]"
-          TopLeft="186.69999811252,246.133334958818">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="12.4749985347193,37.7000006302197"
-              Start="0,0"
-              End="12.4749985347193,30.2000006302197">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,14.8500003151098" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,14.8500003151098"
-                    Point2="0,18.8500003151098"
-                    Point3="4,18.8500003151098" />
-                  <mssgle:LineSegment
-                    End="8.47499853471928,18.8500003151098" />
-                  <mssgle:CubicBezierSegment
-                    Point1="8.47499853471928,18.8500003151098"
-                    Point2="12.4749985347193,18.8500003151098"
-                    Point3="12.4749985347193,22.8500003151098" />
-                  <mssgle:LineSegment
-                    End="12.4749985347193,30.2000006302197" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3567,32 +4706,194 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="249.6,41.6"
+          Id="Package\Задача потока данных Посетители"
+          TopLeft="87.857144353341,787.494121690275" />
         <EdgeLayout
-          Id="Package.PrecedenceConstraints[Ограничение 8]"
+          Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="224.624996398886,739.016671668821">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-12.4666669978035,45.4000001033144"
+              EndConnector="-11.9678520455453,48.477450021454"
               Start="0,0"
-              End="-12.4666669978035,37.9000001033144">
+              End="-11.9678520455453,40.977450021454">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,18.7000000516572" />
+                    End="0,20.238725010727" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,18.7000000516572"
-                    Point2="0,22.7000000516572"
-                    Point3="-4,22.7000000516572" />
+                    Point1="0,20.238725010727"
+                    Point2="0,24.238725010727"
+                    Point3="-4,24.238725010727" />
                   <mssgle:LineSegment
-                    End="-8.46666699780349,22.7000000516572" />
+                    End="-7.96785204554527,24.238725010727" />
                   <mssgle:CubicBezierSegment
-                    Point1="-8.46666699780349,22.7000000516572"
-                    Point2="-12.4666669978035,22.7000000516572"
-                    Point3="-12.4666669978035,26.7000000516572" />
+                    Point1="-7.96785204554527,24.238725010727"
+                    Point2="-11.9678520455453,24.238725010727"
+                    Point3="-11.9678520455453,28.238725010727" />
                   <mssgle:LineSegment
-                    End="-12.4666669978035,37.9000001033144" />
+                    End="-11.9678520455453,40.977450021454" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="238.4,41.6"
+          Id="Package\Задача потока данных Пропуска"
+          TopLeft="116.485715465643,862.000004740322" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="212.657144353341,829.094121690275">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="23.028571112302,32.9058830500474"
+              Start="0,0"
+              End="23.028571112302,25.4058830500474">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.4529415250237" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.4529415250237"
+                    Point2="0,16.4529415250237"
+                    Point3="4,16.4529415250237" />
+                  <mssgle:LineSegment
+                    End="19.028571112302,16.4529415250237" />
+                  <mssgle:CubicBezierSegment
+                    Point1="19.028571112302,16.4529415250237"
+                    Point2="23.028571112302,16.4529415250237"
+                    Point3="23.028571112302,20.4529415250237" />
+                  <mssgle:LineSegment
+                    End="23.028571112302,25.4058830500474" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="283.2,41.6"
+          Id="Package\Задача потока данных Статус активности"
+          TopLeft="453.41429253841,204.335287543399" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="325.89999811252,225.234311251108">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="127.51429442589,0"
+              Start="0,0"
+              End="120.01429442589,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="120.01429442589,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="308.8,41.6"
+          Id="Package\Задача потока данных Длительность пропуска"
+          TopLeft="444.128578094561,275.735297206364" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="596.771435316485,245.935287543399">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.800009662965"
+              Start="0,0"
+              End="0,22.300009662965">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.300009662965" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="444.128578094561,296.535297206364">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-130.153581447322,15.698038382674"
+              Start="0,0"
+              End="-122.653581447322,15.698038382674">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-61.0767907236609,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-61.0767907236609,0"
+                    Point2="-65.0767907236609,0"
+                    Point3="-65.0767907236609,4" />
+                  <mssgle:LineSegment
+                    End="-65.0767907236609,11.698038382674" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-65.0767907236609,11.698038382674"
+                    Point2="-65.0767907236609,15.698038382674"
+                    Point3="-69.0767907236609,15.698038382674" />
+                  <mssgle:LineSegment
+                    End="-122.653581447322,15.698038382674" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="354.885715465643,882.800004740322">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-6.67024281816254,60.0637277857912"
+              Start="0,0"
+              End="0.829757181837465,60.0637277857912">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="18.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="18.5,0"
+                    Point2="22.5,0"
+                    Point3="22.5,4" />
+                  <mssgle:LineSegment
+                    End="22.5,56.0637277857912" />
+                  <mssgle:CubicBezierSegment
+                    Point1="22.5,56.0637277857912"
+                    Point2="22.5,60.0637277857912"
+                    Point3="18.5,60.0637277857912" />
+                  <mssgle:LineSegment
+                    End="0.829757181837465,60.0637277857912" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3608,7 +4909,7 @@
     design-time-name="Package\Задача потока данных Должности">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="186.4,41.6"
           Id="Package\Задача потока данных Должности\Назначение ADO NET"
@@ -3636,9 +4937,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -3669,7 +4968,7 @@
     design-time-name="Package\Задача потока данных Доступ">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="186.4,41.6"
           Id="Package\Задача потока данных Доступ\Назначение ADO NET"
@@ -3701,9 +5000,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -3725,9 +5022,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -3758,7 +5053,7 @@
     design-time-name="Package\Задача потока данных Отделы">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="186.4,41.6"
           Id="Package\Задача потока данных Отделы\Назначение ADO NET"
@@ -3786,9 +5081,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -3819,7 +5112,7 @@
     design-time-name="Package\Задача потока данных Помещения">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="160,41.6"
           Id="Package\Задача потока данных Помещения\Источник &quot;Excel&quot;"
@@ -3847,9 +5140,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -3880,7 +5171,7 @@
     design-time-name="Package\Задача потока данных Распределение">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="186.4,41.6"
           Id="Package\Задача потока данных Распределение\Назначение ADO NET"
@@ -3912,9 +5203,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -3936,9 +5225,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -3969,7 +5256,7 @@
     design-time-name="Package\Задача потока данных Сотрудники">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="186.4,41.6"
           Id="Package\Задача потока данных Сотрудники\Назначение ADO NET"
@@ -4001,9 +5288,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -4025,9 +5310,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -4058,7 +5341,7 @@
     design-time-name="Package\Задача потока данных Статус Доступа">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="186.4,41.6"
           Id="Package\Задача потока данных Статус Доступа\Назначение ADO NET"
@@ -4086,9 +5369,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -4119,7 +5400,7 @@
     design-time-name="Package\Задача потока данных Турникеты">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="160,41.6"
           Id="Package\Задача потока данных Турникеты\Источник &quot;Excel&quot;"
@@ -4147,9 +5428,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -4180,7 +5459,7 @@
     design-time-name="Package\Задача потока данных Уровень  Доступа">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="186.4,41.6"
           Id="Package\Задача потока данных Уровень  Доступа\Назначение ADO NET"
@@ -4208,9 +5487,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -4231,6 +5508,316 @@
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Задача потока данных Уровень  Доступа\Назначение ADO NET">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Задача потока данных Посетители">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="186.4,41.6"
+          Id="Package\Задача потока данных Посетители\Назначение ADO NET"
+          TopLeft="154.833327339755,228.733334276941" />
+        <NodeLayout
+          Size="160,41.6"
+          Id="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;"
+          TopLeft="167.499993344148,37.2666669628355" />
+        <NodeLayout
+          Size="199.2,41.6"
+          Id="Package\Задача потока данных Посетители\Преобразование данных"
+          TopLeft="139,126" />
+        <EdgeLayout
+          Id="Package\Задача потока данных Посетители.Paths[Выход источника &quot;Excel&quot;]"
+          TopLeft="247.499993344148,78.8666669628355">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-8.89999334414799,47.1333330371645"
+              Start="0,0"
+              End="-8.89999334414799,39.6333330371645">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.5666665185823" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.5666665185823"
+                    Point2="0,23.5666665185823"
+                    Point3="-4,23.5666665185823" />
+                  <mssgle:LineSegment
+                    End="-4.89999334414799,23.5666665185823" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-4.89999334414799,23.5666665185823"
+                    Point2="-8.89999334414799,23.5666665185823"
+                    Point3="-8.89999334414799,27.5666665185823" />
+                  <mssgle:LineSegment
+                    End="-8.89999334414799,39.6333330371645" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Задача потока данных Посетители.Paths[Выходные данные преобразования данных]"
+          TopLeft="238.6,167.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="9.43332733975495,61.133334276941"
+              Start="0,0"
+              End="9.43332733975495,53.633334276941">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.5666671384705" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.5666671384705"
+                    Point2="0,30.5666671384705"
+                    Point3="4,30.5666671384705" />
+                  <mssgle:LineSegment
+                    End="5.43332733975495,30.5666671384705" />
+                  <mssgle:CubicBezierSegment
+                    Point1="5.43332733975495,30.5666671384705"
+                    Point2="9.43332733975495,30.5666671384705"
+                    Point3="9.43332733975495,34.5666671384705" />
+                  <mssgle:LineSegment
+                    End="9.43332733975495,53.633334276941" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Задача потока данных Посетители\Назначение ADO NET">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Задача потока данных Посетители\Источник &quot;Excel&quot;">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Задача потока данных Пропуска">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="160.8,41.6"
+          Id="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;"
+          TopLeft="184,30" />
+        <NodeLayout
+          Size="184,41.6"
+          Id="Package\Задача потока данных Пропуска\Назначение ADO NET"
+          TopLeft="177,120" />
+        <EdgeLayout
+          Id="Package\Задача потока данных Пропуска.Paths[Выход источника &quot;Excel&quot;]"
+          TopLeft="266.7,71.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,48.4"
+              Start="0,0"
+              End="0,40.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Задача потока данных Пропуска\Источник &quot;Excel&quot;">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Задача потока данных Пропуска\Назначение ADO NET">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Задача потока данных Статус активности">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="160.8,41.6"
+          Id="Package\Задача потока данных Статус активности\Источник &quot;Excel&quot;"
+          TopLeft="300,56" />
+        <NodeLayout
+          Size="184,41.6"
+          Id="Package\Задача потока данных Статус активности\Назначение ADO NET"
+          TopLeft="303,153" />
+        <EdgeLayout
+          Id="Package\Задача потока данных Статус активности.Paths[Выход источника &quot;Excel&quot;]"
+          TopLeft="380.4,97.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="14.6,55.4"
+              Start="0,0"
+              End="14.6,47.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.7"
+                    Point2="0,27.7"
+                    Point3="4,27.7" />
+                  <mssgle:LineSegment
+                    End="10.6,27.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="10.6,27.7"
+                    Point2="14.6,27.7"
+                    Point3="14.6,31.7" />
+                  <mssgle:LineSegment
+                    End="14.6,47.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Задача потока данных Статус активности\Источник &quot;Excel&quot;">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Задача потока данных Статус активности\Назначение ADO NET">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Задача потока данных Длительность пропуска">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="160.8,41.6"
+          Id="Package\Задача потока данных Длительность пропуска\Источник &quot;Excel&quot;"
+          TopLeft="167.5,16.5" />
+        <NodeLayout
+          Size="184,41.6"
+          Id="Package\Задача потока данных Длительность пропуска\Назначение ADO NET"
+          TopLeft="147.5,130.5" />
+        <EdgeLayout
+          Id="Package\Задача потока данных Длительность пропуска.Paths[Выход источника &quot;Excel&quot;]"
+          TopLeft="247.9,58.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-8.40000000000001,72.4"
+              Start="0,0"
+              End="-8.40000000000001,64.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.2" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,32.2"
+                    Point2="0,36.2"
+                    Point3="-4,36.2" />
+                  <mssgle:LineSegment
+                    End="-4.40000000000001,36.2" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-4.40000000000001,36.2"
+                    Point2="-8.40000000000001,36.2"
+                    Point3="-8.40000000000001,40.2" />
+                  <mssgle:LineSegment
+                    End="-8.40000000000001,64.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Задача потока данных Длительность пропуска\Источник &quot;Excel&quot;">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Задача потока данных Длительность пропуска\Назначение ADO NET">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
