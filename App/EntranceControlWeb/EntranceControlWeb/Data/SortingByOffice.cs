@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace EntranceControlWeb.Models
+namespace EntranceControlWeb.Data
 {
     public partial class SortingByOffice
     {
@@ -17,6 +17,6 @@ namespace EntranceControlWeb.Models
 
         public virtual Office IdOffices { get; set; }
         public virtual Position IdPosts { get; set; }
-        public virtual staff IdStaffs{ get; set; }
+        public virtual staff IdStaffs { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using EntranceControlWeb.Models;
+using EntranceControlWeb.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -92,7 +93,7 @@ namespace EntranceControlWeb.Controllers
 
             }
             return Json(viewmodel);
-            
+
         }
         //Создание записи
         [HttpPost]
@@ -110,7 +111,7 @@ namespace EntranceControlWeb.Controllers
             var door = new DoorViewModel();
             door.Doors = _context.Doors.ToList();
             door.Rooms = _context.Rooms.ToList();
-            return View(/*door*/);
+            return View(door);
         }
         #endregion
 
@@ -143,8 +144,8 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Levels));
         }
- 
-       //Редактирование записи
+
+        //Редактирование записи
         [HttpPost]
         public IActionResult LevelEdit(AccessLevelViewModel acclev)
         {
@@ -167,7 +168,7 @@ namespace EntranceControlWeb.Controllers
 
             }
             return Json(viewmodel);
-            
+
         }
         //Создание записи
         [HttpPost]
@@ -232,7 +233,7 @@ namespace EntranceControlWeb.Controllers
 
             }
             return Json(viewmodel);
-            
+
         }
         //Создание записи
         [HttpPost]
@@ -296,7 +297,7 @@ namespace EntranceControlWeb.Controllers
 
             }
             return Json(viewmodel);
-            
+
         }
         //Создание записи
         [HttpPost]
@@ -366,7 +367,7 @@ namespace EntranceControlWeb.Controllers
 
             }
             return Json(viewmodel);
-           
+
         }
         //Создание записи
         [HttpPost]
@@ -486,7 +487,7 @@ namespace EntranceControlWeb.Controllers
         public IActionResult Staff(StaffViewModel staff)
         {
             staff.Staffs = _context.staff.ToList();
-            staff.Levels = _context.AccessLevels.ToList();     
+            staff.Levels = _context.AccessLevels.ToList();
 
             return View(staff);
         }
@@ -545,7 +546,7 @@ namespace EntranceControlWeb.Controllers
         public IActionResult DelStaff(int id)
         {
             var data = _context.staff.FirstOrDefault(x => x.IdStaff == id);
-            var sort = _context.SortingByOffices.FirstOrDefault(x => x.IdStaff == id);            
+            var sort = _context.SortingByOffices.FirstOrDefault(x => x.IdStaff == id);
 
             if (data != null)
             {
@@ -594,33 +595,110 @@ namespace EntranceControlWeb.Controllers
         public IActionResult Entrance(EntranceViewModel entr)
         {
             entr.Entrances = _context.Entrances.ToList();
-            entr.Staffs = _context.staff.ToList();
+            entr.Passes = _context.Passes.ToList();
             entr.Rooms = _context.Rooms.ToList();
             entr.Doors = _context.Doors.ToList();
             entr.Statuses = _context.AccessStatuses.ToList();
             return View(entr);
         }
-        public IActionResult ViewStaff(int id)
-        {
-            var viewmodel = new StaffViewModel();
-            var view = _context.staff.FirstOrDefault(x => x.IdStaff == id);
-            if (view != null)
-            {
-                viewmodel.IdStaff = view.IdStaff;
-                viewmodel.Surname = view.Surname;
-                viewmodel.Name = view.Name;
-                viewmodel.LastName = view.LastName;
-                viewmodel.Birthday = view.Birthday;
-                viewmodel.CorpEmail = view.CorpEmail;
-                viewmodel.MobPhone = view.MobPhone;
-                viewmodel.Image = view.Image;
+        //public IActionResult ViewStaff(int id)
+        //{
+        //    var viewmodel = new StaffViewModel();
+        //    var view = _context.staff.FirstOrDefault(x => x.IdStaff == id);
+        //    if (view != null)
+        //    {
+        //        viewmodel.IdStaff = view.IdStaff;
+        //        viewmodel.Surname = view.Surname;
+        //        viewmodel.Name = view.Name;
+        //        viewmodel.LastName = view.LastName;
+        //        viewmodel.Birthday = view.Birthday;
+        //        viewmodel.CorpEmail = view.CorpEmail;
+        //        viewmodel.MobPhone = view.MobPhone;
+        //        viewmodel.Image = view.Image;
 
+        //    }
+        //    return Json(viewmodel);
+
+        //}
+
+        #endregion
+
+        #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ПОСЕТИТЕЛИ"
+
+        //Отображение страницы
+        public IActionResult Visitors(VisitorViewModel vis)
+        {
+            vis.Visitors = _context.Visitors.ToList();
+            vis.Levels = _context.AccessLevels.ToList();
+            vis.Passes = _context.Passes.ToList();
+            return View(vis);
+        }
+
+        //Редактирование записи
+        [HttpPost]
+        public IActionResult VisEdit(VisitorViewModel vis)
+        {
+            var edit = _context.Visitors.FirstOrDefault(x => x.Idvisitor == vis.Idvisitor);
+
+            edit.Idvisitor = vis.Idvisitor;
+            edit.Fio = vis.Fio;
+            edit.MobilePhone = vis.MobilePhone;
+            edit.IdLevel = vis.IdLevel;
+            edit.IdPass = vis.IdPass;
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Visitors));
+        }
+        public IActionResult VisEdit(int id)
+        {
+            var vis = new VisitorViewModel();
+            var edit = _context.Visitors.FirstOrDefault(x => x.Idvisitor == id);
+            if (edit != null)
+            {
+                vis.Idvisitor = edit.Idvisitor;
+                vis.Fio = edit.Fio;
+                vis.MobilePhone = edit.MobilePhone;
+                vis.IdLevel = edit.IdLevel;
+                vis.IdPass = edit.IdPass;
             }
-            return Json(viewmodel);
-           
+            return Json(vis);
+        }
+
+        //Удаление записи
+        public IActionResult DelVis(int id)
+        {
+            var vis = _context.Visitors.FirstOrDefault(x => x.Idvisitor == id);
+            if (vis != null)
+            {
+                _context.Visitors.Remove(vis);
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Visitors));
+        }
+
+        //Создание записи
+        [HttpPost]
+        public IActionResult CreateVisit(VisitorViewModel vis)
+        {
+            var create = new Visitor { Fio = vis.Fio, MobilePhone = vis.MobilePhone, IdLevel = vis.IdLevel, IdPass = vis.IdPass };
+
+            _context.Add(create);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Visitors));
+        }
+        public IActionResult CreateVisit()
+        {
+            var vis = new VisitorViewModel();
+            vis.Visitors = _context.Visitors.ToList();
+            vis.Levels = _context.AccessLevels.ToList();
+            vis.Passes = _context.Passes.ToList();
+            return View(vis);
+
         }
 
         #endregion
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

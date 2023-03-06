@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace EntranceControlWeb.Models
+namespace EntranceControlWeb.Data
 {
     public partial class Door
     {

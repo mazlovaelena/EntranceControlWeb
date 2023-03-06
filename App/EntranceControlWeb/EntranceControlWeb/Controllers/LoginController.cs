@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EntranceControlWeb.Models;
+using EntranceControlWeb.Data;
 using System;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;

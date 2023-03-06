@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using EntranceControlWeb.Data;
+
 
 #nullable disable
 
@@ -11,16 +13,6 @@ namespace EntranceControlWeb.Models
         public int IdRecord { get; set; }
         public DateTime DateEntr { get; set; }
         public DateTime DateExit { get; set; }
-
-        public List<staff> Staffs { get; set; }
-        public int IdStaff { get; set; }
-        public string Surname { get; set; }
-        public string Name { get; set; }
-        public string LastName { get; set; }
-        public DateTime Birthday { get; set; }
-        public string CorpEmail { get; set; }
-        public string MobPhone { get; set; }
-        public string Image { get; set; }
 
         public List<Pass> Passes { get; set; }
         public int IdPass { get; set; }

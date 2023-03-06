@@ -1,6 +1,6 @@
-﻿@model EntranceControlWeb.Models.AccessLevelViewModel;
+﻿@model EntranceControlWeb.Models.VisitorViewModel;
 @{
-    ViewData["Title"] = "Levels";
+    ViewData["Title"] = "Visitors";
 
 }
 
@@ -12,15 +12,13 @@
     <title>@ViewData["Title"]</title>
     <link rel="icon" href="/img/icon.ico" sizes="64x64" />
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
-    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>    
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     @*@await RenderSectionAsync("Scripts", required: false)*@
 </head>
 <body>
@@ -73,6 +71,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" asp-controller="Home" asp-action="Levels">Настройка уровня доступа</a>
                                     </li>
+
                                 }
                                 else if (User.IsInRole(UserRole.SysAdmin.ToString()))
                                 {
@@ -102,7 +101,6 @@
                                     </li>
                                 }
                             }
-
                         </ul>
                         <hr />
                         <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
@@ -163,14 +161,17 @@
     <div class="container">
         <div class="row my-3">
             <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
-            <h5 class="text-center">УРОВНИ ДОСТУПА</h5>
+            <h5 class="text-center">ПОСЕТИТЕЛИ</h5>
         </div>
         <div class="row my-3">
             <table class="table-dark table-bordered" style="width:1200px; color:black;">
                 <thead>
                     <tr class="text-center">
-                        <th>ID уровня</th>
-                        <th>Наименование уровня</th>
+                        <th>ID Гость</th>
+                        <th>ФИО</th>
+                        <th>Мобильный телефон</th>
+                        <th>Уровень доступа</th>
+                        <th>№ пропуска</th>
                         @if (User.Identity.IsAuthenticated)
                         {
                             if (User.IsInRole(UserRole.SysAdmin.ToString()))
@@ -182,51 +183,69 @@
                                 <th>Действия</th>
                             }
                         }
-
                     </tr>
                 </thead>
-                @foreach (var data in Model.Levels)
+
+                @foreach (var data in Model.Visitors)
                 {
                     <tbody>
                         <tr class="text-md-start">
-
-                            <td>@data.IdLevel</td>
-                            <td>@data.TitleLevel</td>
+                            <td>@data.Idvisitor</td>
+                            <td>@data.Fio</td>
+                            <td>@data.MobilePhone</td>
+                            <td>@data.IdLevels.TitleLevel</td>
+                            <td>@data.IdPasses.IdPass</td>
                             @if (User.Identity.IsAuthenticated)
                             {
+
                                 if (User.IsInRole(UserRole.SysAdmin.ToString()))
                                 {
                                     <td>
-                                        <a href="@Url.Action("LevelEdit", "Home", new { id = @data.IdLevel })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdLevel">Редактировать</a>
-                                        <a href="@Url.Action("DelLevel", "Home", new { id = @data.IdLevel })" class="text-danger" data-id="@data.IdLevel">Удалить</a>
+                                        <a href="@Url.Action("VisEdit", "Home", new { id = @data.Idvisitor})" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.Idvisitor">Редактировать</a>
+                                        <a href="@Url.Action("DelVis", "Home", new { id = @data.Idvisitor})" class="text-danger" data-id="@data.Idvisitor">Удалить</a>
                                     </td>
-
                                 }
                                 else if (User.IsInRole(UserRole.Admin.ToString()))
                                 {
                                     <td>
-                                        <a href="@Url.Action("LevelEdit", "Home", new { id = @data.IdLevel })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdLevel">Редактировать</a>
+                                        <a href="@Url.Action("VisEdit", "Home", new { id = @data.Idvisitor})" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.Idvisitor">Редактировать</a>
 
                                     </td>
                                 }
                             }
-
                         </tr>
                     </tbody>
                 }
-
             </table>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                {
+
+                    <div class="row m-2">
+                        <div class="col-2"></div>
+                        <div class="col-8"> <a href="@Url.Action("CreateVisit", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
+                        <div class="col-2"></div>
+
+                    </div>
+
+                }
+            }
 
             <script>
                 $('.editClick').on('click', function () {
                     // ...
                     console.log('edit clicked');
-                    const levelId = $(this).data('id');
+                    const visId = $(this).data('id');
                     // обращение на сервер
-                    $.get('/Home/LevelEdit/' + levelId, function (result) {
-                        // результат содержит данные о двери
-                        $('#exampleModal #inputTitle').val(result.idLevel);
-                        $('#exampleModal #inputTitle1').val(result.titleLevel);
+                    $.get('/Home/VisEdit/' + visId, function (result) {
+                        // результат содержит данные о госте
+                        $('#exampleModal #inputTitle').val(result.idvisitor);
+                        $('#exampleModal #inputTitle1').val(result.fio);
+                        $('#exampleModal #inputTitle2').val(result.mobilePhone);
+                        $('#exampleModal #inputTitle3').val(result.idLevel);
+                        $('#exampleModal #inputTitle4').val(result.idPass);
                     });
 
                 });
@@ -241,51 +260,55 @@
                             <h5 class="modal-title" id="exampleModalLabel">Редактировать информацию</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="post" asp-controller="Home" asp-action="LevelEdit">
+                        <form method="post" asp-action="VisEdit" asp-controller="Home">
                             <div class="modal-body">
                                 <div class="row mb-3">
-                                    <input hidden type="text" asp-for="@Model.IdLevel" class="form-control" value="@Model?.IdLevel" id="inputTitle" name="IdLevel" readonly>
-                                    <label for="inputTitle1" class="col-sm-4 col-form-label">Наименование уровня</label>
+                                    <input hidden readonly asp-for="@Model.Idvisitor." value="@Model?.Idvisitor" type="text" class="form-control" id="inputTitle">
+                                    <label for="inputTitle1" class="col-sm-4 col-form-label">Фамилия Имя Отчетсво</label>
                                     <div class="col-sm-8">
-                                        <input type="text" asp-for="@Model.TitleLevel" class="form-control" id="inputTitle1" value="@Model?.TitleLevel" name="TitleLevel">
-                                        <span for="inputTitle" class="text-danger" asp-validation-for="@Model.TitleLevel"></span>
+                                        <input asp-for="@Model.Fio" value="@Model?.Fio" type="text" class="form-control" id="inputTitle1">
+                                        <span for="inputTitle1" class="text-danger" asp-validation-for="@Model.Fio"></span>
                                     </div>
                                 </div>
+                                <div class="row mb-3">
+                                    <label for="inputTitle2" class="col-sm-4 col-form-label">Мобильный телефон</label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="@Model.MobilePhone" value="@Model?.MobilePhone" type="text" class="form-control" id="inputTitle2">
+                                        <span for="inputTitle2" class="text-danger" asp-validation-for="@Model.MobilePhone"></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="#inputTitle3" class="col-sm-4 col-form-label">Уровень доступа</label>
+                                    <div class="col-sm-8">
+                                        <select name="idLevel" class="form-control" id="#inputTitle3">
 
+                                            @foreach (var data in Model.Visitors)
+                                            {
+                                                <option value="@data.IdLevel">@data.IdLevels.TitleLevel</option>
+                                            }
+                                        </select>
+                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdLevel"></span>
+                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.TitleLevel"></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">                                    
+                                    <label for="inputTitle4" class="col-sm-4 col-form-label">№ пропуска</label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="@Model.IdPass" value="@Model?.IdPass" type="text" class="form-control" id="inputTitle4">
+                                        <span for="inputTitle4" class="text-danger" asp-validation-for="@Model.IdPass"></span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
-                                <button href="@Url.Action("LevelEdit", "Home")" type="submit" class="btn btn-success">Сохранить</button>
+                                <button type="submit" class="btn btn-success">Сохранить</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
 
-            @if (User.Identity.IsAuthenticated)
-            {
-                if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                {
-                    <div class="row m-2">
-                        <div class="col-2"></div>
-                        <div class="col-8"> <a href="@Url.Action("CreateLevel", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
-                        <div class="col-2"></div>
-
-                    </div>
-                  
-                }
-            }
-
-            <div class="row m-2 text-center">
-                <p class="text-center" style="font-size:17px">
-                    Для настройки уровня доступа необходимо перейти на страницу <a class="text-primary" href="@Url.Action("Staff", "Home")">"Сотрудники"</a> или <a class="text-primary" href="@Url.Action("Rooms", "Home")">"Помещения"</a> и выбрать <a class="text-success">"Редактировать"</a> в соответсвующей ячейке таблицы.
-                    <strong>Внимание!</strong> Права настройки уровня доступа есть только у начальника охраны и системного администратора сайта.
-                </p>
-
-            </div>
-
         </div>
     </div>
-
 </body>
 </html>

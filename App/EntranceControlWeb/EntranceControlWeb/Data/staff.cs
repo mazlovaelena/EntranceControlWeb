@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace EntranceControlWeb.Models
+namespace EntranceControlWeb.Data
 {
     public partial class staff
     {
@@ -24,7 +24,6 @@ namespace EntranceControlWeb.Models
         public int IdPass { get; set; }
 
         public virtual AccessLevel IdLevels { get; set; }
-        public virtual Pass IdPasses { get; set; }
         public virtual ICollection<SortingByOffice> SortingByOffices { get; set; }
     }
 }

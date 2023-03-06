@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace EntranceControlWeb.Models
+namespace EntranceControlWeb.Data
 {
     public partial class Pass
     {
@@ -11,7 +11,6 @@ namespace EntranceControlWeb.Models
         {
             Entrances = new HashSet<Entrance>();
             Visitors = new HashSet<Visitor>();
-            staffs = new HashSet<staff>();
         }
 
         public int IdPass { get; set; }
@@ -22,6 +21,5 @@ namespace EntranceControlWeb.Models
         public virtual LastingStatus IdLongs { get; set; }
         public virtual ICollection<Entrance> Entrances { get; set; }
         public virtual ICollection<Visitor> Visitors { get; set; }
-        public virtual ICollection<staff> staffs { get; set; }
     }
 }

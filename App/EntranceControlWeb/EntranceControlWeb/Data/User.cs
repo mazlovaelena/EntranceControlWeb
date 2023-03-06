@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using EntranceControlWeb.Data;
+using EntranceControlWeb.Models;
 
 #nullable disable
 
-namespace EntranceControlWeb.Models
+namespace EntranceControlWeb.Data
 {
     public partial class User
     {
