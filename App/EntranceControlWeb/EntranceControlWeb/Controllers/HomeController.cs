@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EntranceControlWeb.Controllers
 {
@@ -24,26 +24,6 @@ namespace EntranceControlWeb.Controllers
         }
 
         #region  ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ТУРНИКЕТЫ"
-
-        //public async Task<IActionResult> SortDoor(Sorting sortOrder = Sorting.DoorAsc)
-        //{
-        //    IQueryable<Door> doors = _context.Doors.Include(x => x.TitleDoor);
-
-        //    ViewData["DoorSort"] = sortOrder == Sorting.DoorAsc ? Sorting.DoorDesc : Sorting.DoorAsc;
-        //    ViewData["RoomSort"] = sortOrder == Sorting.RoomAsc ? Sorting.RoomDesc : Sorting.RoomAsc;
-
-        //    doors = sortOrder switch
-        //    {
-        //        Sorting.DoorDesc => doors.OrderByDescending(s => s.TitleDoor),
-        //        Sorting.DoorAsc => doors.OrderBy(s => s.TitleDoor),
-        //        Sorting.RoomAsc => doors.OrderBy(s => s.IdRooms.TitleRoom),
-        //        Sorting.RoomDesc => doors.OrderByDescending(s => s.IdRooms.TitleRoom),
-
-        //    };
-        //    return View(await doors.AsNoTracking().ToListAsync());
-        //}
-
-
 
         //Отображение страницы
         public IActionResult Doors(DoorViewModel door)
@@ -109,6 +89,9 @@ namespace EntranceControlWeb.Controllers
         public IActionResult CreateDoor()
         {
             var door = new DoorViewModel();
+            SelectList room = new SelectList(_context.Rooms, "IdRoom", "TitleRoom");
+            ViewBag.Room = room;
+
             door.Doors = _context.Doors.ToList();
             door.Rooms = _context.Rooms.ToList();
             return View(door);
@@ -383,6 +366,9 @@ namespace EntranceControlWeb.Controllers
         public IActionResult CreateRoom()
         {
             var room = new RoomViewModel();
+            SelectList lev = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
+            ViewBag.Levels = lev;
+
             room.Rooms = _context.Rooms.ToList();
             room.Levels = _context.AccessLevels.ToList();
             return View(room);
@@ -473,6 +459,15 @@ namespace EntranceControlWeb.Controllers
         public IActionResult CreateSort()
         {
             var sort = new SortingByOfficeViewModel();
+            SelectList staff = new SelectList(_context.staff, "IdStaff", "Surname");
+            ViewBag.Staff = staff;
+
+            SelectList pos = new SelectList(_context.Positions, "IdPost", "TitlePost");
+            ViewBag.Position = pos;
+
+            SelectList of = new SelectList(_context.Offices, "IdOffice", "TitleOffice");
+            ViewBag.Office = of;
+
             sort.Sortings = _context.SortingByOffices.ToList();
             sort.Staffs = _context.staff.ToList();
             sort.Positions = _context.Positions.ToList();
@@ -583,6 +578,10 @@ namespace EntranceControlWeb.Controllers
         public IActionResult CreateStaff()
         {
             var staff = new StaffViewModel();
+
+            SelectList lev = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
+            ViewBag.Levels = lev;
+
             staff.Staffs = _context.staff.ToList();
             staff.Levels = _context.AccessLevels.ToList();
 
@@ -644,14 +643,14 @@ namespace EntranceControlWeb.Controllers
             edit.Fio = vis.Fio;
             edit.MobilePhone = vis.MobilePhone;
             edit.IdLevel = vis.IdLevel;
-            edit.IdPass = vis.IdPass;
+            edit.IdPass = vis.IdPass;            
 
             _context.SaveChanges();
             return RedirectToAction(nameof(Visitors));
         }
         public IActionResult VisEdit(int id)
         {
-            var vis = new VisitorViewModel();
+            var vis = new VisitorViewModel();           
             var edit = _context.Visitors.FirstOrDefault(x => x.Idvisitor == id);
             if (edit != null)
             {
@@ -690,6 +689,10 @@ namespace EntranceControlWeb.Controllers
         public IActionResult CreateVisit()
         {
             var vis = new VisitorViewModel();
+
+            SelectList lev = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
+            ViewBag.Levels = lev;
+
             vis.Visitors = _context.Visitors.ToList();
             vis.Levels = _context.AccessLevels.ToList();
             vis.Passes = _context.Passes.ToList();
@@ -698,7 +701,6 @@ namespace EntranceControlWeb.Controllers
         }
 
         #endregion
-
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

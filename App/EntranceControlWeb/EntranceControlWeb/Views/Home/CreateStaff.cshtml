@@ -211,15 +211,10 @@
                     </div>
                     <div class="row mb-3">
                         <label for="idRoom" class="col-sm-4 col-form-label">Уровень доступа</label>
-                        <div class="col-sm-8">
-                            <select name="idRoom" class="form-control" id="idRoom">
+                        <div class="col-sm-8">                           
 
-                                @foreach (var data in Model.Staffs)
-                                {
-                                    <option value="@data.IdLevel">@data.IdLevels.TitleLevel</option>
-                                }
+                                @Html.DropDownListFor(x => x.IdLevel, ViewBag.Level as SelectList, new { @class = "form-control" })
 
-                            </select>
                             <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdLevel"></span>
                             <span for="idRoom" class="text-danger" asp-validation-for="@Model.TitleLevel"></span>
                         </div>

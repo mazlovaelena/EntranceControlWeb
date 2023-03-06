@@ -281,10 +281,9 @@
                                     <label for="#inputTitle3" class="col-sm-4 col-form-label">Уровень доступа</label>
                                     <div class="col-sm-8">
                                         <select name="idLevel" class="form-control" id="#inputTitle3">
-
-                                            @foreach (var data in Model.Visitors)
+                                           @foreach(var data in Model.Visitors)
                                             {
-                                                <option value="@data.IdLevel">@data.IdLevels.TitleLevel</option>
+                                               <option value="@data.IdLevel">@data.IdLevels.TitleLevel</option>
                                             }
                                         </select>
                                         <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdLevel"></span>

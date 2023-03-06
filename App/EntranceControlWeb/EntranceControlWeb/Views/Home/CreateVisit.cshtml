@@ -184,14 +184,9 @@
                     <div class="row mb-3">
                         <label for="idvisitor" class="col-sm-4 col-form-label">Уровень доступа</label>
                         <div class="col-sm-8">
-                            <select name="idvisitor" class="form-control" id="idvisitor">
-
-                                @foreach (var data in Model.Visitors)
-                                {
-                                    <option value="@data.IdLevel">@data.IdLevels.TitleLevel</option>
-                                }
-
-                            </select>
+                            
+                                @Html.DropDownListFor(x => x.IdLevel, ViewBag.Levels as SelectList, new { @class="form-control" })                            
+                            
                             <span for="idvisitor" class="text-danger" asp-validation-for="@Model.IdLevel"></span>
                             <span for="idvisitor" class="text-danger" asp-validation-for="@Model.TitleLevel"></span>
                         </div>
