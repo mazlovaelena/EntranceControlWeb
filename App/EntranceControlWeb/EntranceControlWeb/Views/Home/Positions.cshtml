@@ -172,7 +172,7 @@
                 <thead>
                     <tr class="text-center">
                         <th>ID Должность</th>
-                        <th>Наименование должности</th>
+                        <th>@Html.ActionLink("Наименование должности", "Positions", new { sort = ViewBag.PostSort })</th>
                         @if (User.Identity.IsAuthenticated)
                         {
                             if (User.IsInRole(UserRole.SysAdmin.ToString()))

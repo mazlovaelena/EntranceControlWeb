@@ -170,11 +170,11 @@
                 <thead>
                     <tr class="text-center">
                         <th>ID Запись</th>
-                        <th>Дата входа</th>
-                        <th>Дата выхода</th>
-                        <th>Помещение</th>
+                        <th>@Html.ActionLink("Дата входа", "Entrance", new { sort = ViewBag.DateEntrSort }) </th>
+                        <th>Дата выхода </th>
+                        <th>@Html.ActionLink("Помещение", "Entrance", new { sort = ViewBag.RoomSort }) </th>
                         <th>№ пропуска</th>
-                        <th>Тип турникета</th>
+                        <th>@Html.ActionLink("Турникет", "Entrance", new { sort = ViewBag.DoorSort }) </th>
                         <th>Статус доступа</th>
                     </tr>
                 </thead>

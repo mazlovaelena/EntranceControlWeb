@@ -26,9 +26,31 @@ namespace EntranceControlWeb.Controllers
         #region  ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ТУРНИКЕТЫ"
 
         //Отображение страницы
-        public IActionResult Doors(DoorViewModel door)
+        public IActionResult Doors(DoorViewModel door, string sort)
         {
-            door.Doors = _context.Doors.ToList();
+            ViewBag.RoomSort = String.IsNullOrEmpty(sort) ? "Room dsc" : "Room";
+            ViewBag.DoorSort = String.IsNullOrEmpty(sort) ? "Door dsc" : "Door";
+            var find = from s in _context.Doors select s;
+            switch (sort)
+            {
+                case "Room":
+                    find = find.OrderBy(s => s.IdRoom);
+                    break;
+
+                case "Room dsc":
+                    find = find.OrderByDescending(s => s.IdRoom);
+                    break;
+
+                case "Door":
+                    find = find.OrderBy(s => s.IdDoor);
+                    break;
+
+                case "Door dsc":
+                    find = find.OrderByDescending(s => s.IdDoor);
+                    break;
+            }
+
+            door.Doors = find.ToList();
             door.Rooms = _context.Rooms.ToList();
             return View(door);
         }
@@ -171,9 +193,22 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ОТДЕЛЫ"
         //Отображение страницы
-        public IActionResult Offices(OfficeViewModel off)
+        public IActionResult Offices(OfficeViewModel off, string sort)
         {
-            off.Offices = _context.Offices.ToList();
+            ViewBag.OffSort = String.IsNullOrEmpty(sort) ? "Off dsc" : "Off";
+            var find = from s in _context.Offices select s;
+            switch (sort)
+            {
+                case "Off":
+                    find = find.OrderBy(s => s.IdOffice);
+                    break;
+
+                case "Off dsc":
+                    find = find.OrderByDescending(s => s.IdOffice);
+                    break;
+            }
+
+            off.Offices = find.ToList();
             return View(off);
         }
         //Удаление записи
@@ -236,9 +271,22 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ДОЛЖНОСТИ"
         //Отображение страницы
-        public IActionResult Positions(PositionViewModel pos)
+        public IActionResult Positions(PositionViewModel pos, string sort)
         {
-            pos.Positions = _context.Positions.ToList();
+            ViewBag.PostSort = String.IsNullOrEmpty(sort) ? "Post dsc" : "";
+            var find = from s in _context.Positions select s;
+            switch(sort)
+            {
+                default:
+                    find = find.OrderBy(s => s.IdPost);
+                    break;
+
+                case "Post dsc":
+                    find = find.OrderByDescending(s => s.IdPost);
+                    break;
+            }
+
+            pos.Positions = find.ToList();
             return View(pos);
         }
         //Удаление записи
@@ -301,9 +349,31 @@ namespace EntranceControlWeb.Controllers
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ПОМЕЩЕНИЯ"
 
         //Отображение данных
-        public IActionResult Rooms(RoomViewModel room)
+        public IActionResult Rooms(RoomViewModel room, string sort)
         {
-            room.Rooms = _context.Rooms.ToList();
+            ViewBag.RoomSort = String.IsNullOrEmpty(sort) ? "Room dsc" : "Room";
+            ViewBag.LevelSort = String.IsNullOrEmpty(sort) ? "Level dsc" : "Level";
+            var find = from s in _context.Rooms select s;
+            switch (sort)
+            {
+                case "Room":
+                    find = find.OrderBy(s => s.IdRoom);
+                    break;
+
+                case "Room dsc":
+                    find = find.OrderByDescending(s => s.IdRoom);
+                    break;
+
+                case "Level":
+                    find = find.OrderBy(s => s.IdLevel);
+                    break;
+
+                case "Level dsc":
+                    find = find.OrderByDescending(s => s.IdLevel);
+                    break;
+            }
+
+            room.Rooms = find.ToList();
             room.Levels = _context.AccessLevels.ToList();
             return View(room);
         }
@@ -378,9 +448,40 @@ namespace EntranceControlWeb.Controllers
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "РАСПРЕДЕЛЕНИЕ ПО ОТДЕЛАМ"
 
         //Отображение страницы
-        public IActionResult SortByOff(SortingByOfficeViewModel sort)
+        public IActionResult SortByOff(SortingByOfficeViewModel sort, string order)
         {
-            sort.Sortings = _context.SortingByOffices.ToList();
+            ViewBag.SortStaff = String.IsNullOrEmpty(order) ? "Staff dsc" : "Staff";
+            ViewBag.SortPost = String.IsNullOrEmpty(order) ? "Post dsc" : "Post";
+            ViewBag.SortOffice = String.IsNullOrEmpty(order) ? "Office dsc" : "Office";
+            var find = from s in _context.SortingByOffices select s;
+            switch (order)
+            {
+                case "Staff":
+                    find = find.OrderBy(s => s.IdStaff);
+                    break;
+
+                case "Staff dsc":
+                    find = find.OrderByDescending(s => s.IdStaff);
+                    break;
+
+                case "Post":
+                    find = find.OrderBy(s => s.IdPost);
+                    break;
+
+                case "Post dsc":
+                    find = find.OrderByDescending(s => s.IdPost);
+                    break;
+
+                case "Office":
+                    find = find.OrderBy(s => s.IdOffice);
+                    break;
+
+                case "Office dsc":
+                    find = find.OrderByDescending(s => s.IdOffice);
+                    break;
+            }
+
+            sort.Sortings = find.ToList();
             sort.Staffs = _context.staff.ToList();
             sort.Positions = _context.Positions.ToList();
             sort.Offices = _context.Offices.ToList();
@@ -591,9 +692,45 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ДОСТУП"
         //Отображение данных
-        public IActionResult Entrance(EntranceViewModel entr)
+        public IActionResult Entrance(EntranceViewModel entr, string sort)
         {
-            entr.Entrances = _context.Entrances.ToList();
+            ViewBag.DateEntrSort = sort == "DateEntr" ? "DateEntr dsc" : "DateEntr";
+            ViewBag.DoorSort = String.IsNullOrEmpty(sort) ? "Door desc" : "Door";
+            ViewBag.RoomSort = String.IsNullOrEmpty(sort) ? "Room desc" : "Room";
+            var find = from s in _context.Entrances select s;
+            switch (sort)
+            {
+                case "DateEntr":
+                    find = find.OrderBy(s => s.DateEntr);
+                    break;
+
+                case "DateEntr dsc":
+                    find = find.OrderByDescending(s => s.DateEntr);
+                    break;
+
+                case "Door desc":
+                    find = find.OrderByDescending(s => s.IdDoor);
+                    break;
+
+                case "Door":
+                    find = find.OrderBy(s => s.IdDoor);
+                    break;
+
+                case "Room":
+                    find = find.OrderBy(s => s.IdRoom);
+                    break;
+
+                case "Room desc":
+                    find = find.OrderByDescending(s => s.IdRoom);
+                    break;
+
+                default:
+                    find = find.OrderBy(s => s.IdRecord);                    
+                    break;
+
+            }
+
+            entr.Entrances = find.ToList();
             entr.Passes = _context.Passes.ToList();
             entr.Rooms = _context.Rooms.ToList();
             entr.Doors = _context.Doors.ToList();
@@ -625,9 +762,31 @@ namespace EntranceControlWeb.Controllers
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ПОСЕТИТЕЛИ"
 
         //Отображение страницы
-        public IActionResult Visitors(VisitorViewModel vis)
+        public IActionResult Visitors(VisitorViewModel vis, string sort)
         {
-            vis.Visitors = _context.Visitors.ToList();
+            ViewBag.VisSort = String.IsNullOrEmpty(sort) ? "Name dsc" : "Name";
+            ViewBag.PassSort = string.IsNullOrEmpty(sort) ? "Pass dsc" : "Pass";
+            var find = from s in _context.Visitors select s;
+            switch (sort)
+            {
+                case "Name":
+                    find = find.OrderBy(s => s.Fio);
+                    break;
+
+                case "Name dsc":
+                    find = find.OrderByDescending(s => s.Fio);
+                    break;
+
+                case "Pass":
+                    find = find.OrderBy(s => s.IdPass);
+                    break;
+
+                case "Pass dsc":
+                    find = find.OrderByDescending(s => s.IdPass);
+                    break;
+            }
+
+            vis.Visitors = find.ToList();
             vis.Levels = _context.AccessLevels.ToList();
             vis.Passes = _context.Passes.ToList();
             return View(vis);

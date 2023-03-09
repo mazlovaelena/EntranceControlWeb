@@ -171,10 +171,10 @@
                 <thead>
                     <tr class="text-center">
                         <th>ID Гость</th>
-                        <th>ФИО</th>
+                        <th>@Html.ActionLink("ФИО", "Visitors", new { sort = ViewBag.VisSort })</th>
                         <th>Мобильный телефон</th>
                         <th>Уровень доступа</th>
-                        <th>№ пропуска</th>
+                        <th>@Html.ActionLink("№ пропуска", "Visitors", new { sort = ViewBag.PassSort })</th>
                         @if (User.Identity.IsAuthenticated)
                         {
                             if (User.IsInRole(UserRole.SysAdmin.ToString()))

@@ -172,8 +172,8 @@
                 <thead>
                     <tr class="text-center">
                         <th>ID Помещение</th>
-                        <th>Наименование помещения</th>
-                        <th>Уровень доступа</th>
+                        <th>@Html.ActionLink("Наименование помещения", "Rooms", new { sort = ViewBag.RoomSort })</th>
+                        <th>@Html.ActionLink("Уровень доступа", "Rooms", new { sort = ViewBag.LevelSort })</th>
                         @if (User.Identity.IsAuthenticated)
                         {
                             if (User.IsInRole(UserRole.SysAdmin.ToString()))

@@ -172,9 +172,9 @@
                         <th>ID Запись</th>
                         <th>Время начала смены</th>
                         <th>Время завершения смены</th>
-                        <th>Сотрудник</th>
-                        <th>Должность</th>
-                        <th>Отдел</th>
+                        <th>@Html.ActionLink("Сотрудник", "SortByOff", new { order = ViewBag.SortStaff })</th>
+                        <th>@Html.ActionLink("Должность", "SortByOff", new { order = ViewBag.SortPost })</th>
+                        <th>@Html.ActionLink("Отдел", "SortByOff", new { order = ViewBag.SortOffice})</th>
                         <th>Рабочий телефон</th>
                         @if (User.Identity.IsAuthenticated)
                         {

@@ -172,7 +172,7 @@
                 <thead>
                     <tr class="text-center">
                         <th>ID Отдел</th>
-                        <th>Наименование отдела</th>
+                        <th>@Html.ActionLink("Наименование отдела", "Offices", new { sort = ViewBag.OffSort })</th>
                         @if (User.Identity.IsAuthenticated)
                         {
                             if (User.IsInRole(UserRole.SysAdmin.ToString()))
