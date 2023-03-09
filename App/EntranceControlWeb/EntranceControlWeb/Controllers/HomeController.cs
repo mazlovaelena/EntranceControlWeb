@@ -702,6 +702,83 @@ namespace EntranceControlWeb.Controllers
 
         #endregion
 
+        #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ПРОПУСКА"
+        //Отображение страницы
+        public IActionResult Passes(PassesViewModel pass)
+        {
+            pass.Passes = _context.Passes.ToList();
+            pass.Lastings = _context.LastingStatuses.ToList();
+            pass.Activities = _context.ActivityStatuses.ToList();            
+
+            return View(pass);
+        }
+
+        //Создание записи
+        [HttpPost]
+        public IActionResult CreatePass(PassesViewModel pass)
+        {
+            var create = new Pass { IdPass = pass.IdPass, IdLong = pass.IdLong, IdActiv = pass.IdActiv };
+
+            _context.Add(create);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Passes));
+
+        }
+        public IActionResult CreatePass()
+        {
+            var pass = new PassesViewModel();
+            SelectList last = new SelectList(_context.LastingStatuses, "IdLong", "TitleLong");
+            ViewBag.Lasting = last;
+
+            SelectList act = new SelectList(_context.ActivityStatuses, "IdActiv", "TitleActiv");
+            ViewBag.Activ = act;
+
+            pass.Activities = _context.ActivityStatuses.ToList();
+            pass.Lastings = _context.LastingStatuses.ToList();
+            pass.Passes = _context.Passes.ToList();
+
+            return View(pass);
+
+        }
+        //Редактирование записи
+        [HttpPost]
+        public IActionResult PassEdit(PassesViewModel pass)
+        {
+            var edit = _context.Passes.FirstOrDefault(x => x.IdPass == pass.IdPass);
+
+            edit.IdPass = pass.IdPass;
+            edit.IdActiv = pass.IdActiv;
+            edit.IdLong = pass.IdLong;
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Passes));
+        }
+        public IActionResult PassEdit(int id)
+        {
+            var pass = new PassesViewModel();
+            var edit = _context.Passes.FirstOrDefault(x => x.IdPass == id);
+            if(edit != null)
+            {
+                pass.IdPass = edit.IdPass;
+                pass.IdActiv = edit.IdActiv;
+                pass.IdLong = edit.IdLong;
+            }
+
+            return Json(pass);
+        }
+        //Удаление записи
+        public IActionResult DelPass(int id)
+        {
+            var pass = _context.Passes.FirstOrDefault(x => x.IdPass == id);
+            if (pass != null)
+            {
+                _context.Passes.Remove(pass);
+            }
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Passes));
+        }
+
+        #endregion
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(int code)
