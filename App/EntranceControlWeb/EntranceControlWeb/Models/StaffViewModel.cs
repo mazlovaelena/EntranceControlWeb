@@ -33,16 +33,7 @@ namespace EntranceControlWeb.Models
 
         [Required(ErrorMessage = "Заполните это поле")]
         public string Image { get; set; }
-
-        public List<AccessLevel> Levels { get; set; }
-
-        [Required(ErrorMessage = "Выберите значение")]
-        public int IdLevel { get; set; }
-
-        [Required(ErrorMessage = "Выберите значение")]
-        public string TitleLevel { get; set; }
-        [Required(ErrorMessage = "Заполните это поле")]
-
+        
         public int IdPass { get; set; }
 
     }

@@ -37,8 +37,7 @@ namespace EntranceControlWeb.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-G6IA9JI;Initial catalog=EntranceControlWeb;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-GPOKLT9;Initial catalog=EntranceControlWeb;Trusted_Connection=True;");
             }
         }
 
@@ -100,13 +99,13 @@ namespace EntranceControlWeb.Data
 
                 entity.Property(e => e.DateAuth).HasColumnType("datetime");
 
-                entity.Property(e => e.IdUser).HasColumnName("ID_User");                
+                entity.Property(e => e.IdUser).HasColumnName("ID_User");
 
                 entity.HasOne(d => d.IdUsers)
                     .WithMany(p => p.Authorizes)
                     .HasForeignKey(d => d.IdUser)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Authorize__ID_Us__15502E78");
+                    .HasConstraintName("FK_Authorize_Users");
             });
 
             modelBuilder.Entity<Door>(entity =>
@@ -126,7 +125,6 @@ namespace EntranceControlWeb.Data
                 entity.HasOne(d => d.IdRooms)
                     .WithMany(p => p.Doors)
                     .HasForeignKey(d => d.IdRoom)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Doors_Rooms");
             });
 
@@ -211,6 +209,8 @@ namespace EntranceControlWeb.Data
 
                 entity.Property(e => e.IdActiv).HasColumnName("ID_Activ");
 
+                entity.Property(e => e.IdLevel).HasColumnName("ID_Level");
+
                 entity.Property(e => e.IdLong).HasColumnName("ID_Long");
 
                 entity.HasOne(d => d.IdActivs)
@@ -218,6 +218,11 @@ namespace EntranceControlWeb.Data
                     .HasForeignKey(d => d.IdActiv)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Passes_ActivityStatus");
+
+                entity.HasOne(d => d.IdLevels)
+                    .WithMany(p => p.Passes)
+                    .HasForeignKey(d => d.IdLevel)
+                    .HasConstraintName("FK_Passes_AccessLevel");
 
                 entity.HasOne(d => d.IdLongs)
                     .WithMany(p => p.Passes)
@@ -256,7 +261,6 @@ namespace EntranceControlWeb.Data
                 entity.HasOne(d => d.IdLevels)
                     .WithMany(p => p.Rooms)
                     .HasForeignKey(d => d.IdLevel)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Rooms_AccessLevel");
             });
 
@@ -280,19 +284,16 @@ namespace EntranceControlWeb.Data
                 entity.HasOne(d => d.IdOffices)
                     .WithMany(p => p.SortingByOffices)
                     .HasForeignKey(d => d.IdOffice)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SortingByOffices_Offices");
 
                 entity.HasOne(d => d.IdPosts)
                     .WithMany(p => p.SortingByOffices)
                     .HasForeignKey(d => d.IdPost)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SortingByOffices_Positions");
 
                 entity.HasOne(d => d.IdStaffs)
                     .WithMany(p => p.SortingByOffices)
                     .HasForeignKey(d => d.IdStaff)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SortingByOffices_Staff");
             });
 
@@ -328,8 +329,6 @@ namespace EntranceControlWeb.Data
                     .IsUnicode(false)
                     .HasColumnName("FIO");
 
-                entity.Property(e => e.IdLevel).HasColumnName("ID_Level");
-
                 entity.Property(e => e.IdPass).HasColumnName("ID_Pass");
 
                 entity.Property(e => e.MobilePhone)
@@ -337,16 +336,9 @@ namespace EntranceControlWeb.Data
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.IdLevels)
-                    .WithMany(p => p.Visitors)
-                    .HasForeignKey(d => d.IdLevel)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Visitors_AccessLevel");
-
                 entity.HasOne(d => d.IdPasses)
                     .WithMany(p => p.Visitors)
                     .HasForeignKey(d => d.IdPass)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Visitors_Passes");
             });
 
@@ -365,8 +357,6 @@ namespace EntranceControlWeb.Data
                     .IsRequired()
                     .HasMaxLength(20)
                     .IsUnicode(false);
-
-                entity.Property(e => e.IdLevel).HasColumnName("ID_Level");
 
                 entity.Property(e => e.IdPass).HasColumnName("ID_Pass");
 
@@ -395,11 +385,10 @@ namespace EntranceControlWeb.Data
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.IdLevels)
+                entity.HasOne(d => d.IdPasses)
                     .WithMany(p => p.staff)
-                    .HasForeignKey(d => d.IdLevel)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Staff_AccessLevel");
+                    .HasForeignKey(d => d.IdPass)
+                    .HasConstraintName("FK_Staff_Passes");
             });
 
             OnModelCreatingPartial(modelBuilder);

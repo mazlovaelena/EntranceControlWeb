@@ -188,42 +188,27 @@
                     <div class="row mb-3">
                         <label for="idStaff" class="col-sm-4 col-form-label">Сотрудник</label>
                         <div class="col-sm-8">
-                            <select name="idStaff" class="form-control" id="inputIdStaff">
+                            
+                            @Html.DropDownListFor(x => x.IdStaff, Model.StaffSelect, new { @class = "form-control" })
 
-                                @foreach (var data in Model.Sortings)
-                                {
-                                    <option value="@data.IdStaff">@data.IdStaffs.Surname @data.IdStaffs.Name @data.IdStaffs.LastName</option>
-                                }
-
-                            </select>
                             <span for="inputTitle" class="text-danger" asp-validation-for="@Model.IdStaff"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="idPost" class=col-sm-4 col-form-label">Должность</label>
                         <div class="col-sm-8">
-                            <select name="idPost" class="form-control" id="inputIdPost">
+                            
+                            @Html.DropDownListFor(x => x.IdPost, Model.PostSelect, new { @class = "form-control" })
 
-                                @foreach (var data in Model.Sortings)
-                                {
-                                    <option value="@data.IdPost">@data.IdPosts.TitlePost</option>
-                                }
-
-                            </select>
                             <span for="inputTitle" class="text-danger" asp-validation-for="@Model.IdPost"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="idOffice" class="col-sm-4 col-form-label">Отдел</label>
                         <div class="col-sm-8">
-                            <select name="idOffice" class="form-control" id="inputIdOffice">
+                           
+                            @Html.DropDownListFor(x=>x.IdOffice, Model.OfficeSelect, new { @class = "form-control"})
 
-                                @foreach (var data in Model.Sortings)
-                                {
-                                    <option value="@data.IdOffice">@data.IdOffices.TitleOffice</option>
-                                }
-
-                            </select>
                             <span for="inputTitle" class="text-danger" asp-validation-for="@Model.IdOffice"></span>
                         </div>
                     </div>

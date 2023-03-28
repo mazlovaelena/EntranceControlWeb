@@ -15,7 +15,7 @@ namespace EntranceControlWeb.Data
         public int IdPost { get; set; }
         public int IdOffice { get; set; }
 
-        public virtual Office IdOffices { get; set; }
+        public virtual Office IdOffices{ get; set; }
         public virtual Position IdPosts { get; set; }
         public virtual staff IdStaffs { get; set; }
     }

@@ -169,7 +169,7 @@
             <table class="table-dark table-bordered" style="width:1200px; color:black;">
                 <thead>
                     <tr class="text-center">
-                        <th>ID Запись</th>
+                        <th>@Html.ActionLink("ID Запись", "Entrance", new { sort = ViewBag.IdSort }) </th>                     
                         <th>@Html.ActionLink("Дата входа", "Entrance", new { sort = ViewBag.DateEntrSort }) </th>
                         <th>Дата выхода </th>
                         <th>@Html.ActionLink("Помещение", "Entrance", new { sort = ViewBag.RoomSort }) </th>

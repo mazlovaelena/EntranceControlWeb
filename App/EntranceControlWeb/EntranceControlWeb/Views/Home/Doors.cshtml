@@ -245,7 +245,7 @@
                         // результат содержит данные о двери
                         $('#exampleModal #inputTitle1').val(result.idDoor);
                         $('#exampleModal #inputTitle').val(result.titleDoor);
-                        $('#exampleModal #idRoom').val(result.titleRoom);
+                        $('#exampleModal #idRoom').val(result.idRoom);
                     });
 
                 });
@@ -274,15 +274,10 @@
                                 </div>
                                 <div class="row mb-3">
                                     <label for="idRoom" class="col-sm-4 col-form-label">Помещение</label>
-                                    <div class="col-sm-8">
-                                        <select name="idRoom" class="form-control" id="idRoom">
+                                    <div class="col-sm-8">                                      
 
-                                            @*@foreach (var data in Model.Doors)
-                                            {
-                                                <option value="@data.IdRoom">@data.IdRooms.TitleRoom</option>
-                                            }*@
-
-                                        </select>
+                                            @Html.DropDownListFor(x => x.IdRoom, Model.RoomSelect, new { @class = "form-control" })
+                                      
                                         <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdRoom"></span>
                                         <span for="idRoom" class="text-danger" asp-validation-for="@Model.TitleRoom"></span>
                                     </div>

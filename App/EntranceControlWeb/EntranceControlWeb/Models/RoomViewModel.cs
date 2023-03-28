@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using EntranceControlWeb.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 
 #nullable disable
@@ -19,8 +20,8 @@ namespace EntranceControlWeb.Models
         public List<AccessLevel> Levels { get; set; }
         [Required(ErrorMessage = "Выберите значение")]
         public int IdLevel { get; set; }
-        [Required(ErrorMessage = "Выберите значение")]
-        public string TitleLevel { get; set; }
+        public IEnumerable<SelectListItem> LevelSelect { get; set; }
+
 
     }
 }

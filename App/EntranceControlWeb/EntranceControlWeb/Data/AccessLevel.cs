@@ -9,16 +9,14 @@ namespace EntranceControlWeb.Data
     {
         public AccessLevel()
         {
+            Passes = new HashSet<Pass>();
             Rooms = new HashSet<Room>();
-            Visitors = new HashSet<Visitor>();
-            staff = new HashSet<staff>();
         }
 
         public int IdLevel { get; set; }
         public string TitleLevel { get; set; }
 
+        public virtual ICollection<Pass> Passes { get; set; }
         public virtual ICollection<Room> Rooms { get; set; }
-        public virtual ICollection<Visitor> Visitors { get; set; }
-        public virtual ICollection<staff> staff { get; set; }
     }
 }

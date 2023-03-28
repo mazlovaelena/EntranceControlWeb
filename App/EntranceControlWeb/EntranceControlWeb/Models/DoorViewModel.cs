@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using EntranceControlWeb.Data;
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EntranceControlWeb.Models
 {
@@ -22,5 +22,6 @@ namespace EntranceControlWeb.Models
         public int IdRoom { get; set; }
         [Required(ErrorMessage = "Выберите значение")]
         public string TitleRoom { get; set; }
+        public IEnumerable<SelectListItem> RoomSelect { get; set; }
     }
 }

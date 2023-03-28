@@ -173,6 +173,7 @@
                         <th>№ пропуска</th>
                         <th>Длительность</th>
                         <th>Статус активности</th>
+                        <th>Уровень доступа</th>
                         
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -195,6 +196,7 @@
                             <td>@data.IdPass</td>
                             <td>@data.IdLongs.TitleLong</td>
                             <td>@data.IdActivs.TitleActiv</td>
+                            <td>@data.IdLevels.TitleLevel</td>
                             
                             @if (User.Identity.IsAuthenticated)
                             {
@@ -244,7 +246,8 @@
                         // результат содержит данные о госте
                         $('#exampleModal #inputTitle').val(result.idPass);
                         $('#exampleModal #inputTitle1').val(result.idLong);
-                        $('#exampleModal #inputTitle2').val(result.idActiv);                       
+                        $('#exampleModal #inputTitle2').val(result.idActiv);
+                        $('#exampleModal #inputTitle3').val(result.idLevel);
                     });
 
                 });
@@ -270,12 +273,9 @@
                                 <div class="row mb-3">
                                     <label for="#inputTitle1" class="col-sm-4 col-form-label">Длительность</label>
                                     <div class="col-sm-8">
-                                        <select name="idLevel" class="form-control" id="#inputTitle1">
-                                            @foreach (var data in Model.Passes)
-                                            {
-                                                <option value="@data.IdLong">@data.IdLongs.TitleLong</option>
-                                            }
-                                        </select>
+
+                                        @Html.DropDownListFor(x=>x.IdLong, Model.LongSelect, new { @class = "form-control" })
+
                                         <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdLong"></span>
                                         <span for="idRoom" class="text-danger" asp-validation-for="@Model.TitleLong"></span>
                                     </div>
@@ -283,16 +283,23 @@
                                 <div class="row mb-3">
                                     <label for="#inputTitle2" class="col-sm-4 col-form-label">Статус активности</label>
                                     <div class="col-sm-8">
-                                        <select name="idLevel" class="form-control" id="#inputTitle2">
-                                            @foreach (var data in Model.Passes)
-                                            {
-                                                <option value="@data.IdActiv">@data.IdActivs.TitleActiv</option>
-                                            }
-                                        </select>
+                                        
+                                        @Html.DropDownListFor(x=>x.IdActiv, Model.ActivSelect, new { @class = "form-control"})
+
                                         <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdActiv"></span>
                                         <span for="idRoom" class="text-danger" asp-validation-for="@Model.TitleActiv"></span>
                                     </div>
-                                </div>                               
+                                </div> 
+                                <div class="row mb-3">
+                                    <label for="#inputTitle3" class="col-sm-4 col-form-label">Уровень доступа</label>
+                                    <div class="col-sm-8">
+                                       
+                                        @Html.DropDownListFor(x=>x.IdLevel, Model.LevelSelect, new { @class = "form-control"})
+
+                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdLevel"></span>
+                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.TitleLevel"></span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>

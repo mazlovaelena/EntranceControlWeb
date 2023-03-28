@@ -183,17 +183,7 @@
                             <input type="text" asp-for="@Model.MobilePhone" value="@Model?.MobilePhone" class="form-control" id="inputTitle">
                             <span for="inputTitle" class="text-danger" asp-validation-for="@Model.MobilePhone"></span>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="idvisitor" class="col-sm-4 col-form-label">Уровень доступа</label>
-                        <div class="col-sm-8">
-                            
-                                @Html.DropDownListFor(x => x.IdLevel, ViewBag.Levels as SelectList, new { @class="form-control" })                            
-                            
-                            <span for="idvisitor" class="text-danger" asp-validation-for="@Model.IdLevel"></span>
-                            <span for="idvisitor" class="text-danger" asp-validation-for="@Model.TitleLevel"></span>
-                        </div>
-                    </div>
+                    </div>                    
                     <div class="row mb-3">
                         <label for="inputTitle" class="col-sm-4 col-form-label">№ пропуска</label>
                         <div class="col-sm-8">

@@ -191,6 +191,16 @@
                         </div>
                     </div>
                     <div class="row mb-3">
+                        <label for="idvisitor" class="col-sm-4 col-form-label">Выберите уровень доступа</label>
+                        <div class="col-sm-8">
+
+                            @Html.DropDownListFor(x => x.IdLevel, ViewBag.Level as SelectList, new { @class = "form-control" })
+
+                            <span for="idvisitor" class="text-danger" asp-validation-for="@Model.IdLevel"></span>
+                            <span for="idvisitor" class="text-danger" asp-validation-for="@Model.TitleLevel"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
                         <div class="col-7">
                             <a href="@Url.Action("Passes", "Home")" type="button" class="btn btn-outline-primary">Назад</a>
                             <button type="submit" class="btn btn-outline-success">Сохранить изменения</button>

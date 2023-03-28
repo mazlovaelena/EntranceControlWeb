@@ -10,10 +10,8 @@ namespace EntranceControlWeb.Data
         public int Idvisitor { get; set; }
         public string Fio { get; set; }
         public string MobilePhone { get; set; }
-        public int IdLevel { get; set; }
         public int IdPass { get; set; }
 
-        public virtual AccessLevel IdLevels { get; set; }
         public virtual Pass IdPasses { get; set; }
     }
 }

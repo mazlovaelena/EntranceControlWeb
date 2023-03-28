@@ -1,7 +1,6 @@
-﻿using System;
+﻿using EntranceControlWeb.Models;
+using System;
 using System.Collections.Generic;
-using EntranceControlWeb.Data;
-using EntranceControlWeb.Models;
 
 #nullable disable
 

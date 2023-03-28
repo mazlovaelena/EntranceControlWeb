@@ -17,14 +17,7 @@ namespace EntranceControlWeb.Models
         public string Fio { get; set; }
 
         [Required(ErrorMessage = "Заполните это поле")]
-        public string MobilePhone { get; set; }
-        public List<AccessLevel> Levels { get; set; }
-
-        [Required(ErrorMessage = "Заполните это поле")]
-        public int IdLevel { get; set; }
-
-        [Required(ErrorMessage = "Заполните это поле")]
-        public string TitleLevel { get; set; }
+        public string MobilePhone { get; set; }       
         public List<Pass> Passes { get; set; }
 
         [Required(ErrorMessage = "Заполните это поле")]

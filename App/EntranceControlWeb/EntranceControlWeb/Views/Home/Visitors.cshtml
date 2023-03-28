@@ -172,8 +172,7 @@
                     <tr class="text-center">
                         <th>ID Гость</th>
                         <th>@Html.ActionLink("ФИО", "Visitors", new { sort = ViewBag.VisSort })</th>
-                        <th>Мобильный телефон</th>
-                        <th>Уровень доступа</th>
+                        <th>Мобильный телефон</th>                        
                         <th>@Html.ActionLink("№ пропуска", "Visitors", new { sort = ViewBag.PassSort })</th>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -195,8 +194,7 @@
                         <tr class="text-md-start">
                             <td>@data.Idvisitor</td>
                             <td>@data.Fio</td>
-                            <td>@data.MobilePhone</td>
-                            <td>@data.IdLevels.TitleLevel</td>
+                            <td>@data.MobilePhone</td>                            
                             <td>@data.IdPasses.IdPass</td>
                             @if (User.Identity.IsAuthenticated)
                             {
@@ -246,8 +244,7 @@
                         // результат содержит данные о госте
                         $('#exampleModal #inputTitle').val(result.idvisitor);
                         $('#exampleModal #inputTitle1').val(result.fio);
-                        $('#exampleModal #inputTitle2').val(result.mobilePhone);
-                        $('#exampleModal #inputTitle3').val(result.idLevel);
+                        $('#exampleModal #inputTitle2').val(result.mobilePhone);                        
                         $('#exampleModal #inputTitle4').val(result.idPass);
                     });
 
@@ -279,20 +276,7 @@
                                         <input asp-for="@Model.MobilePhone" value="@Model?.MobilePhone" type="text" class="form-control" id="inputTitle2">
                                         <span for="inputTitle2" class="text-danger" asp-validation-for="@Model.MobilePhone"></span>
                                     </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="#inputTitle3" class="col-sm-4 col-form-label">Уровень доступа</label>
-                                    <div class="col-sm-8">
-                                        <select name="idLevel" class="form-control" id="#inputTitle3">
-                                           @foreach(var data in Model.Visitors)
-                                            {
-                                               <option value="@data.IdLevel">@data.IdLevels.TitleLevel</option>
-                                            }
-                                        </select>
-                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdLevel"></span>
-                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.TitleLevel"></span>
-                                    </div>
-                                </div>
+                                </div>                                
                                 <div class="row mb-3">                                    
                                     <label for="inputTitle4" class="col-sm-4 col-form-label">№ пропуска</label>
                                     <div class="col-sm-8">

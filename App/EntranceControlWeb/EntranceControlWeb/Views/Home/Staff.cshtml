@@ -182,8 +182,7 @@
                             <div class="card-body" style="font-size: 17px">
                                 <div class="row">
                                     <div class="col-8">
-                                        <input hidden type="text" asp-for="@Model.IdStaff" class="form-control" id="inputIdStaff" value="@Model?.IdStaff" readonly>
-                                        <input hidden type="text" asp-for="@Model.IdLevel" class="form-control" id="inputIdLevel" value="@Model?.IdLevel" readonly>
+                                        <input hidden type="text" asp-for="@Model.IdStaff" class="form-control" id="inputIdStaff" value="@Model?.IdStaff" readonly>                                        
                                         <div class="row">
                                             ФИО: @data.Surname @data.Name @data.LastName
                                         </div>
@@ -195,10 +194,7 @@
                                         </div>
                                         <div class="row">
                                             Мобильный телефон: @data.MobPhone
-                                        </div>
-                                        <div class="row">
-                                            Уровень доступа: @data.IdLevels.TitleLevel
-                                        </div>
+                                        </div>                                        
                                         <div class="row">
                                             № пропуска: @data.IdPass
                                         </div>

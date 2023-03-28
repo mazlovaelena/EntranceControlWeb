@@ -28,7 +28,8 @@ namespace EntranceControlWeb.Controllers
         //Отображение страницы
         public IActionResult Doors(DoorViewModel door, string sort)
         {
-            ViewBag.RoomSort = String.IsNullOrEmpty(sort) ? "Room dsc" : "Room";
+            door.RoomSelect = new SelectList(_context.Rooms, "IdRoom", "TitleRoom");
+            ViewBag.RoomSort = sort == "Room" ? "Room dsc" : "Room";
             ViewBag.DoorSort = String.IsNullOrEmpty(sort) ? "Door dsc" : "Door";
             var find = from s in _context.Doors select s;
             switch (sort)
@@ -42,11 +43,11 @@ namespace EntranceControlWeb.Controllers
                     break;
 
                 case "Door":
-                    find = find.OrderBy(s => s.IdDoor);
+                    find = find.OrderBy(s => s.TitleDoor);
                     break;
 
                 case "Door dsc":
-                    find = find.OrderByDescending(s => s.IdDoor);
+                    find = find.OrderByDescending(s => s.TitleDoor);
                     break;
             }
 
@@ -85,7 +86,7 @@ namespace EntranceControlWeb.Controllers
         }
         public IActionResult DoorEdit(int id)
         {
-            var viewmodel = new DoorViewModel();
+            var viewmodel = new DoorViewModel();           
             var view = _context.Doors.FirstOrDefault(x => x.IdDoor == id);
             if (view != null)
             {
@@ -132,15 +133,13 @@ namespace EntranceControlWeb.Controllers
         //Удаление записи
         public IActionResult DelLevel(int id)
         {
-            var data = _context.AccessLevels.FirstOrDefault(x => x.IdLevel == id);
-            var entr = _context.staff.FirstOrDefault(x => x.IdLevel == id);
+            var data = _context.AccessLevels.FirstOrDefault(x => x.IdLevel == id);          
             var room = _context.Rooms.FirstOrDefault(x => x.IdLevel == id);
-            var vis = _context.Visitors.FirstOrDefault(x => x.IdLevel == id);
+            var pass = _context.Passes.FirstOrDefault(x => x.IdLevel == id);
 
             if (data != null)
             {
-                _context.Visitors.Remove(vis);
-                _context.staff.Remove(entr);
+                _context.Passes.Remove(pass);
                 _context.Rooms.Remove(room);
                 _context.AccessLevels.Remove(data);
 
@@ -351,8 +350,10 @@ namespace EntranceControlWeb.Controllers
         //Отображение данных
         public IActionResult Rooms(RoomViewModel room, string sort)
         {
-            ViewBag.RoomSort = String.IsNullOrEmpty(sort) ? "Room dsc" : "Room";
-            ViewBag.LevelSort = String.IsNullOrEmpty(sort) ? "Level dsc" : "Level";
+            room.LevelSelect = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
+
+            ViewBag.RoomSort = sort == "Room" ? "Room dsc" : "Room";
+            ViewBag.LevelSort = sort == "Level" ? "Level dsc" : "Level";
             var find = from s in _context.Rooms select s;
             switch (sort)
             {
@@ -450,9 +451,10 @@ namespace EntranceControlWeb.Controllers
         //Отображение страницы
         public IActionResult SortByOff(SortingByOfficeViewModel sort, string order)
         {
-            ViewBag.SortStaff = String.IsNullOrEmpty(order) ? "Staff dsc" : "Staff";
-            ViewBag.SortPost = String.IsNullOrEmpty(order) ? "Post dsc" : "Post";
-            ViewBag.SortOffice = String.IsNullOrEmpty(order) ? "Office dsc" : "Office";
+            ViewBag.SortStaff = order == "Staff" ? "Staff dsc" : "Staff";
+            ViewBag.SortPost = order == "Post" ? "Post dsc" : "Post";
+            ViewBag.SortOffice = order == "Office" ? "Office dsc" : "Office";
+            ViewBag.IdSort = order == "Id" ? "Id desc" : "Id";
             var find = from s in _context.SortingByOffices select s;
             switch (order)
             {
@@ -478,6 +480,14 @@ namespace EntranceControlWeb.Controllers
 
                 case "Office dsc":
                     find = find.OrderByDescending(s => s.IdOffice);
+                    break;
+
+                case "Id":
+                    find = find.OrderBy(s => s.IdItem);
+                    break;
+
+                case "Id desc":
+                    find = find.OrderByDescending(s => s.IdItem);
                     break;
             }
 
@@ -519,6 +529,10 @@ namespace EntranceControlWeb.Controllers
         }
         public IActionResult SortEdit(SortingByOfficeViewModel sort, int id)
         {
+            sort.StaffSelect = new SelectList(_context.staff, "IdStaff", "Surname");
+            sort.PostSelect = new SelectList(_context.Positions, "IdPost", "TitlePost");
+            sort.OfficeSelect = new SelectList(_context.Offices, "IdOffice", "TitleOffice");
+
             sort.Sortings = _context.SortingByOffices.ToList();
             sort.Staffs = _context.staff.ToList();
             sort.Positions = _context.Positions.ToList();
@@ -582,8 +596,7 @@ namespace EntranceControlWeb.Controllers
         //Отображение данных
         public IActionResult Staff(StaffViewModel staff)
         {
-            staff.Staffs = _context.staff.ToList();
-            staff.Levels = _context.AccessLevels.ToList();
+            staff.Staffs = _context.staff.ToList();            
 
             return View(staff);
         }
@@ -595,8 +608,7 @@ namespace EntranceControlWeb.Controllers
             var edit = _context.staff.FirstOrDefault(x => x.IdStaff == staff.IdStaff);
 
             staff.Staffs = _context.staff.ToList();
-            staff.Levels = _context.AccessLevels.ToList();
-
+            
             edit.IdStaff = staff.IdStaff;
             edit.Surname = staff.Surname;
             edit.Name = staff.Name;
@@ -604,8 +616,7 @@ namespace EntranceControlWeb.Controllers
             edit.Birthday = staff.Birthday;
             edit.CorpEmail = staff.CorpEmail;
             edit.MobPhone = staff.MobPhone;
-            edit.Image = staff.Image;
-            edit.IdLevel = staff.IdLevel;
+            edit.Image = staff.Image;            
             edit.IdPass = staff.IdPass;
 
             _context.SaveChanges();
@@ -615,15 +626,14 @@ namespace EntranceControlWeb.Controllers
         public IActionResult StaffEdit(StaffViewModel staff, int id)
         {
             staff.Staffs = _context.staff.ToList();
-            staff.Levels = _context.AccessLevels.ToList();
+           
 
             var view = _context.staff.FirstOrDefault(x => x.IdStaff == id);
             if (id != 0)
             {
                 var edit = _context.staff.FirstOrDefault(x => x.IdStaff == id);
 
-                staff.Staffs = _context.staff.ToList();
-                staff.Levels = _context.AccessLevels.ToList();
+                staff.Staffs = _context.staff.ToList();               
 
                 staff.IdStaff = edit.IdStaff;
                 staff.Surname = edit.Surname;
@@ -632,8 +642,7 @@ namespace EntranceControlWeb.Controllers
                 staff.Birthday = edit.Birthday;
                 staff.CorpEmail = edit.CorpEmail;
                 staff.MobPhone = edit.MobPhone;
-                staff.Image = edit.Image;
-                staff.IdLevel = edit.IdLevel;
+                staff.Image = edit.Image;               
                 staff.IdPass = edit.IdPass;
             }
             return View(staff);
@@ -666,8 +675,7 @@ namespace EntranceControlWeb.Controllers
                 Birthday = staff.Birthday,
                 CorpEmail = staff.CorpEmail,
                 MobPhone = staff.MobPhone,
-                Image = staff.Image,
-                IdLevel = staff.IdLevel,
+                Image = staff.Image,                
                 IdPass = staff.IdPass,
 
             };
@@ -680,11 +688,7 @@ namespace EntranceControlWeb.Controllers
         {
             var staff = new StaffViewModel();
 
-            SelectList lev = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
-            ViewBag.Levels = lev;
-
-            staff.Staffs = _context.staff.ToList();
-            staff.Levels = _context.AccessLevels.ToList();
+            staff.Staffs = _context.staff.ToList();           
 
             return View(staff);
         }
@@ -695,8 +699,9 @@ namespace EntranceControlWeb.Controllers
         public IActionResult Entrance(EntranceViewModel entr, string sort)
         {
             ViewBag.DateEntrSort = sort == "DateEntr" ? "DateEntr dsc" : "DateEntr";
-            ViewBag.DoorSort = String.IsNullOrEmpty(sort) ? "Door desc" : "Door";
-            ViewBag.RoomSort = String.IsNullOrEmpty(sort) ? "Room desc" : "Room";
+            ViewBag.DoorSort = sort == "Door" ? "Door desc" : "Door";
+            ViewBag.RoomSort = sort == "Room" ? "Room desc" : "Room";
+            ViewBag.IdSort = sort == "Id" ? "Id desc" : "Id";
             var find = from s in _context.Entrances select s;
             switch (sort)
             {
@@ -724,8 +729,12 @@ namespace EntranceControlWeb.Controllers
                     find = find.OrderByDescending(s => s.IdRoom);
                     break;
 
-                default:
+                case "Id":
                     find = find.OrderBy(s => s.IdRecord);                    
+                    break;
+
+                case "Id desc":
+                    find = find.OrderByDescending(s => s.IdRecord);
                     break;
 
             }
@@ -736,27 +745,7 @@ namespace EntranceControlWeb.Controllers
             entr.Doors = _context.Doors.ToList();
             entr.Statuses = _context.AccessStatuses.ToList();
             return View(entr);
-        }
-        //public IActionResult ViewStaff(int id)
-        //{
-        //    var viewmodel = new StaffViewModel();
-        //    var view = _context.staff.FirstOrDefault(x => x.IdStaff == id);
-        //    if (view != null)
-        //    {
-        //        viewmodel.IdStaff = view.IdStaff;
-        //        viewmodel.Surname = view.Surname;
-        //        viewmodel.Name = view.Name;
-        //        viewmodel.LastName = view.LastName;
-        //        viewmodel.Birthday = view.Birthday;
-        //        viewmodel.CorpEmail = view.CorpEmail;
-        //        viewmodel.MobPhone = view.MobPhone;
-        //        viewmodel.Image = view.Image;
-
-        //    }
-        //    return Json(viewmodel);
-
-        //}
-
+        }       
         #endregion
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ПОСЕТИТЕЛИ"
@@ -765,7 +754,7 @@ namespace EntranceControlWeb.Controllers
         public IActionResult Visitors(VisitorViewModel vis, string sort)
         {
             ViewBag.VisSort = String.IsNullOrEmpty(sort) ? "Name dsc" : "Name";
-            ViewBag.PassSort = string.IsNullOrEmpty(sort) ? "Pass dsc" : "Pass";
+            ViewBag.PassSort = sort == "Pass" ? "Pass dsc" : "Pass";
             var find = from s in _context.Visitors select s;
             switch (sort)
             {
@@ -786,8 +775,7 @@ namespace EntranceControlWeb.Controllers
                     break;
             }
 
-            vis.Visitors = find.ToList();
-            vis.Levels = _context.AccessLevels.ToList();
+            vis.Visitors = find.ToList();            
             vis.Passes = _context.Passes.ToList();
             return View(vis);
         }
@@ -800,8 +788,7 @@ namespace EntranceControlWeb.Controllers
 
             edit.Idvisitor = vis.Idvisitor;
             edit.Fio = vis.Fio;
-            edit.MobilePhone = vis.MobilePhone;
-            edit.IdLevel = vis.IdLevel;
+            edit.MobilePhone = vis.MobilePhone;            
             edit.IdPass = vis.IdPass;            
 
             _context.SaveChanges();
@@ -815,8 +802,7 @@ namespace EntranceControlWeb.Controllers
             {
                 vis.Idvisitor = edit.Idvisitor;
                 vis.Fio = edit.Fio;
-                vis.MobilePhone = edit.MobilePhone;
-                vis.IdLevel = edit.IdLevel;
+                vis.MobilePhone = edit.MobilePhone;                
                 vis.IdPass = edit.IdPass;
             }
             return Json(vis);
@@ -839,7 +825,7 @@ namespace EntranceControlWeb.Controllers
         [HttpPost]
         public IActionResult CreateVisit(VisitorViewModel vis)
         {
-            var create = new Visitor { Fio = vis.Fio, MobilePhone = vis.MobilePhone, IdLevel = vis.IdLevel, IdPass = vis.IdPass };
+            var create = new Visitor { Fio = vis.Fio, MobilePhone = vis.MobilePhone, IdPass = vis.IdPass };
 
             _context.Add(create);
             _context.SaveChanges();
@@ -849,11 +835,7 @@ namespace EntranceControlWeb.Controllers
         {
             var vis = new VisitorViewModel();
 
-            SelectList lev = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
-            ViewBag.Levels = lev;
-
-            vis.Visitors = _context.Visitors.ToList();
-            vis.Levels = _context.AccessLevels.ToList();
+            vis.Visitors = _context.Visitors.ToList();           
             vis.Passes = _context.Passes.ToList();
             return View(vis);
 
@@ -865,9 +847,14 @@ namespace EntranceControlWeb.Controllers
         //Отображение страницы
         public IActionResult Passes(PassesViewModel pass)
         {
+            pass.ActivSelect = new SelectList(_context.ActivityStatuses, "IdActiv", "TitleActiv");
+            pass.LongSelect = new SelectList(_context.LastingStatuses, "IdLong", "TitleLong");
+            pass.LevelSelect = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
+
             pass.Passes = _context.Passes.ToList();
             pass.Lastings = _context.LastingStatuses.ToList();
-            pass.Activities = _context.ActivityStatuses.ToList();            
+            pass.Activities = _context.ActivityStatuses.ToList();
+            pass.Levels = _context.AccessLevels.ToList();
 
             return View(pass);
         }
@@ -876,7 +863,7 @@ namespace EntranceControlWeb.Controllers
         [HttpPost]
         public IActionResult CreatePass(PassesViewModel pass)
         {
-            var create = new Pass { IdPass = pass.IdPass, IdLong = pass.IdLong, IdActiv = pass.IdActiv };
+            var create = new Pass { IdPass = pass.IdPass, IdLong = pass.IdLong, IdActiv = pass.IdActiv, IdLevel = pass.IdLevel };
 
             _context.Add(create);
             _context.SaveChanges();
@@ -892,8 +879,12 @@ namespace EntranceControlWeb.Controllers
             SelectList act = new SelectList(_context.ActivityStatuses, "IdActiv", "TitleActiv");
             ViewBag.Activ = act;
 
+            SelectList lev = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
+            ViewBag.Level = lev;
+
             pass.Activities = _context.ActivityStatuses.ToList();
             pass.Lastings = _context.LastingStatuses.ToList();
+            pass.Levels = _context.AccessLevels.ToList();
             pass.Passes = _context.Passes.ToList();
 
             return View(pass);
@@ -908,6 +899,7 @@ namespace EntranceControlWeb.Controllers
             edit.IdPass = pass.IdPass;
             edit.IdActiv = pass.IdActiv;
             edit.IdLong = pass.IdLong;
+            edit.IdLevel = pass.IdLevel;
 
             _context.SaveChanges();
             return RedirectToAction(nameof(Passes));
@@ -921,6 +913,7 @@ namespace EntranceControlWeb.Controllers
                 pass.IdPass = edit.IdPass;
                 pass.IdActiv = edit.IdActiv;
                 pass.IdLong = edit.IdLong;
+                pass.IdLevel = edit.IdLevel;
             }
 
             return Json(pass);

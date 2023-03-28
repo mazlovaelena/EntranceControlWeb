@@ -180,12 +180,10 @@
                     </div>
                     <div class="row mb-3">
                         <label for="idRoom" class="col-sm-4 col-form-label">Помещение</label>
-                        <div class="col-sm-8">
-                            <select name="idRoom" class="form-control" id="idRoom">
+                        <div class="col-sm-8">                           
 
                                 @Html.DropDownListFor(x => x.IdRoom, ViewBag.Room as SelectList, new { @class = "form-control" })
 
-                            </select>
                             <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdRoom"></span>
                             <span for="idRoom" class="text-danger" asp-validation-for="@Model.TitleRoom"></span>
                         </div>

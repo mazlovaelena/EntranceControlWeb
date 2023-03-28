@@ -211,17 +211,7 @@
                             <input type="tel" asp-for="@Model.MobPhone" value="@Model?.MobPhone" class="form-control" id="inputPhone">
                             <span for="inputTitle" class="text-danger" asp-validation-for="@Model.MobPhone"></span>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="idRoom" class="col-sm-4 col-form-label">Уровень доступа</label>
-                        <div class="col-sm-8">                           
-
-                                @Html.DropDownListFor(x => x.IdLevel, ViewBag.Level as SelectList, new { @class = "form-control" })
-
-                            <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdLevel"></span>
-                            <span for="idRoom" class="text-danger" asp-validation-for="@Model.TitleLevel"></span>
-                        </div>
-                    </div>
+                    </div>                   
                     <div class="row mb-3">
                         <label for="inputPhone" class="col-sm-4 col-form-label">№ пропуска</label>
                         <div class="col-sm-8">

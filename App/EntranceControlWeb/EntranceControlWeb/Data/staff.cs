@@ -20,10 +20,9 @@ namespace EntranceControlWeb.Data
         public string CorpEmail { get; set; }
         public string MobPhone { get; set; }
         public string Image { get; set; }
-        public int IdLevel { get; set; }
         public int IdPass { get; set; }
 
-        public virtual AccessLevel IdLevels { get; set; }
+        public virtual Pass IdPasses { get; set; }
         public virtual ICollection<SortingByOffice> SortingByOffices { get; set; }
     }
 }
