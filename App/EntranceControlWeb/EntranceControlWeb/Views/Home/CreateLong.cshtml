@@ -1,6 +1,6 @@
-﻿@model EntranceControlWeb.Models.StaffViewModel;
+﻿@model EntranceControlWeb.Models.DictionaryViewModel;
 @{
-    ViewData["Title"] = "Staff";
+    ViewData["Title"] = "Create Item";
 
 }
 
@@ -70,7 +70,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" asp-controller="Home" asp-action="Doors">Турникеты</a>
                                     </li>
-                                    
+
                                 }
                                 else if (User.IsInRole(UserRole.SysAdmin.ToString()))
                                 {
@@ -95,7 +95,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" asp-controller="Home" asp-action="Doors">Турникеты</a>
                                     </li>
-                                   
+
                                 }
                             }
                         </ul>
@@ -164,79 +164,29 @@
     <div class="container">
         <div class="row my-3">
             <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
-            <h5 class="text-center">СОТРУДНИКИ</h5>
+            <h5 class="text-center">СОЗДАНИЕ ЗАПИСИ</h5>
         </div>
-
-        <div class="row my-3 mb-2">
-
-            @foreach (var data in Model.Staffs)
-            {
-           
-                <div class="card rounded m-3 shadow-lg">
-                    <div class="row g-0">
-                        <div class="col-md-3">
-                            <img src="@data.Image" class="img-fluid rounded-start m-2" style="width: 200px; height: 200px">
-                        </div>
-                        <div class="col-md-9">
-                            <div class="card-body" style="font-size: 17px">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <input hidden type="text" asp-for="@Model.IdStaff" class="form-control" id="inputIdStaff" value="@Model?.IdStaff" readonly>                                        
-                                        <div class="row">
-                                            ФИО: @data.Surname @data.Name @data.LastName
-                                        </div>
-                                        <div class="row">
-                                            Дата рождения: @data.Birthday
-                                        </div>
-                                        <div class="row">
-                                            Корпоративная почта: @data.CorpEmail
-                                        </div>
-                                        <div class="row">
-                                            Мобильный телефон: @data.MobPhone
-                                        </div>                                        
-                                        <div class="row">
-                                            № пропуска: @data.IdPass
-                                        </div>
-                                    </div>
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
-                                        if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                                        {
-                                            <div class="col-4">
-                                                <div class="row my-1">
-                                                    <a class="btn btn-outline-success" data-id="@data.IdStaff" href="@Url.Action("StaffEdit", "Home", new { id = @data.IdStaff })">Редактировать</a> <br />
-
-                                                </div>
-                                                <div class="row my-1">
-
-                                                    <a class="btn btn-outline-danger" data-id="@data.IdStaff" href="@Url.Action("DelStaff", "Home", new { id = @data.IdStaff })">Удалить запись</a>
-                                                </div>
-                                                <div class="row my-1">
-
-                                                    <a href="@Url.Action("CreateStaff", "Home")" class="btn btn-outline-primary">Создать запись</a>
-                                                </div>
-                                            </div>
-                                        }
-                                        else if (User.IsInRole(UserRole.Admin.ToString()))
-                                        {
-                                            <div class="col-4">
-                                                <div class="row my-1">
-                                                    <a class="btn btn-outline-success" data-id="@data.IdStaff" href="@Url.Action("StaffEdit", "Home", new { id = @data.IdStaff })">Редактировать</a> <br />
-
-                                                </div>
-                                            </div>
-                                        }
-
-                                     }
-                                     
-                                </div>
-                            </div>
+        <form class="my-4" method="post" asp-action="CreateLong" asp-controller="Home">
+            <div class="card rounded">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <label for="inputTitle" class="col-sm-4 col-form-label">Наименование статуса длительности</label>
+                        <div class="col-sm-8">
+                            <input type="text" asp-for="@Model.TitleLong" value="@Model?.TitleLong" class="form-control" id="inputTitle">
+                            <span for="inputTitle" class="text-danger" asp-validation-for="@Model.TitleLong"></span>
                         </div>
                     </div>
+
+                    <div class="row mb-3">
+                        <div class="col-7">
+                            <a href="@Url.Action("Dictionary", "Home")" type="button" class="btn btn-outline-primary">Назад</a>
+                            <button type="submit" class="btn btn-outline-success">Сохранить изменения</button>
+                        </div>
+                    </div>
+
                 </div>
-            
-            }       
-        </div>
+            </div>
+        </form>
     </div>
 </body>
 </html>

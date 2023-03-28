@@ -1,13 +1,10 @@
 ﻿using EntranceControlWeb.Models;
 using EntranceControlWeb.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EntranceControlWeb.Controllers
@@ -118,75 +115,6 @@ namespace EntranceControlWeb.Controllers
             door.Doors = _context.Doors.ToList();
             door.Rooms = _context.Rooms.ToList();
             return View(door);
-        }
-        #endregion
-
-        #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "УРОВНИ ДОСТУПА"
-        //Отображение сраницы
-        public IActionResult Levels(AccessLevelViewModel acclev, AccessStatusViewModel accstat)
-        {
-            acclev.Levels = _context.AccessLevels.ToList();
-            accstat.Statuses = _context.AccessStatuses.ToList();
-
-            return View(acclev);
-        }
-        //Удаление записи
-        public IActionResult DelLevel(int id)
-        {
-            var data = _context.AccessLevels.FirstOrDefault(x => x.IdLevel == id);          
-            var room = _context.Rooms.FirstOrDefault(x => x.IdLevel == id);
-            var pass = _context.Passes.FirstOrDefault(x => x.IdLevel == id);
-
-            if (data != null)
-            {
-                _context.Passes.Remove(pass);
-                _context.Rooms.Remove(room);
-                _context.AccessLevels.Remove(data);
-
-            }
-
-            _context.SaveChanges();
-            return RedirectToAction(nameof(Levels));
-        }
-
-        //Редактирование записи
-        [HttpPost]
-        public IActionResult LevelEdit(AccessLevelViewModel acclev)
-        {
-            var edit = _context.AccessLevels.FirstOrDefault(x => x.IdLevel == acclev.IdLevel);
-
-            edit.IdLevel = acclev.IdLevel;
-            edit.TitleLevel = acclev.TitleLevel;
-
-            _context.SaveChanges();
-            return RedirectToAction(nameof(Levels));
-        }
-        public IActionResult LevelEdit(int id)
-        {
-            var viewmodel = new AccessLevelViewModel();
-            var view = _context.AccessLevels.FirstOrDefault(x => x.IdLevel == id);
-            if (view != null)
-            {
-                viewmodel.IdLevel = view.IdLevel;
-                viewmodel.TitleLevel = view.TitleLevel;
-
-            }
-            return Json(viewmodel);
-
-        }
-        //Создание записи
-        [HttpPost]
-        public IActionResult CreateLevel(AccessLevelViewModel lev)
-        {
-            var create = new AccessLevel { TitleLevel = lev.TitleLevel };
-
-            _context.AccessLevels.Add(create);
-            _context.SaveChanges();
-            return RedirectToAction(nameof(Levels));
-        }
-        public IActionResult CreateLevel()
-        {
-            return View();
         }
         #endregion
 
@@ -930,6 +858,248 @@ namespace EntranceControlWeb.Controllers
             return RedirectToAction(nameof(Passes));
         }
 
+        #endregion
+
+        #region ДЕЙСТВИЯ СО СТПРАВОЧНЫМИ ТАБЛИЦАМИ
+
+        public IActionResult Dictionary(DictionaryViewModel dict)
+        {
+            dict.Levels = _context.AccessLevels.ToList();
+            dict.Lastings = _context.LastingStatuses.ToList();
+            dict.Statuses = _context.AccessStatuses.ToList();
+            dict.Activities = _context.ActivityStatuses.ToList();
+
+            return View(dict);
+        }
+        //Удаление записи таблицы "Уровни доступа"
+        public IActionResult DelLevel(int id)
+        {
+            var data = _context.AccessLevels.FirstOrDefault(x => x.IdLevel == id);
+            var room = _context.Rooms.FirstOrDefault(x => x.IdLevel == id);
+            var pass = _context.Passes.FirstOrDefault(x => x.IdLevel == id);
+
+            if (data != null)
+            {
+                _context.Passes.Remove(pass);
+                _context.Rooms.Remove(room);
+                _context.AccessLevels.Remove(data);
+
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Dictionary));
+        }
+
+        //Редактирование записи таблицы "Уровни доступа"
+        [HttpPost]
+        public IActionResult LevelEdit(DictionaryViewModel acclev)
+        {
+            var edit = _context.AccessLevels.FirstOrDefault(x => x.IdLevel == acclev.IdLevel);
+
+            edit.IdLevel = acclev.IdLevel;
+            edit.TitleLevel = acclev.TitleLevel;
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Dictionary));
+        }
+        public IActionResult LevelEdit(int id)
+        {
+            var viewmodel = new DictionaryViewModel();
+            var view = _context.AccessLevels.FirstOrDefault(x => x.IdLevel == id);
+            if (view != null)
+            {
+                viewmodel.IdLevel = view.IdLevel;
+                viewmodel.TitleLevel = view.TitleLevel;
+
+            }
+            return Json(viewmodel);
+
+        }
+        //Создание записи таблицы "Уровни доступа"
+        [HttpPost]
+        public IActionResult CreateLevel(DictionaryViewModel lev)
+        {
+            var create = new AccessLevel { TitleLevel = lev.TitleLevel };
+
+            _context.AccessLevels.Add(create);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Dictionary));
+        }
+        public IActionResult CreateLevel()
+        {
+            return View();
+        }
+
+        //Удаление записи таблицы "Статус доступа"
+        public IActionResult DelStatus(int id)
+        {
+            var data = _context.AccessStatuses.FirstOrDefault(x => x.IdStatus == id);
+            var entr = _context.Entrances.FirstOrDefault(x => x.IdStatus == id);           
+
+            if (data != null)
+            {
+                _context.Entrances.Remove(entr);
+                _context.AccessStatuses.Remove(data);
+
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Dictionary));
+        }
+
+        //Редактирование записи таблицы "Статус доступа"
+        [HttpPost]
+        public IActionResult StatusEdit(DictionaryViewModel accstat)
+        {
+            var edit = _context.AccessStatuses.FirstOrDefault(x => x.IdStatus == accstat.IdStatus);
+
+            edit.IdStatus = accstat.IdStatus;
+            edit.TitleStatus = accstat.TitleStatus;
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Dictionary));
+        }
+        public IActionResult StatusEdit(int id)
+        {
+            var viewmodel = new DictionaryViewModel();
+            var view = _context.AccessStatuses.FirstOrDefault(x => x.IdStatus == id);
+            if (view != null)
+            {
+                viewmodel.IdStatus = view.IdStatus;
+                viewmodel.TitleStatus = view.TitleStatus;
+
+            }
+            return Json(viewmodel);
+
+        }
+        //Создание записи таблицы "Статус доступа"
+        [HttpPost]
+        public IActionResult CreateStatus(DictionaryViewModel stat)
+        {
+            var create = new AccessStatus { TitleStatus = stat.TitleStatus };
+
+            _context.AccessStatuses.Add(create);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Dictionary));
+        }
+        public IActionResult CreateStatus()
+        {
+            return View();
+        }
+
+        //Удаление записи таблицы "Статус Активности"
+        public IActionResult DelActiv(int id)
+        {
+            var data = _context.ActivityStatuses.FirstOrDefault(x => x.IdActiv == id);
+            var pass = _context.Passes.FirstOrDefault(x => x.IdActiv == id);
+
+            if (data != null)
+            {
+                _context.Passes.Remove(pass);
+                _context.ActivityStatuses.Remove(data);
+
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Dictionary));
+        }
+
+        //Редактирование записи таблицы "Статус Активности"
+        [HttpPost]
+        public IActionResult ActivEdit(DictionaryViewModel act)
+        {
+            var edit = _context.ActivityStatuses.FirstOrDefault(x => x.IdActiv == act.IdActiv);
+
+            edit.IdActiv = act.IdActiv;
+            edit.TitleActiv = act.TitleActiv;
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Dictionary));
+        }
+        public IActionResult ActivEdit(int id)
+        {
+            var viewmodel = new DictionaryViewModel();
+            var view = _context.ActivityStatuses.FirstOrDefault(x => x.IdActiv == id);
+            if (view != null)
+            {
+                viewmodel.IdActiv = view.IdActiv;
+                viewmodel.TitleActiv = view.TitleActiv;
+
+            }
+            return Json(viewmodel);
+
+        }
+        //Создание записи таблицы "Статус Активности"
+        [HttpPost]
+        public IActionResult CreateActiv(DictionaryViewModel act)
+        {
+            var create = new ActivityStatus { TitleActiv = act.TitleActiv };
+
+            _context.ActivityStatuses.Add(create);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Dictionary));
+        }
+        public IActionResult CreateActiv()
+        {
+            return View();
+        }
+
+        //Удаление записи таблицы "Статус длительности"
+        public IActionResult DelLong(int id)
+        {
+            var data = _context.LastingStatuses.FirstOrDefault(x => x.IdLong == id);
+            var pass = _context.Passes.FirstOrDefault(x => x.IdLong == id);
+
+            if (data != null)
+            {
+                _context.Passes.Remove(pass);
+                _context.LastingStatuses.Remove(data);
+
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Dictionary));
+        }
+
+        //Редактирование записи таблицы "Статус длительности"
+        [HttpPost]
+        public IActionResult LongEdit(DictionaryViewModel last)
+        {
+            var edit = _context.LastingStatuses.FirstOrDefault(x => x.IdLong == last.IdLong);
+
+            edit.IdLong = last.IdLong;
+            edit.TitleLong = last.TitleLong;
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Dictionary));
+        }
+        public IActionResult LongEdit(int id)
+        {
+            var viewmodel = new DictionaryViewModel();
+            var view = _context.LastingStatuses.FirstOrDefault(x => x.IdLong == id);
+            if (view != null)
+            {
+                viewmodel.IdLong = view.IdLong;
+                viewmodel.TitleLong = view.TitleLong;
+
+            }
+            return Json(viewmodel);
+
+        }
+        //Создание записи таблицы "Статус длительности"
+        [HttpPost]
+        public IActionResult CreateLong(DictionaryViewModel last)
+        {
+            var create = new LastingStatus { TitleLong = last.TitleLong };
+
+            _context.LastingStatuses.Add(create);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Dictionary));
+        }
+        public IActionResult CreateLong()
+        {
+            return View();
+        }
         #endregion
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

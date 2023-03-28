@@ -66,9 +66,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" asp-controller="Home" asp-action="Doors">Турникеты</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Levels">Настройка уровня доступа</a>
-                                    </li>
+                                    
                                 }
                                 else if (User.IsInRole(UserRole.SysAdmin.ToString()))
                                 {
@@ -90,9 +88,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" asp-controller="Home" asp-action="Doors">Турникеты</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Levels">Настройка уровня доступа</a>
-                                    </li>
+                                    
                                 }
                             }
                         </ul>
