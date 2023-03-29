@@ -522,9 +522,26 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "СОТРУДНИКИ"
         //Отображение данных
-        public IActionResult Staff(StaffViewModel staff)
+        public IActionResult Staff(StaffViewModel staff, string Search)
         {
-            staff.Staffs = _context.staff.ToList();            
+            var find = from s in _context.staff select s;
+
+            if (!String.IsNullOrEmpty(Search))
+            {
+                find = find.Where(s => s.Surname.ToUpper().Contains(Search.ToUpper())
+                                       || s.Name.ToUpper().Contains(Search.ToUpper())
+                                       || s.LastName.ToUpper().Contains(Search.ToUpper()));
+            }
+
+            staff.ActivSelect = new SelectList(_context.ActivityStatuses, "IdActiv", "TitleActiv");
+            staff.LongSelect = new SelectList(_context.LastingStatuses, "IdLong", "TitleLong");
+            staff.LevelSelect = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
+
+            staff.Passes = _context.Passes.ToList();
+            staff.Lastings = _context.LastingStatuses.ToList();
+            staff.Activities = _context.ActivityStatuses.ToList();
+            staff.Levels = _context.AccessLevels.ToList();
+            staff.Staffs = find.ToList();            
 
             return View(staff);
         }
@@ -574,6 +591,34 @@ namespace EntranceControlWeb.Controllers
                 staff.IdPass = edit.IdPass;
             }
             return View(staff);
+        }
+        //Редактирование записи
+        [HttpPost]
+        public IActionResult PassEditStaff(PassesViewModel pass)
+        {
+            var edit = _context.Passes.FirstOrDefault(x => x.IdPass == pass.IdPass);
+
+            edit.IdPass = pass.IdPass;
+            edit.IdActiv = pass.IdActiv;
+            edit.IdLong = pass.IdLong;
+            edit.IdLevel = pass.IdLevel;
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Staff));
+        }
+        public IActionResult PassEditStaff(int id)
+        {
+            var pass = new PassesViewModel();
+            var edit = _context.Passes.FirstOrDefault(x => x.IdPass == id);
+            if (edit != null)
+            {
+                pass.IdPass = edit.IdPass;
+                pass.IdActiv = edit.IdActiv;
+                pass.IdLong = edit.IdLong;
+                pass.IdLevel = edit.IdLevel;
+            }
+
+            return Json(pass);
         }
         //Удаление записи
         public IActionResult DelStaff(int id)
@@ -626,6 +671,11 @@ namespace EntranceControlWeb.Controllers
         //Отображение данных
         public IActionResult Entrance(EntranceViewModel entr, string sort)
         {
+            entr.DoorSelect = new SelectList(_context.Doors, "IdDoor", "TitleDoor");
+            entr.PassSelect = new SelectList(_context.Passes, "IdPass", "IdPass");
+            entr.RoomSelect = new SelectList(_context.Rooms, "IdRoom", "TitleRoom");
+            entr.StatSelect = new SelectList(_context.AccessStatuses, "IdStatus", "TitleStatus");
+
             ViewBag.DateEntrSort = sort == "DateEntr" ? "DateEntr dsc" : "DateEntr";
             ViewBag.DoorSort = sort == "Door" ? "Door desc" : "Door";
             ViewBag.RoomSort = sort == "Room" ? "Room desc" : "Room";
@@ -681,6 +731,10 @@ namespace EntranceControlWeb.Controllers
         //Отображение страницы
         public IActionResult Visitors(VisitorViewModel vis, string sort)
         {
+            vis.ActivSelect = new SelectList(_context.ActivityStatuses, "IdActiv", "TitleActiv");
+            vis.LongSelect = new SelectList(_context.LastingStatuses, "IdLong", "TitleLong");
+            vis.LevelSelect = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
+
             ViewBag.VisSort = String.IsNullOrEmpty(sort) ? "Name dsc" : "Name";
             ViewBag.PassSort = sort == "Pass" ? "Pass dsc" : "Pass";
             var find = from s in _context.Visitors select s;
@@ -703,8 +757,11 @@ namespace EntranceControlWeb.Controllers
                     break;
             }
 
-            vis.Visitors = find.ToList();            
+            vis.Visitors = find.ToList();
             vis.Passes = _context.Passes.ToList();
+            vis.Lastings = _context.LastingStatuses.ToList();
+            vis.Activities = _context.ActivityStatuses.ToList();
+            vis.Levels = _context.AccessLevels.ToList();
             return View(vis);
         }
 
@@ -767,6 +824,34 @@ namespace EntranceControlWeb.Controllers
             vis.Passes = _context.Passes.ToList();
             return View(vis);
 
+        }
+        //Редактирование записи пропуска
+        [HttpPost]
+        public IActionResult PassEditVis(PassesViewModel pass)
+        {
+            var edit = _context.Passes.FirstOrDefault(x => x.IdPass == pass.IdPass);
+
+            edit.IdPass = pass.IdPass;
+            edit.IdActiv = pass.IdActiv;
+            edit.IdLong = pass.IdLong;
+            edit.IdLevel = pass.IdLevel;
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Visitors));
+        }
+        public IActionResult PassEditVis(int id)
+        {
+            var pass = new PassesViewModel();
+            var edit = _context.Passes.FirstOrDefault(x => x.IdPass == id);
+            if (edit != null)
+            {
+                pass.IdPass = edit.IdPass;
+                pass.IdActiv = edit.IdActiv;
+                pass.IdLong = edit.IdLong;
+                pass.IdLevel = edit.IdLevel;
+            }
+
+            return Json(pass);
         }
 
         #endregion

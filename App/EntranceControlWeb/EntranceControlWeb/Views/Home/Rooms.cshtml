@@ -167,7 +167,7 @@
             <h5 class="text-center">ПОМЕЩЕНИЯ</h5>
         </div>
         <div class="row my-3">
-            <table class="table-dark table-bordered" style="width:1200px; color:black;">
+            <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
                 <thead>
                     <tr class="text-center">
                         <th>ID Помещение</th>
@@ -223,10 +223,9 @@
                 if (User.IsInRole(UserRole.SysAdmin.ToString()))
                 {
                     <div class="row m-2">
-                        <div class="col-2"></div>
-                        <div class="col-8"> <a href="@Url.Action("CreateRoom", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
-                        <div class="col-2"></div>
-
+                        
+                        <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateRoom", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
+                        
                     </div>
                    
                 }
@@ -271,7 +270,7 @@
                                     <label for="#inputTitle2" class="col-sm-4 col-form-label">Уровень доступа</label>
                                     <div class="col-sm-8">
                                         
-                                        @Html.DropDownListFor(x=>x.IdLevel, Model.LevelSelect, new { @class = "form-control"})
+                                        @Html.DropDownListFor(x=>x.IdLevel, Model.LevelSelect, new { @class = "form-control", @id = "inputTitle2", @value = "IdLevel", @for = "IdLevel" })
 
                                         <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdLevel"></span>                                        
                                     </div>

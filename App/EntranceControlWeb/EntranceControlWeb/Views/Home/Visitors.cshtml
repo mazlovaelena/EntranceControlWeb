@@ -166,12 +166,12 @@
             <h5 class="text-center">ПОСЕТИТЕЛИ</h5>
         </div>
         <div class="row my-3">
-            <table class="table-dark table-bordered" style="width:1200px; color:black;">
+            <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
                 <thead>
                     <tr class="text-center">
                         <th>ID Гость</th>
                         <th>@Html.ActionLink("ФИО", "Visitors", new { sort = ViewBag.VisSort })</th>
-                        <th>Мобильный телефон</th>                        
+                        <th>Мобильный телефон</th>
                         <th>@Html.ActionLink("№ пропуска", "Visitors", new { sort = ViewBag.PassSort })</th>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -193,8 +193,21 @@
                         <tr class="text-md-start">
                             <td>@data.Idvisitor</td>
                             <td>@data.Fio</td>
-                            <td>@data.MobilePhone</td>                            
-                            <td>@data.IdPasses.IdPass</td>
+                            <td>@data.MobilePhone</td>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                                {
+                                    <td><a href="@Url.Action("PassEditVis", "Home", new { id = @data.IdPass })" class="text-primary editClick1" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-id="@data.IdPass">@data.IdPass</a></td>
+
+                                }
+                                else
+                                {
+                                    <td>@data.IdPass</td>
+                                }
+
+                            }
+
                             @if (User.Identity.IsAuthenticated)
                             {
 
@@ -224,15 +237,15 @@
                 {
 
                     <div class="row m-2">
-                        <div class="col-2"></div>
-                        <div class="col-8"> <a href="@Url.Action("CreateVisit", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
-                        <div class="col-2"></div>
-
+                        
+                        <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateVisit", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
+                        
                     </div>
 
                 }
             }
 
+            @*редактирование информации о госте*@
             <script>
                 $('.editClick').on('click', function () {
                     // ...
@@ -243,7 +256,7 @@
                         // результат содержит данные о госте
                         $('#exampleModal #inputTitle').val(result.idvisitor);
                         $('#exampleModal #inputTitle1').val(result.fio);
-                        $('#exampleModal #inputTitle2').val(result.mobilePhone);                        
+                        $('#exampleModal #inputTitle2').val(result.mobilePhone);
                         $('#exampleModal #inputTitle4').val(result.idPass);
                     });
 
@@ -275,12 +288,81 @@
                                         <input asp-for="@Model.MobilePhone" value="@Model?.MobilePhone" type="text" class="form-control" id="inputTitle2">
                                         <span for="inputTitle2" class="text-danger" asp-validation-for="@Model.MobilePhone"></span>
                                     </div>
-                                </div>                                
-                                <div class="row mb-3">                                    
+                                </div>
+                                <div class="row mb-3">
                                     <label for="inputTitle4" class="col-sm-4 col-form-label">№ пропуска</label>
                                     <div class="col-sm-8">
                                         <input asp-for="@Model.IdPass" value="@Model?.IdPass" type="text" class="form-control" id="inputTitle4">
                                         <span for="inputTitle4" class="text-danger" asp-validation-for="@Model.IdPass"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
+                                <button type="submit" class="btn btn-success">Сохранить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            @*редактирование информации о пропуске*@
+            <script>
+                $('.editClick1').on('click', function () {
+                    // ...
+                    console.log('edit clicked');
+                    const passId = $(this).data('id');
+                    // обращение на сервер
+                    $.get('/Home/PassEditVis/' + passId, function (result) {
+                        // результат содержит данные о госте
+                        $('#exampleModal1 #inputTitle').val(result.idPass);
+                        $('#exampleModal1 #inputTitle1').val(result.idLong);
+                        $('#exampleModal1 #inputTitle2').val(result.idActiv);
+                        $('#exampleModal1 #inputTitle3').val(result.idLevel);
+                    });
+
+                });
+
+            </script>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModal1Label" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModal1Label">Редактировать информацию</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form method="post" asp-action="PassEditVis" asp-controller="Home">
+                            <div class="modal-body">
+                                <div class="row mb-3">
+                                    <label for="#inputTitle" class="col-sm-4 col-form-label">№ пропуска</label>
+                                    <div class="col-sm-8">
+                                        <input readonly asp-for="@Model.IdPass" value="@Model?.IdPass" type="text" class="form-control" id="inputTitle">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="#inputTitle1" class="col-sm-4 col-form-label">Длительность</label>
+                                    <div class="col-sm-8">
+
+                                        @Html.DropDownListFor(x => x.IdLong, Model.LongSelect, new { @class = "form-control", @id = "inputTitle1", @value = "IdLong", @for = "IdLong" })
+
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="#inputTitle2" class="col-sm-4 col-form-label">Статус активности</label>
+                                    <div class="col-sm-8">
+
+                                        @Html.DropDownListFor(x => x.IdActiv, Model.ActivSelect, new { @class = "form-control", @id = "inputTitle2", @value = "IdActiv", @for = "IdActiv" })
+
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="#inputTitle3" class="col-sm-4 col-form-label">Уровень доступа</label>
+                                    <div class="col-sm-8">
+
+                                        @Html.DropDownListFor(x => x.IdLevel, Model.LevelSelect, new { @class = "form-control", @id = "inputTitle3", @value = "IdLevel", @for = "IdLevel" })
+
                                     </div>
                                 </div>
                             </div>

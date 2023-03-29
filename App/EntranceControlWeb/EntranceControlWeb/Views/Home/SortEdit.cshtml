@@ -188,27 +188,24 @@
                         <label for="idStaff" class="col-sm-4 col-form-label">Сотрудник</label>
                         <div class="col-sm-8">
                             
-                            @Html.DropDownListFor(x => x.IdStaff, Model.StaffSelect, new { @class = "form-control" })
-
-                            <span for="inputTitle" class="text-danger" asp-validation-for="@Model.IdStaff"></span>
+                            @Html.DropDownListFor(x => x.IdStaff, Model.StaffSelect, new { @class = "form-control", @id = "idStaff", @value = "IdStaff", @for = "IdStaff" })
+                                                       
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="idPost" class=col-sm-4 col-form-label">Должность</label>
                         <div class="col-sm-8">
                             
-                            @Html.DropDownListFor(x => x.IdPost, Model.PostSelect, new { @class = "form-control" })
+                            @Html.DropDownListFor(x => x.IdPost, Model.PostSelect, new { @class = "form-control", @id = "idPost", @value = "IdPost", @for = "IdPost" })
 
-                            <span for="inputTitle" class="text-danger" asp-validation-for="@Model.IdPost"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="idOffice" class="col-sm-4 col-form-label">Отдел</label>
                         <div class="col-sm-8">
                            
-                            @Html.DropDownListFor(x=>x.IdOffice, Model.OfficeSelect, new { @class = "form-control"})
+                            @Html.DropDownListFor(x=>x.IdOffice, Model.OfficeSelect, new { @class = "form-control", @id = "idOffice", @value = "IdOffice", @for = "IdOffice"})
 
-                            <span for="inputTitle" class="text-danger" asp-validation-for="@Model.IdOffice"></span>
                         </div>
                     </div>
                     <div class="row mb-3">

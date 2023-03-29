@@ -167,7 +167,7 @@
             <h5 class="text-center">ТУРНИКЕТЫ</h5>
         </div>
         <div class="row my-3">
-            <table class="table-dark table-bordered" style="width:1200px; color:black;">
+            <table class="table-dark table-bordered  mx-auto" style="width:1200px; color:black;">
                 <thead>
                     <tr class="text-center">
                         <th>ID Турникет</th>
@@ -226,10 +226,9 @@
                 {
                     
                     <div class="row m-2">
-                        <div class="col-2"></div>
-                        <div class="col-8"> <a href="@Url.Action("CreateDoor", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
-                        <div class="col-2"></div>           
-
+                        
+                        <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateDoor", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
+                        
                     </div>
                 }
             }
@@ -275,7 +274,7 @@
                                     <label for="idRoom" class="col-sm-4 col-form-label">Помещение</label>
                                     <div class="col-sm-8">                                      
 
-                                            @Html.DropDownListFor(x => x.IdRoom, Model.RoomSelect, new { @class = "form-control" })
+                                            @Html.DropDownListFor(x => x.IdRoom, Model.RoomSelect, new { @class = "form-control", @id = "idRoom", @value = "IdRoom", @for = "IdRoom" })
                                       
                                         <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdRoom"></span>
                                         <span for="idRoom" class="text-danger" asp-validation-for="@Model.TitleRoom"></span>

@@ -166,7 +166,7 @@
             <h5 class="text-center">КАРТОТЕКА ПРОПУСКОВ</h5>
         </div>
         <div class="row my-3">
-            <table class="table-dark table-bordered" style="width:1200px; color:black;">
+            <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
                 <thead>
                     <tr class="text-center">
                         <th>№ пропуска</th>
@@ -226,9 +226,9 @@
                 {
 
                     <div class="row m-2">
-                        <div class="col-2"></div>
-                        <div class="col-8"> <a href="@Url.Action("CreatePass", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
-                        <div class="col-2"></div>
+                        
+                        <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreatePass", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
+                        
 
                     </div>
 
@@ -273,30 +273,24 @@
                                     <label for="#inputTitle1" class="col-sm-4 col-form-label">Длительность</label>
                                     <div class="col-sm-8">
 
-                                        @Html.DropDownListFor(x=>x.IdLong, Model.LongSelect, new { @class = "form-control" })
+                                        @Html.DropDownListFor(x => x.IdLong, Model.LongSelect, new { @class = "form-control", @id = "inputTitle1", @value = "IdLong", @for = "IdLong" })
 
-                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdLong"></span>
-                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.TitleLong"></span>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="#inputTitle2" class="col-sm-4 col-form-label">Статус активности</label>
                                     <div class="col-sm-8">
-                                        
-                                        @Html.DropDownListFor(x=>x.IdActiv, Model.ActivSelect, new { @class = "form-control"})
 
-                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdActiv"></span>
-                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.TitleActiv"></span>
+                                        @Html.DropDownListFor(x => x.IdActiv, Model.ActivSelect, new { @class = "form-control", @id = "inputTitle2", @value = "IdActiv", @for = "IdActiv" })
+
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="row mb-3">
                                     <label for="#inputTitle3" class="col-sm-4 col-form-label">Уровень доступа</label>
                                     <div class="col-sm-8">
-                                       
-                                        @Html.DropDownListFor(x=>x.IdLevel, Model.LevelSelect, new { @class = "form-control"})
 
-                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdLevel"></span>
-                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.TitleLevel"></span>
+                                        @Html.DropDownListFor(x => x.IdLevel, Model.LevelSelect, new { @class = "form-control", @id = "inputTitle3", @value = "IdLevel", @for = "IdLevel" })
+
                                     </div>
                                 </div>
                             </div>

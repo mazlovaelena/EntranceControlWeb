@@ -165,7 +165,7 @@
             <h5 class="text-center">РАСПРЕДЕЛЕНИЕ ПО ОТДЕЛАМ</h5>
         </div>
         <div class="row my-3">
-            <table class="table-dark table-bordered" style="width:1200px; color:black;">
+            <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
                 <thead>
                     <tr class="text-center">
                         <th>@Html.ActionLink("ID запись", "SortByOff", new { order = ViewBag.IdSort })</th>
@@ -229,10 +229,9 @@
                 {
 
                     <div class="row m-2">
-                        <div class="col-2"></div>
-                        <div class="col-8"> <a href="@Url.Action("CreateSort", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
-                        <div class="col-2"></div>
-
+                        
+                        <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateSort", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
+                        
                     </div>
                     
                 }

@@ -164,137 +164,206 @@
             <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
             <h5 class="text-center">ДОСТУП</h5>
         </div>
-        <div class="row my-3">
-            <table class="table-dark table-bordered" style="width:1200px; color:black;">
-                <thead>
-                    <tr class="text-center">
-                        <th>@Html.ActionLink("ID Запись", "Entrance", new { sort = ViewBag.IdSort }) </th>                     
-                        <th>@Html.ActionLink("Дата входа", "Entrance", new { sort = ViewBag.DateEntrSort }) </th>
-                        <th>Дата выхода </th>
-                        <th>@Html.ActionLink("Помещение", "Entrance", new { sort = ViewBag.RoomSort }) </th>
-                        <th>№ пропуска</th>
-                        <th>@Html.ActionLink("Турникет", "Entrance", new { sort = ViewBag.DoorSort }) </th>
-                        <th>Статус доступа</th>
-                    </tr>
-                </thead>
+        <div class="row mx-auto" style="width:1200px">
+            <div class="accordion accordion-flush" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button collapsed border-info shadow" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Настроить фильтры
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <form>
+                            <div class="accordion-body border-info shadow">
+                                <div class="row mb-3">
+                                    <label for="DateEntr" class="col-sm-4 col-form-label">Дата входа</label>
+                                    <div class="col-sm-8">
+                                        <input type="datetime" asp-for="@Model.DateEntr" value="@Model?.DateEntr" class="form-control" id="inputDate">
 
-                @foreach (var data in Model.Entrances)
-                {
-                    <tbody>
-                        <tr class="text-md-start">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="DateExit" class="col-sm-4 col-form-label">Дата выхода</label>
+                                    <div class="col-sm-8">
+                                        <input type="datetime" asp-for="@Model.DateExit" value="@Model?.DateExit" class="form-control" id="inputDate">
 
-                            <td>@data.IdRecord</td>
-                            <td>@data.DateEntr</td>
-                            <td>@data.DateExit</td>
-                            <td>@data.IdRooms.TitleRoom</td>
-                            <td>@data.IdPass</td>
-                            <td>@data.IdDoors.TitleDoor</td>
-                            <td>@data.IdStatuses.TitleStatus</td>
-                        </tr>
-                    </tbody>
-                }
-            </table>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="idRoom" class="col-sm-4 col-form-label">Помещение</label>
+                                    <div class="col-sm-8">
 
-            @*<script>
-                $('.editClick').on('click', function () {
-                    // ...
-                    console.log('edit clicked');
-                    const staffId = $(this).data('id');
-                    // обращение на сервер
-                    $.get('/Home/ViewStaff/' + staffId, function (result) {
-                        // результат содержит данные о двери
-                        $('#exampleModal #inputId').val(result.idStaff);
-                        $('#exampleModal #inputSurname').val(result.surname);
-                        $('#exampleModal #inputName').val(result.name);
-                        $('#exampleModal #inputLastName').val(result.lastName);
-                        $('#exampleModal #inputBirthday').val(result.birthday);
-                        $('#exampleModal #inputCorpEmail').val(result.corpEmail);
-                        $('#exampleModal #inputMobPhone').val(result.mobPhone);
-                        $('#exampleModal #imgstaff').val(result.image);
-                    });
+                                        @Html.DropDownListFor(x => x.IdRoom, Model.RoomSelect, new { @class = "form-control" })
 
-                });
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="idPass" class="col-sm-4 col-form-label">№ пропуска</label>
+                                    <div class="col-sm-8">
 
-            </script>*@
+                                        @Html.DropDownListFor(x => x.IdPass, Model.PassSelect, new { @class = "form-control" })
 
-            <!-- Modal -->
-            @*<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Карточка сотрудника</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <input type="image" src="@Model.Image" class="img-fluid" id="imgstaff" asp-for="@Model.Image" value="@Model.Image"/>
-                                    <img src="@Model.Image" class="img-fluid" id="imgstaff"/>
-                                </div>                     
-                                <div class="col-md-8">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label class="text-start" for="inputSurname"> Фамилия: </label>
-                                            <input hidden type="text" asp-for="@Model.IdStaff" class="form-control" id="inputId" value="@Model?.IdStaff" readonly>
-                                        </div>
-                                        <div class="col-6">
-                                            <input type="text" asp-for="@Model.Surname" class="border-0" style="width: 157px" id="inputSurname" value="@Model?.Surname" readonly/>
-                                        </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label class="text-start" for="inputName"> Имя: </label>
-                                        </div>
-                                        <div class="col-6">
-                                            <input type="text" asp-for="@Model.Name" class="border-0" style="width: 157px" id="inputName" value="@Model?.Name" readonly/>
-                                        </div>                                        
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="idDoor" class="col-sm-4 col-form-label">Турникет</label>
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(x => x.IdDoor, Model.DoorSelect, new { @class = "form-control" })
                                     </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label class="text-start" for="inputLastName"> Отчество: </label>
-                                        </div>
-                                        <div class="col-6">
-                                            <input type="text" asp-for="@Model.LastName" class="border-0" style="width: 157px" id="inputLastName" value="@Model?.LastName" readonly/>
-                                        </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="idStatus" class="col-sm-4 col-form-label">Статус доступа</label>
+                                    <div class="col-sm-8">
+
+                                        @Html.DropDownListFor(x => x.IdStatus, Model.StatSelect, new { @class = "form-control" })
+
+                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdRoom"></span>
+                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.TitleRoom"></span>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label class="text-start" for="inputBirthday"> Дата рождения: </label>
-                                        </div>
-                                        <div class="col-6">
-                                            <input type="datetime" asp-for="@Model.Birthday" class="border-0" style="width: 157px" id="inputBirthday" value="@Model?.Birthday" readonly />
-                                        </div>                                        
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="button" class="col-sm-8 col-form-label"></label>
+                                    <div class="col-sm-4">
+                                        <button type="submit" class="btn btn-outline-primary">Фильтровать</button>                                        
                                     </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label class="text-start" for="inputCorpEmail">  Корпоративная почта: </label>
-                                        </div>
-                                        <div class="col-6">
-                                            <input type="text" asp-for="@Model.CorpEmail" class="border-0" style="width: 157px" id="inputCorpEmail" value="@Model?.CorpEmail" readonly/>
-                                        </div>                                       
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label class="text-start" for="inputMobPhone"> Мобильный телефон:  </label>
-                                        </div>
-                                        <div class="col-6">
-                                            <input type="text" asp-for="@Model.MobPhone" class="border-0" style="width: 157px" id="inputMobPhone" value="@Model?.MobPhone" readonly/>
-                                        </div>                     
-                                        
-                                    </div>
-                                                                        
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Закрыть</button>
-
-                        </div>
+                        </form>
                     </div>
                 </div>
-            </div>*@
-
+            </div>
         </div>
-    </div>
+            <div class="row my-3">
+                <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
+                    <thead>
+                        <tr class="text-center">
+                            <th>@Html.ActionLink("ID Запись", "Entrance", new { sort = ViewBag.IdSort }) </th>
+                            <th>@Html.ActionLink("Дата входа", "Entrance", new { sort = ViewBag.DateEntrSort }) </th>
+                            <th>Дата выхода </th>
+                            <th>@Html.ActionLink("Помещение", "Entrance", new { sort = ViewBag.RoomSort }) </th>
+                            <th>№ пропуска</th>
+                            <th>@Html.ActionLink("Турникет", "Entrance", new { sort = ViewBag.DoorSort }) </th>
+                            <th>Статус доступа</th>
+                        </tr>
+                    </thead>
+
+                    @foreach (var data in Model.Entrances)
+                    {
+                        <tbody>
+                            <tr class="text-md-start">
+
+                                <td>@data.IdRecord</td>
+                                <td>@data.DateEntr</td>
+                                <td>@data.DateExit</td>
+                                <td>@data.IdRooms.TitleRoom</td>
+                                <td>@data.IdPass</td>
+                                <td>@data.IdDoors.TitleDoor</td>
+                                <td>@data.IdStatuses.TitleStatus</td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+
+                @*<script>
+                    $('.editClick').on('click', function () {
+                        // ...
+                        console.log('edit clicked');
+                        const staffId = $(this).data('id');
+                        // обращение на сервер
+                        $.get('/Home/ViewStaff/' + staffId, function (result) {
+                            // результат содержит данные о двери
+                            $('#exampleModal #inputId').val(result.idStaff);
+                            $('#exampleModal #inputSurname').val(result.surname);
+                            $('#exampleModal #inputName').val(result.name);
+                            $('#exampleModal #inputLastName').val(result.lastName);
+                            $('#exampleModal #inputBirthday').val(result.birthday);
+                            $('#exampleModal #inputCorpEmail').val(result.corpEmail);
+                            $('#exampleModal #inputMobPhone').val(result.mobPhone);
+                            $('#exampleModal #imgstaff').val(result.image);
+                        });
+
+                    });
+
+                </script>*@
+
+                <!-- Modal -->
+                @*<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Карточка сотрудника</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input type="image" src="@Model.Image" class="img-fluid" id="imgstaff" asp-for="@Model.Image" value="@Model.Image"/>
+                                        <img src="@Model.Image" class="img-fluid" id="imgstaff"/>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label class="text-start" for="inputSurname"> Фамилия: </label>
+                                                <input hidden type="text" asp-for="@Model.IdStaff" class="form-control" id="inputId" value="@Model?.IdStaff" readonly>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="text" asp-for="@Model.Surname" class="border-0" style="width: 157px" id="inputSurname" value="@Model?.Surname" readonly/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label class="text-start" for="inputName"> Имя: </label>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="text" asp-for="@Model.Name" class="border-0" style="width: 157px" id="inputName" value="@Model?.Name" readonly/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label class="text-start" for="inputLastName"> Отчество: </label>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="text" asp-for="@Model.LastName" class="border-0" style="width: 157px" id="inputLastName" value="@Model?.LastName" readonly/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label class="text-start" for="inputBirthday"> Дата рождения: </label>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="datetime" asp-for="@Model.Birthday" class="border-0" style="width: 157px" id="inputBirthday" value="@Model?.Birthday" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label class="text-start" for="inputCorpEmail">  Корпоративная почта: </label>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="text" asp-for="@Model.CorpEmail" class="border-0" style="width: 157px" id="inputCorpEmail" value="@Model?.CorpEmail" readonly/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label class="text-start" for="inputMobPhone"> Мобильный телефон:  </label>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="text" asp-for="@Model.MobPhone" class="border-0" style="width: 157px" id="inputMobPhone" value="@Model?.MobPhone" readonly/>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Закрыть</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+            </div>
+        </div>
 </body>
 </html>
