@@ -166,6 +166,25 @@
             <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
             <h5 class="text-center">ОТДЕЛЫ</h5>
         </div>
+        <div class="row my-3 mb-2 sticky-top">
+            <form asp-action="Offices" asp-controller="Home">
+                <div class="card rounded m-3 shadow-lg mx-auto" style="width:700px">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4 text-center">
+                                <label>Наименование отдела:</label>
+                            </div>
+                            <div class="col-5">
+                                @Html.TextBox("Search", "", new { @class = "form-control", @placeholder = "Поиск" })
+                            </div>
+                            <div class="col-3 mx-auto">
+                                <button type="submit" class="btn btn-outline-info">Поиск</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
         <div class="row my-3">
             <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
                 <thead>
@@ -220,10 +239,10 @@
                 if (User.IsInRole(UserRole.SysAdmin.ToString()))
                 {
                     <div class="row m-2">
-                        
+
                         <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateOffice", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
-                       
-                    </div>                   
+
+                    </div>
                 }
             }
 

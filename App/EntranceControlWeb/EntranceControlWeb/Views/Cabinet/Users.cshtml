@@ -163,12 +163,29 @@
         </nav>
     </header>
     <div class="container">
-        <form method="post" asp-action="UserReport" asp-controller="Cabinet">
-
-
+        <form method="post" asp-action="UserReport" asp-controller="Cabinet" id="formR"></form>
             <div class="row my-3">
                 <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
                 <h5 class="text-center">ПРОСМОТР ПОСЕТИТЕЛЕЙ САЙТА</h5>
+            </div>
+            <div class="row my-3 mb-2 sticky-top">
+                <form asp-action="Users" asp-controller="Cabinet" id="formF">
+                    <div class="card rounded m-3 shadow-lg mx-auto" style="width:500px">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-2 text-end">
+                                    <label>Email:</label>
+                                </div>
+                                <div class="col-6">
+                                    @Html.TextBox("Search", "", new { @class = "form-control", @placeholder = "Поиск" })
+                                </div>
+                                <div class="col-4 mx-auto">
+                                    <button type="submit" class="btn btn-outline-info">Поиск</button>
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="row my-3">
                 <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
@@ -192,7 +209,7 @@
                             <tr>
                                 <td>
                                     @data.IdUsers.Email
-                                </td>                               
+                                </td>
                                 <td>
                                     @data.IdUsers.UserRole
                                 </td>
@@ -205,19 +222,13 @@
 
                 </table>
             </div>
-            <div class="row my-3">
-                <div class="col-4">
-
-                </div>
-                <div class="col-4">
-                    <button type="submit" asp-action="UserReport" asp-controller="Cabinet" class="btn btn-outline-dark">Сохранить отчетный файл</button>
-                </div>
-                <div class="col-4">
-
-                </div>
-
+            <div class="row my-3 ms-5">               
+                <div class="ms-5">
+                    <button style="width:400px" type="submit" asp-action="Users" asp-controller="Cabinet" class="btn btn-outline-dark mx-auto ms-5">Сохранить отчетный файл c фильтрацией</button>
+                    <button style="width:300px" type="submit" asp-action="UserReport" asp-controller="Cabinet" form="formR" class="btn btn-outline-dark mx-auto ms-3">Сохранить отчетный файл</button>
+                </div>                
             </div>
-        </form>
+        
     </div>
 </body>
 </html>

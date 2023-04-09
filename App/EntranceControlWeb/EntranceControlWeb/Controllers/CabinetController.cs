@@ -49,9 +49,83 @@ namespace EntranceControlWeb.Controllers
             entr.Statuses = _context.AccessStatuses.ToList();
             return View(entr);
         }
-        [Authorize]
-        public IActionResult Users(AuthorizeViewModel auth)
+        [Authorize]       
+        public IActionResult Users(AuthorizeViewModel auth, string Search)
         {
+            var find = from s in _context.Authorizes select s;
+
+            if (!String.IsNullOrEmpty(Search))
+            {
+                find = find.Where(s => s.IdUsers.Email.ToUpper().Contains(Search.ToUpper()));
+
+                auth.Authorizes = _context.Authorizes.ToList();
+                auth.Users = _context.Users.ToList();
+
+                if (User.IsInRole(UserRole.Admin.ToString()))
+                {
+                    auth.Authorizes = find
+                         .Where(x => x.IdUsers.UserRole == UserRole.User).ToList();
+                }
+                else
+                {
+                    auth.Authorizes = find.ToList();
+                }                
+               
+                return View(auth);
+            }
+            //else if(!String.IsNullOrEmpty(Search) && find != null)
+            //{
+            //    find = find.Where(s => s.IdUsers.Email.ToUpper().Contains(Search.ToUpper()));
+
+            //    auth.Authorizes = _context.Authorizes.ToList();
+            //    auth.Users = _context.Users.ToList();
+
+            //    if (User.IsInRole(UserRole.Admin.ToString()))
+            //    {
+            //        auth.Authorizes = find
+            //             .Where(x => x.IdUsers.UserRole == UserRole.User).ToList();
+            //    }
+            //    else
+            //    {
+            //        auth.Authorizes = find.ToList();
+            //    }
+
+            //    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            //    FileStream fs = new("UserReport.xls", FileMode.Create);
+
+            //    using (ExcelPackage Ep = new(fs))
+            //    {
+            //        var Sheet1 = Ep.Workbook.Worksheets.Add("Посетители сайта");
+            //        Sheet1.Cells["A1"].Value = "ID_Запись";
+            //        Sheet1.Cells["B1"].Value = "ДатаАвторизации";
+            //        Sheet1.Cells["C1"].Value = "Пользователь";
+
+            //        var row1 = 2;
+            //        foreach (var entrance in find)
+            //        {
+            //            _context.Users.ToList();
+            //            Sheet1.Cells[string.Format("A{0}", row1)].Value = entrance.IdItem;
+            //            Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.DateAuth.ToString();
+            //            Sheet1.Cells[string.Format("C{0}", row1)].Value = entrance.IdUsers.Email;
+            //            row1++;
+            //        }
+            //        Sheet1.Cells["A:AZ"].AutoFitColumns();
+
+            //        Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            //        var xlFile = new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UserReport.xls"));
+
+            //        Ep.Save();
+            //        fs.Close();
+
+            //    }
+            //    string file_path = Path.Combine(_appEnvironment.ContentRootPath, "UserReport.xls");
+            //    //Тип файла -content - type
+            //    string file_type = "application/octet-stream";
+            //    //Имя файла -необязательно
+            //    string file_name = "UserReport.xls";
+            //    return PhysicalFile(file_path, file_type, file_name);
+            //}
+
             auth.Authorizes = _context.Authorizes.ToList();
             auth.Users = _context.Users.ToList();
 
@@ -72,82 +146,122 @@ namespace EntranceControlWeb.Controllers
         [HttpPost]
         public IActionResult UserReport()
         {
-            if (User.IsInRole(UserRole.Admin.ToString()))
+            if (User.Identity.IsAuthenticated)
             {
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                FileStream fs = new("UserReport.xls", FileMode.Create);
-
-                using (ExcelPackage Ep = new(fs))
+                if (User.IsInRole(UserRole.Admin.ToString()))
                 {
-                    var Sheet1 = Ep.Workbook.Worksheets.Add("Посетители сайта");
-                    Sheet1.Cells["A1"].Value = "ID_Запись";
-                    Sheet1.Cells["B1"].Value = "ДатаАвторизации";
-                    Sheet1.Cells["C1"].Value = "Пользователь";
+                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                    FileStream fs = new("UserReport.xls", FileMode.Create);
 
-                    var row1 = 2;
-                    foreach (var entrance in _context.Authorizes
-                    .Where(x => x.IdUsers.UserRole == UserRole.User).ToList())
+                    using (ExcelPackage Ep = new(fs))
                     {
-                        _context.Users.ToList();
-                        Sheet1.Cells[string.Format("A{0}", row1)].Value = entrance.IdItem;
-                        Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.DateAuth.ToString();
-                        Sheet1.Cells[string.Format("C{0}", row1)].Value = entrance.IdUsers.Email;
-                        row1++;
+                        var Sheet1 = Ep.Workbook.Worksheets.Add("Посетители сайта");
+                        Sheet1.Cells["A1"].Value = "ID_Запись";
+                        Sheet1.Cells["B1"].Value = "ДатаАвторизации";
+                        Sheet1.Cells["C1"].Value = "Пользователь";
+
+                        var row1 = 2;
+                        foreach (var entrance in _context.Authorizes
+                        .Where(x => x.IdUsers.UserRole == UserRole.User).ToList())
+                        {
+                            _context.Users.ToList();
+                            Sheet1.Cells[string.Format("A{0}", row1)].Value = entrance.IdItem;
+                            Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.DateAuth.ToString();
+                            Sheet1.Cells[string.Format("C{0}", row1)].Value = entrance.IdUsers.Email;
+                            row1++;
+                        }
+                        Sheet1.Cells["A:AZ"].AutoFitColumns();
+
+                        Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                        var xlFile = new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UserReport.xls"));
+
+                        Ep.Save();
+                        fs.Close();
+
                     }
-                    Sheet1.Cells["A:AZ"].AutoFitColumns();
-
-                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                    var xlFile = new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UserReport.xls"));
-
-                    Ep.Save();
-                    fs.Close();
 
                 }
-                string file_path = Path.Combine(_appEnvironment.ContentRootPath, "UserReport.xls");
-                //Тип файла -content - type
-                string file_type = "application/octet-stream";
-                //Имя файла -необязательно
-                string file_name = "UserReport.xls";
-                return PhysicalFile(file_path, file_type, file_name);
-            }
-            else
-            {
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                FileStream fs = new FileStream("UserReport.xls", FileMode.Create);
-
-                using (ExcelPackage Ep = new ExcelPackage(fs))
+                else
                 {
-                    var Sheet1 = Ep.Workbook.Worksheets.Add("Посетители сайта");
-                    Sheet1.Cells["A1"].Value = "ID_Запись";
-                    Sheet1.Cells["B1"].Value = "ДатаАвторизации";
-                    Sheet1.Cells["C1"].Value = "Пользователь";
+                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                    FileStream fs = new("UserReport.xls", FileMode.Create);
 
-                    var row1 = 2;
-                    foreach (var entrance in _context.Authorizes.ToList())
+                    using (ExcelPackage Ep = new(fs))
                     {
-                        _context.Users.ToList();
-                        Sheet1.Cells[string.Format("A{0}", row1)].Value = entrance.IdItem;
-                        Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.DateAuth.ToString();
-                        Sheet1.Cells[string.Format("C{0}", row1)].Value = entrance.IdUsers.Email;
-                        row1++;
+                        var Sheet1 = Ep.Workbook.Worksheets.Add("Посетители сайта");
+                        Sheet1.Cells["A1"].Value = "ID_Запись";
+                        Sheet1.Cells["B1"].Value = "ДатаАвторизации";
+                        Sheet1.Cells["C1"].Value = "Пользователь";
+
+                        var row1 = 2;
+                        foreach (var entrance in _context.Authorizes.ToList())
+                        {
+                            _context.Users.ToList();
+                            Sheet1.Cells[string.Format("A{0}", row1)].Value = entrance.IdItem;
+                            Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.DateAuth.ToString();
+                            Sheet1.Cells[string.Format("C{0}", row1)].Value = entrance.IdUsers.Email;
+                            row1++;
+                        }
+                        Sheet1.Cells["A:AZ"].AutoFitColumns();
+
+                        Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                        var xlFile = new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UserReport.xls"));
+
+                        Ep.Save();
+                        fs.Close();
+
                     }
-                    Sheet1.Cells["A:AZ"].AutoFitColumns();
 
-                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                    var xlFile = new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UserReport.xls"));
-
-                    Ep.Save();
-                    fs.Close();
                 }
-                string file_path = Path.Combine(_appEnvironment.ContentRootPath, "UserReport.xls");
-
-                string file_type = "application/octet-stream";
-
-                string file_name = "UserReport.xls";
-                return PhysicalFile(file_path, file_type, file_name);
-
             }
+            string file_path = Path.Combine(_appEnvironment.ContentRootPath, "UserReport.xls");
+            //Тип файла -content - type
+            string file_type = "application/octet-stream";
+            //Имя файла -необязательно
+            string file_name = "UserReport.xls";
+            return PhysicalFile(file_path, file_type, file_name);
+
         }
+
+        //[HttpPost]
+        //public IActionResult UserReportFilter(AuthorizeViewModel auth)
+        //{
+        //    //ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+        //    //FileStream fs = new("UserReport.xls", FileMode.Create);
+
+        //    //using (ExcelPackage Ep = new(fs))
+        //    //{
+        //    //    var Sheet1 = Ep.Workbook.Worksheets.Add("Посетители сайта");
+        //    //    Sheet1.Cells["A1"].Value = "ID_Запись";
+        //    //    Sheet1.Cells["B1"].Value = "ДатаАвторизации";
+        //    //    Sheet1.Cells["C1"].Value = "Пользователь";
+
+        //    //    var row1 = 2;
+        //    //    foreach (var entrance in rep.ReportList)
+        //    //    {
+        //    //        _context.Users.ToList();
+        //    //        Sheet1.Cells[string.Format("A{0}", row1)].Value = entrance.IdItem;
+        //    //        Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.DateAuth.ToString();
+        //    //        Sheet1.Cells[string.Format("C{0}", row1)].Value = entrance.IdUsers.Email;
+        //    //        row1++;
+        //    //    }
+        //    //    Sheet1.Cells["A:AZ"].AutoFitColumns();
+
+        //    //    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+        //    //    var xlFile = new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UserReport.xls"));
+
+        //    //    Ep.Save();
+        //    //    fs.Close();
+
+        //    //}
+        //    //string file_path = Path.Combine(_appEnvironment.ContentRootPath, "UserReport.xls");
+        //    ////Тип файла -content - type
+        //    //string file_type = "application/octet-stream";
+        //    ////Имя файла -необязательно
+        //    //string file_name = "UserReport.xls";
+        //    //return PhysicalFile(file_path, file_type, file_name);
+
+        //}
 
         [Authorize]
         public IActionResult Chart()
@@ -419,7 +533,7 @@ namespace EntranceControlWeb.Controllers
                 foreach (var entrance in _context.ActivityStatuses.ToList())
                 {
                     Sheet12.Cells[string.Format("A{0}", row12)].Value = entrance.IdActiv;
-                    Sheet12.Cells[string.Format("B{0}", row12)].Value = entrance.TitleActiv;                    
+                    Sheet12.Cells[string.Format("B{0}", row12)].Value = entrance.TitleActiv;
 
                     row12++;
                 }

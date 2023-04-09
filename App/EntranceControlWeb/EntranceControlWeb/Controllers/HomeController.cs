@@ -120,10 +120,16 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ОТДЕЛЫ"
         //Отображение страницы
-        public IActionResult Offices(OfficeViewModel off, string sort)
+        public IActionResult Offices(OfficeViewModel off, string sort, string Search)
         {
             ViewBag.OffSort = String.IsNullOrEmpty(sort) ? "Off dsc" : "Off";
             var find = from s in _context.Offices select s;
+
+            if (!String.IsNullOrEmpty(Search))
+            {
+                find = find.Where(s => s.TitleOffice.ToUpper().Contains(Search.ToUpper()));
+            }
+
             switch (sort)
             {
                 case "Off":
@@ -198,11 +204,17 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ДОЛЖНОСТИ"
         //Отображение страницы
-        public IActionResult Positions(PositionViewModel pos, string sort)
+        public IActionResult Positions(PositionViewModel pos, string sort, string Search)
         {
             ViewBag.PostSort = String.IsNullOrEmpty(sort) ? "Post dsc" : "";
             var find = from s in _context.Positions select s;
-            switch(sort)
+
+            if (!String.IsNullOrEmpty(Search))
+            {
+                find = find.Where(s => s.TitlePost.ToUpper().Contains(Search.ToUpper()));
+            }
+
+            switch (sort)
             {
                 default:
                     find = find.OrderBy(s => s.IdPost);
@@ -729,7 +741,7 @@ namespace EntranceControlWeb.Controllers
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ПОСЕТИТЕЛИ"
 
         //Отображение страницы
-        public IActionResult Visitors(VisitorViewModel vis, string sort)
+        public IActionResult Visitors(VisitorViewModel vis, string sort, string Search)
         {
             vis.ActivSelect = new SelectList(_context.ActivityStatuses, "IdActiv", "TitleActiv");
             vis.LongSelect = new SelectList(_context.LastingStatuses, "IdLong", "TitleLong");
@@ -738,6 +750,12 @@ namespace EntranceControlWeb.Controllers
             ViewBag.VisSort = String.IsNullOrEmpty(sort) ? "Name dsc" : "Name";
             ViewBag.PassSort = sort == "Pass" ? "Pass dsc" : "Pass";
             var find = from s in _context.Visitors select s;
+
+            if (!String.IsNullOrEmpty(Search))
+            {
+                find = find.Where(s => s.Fio.ToUpper().Contains(Search.ToUpper()));
+            }
+
             switch (sort)
             {
                 case "Name":

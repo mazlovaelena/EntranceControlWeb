@@ -164,6 +164,65 @@
             <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
             <h5 class="text-center">РАСПРЕДЕЛЕНИЕ ПО ОТДЕЛАМ</h5>
         </div>
+        <div class="row mx-auto" style="width:1200px">
+            <div class="accordion accordion-flush" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button collapsed border-info shadow" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Настроить фильтры
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <form>
+                            <div class="accordion-body border-info shadow">
+                                <div class="row mb-3">
+                                    <label for="DateEntr" class="col-sm-4 col-form-label">Время начала смены</label>
+                                    <div class="col-sm-8">
+                                        <input type="datetime" asp-for="@Model.TimeBegin" value="@Model?.TimeBegin" class="form-control" id="inputDate">
+
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="DateExit" class="col-sm-4 col-form-label">Время завершения смены</label>
+                                    <div class="col-sm-8">
+                                        <input type="datetime" asp-for="@Model.TimeEnd" value="@Model?.TimeEnd" class="form-control" id="inputDate">
+
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="idRoom" class="col-sm-4 col-form-label">Сотрудник</label>
+                                    <div class="col-sm-8">
+
+                                        @Html.DropDownListFor(x => x.IdStaff, Model.StaffSelect, new { @class = "form-control" })
+
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="idPass" class="col-sm-4 col-form-label">Должность</label>
+                                    <div class="col-sm-8">
+
+                                        @Html.DropDownListFor(x => x.IdPost, Model.PostSelect, new { @class = "form-control" })
+
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="idDoor" class="col-sm-4 col-form-label">Отдел</label>
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(x => x.IdOffice, Model.OfficeSelect, new { @class = "form-control" })
+                                    </div>
+                                </div>                                
+                                <div class="row mb-3">
+                                    <label for="button" class="col-sm-8 col-form-label"></label>
+                                    <div class="col-sm-4">
+                                        <button type="submit" class="btn btn-outline-primary">Фильтровать</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row my-3">
             <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
                 <thead>
@@ -229,11 +288,11 @@
                 {
 
                     <div class="row m-2">
-                        
+
                         <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateSort", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
-                        
+
                     </div>
-                    
+
                 }
             }
 

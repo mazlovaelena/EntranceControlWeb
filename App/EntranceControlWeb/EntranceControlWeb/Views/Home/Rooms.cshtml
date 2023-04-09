@@ -166,6 +166,44 @@
             <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
             <h5 class="text-center">ПОМЕЩЕНИЯ</h5>
         </div>
+        <div class="row mx-auto" style="width:1200px">
+            <div class="accordion accordion-flush" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button collapsed border-info shadow" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Настроить фильтры
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <form>
+                            <div class="accordion-body border-info shadow">
+                                <div class="row mb-3">
+                                    <label for="DateEntr" class="col-sm-4 col-form-label">Наименование помещения</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" asp-for="@Model.TitleRoom" value="@Model?.TitleRoom" class="form-control" id="inputDate">
+
+                                    </div>
+                                </div>                               
+                                <div class="row mb-3">
+                                    <label for="idStatus" class="col-sm-4 col-form-label">Уроваень доступа</label>
+                                    <div class="col-sm-8">
+
+                                        @Html.DropDownListFor(x => x.IdLevel, Model.LevelSelect, new { @class = "form-control" })
+                                       
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="button" class="col-sm-8 col-form-label"></label>
+                                    <div class="col-sm-4">
+                                        <button type="submit" class="btn btn-outline-primary">Фильтровать</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row my-3">
             <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
                 <thead>
@@ -223,11 +261,11 @@
                 if (User.IsInRole(UserRole.SysAdmin.ToString()))
                 {
                     <div class="row m-2">
-                        
+
                         <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateRoom", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
-                        
+
                     </div>
-                   
+
                 }
             }
 
@@ -248,7 +286,7 @@
 
             </script>
 
-             Modal 
+            Modal
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -269,10 +307,10 @@
                                 <div class="row mb-3">
                                     <label for="#inputTitle2" class="col-sm-4 col-form-label">Уровень доступа</label>
                                     <div class="col-sm-8">
-                                        
-                                        @Html.DropDownListFor(x=>x.IdLevel, Model.LevelSelect, new { @class = "form-control", @id = "inputTitle2", @value = "IdLevel", @for = "IdLevel" })
 
-                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdLevel"></span>                                        
+                                        @Html.DropDownListFor(x => x.IdLevel, Model.LevelSelect, new { @class = "form-control", @id = "inputTitle2", @value = "IdLevel", @for = "IdLevel" })
+
+                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdLevel"></span>
                                     </div>
                                 </div>
                             </div>
