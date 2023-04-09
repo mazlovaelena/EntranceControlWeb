@@ -23,12 +23,25 @@ namespace EntranceControlWeb.Controllers
         #region  ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ТУРНИКЕТЫ"
 
         //Отображение страницы
-        public IActionResult Doors(DoorViewModel door, string sort)
+        public IActionResult Doors(DoorViewModel door, string sort, string Search, int IdRoom)
         {
             door.RoomSelect = new SelectList(_context.Rooms, "IdRoom", "TitleRoom");
+
             ViewBag.RoomSort = sort == "Room" ? "Room dsc" : "Room";
             ViewBag.DoorSort = String.IsNullOrEmpty(sort) ? "Door dsc" : "Door";
+
             var find = from s in _context.Doors select s;
+
+            if (!String.IsNullOrEmpty(Search))
+            {
+                find = find.Where(s => s.TitleDoor.ToUpper().Contains(Search.ToUpper()));
+            }
+
+            if(IdRoom != 0)
+            {
+                find = find.Where(s => s.IdRoom.ToString().ToUpper().Contains(IdRoom.ToString().ToUpper()));
+            }
+
             switch (sort)
             {
                 case "Room":
@@ -50,6 +63,7 @@ namespace EntranceControlWeb.Controllers
 
             door.Doors = find.ToList();
             door.Rooms = _context.Rooms.ToList();
+
             return View(door);
         }
         //Удаление записи
@@ -288,13 +302,24 @@ namespace EntranceControlWeb.Controllers
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ПОМЕЩЕНИЯ"
 
         //Отображение данных
-        public IActionResult Rooms(RoomViewModel room, string sort)
+        public IActionResult Rooms(RoomViewModel room, string sort, string Search, int IdLevel)
         {
             room.LevelSelect = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
 
             ViewBag.RoomSort = sort == "Room" ? "Room dsc" : "Room";
             ViewBag.LevelSort = sort == "Level" ? "Level dsc" : "Level";
             var find = from s in _context.Rooms select s;
+
+            if (!String.IsNullOrEmpty(Search))
+            {
+                find = find.Where(s => s.TitleRoom.ToUpper().Contains(Search.ToUpper()));
+            }
+
+            if (IdLevel != 0)
+            {
+                find = find.Where(s => s.IdRoom.ToString().ToUpper().Contains(IdLevel.ToString().ToUpper()));
+            }
+
             switch (sort)
             {
                 case "Room":
@@ -389,13 +414,44 @@ namespace EntranceControlWeb.Controllers
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "РАСПРЕДЕЛЕНИЕ ПО ОТДЕЛАМ"
 
         //Отображение страницы
-        public IActionResult SortByOff(SortingByOfficeViewModel sort, string order)
+        public IActionResult SortByOff(SortingByOfficeViewModel sort, string order, string Search1, string Search2, int IdStaff, int IdPost, int IdOffice)
         {
+            sort.StaffSelect = new SelectList(_context.staff, "IdStaff", "Surname");
+            sort.PostSelect = new SelectList(_context.Positions, "IdPost", "TitlePost");
+            sort.OfficeSelect = new SelectList(_context.Offices, "IdOffice", "TitleOffice");
+
             ViewBag.SortStaff = order == "Staff" ? "Staff dsc" : "Staff";
             ViewBag.SortPost = order == "Post" ? "Post dsc" : "Post";
             ViewBag.SortOffice = order == "Office" ? "Office dsc" : "Office";
             ViewBag.IdSort = order == "Id" ? "Id desc" : "Id";
+
             var find = from s in _context.SortingByOffices select s;
+
+            if (!String.IsNullOrEmpty(Search1))
+            {
+                find = find.Where(s => s.TimeBegin.ToString().ToUpper().Contains(Search1.ToUpper()));
+            }
+
+            if (!String.IsNullOrEmpty(Search2))
+            {
+                find = find.Where(s => s.TimeEnd.ToString().ToUpper().Contains(Search2.ToUpper()));
+            }
+
+            if (IdStaff != 0)
+            {
+                find = find.Where(s => s.IdStaff.ToString().ToUpper().Contains(IdStaff.ToString().ToUpper()));
+            }
+
+            if(IdPost != 0)
+            {
+                find = find.Where(s => s.IdPost.ToString().ToUpper().Contains(IdPost.ToString().ToUpper()));
+            }
+
+            if (IdOffice != 0)
+            {
+                find = find.Where(s => s.IdOffice.ToString().ToUpper().Contains(IdOffice.ToString().ToUpper()));
+            }
+
             switch (order)
             {
                 case "Staff":
@@ -681,7 +737,7 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ДОСТУП"
         //Отображение данных
-        public IActionResult Entrance(EntranceViewModel entr, string sort)
+        public IActionResult Entrance(EntranceViewModel entr, string sort, string Search1, string Search2, int IdDoor, int IdPass, int IdRoom, int IdStatus)
         {
             entr.DoorSelect = new SelectList(_context.Doors, "IdDoor", "TitleDoor");
             entr.PassSelect = new SelectList(_context.Passes, "IdPass", "IdPass");
@@ -692,7 +748,35 @@ namespace EntranceControlWeb.Controllers
             ViewBag.DoorSort = sort == "Door" ? "Door desc" : "Door";
             ViewBag.RoomSort = sort == "Room" ? "Room desc" : "Room";
             ViewBag.IdSort = sort == "Id" ? "Id desc" : "Id";
+
             var find = from s in _context.Entrances select s;
+
+            //if (!String.IsNullOrEmpty(Search1))
+            //{
+            //    find = find.Where(s => s.DateEntr.ToString().ToUpper().Contains(Search1.ToUpper()));
+            //}
+            //if (!String.IsNullOrEmpty(Search2))
+            //{
+            //    find = find.Where(s => s.DateExit.ToString().ToUpper().Contains(Search2.ToUpper()));
+            //} error?
+
+            if (IdRoom != 0)
+            {
+                find = find.Where(s => s.IdRoom.ToString().ToUpper().Contains(IdRoom.ToString().ToUpper()));
+            }
+            if (IdPass != 0)
+            {
+                find = find.Where(s => s.IdPass.ToString().ToUpper().Contains(IdPass.ToString().ToUpper()));
+            }
+            if (IdDoor != 0)
+            {
+                find = find.Where(s => s.IdDoor.ToString().ToUpper().Contains(IdDoor.ToString().ToUpper()));
+            }
+            if (IdStatus != 0)
+            {
+                find = find.Where(s => s.IdStatus.ToString().ToUpper().Contains(IdStatus.ToString().ToUpper()));
+            }
+
             switch (sort)
             {
                 case "DateEntr":
@@ -876,13 +960,35 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ПРОПУСКА"
         //Отображение страницы
-        public IActionResult Passes(PassesViewModel pass)
+        public IActionResult Passes(PassesViewModel pass, string Search, int IdActiv, int IdLong, int IdLevel)
         {
+            var find = from s in _context.Passes select s;
+
+            if (!String.IsNullOrEmpty(Search))
+            {
+                find = find.Where(s => s.IdPass.ToString().ToUpper().Contains(Search.ToUpper()));
+            }
+
+            if (IdActiv != 0)
+            {
+                find = find.Where(s => s.IdActiv.ToString().ToUpper().Contains(IdActiv.ToString().ToUpper()));
+            }
+
+            if (IdLong != 0)
+            {
+                find = find.Where(s => s.IdLong.ToString().ToUpper().Contains(IdLong.ToString().ToUpper()));
+            }
+
+            if (IdLevel != 0)
+            {
+                find = find.Where(s => s.IdLevel.ToString().ToUpper().Contains(IdLevel.ToString().ToUpper()));
+            }
+
             pass.ActivSelect = new SelectList(_context.ActivityStatuses, "IdActiv", "TitleActiv");
             pass.LongSelect = new SelectList(_context.LastingStatuses, "IdLong", "TitleLong");
             pass.LevelSelect = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
 
-            pass.Passes = _context.Passes.ToList();
+            pass.Passes = find.ToList();
             pass.Lastings = _context.LastingStatuses.ToList();
             pass.Activities = _context.ActivityStatuses.ToList();
             pass.Levels = _context.AccessLevels.ToList();

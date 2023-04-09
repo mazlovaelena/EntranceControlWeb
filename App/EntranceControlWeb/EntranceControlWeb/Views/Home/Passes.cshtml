@@ -176,12 +176,19 @@
                     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <form>
                             <div class="accordion-body border-info shadow">
-                                
+                                <div class="row mb-3">
+                                    <label for="idRoom" class="col-sm-4 col-form-label">№ пропуска</label>
+                                    <div class="col-sm-8">
+
+                                        @Html.TextBox("Search", "", new { @class = "form-control", @placeholder = "Поиск" })
+
+                                    </div>
+                                </div>
                                 <div class="row mb-3">
                                     <label for="idRoom" class="col-sm-4 col-form-label">Длительность</label>
                                     <div class="col-sm-8">
 
-                                        @Html.DropDownListFor(x => x.IdLong, Model.LongSelect, new { @class = "form-control" })
+                                        @Html.DropDownListFor(x => x.IdLong, Model.LongSelect, "", new { @class = "form-control" })
 
                                     </div>
                                 </div>
@@ -189,16 +196,16 @@
                                     <label for="idPass" class="col-sm-4 col-form-label">Статус активности</label>
                                     <div class="col-sm-8">
 
-                                        @Html.DropDownListFor(x => x.IdActiv, Model.ActivSelect, new { @class = "form-control" })
+                                        @Html.DropDownListFor(x => x.IdActiv, Model.ActivSelect, "", new { @class = "form-control" })
 
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="idDoor" class="col-sm-4 col-form-label">Уровень доступа</label>
                                     <div class="col-sm-8">
-                                        @Html.DropDownListFor(x => x.IdLevel, Model.LevelSelect, new { @class = "form-control" })
+                                        @Html.DropDownListFor(x => x.IdLevel, Model.LevelSelect, "", new { @class = "form-control" })
                                     </div>
-                                </div>                               
+                                </div>
                                 <div class="row mb-3">
                                     <label for="button" class="col-sm-8 col-form-label"></label>
                                     <div class="col-sm-4">

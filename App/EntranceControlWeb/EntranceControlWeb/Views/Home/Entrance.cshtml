@@ -178,47 +178,37 @@
                                 <div class="row mb-3">
                                     <label for="DateEntr" class="col-sm-4 col-form-label">Дата входа</label>
                                     <div class="col-sm-8">
-                                        <input type="datetime" asp-for="@Model.DateEntr" value="@Model?.DateEntr" class="form-control" id="inputDate">
-
+                                        @Html.TextBox("Search1", "", new { @class = "form-control", @placeholder = "Поиск", @type = "datetime" })
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="DateExit" class="col-sm-4 col-form-label">Дата выхода</label>
                                     <div class="col-sm-8">
-                                        <input type="datetime" asp-for="@Model.DateExit" value="@Model?.DateExit" class="form-control" id="inputDate">
-
+                                        @Html.TextBox("Search2", "", new { @class = "form-control", @placeholder = "Поиск", @type = "datetime" })
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="idRoom" class="col-sm-4 col-form-label">Помещение</label>
                                     <div class="col-sm-8">
-
-                                        @Html.DropDownListFor(x => x.IdRoom, Model.RoomSelect, new { @class = "form-control" })
-
+                                        @Html.DropDownListFor(x => x.IdRoom, Model.RoomSelect, "", new { @class = "form-control" })
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="idPass" class="col-sm-4 col-form-label">№ пропуска</label>
                                     <div class="col-sm-8">
-
-                                        @Html.DropDownListFor(x => x.IdPass, Model.PassSelect, new { @class = "form-control" })
-
+                                        @Html.DropDownListFor(x => x.IdPass, Model.PassSelect, "", new { @class = "form-control" })
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="idDoor" class="col-sm-4 col-form-label">Турникет</label>
                                     <div class="col-sm-8">
-                                        @Html.DropDownListFor(x => x.IdDoor, Model.DoorSelect, new { @class = "form-control" })
+                                        @Html.DropDownListFor(x => x.IdDoor, Model.DoorSelect, "", new { @class = "form-control" })
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="idStatus" class="col-sm-4 col-form-label">Статус доступа</label>
                                     <div class="col-sm-8">
-
-                                        @Html.DropDownListFor(x => x.IdStatus, Model.StatSelect, new { @class = "form-control" })
-
-                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdRoom"></span>
-                                        <span for="idRoom" class="text-danger" asp-validation-for="@Model.TitleRoom"></span>
+                                        @Html.DropDownListFor(x => x.IdStatus, Model.StatSelect, "", new { @class = "form-control" })                                        
                                     </div>
                                 </div>
                                 <div class="row mb-3">

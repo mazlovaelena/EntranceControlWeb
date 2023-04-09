@@ -178,14 +178,14 @@
                                 <div class="row mb-3">
                                     <label for="DateEntr" class="col-sm-4 col-form-label">Время начала смены</label>
                                     <div class="col-sm-8">
-                                        <input type="datetime" asp-for="@Model.TimeBegin" value="@Model?.TimeBegin" class="form-control" id="inputDate">
+                                        @Html.TextBox("Search1", "", new { @class = "form-control", @placeholder = "Поиск", @type = "datetime" })
 
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="DateExit" class="col-sm-4 col-form-label">Время завершения смены</label>
                                     <div class="col-sm-8">
-                                        <input type="datetime" asp-for="@Model.TimeEnd" value="@Model?.TimeEnd" class="form-control" id="inputDate">
+                                        @Html.TextBox("Search2", "", new { @class = "form-control", @placeholder = "Поиск", @type = "datetime" })
 
                                     </div>
                                 </div>
@@ -193,7 +193,7 @@
                                     <label for="idRoom" class="col-sm-4 col-form-label">Сотрудник</label>
                                     <div class="col-sm-8">
 
-                                        @Html.DropDownListFor(x => x.IdStaff, Model.StaffSelect, new { @class = "form-control" })
+                                        @Html.DropDownListFor(x => x.IdStaff, Model.StaffSelect, "", new { @class = "form-control" })
 
                                     </div>
                                 </div>
@@ -201,20 +201,23 @@
                                     <label for="idPass" class="col-sm-4 col-form-label">Должность</label>
                                     <div class="col-sm-8">
 
-                                        @Html.DropDownListFor(x => x.IdPost, Model.PostSelect, new { @class = "form-control" })
+                                        @Html.DropDownListFor(x => x.IdPost, Model.PostSelect, "", new { @class = "form-control" })
 
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="idDoor" class="col-sm-4 col-form-label">Отдел</label>
                                     <div class="col-sm-8">
-                                        @Html.DropDownListFor(x => x.IdOffice, Model.OfficeSelect, new { @class = "form-control" })
+                                        @Html.DropDownListFor(x => x.IdOffice, Model.OfficeSelect, "", new { @class = "form-control" })
                                     </div>
                                 </div>                                
-                                <div class="row mb-3">
+                                <div class="row mb-2">
                                     <label for="button" class="col-sm-8 col-form-label"></label>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-2">
                                         <button type="submit" class="btn btn-outline-primary">Фильтровать</button>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="reset" class="btn btn-outline-danger" value="Сбросить фильтры"/>
                                     </div>
                                 </div>
                             </div>

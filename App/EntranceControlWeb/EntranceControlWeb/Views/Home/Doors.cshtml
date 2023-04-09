@@ -175,12 +175,13 @@
                         </button>
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <form>
+                        <form asp-action="Doors" asp-controller="Home">
                             <div class="accordion-body border-info shadow">
                                 <div class="row mb-3">
                                     <label for="DateEntr" class="col-sm-4 col-form-label">Наименование турникета</label>
                                     <div class="col-sm-8">
-                                        <input type="text" asp-for="@Model.TitleDoor" value="@Model?.TitleDoor" class="form-control" id="inputDate">
+
+                                        @Html.TextBox("Search", "", new { @class = "form-control", @placeholder = "Поиск" })
 
                                     </div>
                                 </div>                               
@@ -188,7 +189,7 @@
                                     <label for="idRoom" class="col-sm-4 col-form-label">Помещение</label>
                                     <div class="col-sm-8">
 
-                                        @Html.DropDownListFor(x => x.IdRoom, Model.RoomSelect, new { @class = "form-control" })
+                                        @Html.DropDownListFor(x => x.IdRoom, Model.RoomSelect, "", new { @class = "form-control"})
 
                                     </div>
                                 </div>                               
