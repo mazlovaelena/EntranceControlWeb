@@ -751,14 +751,15 @@ namespace EntranceControlWeb.Controllers
 
             var find = from s in _context.Entrances select s;
 
-            //if (!String.IsNullOrEmpty(Search1))
-            //{
-            //    find = find.Where(s => s.DateEntr.ToString().ToUpper().Contains(Search1.ToUpper()));
-            //}
-            //if (!String.IsNullOrEmpty(Search2))
-            //{
-            //    find = find.Where(s => s.DateExit.ToString().ToUpper().Contains(Search2.ToUpper()));
-            //} error?
+            if (!String.IsNullOrEmpty(Search1))
+            {
+                find = find.Where(s => s.DateEntr.ToString().ToUpper().Contains(Search1.ToUpper()));
+            }
+            if (!String.IsNullOrEmpty(Search2))
+            {
+                find = find.Where(s => s.DateExit.ToString().ToUpper().Contains(Search2.ToUpper()));
+            }
+          
 
             if (IdRoom != 0)
             {

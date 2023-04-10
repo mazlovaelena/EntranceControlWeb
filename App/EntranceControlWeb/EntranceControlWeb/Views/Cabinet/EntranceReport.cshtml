@@ -69,7 +69,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" asp-controller="Home" asp-action="Doors">Турникеты</a>
                                     </li>
-                                    
+
                                 }
                                 else if (User.IsInRole(UserRole.SysAdmin.ToString()))
                                 {
@@ -94,7 +94,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" asp-controller="Home" asp-action="Doors">Турникеты</a>
                                     </li>
-                                    
+
                                 }
                             }
                         </ul>
@@ -178,23 +178,63 @@
                 </p>
             }
         </div>
-        <div class="row my-2">
-            <div class="row col-10 mb-2 mx-auto">
-                <a class="btn btn-outline-dark mx-auto" href="@Url.Action("Users", "Cabinet")">Просмотр пользователей сайта</a>
-            </div>
-            <div class="row col-10 mb-2 mx-auto">
-                <a class="btn btn-outline-dark mx-auto" href="@Url.Action("Chart", "Cabinet")">Просмотр диаграммы посещаемости</a>
-            </div>
-            <div class="row col-10 mb-2 mx-auto">
-                <a class="btn btn-outline-dark mx-auto" href="@Url.Action("WorkTime", "Cabinet")">Просмотр рабочего времени</a>
-            </div>
-            <div class="row col-10 mb-2 mx-auto">
-                <a class="btn btn-outline-dark mx-auto" href="@Url.Action("EntranceReport", "Cabinet")">Скачать файл базы данных</a>
-            </div>
-        </div>
+        <form asp-action="EntranceReportFilter" asp-controller="Cabinet">
+            <div class="card rounded m-3 shadow-lg mx-auto">
+                <div class="row g-0">
+                    <div class="card-body">
+                        <h5 class="card-title">Выберите таблицы для сохранения</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                @Html.CheckBox("Entrance", false)<span>"Доступ"</span>
+                            </li>
+                            <li class="list-group-item">
+                                @Html.CheckBox("Staff", false)<span>"Сотрудники"</span>
+                            </li>
+                            <li class="list-group-item">
+                                @Html.CheckBox("Visitors", false)<span>"Посетители"</span>
+                            </li>
+                            <li class="list-group-item">
+                                @Html.CheckBox("Passes", false)<span>"Пропуска"</span>
+                            </li>
+                            <li class="list-group-item">
+                                @Html.CheckBox("Post", false)<span>"Должности"</span>
+                            </li>
+                            <li class="list-group-item">
+                                @Html.CheckBox("Offices", false)<span>"Отделы"</span>
+                            </li>
+                            <li class="list-group-item">
+                                @Html.CheckBox("SortByOff", false)<span>"Распределение по отделам"</span>
+                            </li>
+                            <li class="list-group-item">
+                                @Html.CheckBox("Rooms", false)<span>"Помещения"</span>
+                            </li>
+                            <li class="list-group-item">
+                                @Html.CheckBox("Doors", false)<span>"Турникеты"</span>
+                            </li>
+                            <li class="list-group-item">
+                                @Html.CheckBox("Levels", false)<span>"Уровни доступа"</span>
+                            </li>
+                            <li class="list-group-item">
+                                @Html.CheckBox("Statuses", false)<span>"Статусы доступа"</span>
+                            </li>
+                            <li class="list-group-item">
+                                @Html.CheckBox("Activ", false)<span>"Статус активности"</span>
+                            </li>
+                            <li class="list-group-item">
+                                @Html.CheckBox("Long", false)<span>"Статус длительности"</span>
+                            </li>
+                        </ul>
 
+                    </div>
+                    <div class="card-footer">                        
+                            <button type="submit" class="btn btn-outline-primary mx-2" asp-action="EntranceReportFilter" asp-controller="Cabinet">Сохранить выбранные</button>
+                                              
+                            <button type="submit" class="btn btn-outline-success mx-2" formaction="EntranceReport">Сохранить все</button>                                              
+                    </div>
+                </div>
+            </div>
+        </form>       
     </div>
-
-
 </body>
 </html>
+
