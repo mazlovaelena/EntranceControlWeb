@@ -175,10 +175,10 @@
                         </button>
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <form asp-action="Doors" asp-controller="Home">
+                        <form>
                             <div class="accordion-body border-info shadow">
                                 <div class="row mb-3">
-                                    <label for="DateEntr" class="col-sm-4 col-form-label">Наименование турникета</label>
+                                    <label  class="col-sm-4 col-form-label">Наименование турникета</label>
                                     <div class="col-sm-8">
 
                                         @Html.TextBox("Search", "", new { @class = "form-control", @placeholder = "Поиск" })
@@ -193,10 +193,13 @@
 
                                     </div>
                                 </div>                               
-                                <div class="row mb-3">
+                                <div class="row mb-2">
                                     <label for="button" class="col-sm-8 col-form-label"></label>
-                                    <div class="col-sm-4">
-                                        <button type="submit" class="btn btn-outline-primary">Фильтровать</button>
+                                    <div class="col-sm-2">
+                                        <button type="submit" formaction="Doors" class="btn btn-outline-primary">Фильтровать</button>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="submit" class="btn btn-outline-danger" formaction="ClearDoor" value="Сбросить фильтры" />
                                     </div>
                                 </div>
                             </div>

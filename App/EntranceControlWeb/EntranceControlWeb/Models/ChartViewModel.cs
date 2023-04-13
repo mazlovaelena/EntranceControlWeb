@@ -7,7 +7,8 @@ namespace EntranceControlWeb.Models
 {
     public class ChartViewModel
     {
-        public List<ChartItemViewModel> Chart { get; set; }             
+        public List<ChartItemViewModel> Chart { get; set; }  
+        public List<ChartItemViewModel> Name { get; set; }
     }
     public class ChartItemViewModel
     {

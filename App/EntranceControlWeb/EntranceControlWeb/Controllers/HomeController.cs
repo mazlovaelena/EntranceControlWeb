@@ -66,6 +66,10 @@ namespace EntranceControlWeb.Controllers
 
             return View(door);
         }
+        public IActionResult ClearDoor()
+        {
+            return RedirectToAction(nameof(Doors));
+        }
         //Удаление записи
         public IActionResult DelDoor(int id)
         {
@@ -317,7 +321,7 @@ namespace EntranceControlWeb.Controllers
 
             if (IdLevel != 0)
             {
-                find = find.Where(s => s.IdRoom.ToString().ToUpper().Contains(IdLevel.ToString().ToUpper()));
+                find = find.Where(s => s.IdLevel.ToString().ToUpper().Contains(IdLevel.ToString().ToUpper()));
             }
 
             switch (sort)
@@ -343,6 +347,12 @@ namespace EntranceControlWeb.Controllers
             room.Levels = _context.AccessLevels.ToList();
             return View(room);
         }
+
+        public IActionResult ClearRoom()
+        {
+            return RedirectToAction(nameof(Rooms));
+        }
+
         //Удаление записи
         public IActionResult DelRoom(int id)
         {
@@ -493,6 +503,12 @@ namespace EntranceControlWeb.Controllers
             sort.Offices = _context.Offices.ToList();
             return View(sort);
         }
+
+        public IActionResult ClearSort()
+        {
+            return RedirectToAction(nameof(SortByOff));
+        }
+
         //Удаление записи
         public IActionResult DelSort(int id)
         {
@@ -820,7 +836,12 @@ namespace EntranceControlWeb.Controllers
             entr.Doors = _context.Doors.ToList();
             entr.Statuses = _context.AccessStatuses.ToList();
             return View(entr);
-        }       
+        }  
+        
+        public IActionResult ClearEntr()
+        {
+            return RedirectToAction(nameof(Entrance));
+        }
         #endregion
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ПОСЕТИТЕЛИ"
@@ -995,6 +1016,11 @@ namespace EntranceControlWeb.Controllers
             pass.Levels = _context.AccessLevels.ToList();
 
             return View(pass);
+        }
+
+        public IActionResult ClearPass()
+        {
+            return RedirectToAction(nameoff(Passes));
         }
 
         //Создание записи

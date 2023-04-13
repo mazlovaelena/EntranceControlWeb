@@ -49,6 +49,7 @@ namespace EntranceControlWeb.Controllers
             entr.Statuses = _context.AccessStatuses.ToList();
             return View(entr);
         }
+        #region ПРОСМОТР ПОЛЬЗОВАТЕЛЕЙ САЙТА
         [Authorize]       
         public IActionResult Users(AuthorizeViewModel auth, string Search)
         {
@@ -73,23 +74,8 @@ namespace EntranceControlWeb.Controllers
                
                 return View(auth);
             }
-            //else if(!String.IsNullOrEmpty(Search) && find != null)
+            //else if (!String.IsNullOrEmpty(Search) && find != null)
             //{
-            //    find = find.Where(s => s.IdUsers.Email.ToUpper().Contains(Search.ToUpper()));
-
-            //    auth.Authorizes = _context.Authorizes.ToList();
-            //    auth.Users = _context.Users.ToList();
-
-            //    if (User.IsInRole(UserRole.Admin.ToString()))
-            //    {
-            //        auth.Authorizes = find
-            //             .Where(x => x.IdUsers.UserRole == UserRole.User).ToList();
-            //    }
-            //    else
-            //    {
-            //        auth.Authorizes = find.ToList();
-            //    }
-
             //    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             //    FileStream fs = new("UserReport.xls", FileMode.Create);
 
@@ -222,47 +208,9 @@ namespace EntranceControlWeb.Controllers
             return PhysicalFile(file_path, file_type, file_name);
 
         }
+        #endregion
 
-        //[HttpPost]
-        //public IActionResult UserReportFilter(AuthorizeViewModel auth)
-        //{
-        //    //ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-        //    //FileStream fs = new("UserReport.xls", FileMode.Create);
-
-        //    //using (ExcelPackage Ep = new(fs))
-        //    //{
-        //    //    var Sheet1 = Ep.Workbook.Worksheets.Add("Посетители сайта");
-        //    //    Sheet1.Cells["A1"].Value = "ID_Запись";
-        //    //    Sheet1.Cells["B1"].Value = "ДатаАвторизации";
-        //    //    Sheet1.Cells["C1"].Value = "Пользователь";
-
-        //    //    var row1 = 2;
-        //    //    foreach (var entrance in rep.ReportList)
-        //    //    {
-        //    //        _context.Users.ToList();
-        //    //        Sheet1.Cells[string.Format("A{0}", row1)].Value = entrance.IdItem;
-        //    //        Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.DateAuth.ToString();
-        //    //        Sheet1.Cells[string.Format("C{0}", row1)].Value = entrance.IdUsers.Email;
-        //    //        row1++;
-        //    //    }
-        //    //    Sheet1.Cells["A:AZ"].AutoFitColumns();
-
-        //    //    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-        //    //    var xlFile = new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UserReport.xls"));
-
-        //    //    Ep.Save();
-        //    //    fs.Close();
-
-        //    //}
-        //    //string file_path = Path.Combine(_appEnvironment.ContentRootPath, "UserReport.xls");
-        //    ////Тип файла -content - type
-        //    //string file_type = "application/octet-stream";
-        //    ////Имя файла -необязательно
-        //    //string file_name = "UserReport.xls";
-        //    //return PhysicalFile(file_path, file_type, file_name);
-
-        //}
-
+        #region ПРОСМОТР ГРАФИКА
         [Authorize]
         public IActionResult Chart()
         {
@@ -271,15 +219,22 @@ namespace EntranceControlWeb.Controllers
             .Select(g => new ChartItemViewModel { ID = g.Key, Count = g.Count() })
             .ToList();
 
+            var name = _context.Entrances
+                .GroupBy(p => p.IdPass)
+                .Select(g => new ChartItemViewModel { ID = g.Key, Count = g.Count() })
+                .ToList();
+
             var VM = new ChartViewModel
             {
                 Chart = data,
+                Name = name,
             };
 
             return View(VM);
         }
+        #endregion
 
-
+        #region УЧЕТ РАБОЧЕГО ВРЕМЕНИ
         public IActionResult WorkTime(EntranceViewModel vm, SortingByOfficeViewModel sm)
         {
             //var vm = new EntranceViewModel();
@@ -311,7 +266,9 @@ namespace EntranceControlWeb.Controllers
 
             return View();
         }
+        #endregion
 
+        #region РАБОТА С ОТЧЕТНЫМ ФАЙЛОМ
         public IActionResult EntranceReport()
         {
             return View();
@@ -868,5 +825,6 @@ namespace EntranceControlWeb.Controllers
             string file_name = "EntranceReport.xls";
             return PhysicalFile(file_path, file_type, file_name);
         }
+        #endregion
     }
 }

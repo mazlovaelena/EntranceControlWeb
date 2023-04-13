@@ -184,7 +184,7 @@
                                 <div class="row mb-3">
                                     <label for="DateExit" class="col-sm-4 col-form-label">Дата выхода</label>
                                     <div class="col-sm-8">
-                                        @Html.TextBox("Search2", "", new { @class = "form-control", @placeholder = "Поиск"})
+                                        @Html.TextBox("Search2", "", new { @class = "form-control", @placeholder = "Поиск" })
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -208,13 +208,16 @@
                                 <div class="row mb-3">
                                     <label for="idStatus" class="col-sm-4 col-form-label">Статус доступа</label>
                                     <div class="col-sm-8">
-                                        @Html.DropDownListFor(x => x.IdStatus, Model.StatSelect, "", new { @class = "form-control" })                                        
+                                        @Html.DropDownListFor(x => x.IdStatus, Model.StatSelect, "", new { @class = "form-control" })
                                     </div>
                                 </div>
-                                <div class="row mb-3">
+                                <div class="row mb-2">
                                     <label for="button" class="col-sm-8 col-form-label"></label>
-                                    <div class="col-sm-4">
-                                        <button type="submit" class="btn btn-outline-primary">Фильтровать</button>                                        
+                                    <div class="col-sm-2">
+                                        <button type="submit" class="btn btn-outline-primary">Фильтровать</button>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="submit" class="btn btn-outline-danger" formaction="ClearEntr" value="Сбросить фильтры" />
                                     </div>
                                 </div>
                             </div>

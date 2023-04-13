@@ -174,42 +174,84 @@
                 var dataStaff = @Json.Serialize(Model.Chart.Select(x => x.ID).ToList());
                 var dataDays = @Json.Serialize(Model.Chart.Select(x => x.Count).ToList());
 
-                 const ctxx = document.getElementById('myChart').getContext('2d');
-                 const myCharts = new Chart(ctxx, {
-                                               type: 'bar',
-                     data: {
-                         labels: dataStaff ,
-                                                   datasets: [
-                                                       {
-                                                           label: 'Количество посетителей',
-                                                           backgroundColor: ['rgb(150, 204, 255)'],
-                                                           borderColor: ['rgb(0, 145, 255)'],
-                                                           borderWidth: 2,
-                                                           tension: 0.2,
-                                                           data: dataDays
-                                                          }]
-                                               },
-                                               options: {
-                                                    scales: {
-                                                        x: {
-                                                            display: true,
-                                                            title: {
-                                                                    display: true,
-                                                                    text: 'День'
-                                                            }
-                                                        },
-                                                        y: {
-                                                          
-                                                            display: true,
+                const ctxx = document.getElementById('myChart').getContext('2d');
+                const myCharts = new Chart(ctxx, {
+                    type: 'bar',
+                    data: {
+                        labels: dataStaff,
+                        datasets: [
+                            {
+                                label: 'Количество посетителей',
+                                backgroundColor: ['rgb(150, 204, 255)'],
+                                borderColor: ['rgb(0, 145, 255)'],
+                                borderWidth: 2,
+                                tension: 0.2,
+                                data: dataDays
+                            }]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'День'
+                                }
+                            },
+                            y: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Количество человек'
+                                }
+                            }
+                        }
+                    }
+                });
+            </script>
 
-                                                            title: {
-                                                                    display: true,
-                                                                    text: 'Количество человек'
-                                                            }
-                                                        }
-                                                    }
-                                               }
-             });
+
+        </div>
+        <div class="row my-3">
+            <canvas id="myChart1" style="background-color: whitesmoke; border-radius: 8px; border-color: darkslategray; border-style: groove; "></canvas>
+            <script>
+                var dataPass = @Json.Serialize(Model.Chart.Select(y => y.ID).ToList());
+                var dataCount = @Json.Serialize(Model.Chart.Select(y => y.Count).ToList());
+
+                const ctxy = document.getElementById('myChart1').getContext('2d');
+                const myCharts1 = new Chart(ctxy, {
+                    type: 'line',
+                    data: {
+                        labels: dataPass,
+                        datasets: [
+                            {
+                                label: 'Количество посещений',
+                                backgroundColor: ['rgb(150, 204, 255)'],
+                                borderColor: ['rgb(0, 145, 255)'],
+                                borderWidth: 2,
+                                tension: 0.2,
+                                data: dataCount
+                            }]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: '№ пропуска'
+                                }
+                            },
+                            y: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Количество посещений'
+                                }
+                            }
+                        }
+                    }
+                });
             </script>
 
 
