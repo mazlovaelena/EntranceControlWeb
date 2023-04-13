@@ -169,6 +169,26 @@
             <h5 class="text-center">ПРОСМОТР ДИАГРАММЫ ПОСЕЩАЕМОСТИ</h5>
         </div>
         <div class="row my-3">
+            <h6 class="text-center">ДИАГРАММА КОЛИЧЕСТВА ЧЕЛОВЕК В ДЕНЬ</h6>
+            <div class="row mx-1">
+                <form>
+                    <div class="card rounded m-3 shadow-lg mx-auto" style="width:1200px">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4 text-center">
+                                    <label>Сотрудник:</label>
+                                </div>
+                                <div class="col-5">
+                                    @Html.DropDownListFor(x => x.IdPass, Model.StaffSelect, "All", new { @class = "form-control" })
+                                </div>
+                                <div class="col-3 mx-auto">
+                                    <button type="submit" class="btn btn-outline-info">Показать</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <canvas id="myChart" style="background-color: whitesmoke; border-radius: 8px; border-color: darkslategray; border-style: groove; "></canvas>
             <script>
                 var dataStaff = @Json.Serialize(Model.Chart.Select(x => x.ID).ToList());
@@ -180,8 +200,7 @@
                     data: {
                         labels: dataStaff,
                         datasets: [
-                            {
-                                label: 'Количество посетителей',
+                            {                                
                                 backgroundColor: ['rgb(150, 204, 255)'],
                                 borderColor: ['rgb(0, 145, 255)'],
                                 borderWidth: 2,
@@ -202,7 +221,7 @@
                                 display: true,
                                 title: {
                                     display: true,
-                                    text: 'Количество человек'
+                                    text: 'Количество посещений'
                                 }
                             }
                         }
@@ -213,10 +232,11 @@
 
         </div>
         <div class="row my-3">
+            <h6 class="text-center">ДИАГРАММА КОЛИЧЕСТВА ПОСЕЩЕНИЙ ПО СОТРУДНИКАМ</h6>            
             <canvas id="myChart1" style="background-color: whitesmoke; border-radius: 8px; border-color: darkslategray; border-style: groove; "></canvas>
             <script>
-                var dataPass = @Json.Serialize(Model.Chart.Select(y => y.ID).ToList());
-                var dataCount = @Json.Serialize(Model.Chart.Select(y => y.Count).ToList());
+                var dataPass = @Json.Serialize(Model.Name.Select(y => y.Pass).ToList());
+                var dataCount = @Json.Serialize(Model.Name.Select(y => y.Sum).ToList());
 
                 const ctxy = document.getElementById('myChart1').getContext('2d');
                 const myCharts1 = new Chart(ctxy, {
@@ -224,8 +244,7 @@
                     data: {
                         labels: dataPass,
                         datasets: [
-                            {
-                                label: 'Количество посещений',
+                            {                                
                                 backgroundColor: ['rgb(150, 204, 255)'],
                                 borderColor: ['rgb(0, 145, 255)'],
                                 borderWidth: 2,
@@ -255,7 +274,7 @@
             </script>
 
 
-        </div>
+        </div>        
     </div>
 </body>
 </html>

@@ -9,7 +9,7 @@ using System.IO;
 using LicenseContext = OfficeOpenXml.LicenseContext;
 using System.Data;
 using Microsoft.AspNetCore.Hosting;
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EntranceControlWeb.Controllers
 {
@@ -212,25 +212,50 @@ namespace EntranceControlWeb.Controllers
 
         #region ПРОСМОТР ГРАФИКА
         [Authorize]
-        public IActionResult Chart()
+        public IActionResult Chart(ChartViewModel model, int IdPass)
         {
-            var data = _context.Entrances
+            model.StaffSelect = new SelectList(_context.staff, "IdPass", "Surname");
+
+            var find = from s in _context.Entrances select s;
+
+            if(IdPass != 0)
+            {
+                find = find.Where(s => s.IdPass.ToString().Contains(IdPass.ToString().ToUpper()));
+
+                model.Entrances = find.ToList();
+
+                var chart = find
+                    .GroupBy(x => x.DateEntr.Day)
+                    .Select(t => new ChartItemViewModel { ID = t.Key, Count = t.Count() })
+                    .ToList();
+
+                var data = _context.Entrances
+                   .Where(s => s.IdPasses.IdLong == 2)
+                   .GroupBy(p => p.IdPass)
+                   .Select(g => new ChartItemViewModel { Pass = g.Key, Sum = g.Count() })
+                   .ToList();
+
+                model.Chart = chart;
+                model.Name = data;
+
+                return View(model);                    
+            }
+
+            var number = _context.Entrances
             .GroupBy(p => p.DateEntr.Day)
             .Select(g => new ChartItemViewModel { ID = g.Key, Count = g.Count() })
             .ToList();
 
             var name = _context.Entrances
-                .GroupBy(p => p.IdPass)
-                .Select(g => new ChartItemViewModel { ID = g.Key, Count = g.Count() })
+                .Where(s=>s.IdPasses.IdLong == 2)
+                .GroupBy(p => p.IdPass)                
+                .Select(g => new ChartItemViewModel { Pass = g.Key, Sum = g.Count() })                
                 .ToList();
 
-            var VM = new ChartViewModel
-            {
-                Chart = data,
-                Name = name,
-            };
+            model.Chart = number;
+            model.Name = name;
 
-            return View(VM);
+            return View(model);
         }
         #endregion
 

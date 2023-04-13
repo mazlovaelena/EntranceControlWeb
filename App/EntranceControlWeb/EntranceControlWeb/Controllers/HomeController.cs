@@ -1020,7 +1020,7 @@ namespace EntranceControlWeb.Controllers
 
         public IActionResult ClearPass()
         {
-            return RedirectToAction(nameoff(Passes));
+            return RedirectToAction(nameof(Passes));
         }
 
         //Создание записи
