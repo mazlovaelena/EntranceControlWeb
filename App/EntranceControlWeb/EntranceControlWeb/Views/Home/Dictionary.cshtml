@@ -1,640 +1,476 @@
 ﻿@model EntranceControlWeb.Models.DictionaryViewModel;
 @{
     ViewData["Title"] = "Dictionary";
-
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
-    <link rel="icon" href="/img/icon.ico" sizes="64x64" />
-    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
-    <script src="~/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-    @*@await RenderSectionAsync("Scripts", required: false)*@
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-light sticky-top" style="background-color: #fbfeff">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <a class="nav-link text-primary">Аккаунт: @User.Identity.Name </a>
-                }
-                <a class="nav-link text-danger" asp-area="" asp-controller="Login" asp-action="LogOut">Выйти</a>
-                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Навигация в системе</h5>
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Home" asp-action="Entrance">Доступ</a>
-                            </li>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                if (User.IsInRole(UserRole.Admin.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Staff">Сотрудники</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Positions">Должности</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Offices">Отделы</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="SortByOff">Распределение по отделам</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Visitors">Посетители</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Rooms">Помещения</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Doors">Турникеты</a>
-                                    </li>
-                                    
-                                }
-                                else if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Staff">Сотрудники</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Positions">Должности</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Offices">Отделы</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="SortByOff">Распределение по отделам</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Visitors">Посетители</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Rooms">Помещения</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Doors">Турникеты</a>
-                                    </li>
-                                   
-                                }
-                            }
+<div class="container">
+    <div class="row my-3">
+        <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
+        <h5 class="text-center">УРОВНИ ДОСТУПА</h5>
+    </div>
+    <div class="row my-3">
+        <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
+            <thead>
+                <tr class="text-center">
+                    <th>ID уровня</th>
+                    <th>Наименование уровня</th>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                        {
+                            <th>Действия</th>
+                        }
+                        else if (User.IsInRole(UserRole.Admin.ToString()))
+                        {
+                            <th>Действия</th>
+                        }
+                    }
 
-                        </ul>
-                        <hr />
-                        <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                if (User.IsInRole(UserRole.User.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Cabinet" asp-action="UserCab">Личный кабинет</a>
-                                    </li>
-                                }
-                                else if (User.IsInRole(UserRole.Admin.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Cabinet" asp-action="AdminCab">Личный кабинет</a>
-                                    </li>
-                                }
-                                else if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Cabinet" asp-action="SysAdminCab">Личный кабинет</a>
-                                    </li>
-                                }
-                            }
+                </tr>
+            </thead>
+            @foreach (var data in Model.Levels)
+            {
+                <tbody>
+                    <tr class="text-md-start">
 
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                if (User.IsInRole(UserRole.User.ToString()))
-                                {
-                                    <li class="nav-item" style="position: relative; left: 950px">
-                                        <a class="nav-link active" href="~/RukUser.pdf" target="_blank">Руководство пользователя</a>
-                                    </li>
-                                }
-                                else if (User.IsInRole(UserRole.Admin.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" href="~/RukAdmin.pdf" target="_blank">Руководство начальника</a>
-                                    </li>
-                                }
-                                else if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" href="~/RukSysAdmin.pdf" target="_blank">Руководство администратора</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Passes">Картотека пропусков</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Dictionary">Редактировать справочники</a>
-                                    </li>
-                                }
-                            }
-                            <li class="nav-item">
-                                <a class="nav-link active text-danger" asp-controller="Login" asp-action="LogOut">Выход</a>
-                            </li>
-
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <div class="row my-3">
-            <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
-            <h5 class="text-center">УРОВНИ ДОСТУПА</h5>
-        </div>
-        <div class="row my-3">
-            <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
-                <thead>
-                    <tr class="text-center">
-                        <th>ID уровня</th>
-                        <th>Наименование уровня</th>
+                        <td>@data.IdLevel</td>
+                        <td>@data.TitleLevel</td>
                         @if (User.Identity.IsAuthenticated)
                         {
                             if (User.IsInRole(UserRole.SysAdmin.ToString()))
                             {
-                                <th>Действия</th>
+                                <td>
+                                    <a href="@Url.Action("LevelEdit", "Home", new { id = @data.IdLevel })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdLevel">Редактировать</a>
+                                    <a href="@Url.Action("DelLevel", "Home", new { id = @data.IdLevel })" class="text-danger" data-id="@data.IdLevel">Удалить</a>
+                                </td>
+
                             }
                             else if (User.IsInRole(UserRole.Admin.ToString()))
                             {
-                                <th>Действия</th>
+                                <td>
+                                    <a href="@Url.Action("LevelEdit", "Home", new { id = @data.IdLevel })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdLevel">Редактировать</a>
+
+                                </td>
                             }
                         }
 
                     </tr>
-                </thead>
-                @foreach (var data in Model.Levels)
-                {
-                    <tbody>
-                        <tr class="text-md-start">
-
-                            <td>@data.IdLevel</td>
-                            <td>@data.TitleLevel</td>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                                {
-                                    <td>
-                                        <a href="@Url.Action("LevelEdit", "Home", new { id = @data.IdLevel })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdLevel">Редактировать</a>
-                                        <a href="@Url.Action("DelLevel", "Home", new { id = @data.IdLevel })" class="text-danger" data-id="@data.IdLevel">Удалить</a>
-                                    </td>
-
-                                }
-                                else if (User.IsInRole(UserRole.Admin.ToString()))
-                                {
-                                    <td>
-                                        <a href="@Url.Action("LevelEdit", "Home", new { id = @data.IdLevel })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdLevel">Редактировать</a>
-
-                                    </td>
-                                }
-                            }
-
-                        </tr>
-                    </tbody>
-                }
-
-            </table>
-        </div>
-
-        @if (User.Identity.IsAuthenticated)
-        {
-            if (User.IsInRole(UserRole.SysAdmin.ToString()))
-            {
-                <div class="row m-2">
-
-                    <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateLevel", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
-
-                </div>
-
+                </tbody>
             }
-        }
 
-        <div class="row my-3">
-            <h5 class="text-center">СТАТУСЫ ДОСТУПА</h5>
-        </div>
-        <div class="row my-3">
-            <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
-                <thead>
-                    <tr class="text-center">
-                        <th>ID статус</th>
-                        <th>Наименование статус</th>
+        </table>
+    </div>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole(UserRole.SysAdmin.ToString()))
+        {
+            <div class="row m-2">
+
+                <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateLevel", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
+
+            </div>
+
+        }
+    }
+
+    <div class="row my-3">
+        <h5 class="text-center">СТАТУСЫ ДОСТУПА</h5>
+    </div>
+    <div class="row my-3">
+        <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
+            <thead>
+                <tr class="text-center">
+                    <th>ID статус</th>
+                    <th>Наименование статус</th>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                        {
+                            <th>Действия</th>
+                        }
+                        else if (User.IsInRole(UserRole.Admin.ToString()))
+                        {
+                            <th>Действия</th>
+                        }
+                    }
+
+                </tr>
+            </thead>
+            @foreach (var data in Model.Statuses)
+            {
+                <tbody>
+                    <tr class="text-md-start">
+
+                        <td>@data.IdStatus</td>
+                        <td>@data.TitleStatus</td>
                         @if (User.Identity.IsAuthenticated)
                         {
                             if (User.IsInRole(UserRole.SysAdmin.ToString()))
                             {
-                                <th>Действия</th>
+                                <td>
+                                    <a href="@Url.Action("StatusEdit", "Home", new { id = @data.IdStatus })" class="text-success editClick1" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-id="@data.IdStatus">Редактировать</a>
+                                    <a href="@Url.Action("DelStatus", "Home", new { id = @data.IdStatus })" class="text-danger" data-id="@data.IdStatus">Удалить</a>
+                                </td>
+
                             }
                             else if (User.IsInRole(UserRole.Admin.ToString()))
                             {
-                                <th>Действия</th>
+                                <td>
+                                    <a href="@Url.Action("StatusEdit", "Home", new { id = @data.IdStatus })" class="text-success editClick1" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-id="@data.IdStatus">Редактировать</a>
+
+                                </td>
                             }
                         }
 
                     </tr>
-                </thead>
-                @foreach (var data in Model.Statuses)
-                {
-                    <tbody>
-                        <tr class="text-md-start">
-
-                            <td>@data.IdStatus</td>
-                            <td>@data.TitleStatus</td>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                                {
-                                    <td>
-                                        <a href="@Url.Action("StatusEdit", "Home", new { id = @data.IdStatus })" class="text-success editClick1" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-id="@data.IdStatus">Редактировать</a>
-                                        <a href="@Url.Action("DelStatus", "Home", new { id = @data.IdStatus })" class="text-danger" data-id="@data.IdStatus">Удалить</a>
-                                    </td>
-
-                                }
-                                else if (User.IsInRole(UserRole.Admin.ToString()))
-                                {
-                                    <td>
-                                        <a href="@Url.Action("StatusEdit", "Home", new { id = @data.IdStatus })" class="text-success editClick1" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-id="@data.IdStatus">Редактировать</a>
-
-                                    </td>
-                                }
-                            }
-
-                        </tr>
-                    </tbody>
-                }
-
-            </table>
-        </div>
-
-        @if (User.Identity.IsAuthenticated)
-        {
-            if (User.IsInRole(UserRole.SysAdmin.ToString()))
-            {
-                <div class="row m-2">
-
-                    <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateStatus", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
-
-                </div>
-
+                </tbody>
             }
+
+        </table>
+    </div>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole(UserRole.SysAdmin.ToString()))
+        {
+            <div class="row m-2">
+
+                <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateStatus", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
+
+            </div>
+
         }
+    }
 
 
-        <div class="row my-3">
-            <h5 class="text-center">СТАТУСЫ АКТИВНОСТИ</h5>
-        </div>
-        <div class="row my-3">
-            <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
-                <thead>
-                    <tr class="text-center">
-                        <th>ID статус</th>
-                        <th>Наименование статус</th>
+    <div class="row my-3">
+        <h5 class="text-center">СТАТУСЫ АКТИВНОСТИ</h5>
+    </div>
+    <div class="row my-3">
+        <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
+            <thead>
+                <tr class="text-center">
+                    <th>ID статус</th>
+                    <th>Наименование статус</th>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                        {
+                            <th>Действия</th>
+                        }
+                        else if (User.IsInRole(UserRole.Admin.ToString()))
+                        {
+                            <th>Действия</th>
+                        }
+                    }
+
+                </tr>
+            </thead>
+            @foreach (var data in Model.Activities)
+            {
+                <tbody>
+                    <tr class="text-md-start">
+
+                        <td>@data.IdActiv</td>
+                        <td>@data.TitleActiv</td>
                         @if (User.Identity.IsAuthenticated)
                         {
                             if (User.IsInRole(UserRole.SysAdmin.ToString()))
                             {
-                                <th>Действия</th>
+                                <td>
+                                    <a href="@Url.Action("ActivEdit", "Home", new { id = @data.IdActiv })" class="text-success editClick2" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-id="@data.IdActiv">Редактировать</a>
+                                    <a href="@Url.Action("DelActiv", "Home", new { id = @data.IdActiv })" class="text-danger" data-id="@data.IdActiv">Удалить</a>
+                                </td>
+
                             }
                             else if (User.IsInRole(UserRole.Admin.ToString()))
                             {
-                                <th>Действия</th>
+                                <td>
+                                    <a href="@Url.Action("ActivEdit", "Home", new { id = @data.IdActiv })" class="text-success editClick2" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-id="@data.IdActiv">Редактировать</a>
+
+                                </td>
                             }
                         }
 
                     </tr>
-                </thead>
-                @foreach (var data in Model.Activities)
-                {
-                    <tbody>
-                        <tr class="text-md-start">
-
-                            <td>@data.IdActiv</td>
-                            <td>@data.TitleActiv</td>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                                {
-                                    <td>
-                                        <a href="@Url.Action("ActivEdit", "Home", new { id = @data.IdActiv })" class="text-success editClick2" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-id="@data.IdActiv">Редактировать</a>
-                                        <a href="@Url.Action("DelActiv", "Home", new { id = @data.IdActiv })" class="text-danger" data-id="@data.IdActiv">Удалить</a>
-                                    </td>
-
-                                }
-                                else if (User.IsInRole(UserRole.Admin.ToString()))
-                                {
-                                    <td>
-                                        <a href="@Url.Action("ActivEdit", "Home", new { id = @data.IdActiv })" class="text-success editClick2" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-id="@data.IdActiv">Редактировать</a>
-
-                                    </td>
-                                }
-                            }
-
-                        </tr>
-                    </tbody>
-                }
-
-            </table>
-        </div>
-
-        @if (User.Identity.IsAuthenticated)
-        {
-            if (User.IsInRole(UserRole.SysAdmin.ToString()))
-            {
-                <div class="row m-2">
-
-                    <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateActiv", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
-
-                </div>
-
+                </tbody>
             }
-        }
 
-        <div class="row my-3">
-            <h5 class="text-center">СТАТУСЫ ДЛИТЕЛЬНОСТИ</h5>
-        </div>
-        <div class="row my-3">
-            <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
-                <thead>
-                    <tr class="text-center">
-                        <th>ID статус</th>
-                        <th>Наименование статус</th>
+        </table>
+    </div>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole(UserRole.SysAdmin.ToString()))
+        {
+            <div class="row m-2">
+
+                <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateActiv", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
+
+            </div>
+
+        }
+    }
+
+    <div class="row my-3">
+        <h5 class="text-center">СТАТУСЫ ДЛИТЕЛЬНОСТИ</h5>
+    </div>
+    <div class="row my-3">
+        <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
+            <thead>
+                <tr class="text-center">
+                    <th>ID статус</th>
+                    <th>Наименование статус</th>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                        {
+                            <th>Действия</th>
+                        }
+                        else if (User.IsInRole(UserRole.Admin.ToString()))
+                        {
+                            <th>Действия</th>
+                        }
+                    }
+
+                </tr>
+            </thead>
+            @foreach (var data in Model.Lastings)
+            {
+                <tbody>
+                    <tr class="text-md-start">
+
+                        <td>@data.IdLong</td>
+                        <td>@data.TitleLong</td>
                         @if (User.Identity.IsAuthenticated)
                         {
                             if (User.IsInRole(UserRole.SysAdmin.ToString()))
                             {
-                                <th>Действия</th>
+                                <td>
+                                    <a href="@Url.Action("LongEdit", "Home", new { id = @data.IdLong })" class="text-success editClick3" data-bs-toggle="modal" data-bs-target="#exampleModal3" data-id="@data.IdLong">Редактировать</a>
+                                    <a href="@Url.Action("DelLong", "Home", new { id = @data.IdLong })" class="text-danger" data-id="@data.IdLong">Удалить</a>
+                                </td>
+
                             }
                             else if (User.IsInRole(UserRole.Admin.ToString()))
                             {
-                                <th>Действия</th>
+                                <td>
+                                    <a href="@Url.Action("LongEdit", "Home", new { id = @data.IdLong })" class="text-success editClick3" data-bs-toggle="modal" data-bs-target="#exampleModal3" data-id="@data.IdLong">Редактировать</a>
+
+                                </td>
                             }
                         }
 
                     </tr>
-                </thead>
-                @foreach (var data in Model.Lastings)
-                {
-                    <tbody>
-                        <tr class="text-md-start">
-
-                            <td>@data.IdLong</td>
-                            <td>@data.TitleLong</td>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                                {
-                                    <td>
-                                        <a href="@Url.Action("LongEdit", "Home", new { id = @data.IdLong })" class="text-success editClick3" data-bs-toggle="modal" data-bs-target="#exampleModal3" data-id="@data.IdLong">Редактировать</a>
-                                        <a href="@Url.Action("DelLong", "Home", new { id = @data.IdLong })" class="text-danger" data-id="@data.IdLong">Удалить</a>
-                                    </td>
-
-                                }
-                                else if (User.IsInRole(UserRole.Admin.ToString()))
-                                {
-                                    <td>
-                                        <a href="@Url.Action("LongEdit", "Home", new { id = @data.IdLong })" class="text-success editClick3" data-bs-toggle="modal" data-bs-target="#exampleModal3" data-id="@data.IdLong">Редактировать</a>
-
-                                    </td>
-                                }
-                            }
-
-                        </tr>
-                    </tbody>
-                }
-
-            </table>
-        </div>
-
-        @if (User.Identity.IsAuthenticated)
-        {
-            if (User.IsInRole(UserRole.SysAdmin.ToString()))
-            {
-                <div class="row m-2">
-
-                    <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateLong", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
-
-                </div>
-
+                </tbody>
             }
+
+        </table>
+    </div>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole(UserRole.SysAdmin.ToString()))
+        {
+            <div class="row m-2">
+
+                <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateLong", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
+
+            </div>
+
         }
+    }
 
 
-        @*модальное окно редактирования уровня доступа*@
-        <script>
-            $('.editClick').on('click', function () {
-                // ...
-                console.log('edit clicked');
-                const levelId = $(this).data('id');
-                // обращение на сервер
-                $.get('/Home/LevelEdit/' + levelId, function (result) {
-                    // результат содержит данные о двери
-                    $('#exampleModal #inputTitle').val(result.idLevel);
-                    $('#exampleModal #inputTitle1').val(result.titleLevel);
-                });
-
+    @*модальное окно редактирования уровня доступа*@
+    <script>
+        $('.editClick').on('click', function () {
+            // ...
+            console.log('edit clicked');
+            const levelId = $(this).data('id');
+            // обращение на сервер
+            $.get('/Home/LevelEdit/' + levelId, function (result) {
+                // результат содержит данные о двери
+                $('#exampleModal #inputTitle').val(result.idLevel);
+                $('#exampleModal #inputTitle1').val(result.titleLevel);
             });
 
-        </script>
+        });
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Редактировать информацию</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form method="post" asp-controller="Home" asp-action="LevelEdit">
-                        <div class="modal-body">
-                            <div class="row mb-3">
-                                <input hidden type="text" asp-for="@Model.IdLevel" class="form-control" value="@Model?.IdLevel" id="inputTitle" name="IdLevel" readonly>
-                                <label for="inputTitle1" class="col-sm-4 col-form-label">Наименование уровня</label>
-                                <div class="col-sm-8">
-                                    <input type="text" asp-for="@Model.TitleLevel" class="form-control" id="inputTitle1" value="@Model?.TitleLevel" name="TitleLevel">
-                                    <span for="inputTitle" class="text-danger" asp-validation-for="@Model.TitleLevel"></span>
-                                </div>
-                            </div>
+    </script>
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
-                            <button href="@Url.Action("LevelEdit", "Home")" type="submit" class="btn btn-success">Сохранить</button>
-                        </div>
-                    </form>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Редактировать информацию</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <form method="post" asp-controller="Home" asp-action="LevelEdit">
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <input hidden type="text" asp-for="@Model.IdLevel" class="form-control" value="@Model?.IdLevel" id="inputTitle" name="IdLevel" readonly>
+                            <label for="inputTitle1" class="col-sm-4 col-form-label">Наименование уровня</label>
+                            <div class="col-sm-8">
+                                <input type="text" asp-for="@Model.TitleLevel" class="form-control" id="inputTitle1" value="@Model?.TitleLevel" name="TitleLevel">
+                                <span for="inputTitle" class="text-danger" asp-validation-for="@Model.TitleLevel"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
+                        <button href="@Url.Action("LevelEdit", "Home")" type="submit" class="btn btn-success">Сохранить</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
 
-        @*модальное окно редактирования статуса доступа*@
-        <script>
-            $('.editClick1').on('click', function () {
-                // ...
-                console.log('edit clicked');
-                const statusId = $(this).data('id');
-                // обращение на сервер
-                $.get('/Home/StatusEdit/' + statusId, function (result) {
-                    // результат содержит данные о двери
-                    $('#exampleModal1 #inputTitle').val(result.idStatus);
-                    $('#exampleModal1 #inputTitle1').val(result.titleStatus);
-                });
-
+    @*модальное окно редактирования статуса доступа*@
+    <script>
+        $('.editClick1').on('click', function () {
+            // ...
+            console.log('edit clicked');
+            const statusId = $(this).data('id');
+            // обращение на сервер
+            $.get('/Home/StatusEdit/' + statusId, function (result) {
+                // результат содержит данные о двери
+                $('#exampleModal1 #inputTitle').val(result.idStatus);
+                $('#exampleModal1 #inputTitle1').val(result.titleStatus);
             });
 
-        </script>
+        });
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModal1Label" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModal1Label">Редактировать информацию</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form method="post" asp-controller="Home" asp-action="StatusEdit">
-                        <div class="modal-body">
-                            <div class="row mb-3">
-                                <input hidden type="text" asp-for="@Model.IdStatus" class="form-control" value="@Model?.IdStatus" id="inputTitle" name="IdStatus" readonly>
-                                <label for="inputTitle1" class="col-sm-4 col-form-label">Наименование уровня</label>
-                                <div class="col-sm-8">
-                                    <input type="text" asp-for="@Model.TitleStatus" class="form-control" id="inputTitle1" value="@Model?.TitleStatus" name="TitleStatus">
-                                    <span for="inputTitle" class="text-danger" asp-validation-for="@Model.TitleStatus"></span>
-                                </div>
-                            </div>
+    </script>
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
-                            <button href="@Url.Action("StatusEdit", "Home")" type="submit" class="btn btn-success">Сохранить</button>
-                        </div>
-                    </form>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModal1Label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModal1Label">Редактировать информацию</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <form method="post" asp-controller="Home" asp-action="StatusEdit">
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <input hidden type="text" asp-for="@Model.IdStatus" class="form-control" value="@Model?.IdStatus" id="inputTitle" name="IdStatus" readonly>
+                            <label for="inputTitle1" class="col-sm-4 col-form-label">Наименование уровня</label>
+                            <div class="col-sm-8">
+                                <input type="text" asp-for="@Model.TitleStatus" class="form-control" id="inputTitle1" value="@Model?.TitleStatus" name="TitleStatus">
+                                <span for="inputTitle" class="text-danger" asp-validation-for="@Model.TitleStatus"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
+                        <button href="@Url.Action("StatusEdit", "Home")" type="submit" class="btn btn-success">Сохранить</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
 
-        @*модальное окно редактирования статуса активности*@
-        <script>
-            $('.editClick2').on('click', function () {
-                // ...
-                console.log('edit clicked');
-                const activId = $(this).data('id');
-                // обращение на сервер
-                $.get('/Home/ActivEdit/' + activId, function (result) {
-                    // результат содержит данные о двери
-                    $('#exampleModal2 #inputTitle').val(result.idActiv);
-                    $('#exampleModal2 #inputTitle1').val(result.titleActiv);
-                });
-
+    @*модальное окно редактирования статуса активности*@
+    <script>
+        $('.editClick2').on('click', function () {
+            // ...
+            console.log('edit clicked');
+            const activId = $(this).data('id');
+            // обращение на сервер
+            $.get('/Home/ActivEdit/' + activId, function (result) {
+                // результат содержит данные о двери
+                $('#exampleModal2 #inputTitle').val(result.idActiv);
+                $('#exampleModal2 #inputTitle1').val(result.titleActiv);
             });
 
-        </script>
+        });
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModal2Label" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModal2Label">Редактировать информацию</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form method="post" asp-controller="Home" asp-action="ActivEdit">
-                        <div class="modal-body">
-                            <div class="row mb-3">
-                                <input hidden type="text" asp-for="@Model.IdActiv" class="form-control" value="@Model?.IdActiv" id="inputTitle" name="IdActiv" readonly>
-                                <label for="inputTitle1" class="col-sm-4 col-form-label">Наименование уровня</label>
-                                <div class="col-sm-8">
-                                    <input type="text" asp-for="@Model.TitleActiv" class="form-control" id="inputTitle1" value="@Model?.TitleActiv" name="TitleLevel">
-                                    <span for="inputTitle" class="text-danger" asp-validation-for="@Model.TitleActiv"></span>
-                                </div>
-                            </div>
+    </script>
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
-                            <button href="@Url.Action("ActivEdit", "Home")" type="submit" class="btn btn-success">Сохранить</button>
-                        </div>
-                    </form>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModal2Label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModal2Label">Редактировать информацию</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <form method="post" asp-controller="Home" asp-action="ActivEdit">
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <input hidden type="text" asp-for="@Model.IdActiv" class="form-control" value="@Model?.IdActiv" id="inputTitle" name="IdActiv" readonly>
+                            <label for="inputTitle1" class="col-sm-4 col-form-label">Наименование уровня</label>
+                            <div class="col-sm-8">
+                                <input type="text" asp-for="@Model.TitleActiv" class="form-control" id="inputTitle1" value="@Model?.TitleActiv" name="TitleLevel">
+                                <span for="inputTitle" class="text-danger" asp-validation-for="@Model.TitleActiv"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
+                        <button href="@Url.Action("ActivEdit", "Home")" type="submit" class="btn btn-success">Сохранить</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
 
-        @*модальное окно редактирования статуса длительности*@
-        <script>
-            $('.editClick3').on('click', function () {
-                // ...
-                console.log('edit clicked');
-                const longId = $(this).data('id');
-                // обращение на сервер
-                $.get('/Home/LongEdit/' + longId, function (result) {
-                    // результат содержит данные о двери
-                    $('#exampleModal3 #inputTitle').val(result.idLong);
-                    $('#exampleModal3 #inputTitle1').val(result.titleLong);
-                });
-
+    @*модальное окно редактирования статуса длительности*@
+    <script>
+        $('.editClick3').on('click', function () {
+            // ...
+            console.log('edit clicked');
+            const longId = $(this).data('id');
+            // обращение на сервер
+            $.get('/Home/LongEdit/' + longId, function (result) {
+                // результат содержит данные о двери
+                $('#exampleModal3 #inputTitle').val(result.idLong);
+                $('#exampleModal3 #inputTitle1').val(result.titleLong);
             });
 
-        </script>
+        });
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModal3Label" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModal3Label">Редактировать информацию</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form method="post" asp-controller="Home" asp-action="LongEdit">
-                        <div class="modal-body">
-                            <div class="row mb-3">
-                                <input hidden type="text" asp-for="@Model.IdLong" class="form-control" value="@Model?.IdLong" id="inputTitle" name="IdLong" readonly>
-                                <label for="inputTitle1" class="col-sm-4 col-form-label">Наименование уровня</label>
-                                <div class="col-sm-8">
-                                    <input type="text" asp-for="@Model.TitleLong" class="form-control" id="inputTitle1" value="@Model?.TitleLong" name="TitleLong">
-                                    <span for="inputTitle" class="text-danger" asp-validation-for="@Model.TitleLong"></span>
-                                </div>
-                            </div>
+    </script>
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
-                            <button href="@Url.Action("LongEdit", "Home")" type="submit" class="btn btn-success">Сохранить</button>
-                        </div>
-                    </form>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModal3Label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModal3Label">Редактировать информацию</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <form method="post" asp-controller="Home" asp-action="LongEdit">
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <input hidden type="text" asp-for="@Model.IdLong" class="form-control" value="@Model?.IdLong" id="inputTitle" name="IdLong" readonly>
+                            <label for="inputTitle1" class="col-sm-4 col-form-label">Наименование уровня</label>
+                            <div class="col-sm-8">
+                                <input type="text" asp-for="@Model.TitleLong" class="form-control" id="inputTitle1" value="@Model?.TitleLong" name="TitleLong">
+                                <span for="inputTitle" class="text-danger" asp-validation-for="@Model.TitleLong"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
+                        <button href="@Url.Action("LongEdit", "Home")" type="submit" class="btn btn-success">Сохранить</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
 
-        <div class="row m-2 text-center">
-            <p class="text-center" style="font-size:17px">                
-                <strong>Внимание!</strong> Данные таблицы являются справочными. Для редактирования данных свойств в конкретных таблицах перейдите на страницу необходиой таблицы.
-            </p>
-
-        </div>
+    <div class="row m-2 text-center">
+        <p class="text-center" style="font-size:17px">
+            <strong>Внимание!</strong> Данные таблицы являются справочными. Для редактирования данных свойств в конкретных таблицах перейдите на страницу необходиой таблицы.
+        </p>
 
     </div>
-       
-
-</body>
-</html>
+</div>

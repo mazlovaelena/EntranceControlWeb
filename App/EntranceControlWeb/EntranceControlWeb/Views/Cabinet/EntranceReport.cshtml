@@ -2,239 +2,78 @@
     ViewData["Title"] = "Cabinet";
 
 }
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
-    <link rel="icon" href="/img/icon.ico" sizes="64x64" />
-    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
-    <script src="~/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-    @*@await RenderSectionAsync("Scripts", required: false)*@
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-light sticky-top" style="background-color: #fbfeff">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <a class="nav-link text-primary">Аккаунт: @User.Identity.Name </a>
-                }
-                <a class="nav-link text-danger" asp-area="" asp-controller="Login" asp-action="LogOut">Выйти</a>
-                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Навигация в системе</h5>
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Home" asp-action="Entrance">Доступ</a>
-                            </li>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                if (User.IsInRole(UserRole.Admin.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Staff">Сотрудники</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Positions">Должности</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Offices">Отделы</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="SortByOff">Распределение по отделам</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Visitors">Посетители</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Rooms">Помещения</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Doors">Турникеты</a>
-                                    </li>
-
-                                }
-                                else if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Staff">Сотрудники</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Positions">Должности</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Offices">Отделы</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="SortByOff">Распределение по отделам</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Visitors">Посетители</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Rooms">Помещения</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Doors">Турникеты</a>
-                                    </li>
-
-                                }
-                            }
-                        </ul>
-                        <hr />
-                        <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                if (User.IsInRole(UserRole.User.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Cabinet" asp-action="UserCab">Личный кабинет</a>
-                                    </li>
-                                }
-                                else if (User.IsInRole(UserRole.Admin.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Cabinet" asp-action="AdminCab">Личный кабинет</a>
-                                    </li>
-                                }
-                                else if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Cabinet" asp-action="SysAdminCab">Личный кабинет</a>
-                                    </li>
-                                }
-                            }
-
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                if (User.IsInRole(UserRole.User.ToString()))
-                                {
-                                    <li class="nav-item" style="position: relative; left: 950px">
-                                        <a class="nav-link active" href="~/RukUser.pdf" target="_blank">Руководство пользователя</a>
-                                    </li>
-                                }
-                                else if (User.IsInRole(UserRole.Admin.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" href="~/RukAdmin.pdf" target="_blank">Руководство начальника</a>
-                                    </li>
-                                }
-                                else if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" href="~/RukSysAdmin.pdf" target="_blank">Руководство администратора</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Passes">Картотека пропусков</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Dictionary">Редактировать справочники</a>
-                                    </li>
-                                }
-                            }
-
-                            <li class="nav-item">
-                                <a class="nav-link active text-danger" asp-controller="Login" asp-action="LogOut">Выход</a>
-                            </li>
-
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <div class="row my-3">
-            <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
-            <h5 class="text-center">ЛИЧНЫЙ КАБИНЕТ АДМИНИСТРАТОРА</h5>
-        </div>
-        <div class="row my-2">
-            @if (User.Identity.IsAuthenticated)
-            {
-                <p>
-                    Вы вошли под логином @User.Identity.Name.
-
-                </p>
-                <p>
-                    Роль на сайте: системный администратор.
-                </p>
-            }
-        </div>
-        <form asp-action="EntranceReportFilter" asp-controller="Cabinet">
-            <div class="card rounded m-3 shadow-lg mx-auto">
-                <div class="row g-0">
-                    <div class="card-body">
-                        <h5 class="card-title">Выберите таблицы для сохранения</h5>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                @Html.CheckBox("Entrance", false)<span>"Доступ"</span>
-                            </li>
-                            <li class="list-group-item">
-                                @Html.CheckBox("Staff", false)<span>"Сотрудники"</span>
-                            </li>
-                            <li class="list-group-item">
-                                @Html.CheckBox("Visitors", false)<span>"Посетители"</span>
-                            </li>
-                            <li class="list-group-item">
-                                @Html.CheckBox("Passes", false)<span>"Пропуска"</span>
-                            </li>
-                            <li class="list-group-item">
-                                @Html.CheckBox("Post", false)<span>"Должности"</span>
-                            </li>
-                            <li class="list-group-item">
-                                @Html.CheckBox("Offices", false)<span>"Отделы"</span>
-                            </li>
-                            <li class="list-group-item">
-                                @Html.CheckBox("SortByOff", false)<span>"Распределение по отделам"</span>
-                            </li>
-                            <li class="list-group-item">
-                                @Html.CheckBox("Rooms", false)<span>"Помещения"</span>
-                            </li>
-                            <li class="list-group-item">
-                                @Html.CheckBox("Doors", false)<span>"Турникеты"</span>
-                            </li>
-                            <li class="list-group-item">
-                                @Html.CheckBox("Levels", false)<span>"Уровни доступа"</span>
-                            </li>
-                            <li class="list-group-item">
-                                @Html.CheckBox("Statuses", false)<span>"Статусы доступа"</span>
-                            </li>
-                            <li class="list-group-item">
-                                @Html.CheckBox("Activ", false)<span>"Статус активности"</span>
-                            </li>
-                            <li class="list-group-item">
-                                @Html.CheckBox("Long", false)<span>"Статус длительности"</span>
-                            </li>
-                        </ul>
-
-                    </div>
-                    <div class="card-footer">                        
-                            <button type="submit" class="btn btn-outline-primary mx-2" asp-action="EntranceReportFilter" asp-controller="Cabinet">Сохранить выбранные</button>
-                                              
-                            <button type="submit" class="btn btn-outline-success mx-2" formaction="EntranceReport">Сохранить все</button>                                              
-                    </div>
-                </div>
-            </div>
-        </form>       
+<div class="container">
+    <div class="row my-3">
+        <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
+        <h5 class="text-center">ЛИЧНЫЙ КАБИНЕТ АДМИНИСТРАТОРА</h5>
     </div>
-</body>
-</html>
+    <div class="row my-2">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <p>
+                Вы вошли под логином @User.Identity.Name.
+
+            </p>
+            <p>
+                Роль на сайте: системный администратор.
+            </p>
+        }
+    </div>
+    <form asp-action="EntranceReportFilter" asp-controller="Cabinet">
+        <div class="card rounded m-3 shadow-lg mx-auto">
+            <div class="row g-0">
+                <div class="card-body">
+                    <h5 class="card-title">Выберите таблицы для сохранения</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            @Html.CheckBox("Entrance", false)<span>"Доступ"</span>
+                        </li>
+                        <li class="list-group-item">
+                            @Html.CheckBox("Staff", false)<span>"Сотрудники"</span>
+                        </li>
+                        <li class="list-group-item">
+                            @Html.CheckBox("Visitors", false)<span>"Посетители"</span>
+                        </li>
+                        <li class="list-group-item">
+                            @Html.CheckBox("Passes", false)<span>"Пропуска"</span>
+                        </li>
+                        <li class="list-group-item">
+                            @Html.CheckBox("Post", false)<span>"Должности"</span>
+                        </li>
+                        <li class="list-group-item">
+                            @Html.CheckBox("Offices", false)<span>"Отделы"</span>
+                        </li>
+                        <li class="list-group-item">
+                            @Html.CheckBox("SortByOff", false)<span>"Распределение по отделам"</span>
+                        </li>
+                        <li class="list-group-item">
+                            @Html.CheckBox("Rooms", false)<span>"Помещения"</span>
+                        </li>
+                        <li class="list-group-item">
+                            @Html.CheckBox("Doors", false)<span>"Турникеты"</span>
+                        </li>
+                        <li class="list-group-item">
+                            @Html.CheckBox("Levels", false)<span>"Уровни доступа"</span>
+                        </li>
+                        <li class="list-group-item">
+                            @Html.CheckBox("Statuses", false)<span>"Статусы доступа"</span>
+                        </li>
+                        <li class="list-group-item">
+                            @Html.CheckBox("Activ", false)<span>"Статус активности"</span>
+                        </li>
+                        <li class="list-group-item">
+                            @Html.CheckBox("Long", false)<span>"Статус длительности"</span>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-outline-primary mx-2" asp-action="EntranceReportFilter" asp-controller="Cabinet">Сохранить выбранные</button>
+
+                    <button type="submit" class="btn btn-outline-success mx-2" formaction="EntranceReport">Сохранить все</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 

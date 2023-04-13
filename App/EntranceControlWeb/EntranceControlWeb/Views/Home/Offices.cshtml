@@ -4,293 +4,135 @@
 
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
-    <link rel="icon" href="/img/icon.ico" sizes="64x64" />
-    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
-    <script src="~/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-    @*@await RenderSectionAsync("Scripts", required: false)*@
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-light sticky-top" style="background-color: #fbfeff">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <a class="nav-link text-primary">Аккаунт: @User.Identity.Name </a>
-                }
-                <a class="nav-link text-danger" asp-area="" asp-controller="Login" asp-action="LogOut">Выйти</a>
-                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Навигация в системе</h5>
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Home" asp-action="Entrance">Доступ</a>
-                            </li>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                if (User.IsInRole(UserRole.Admin.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Staff">Сотрудники</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Positions">Должности</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Offices">Отделы</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="SortByOff">Распределение по отделам</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Visitors">Посетители</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Rooms">Помещения</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Doors">Турникеты</a>
-                                    </li>
-                                  
-                                }
-                                else if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Staff">Сотрудники</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Positions">Должности</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Offices">Отделы</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="SortByOff">Распределение по отделам</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Visitors">Посетители</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Rooms">Помещения</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Doors">Турникеты</a>
-                                    </li>
-                                    
-                                }
-                            }
-                        </ul>
-                        <hr />
-                        <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                if (User.IsInRole(UserRole.User.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Cabinet" asp-action="UserCab">Личный кабинет</a>
-                                    </li>
-                                }
-                                else if (User.IsInRole(UserRole.Admin.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Cabinet" asp-action="AdminCab">Личный кабинет</a>
-                                    </li>
-                                }
-                                else if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Cabinet" asp-action="SysAdminCab">Личный кабинет</a>
-                                    </li>
-                                }
-                            }
 
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                if (User.IsInRole(UserRole.User.ToString()))
-                                {
-                                    <li class="nav-item" style="position: relative; left: 950px">
-                                        <a class="nav-link active" href="~/RukUser.pdf" target="_blank">Руководство пользователя</a>
-                                    </li>
-                                }
-                                else if (User.IsInRole(UserRole.Admin.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" href="~/RukAdmin.pdf" target="_blank">Руководство начальника</a>
-                                    </li>
-                                }
-                                else if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" href="~/RukSysAdmin.pdf" target="_blank">Руководство администратора</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Passes">Картотека пропусков</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Home" asp-action="Dictionary">Редактировать справочники</a>
-                                    </li>
-                                }
-                            }
-                            <li class="nav-item">
-                                <a class="nav-link active text-danger" asp-controller="Login" asp-action="LogOut">Выход</a>
-                            </li>
-
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <div class="row my-3">
-            <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
-            <h5 class="text-center">ОТДЕЛЫ</h5>
-        </div>
-        <div class="row my-3 mb-2 sticky-top">
-            <form asp-action="Offices" asp-controller="Home">
-                <div class="card rounded m-3 shadow-lg mx-auto" style="width:700px">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-4 text-center">
-                                <label>Наименование отдела:</label>
-                            </div>
-                            <div class="col-5">
-                                @Html.TextBox("Search", "", new { @class = "form-control", @placeholder = "Поиск" })
-                            </div>
-                            <div class="col-3 mx-auto">
-                                <button type="submit" class="btn btn-outline-info">Поиск</button>
-                            </div>
+<div class="container">
+    <div class="row my-3">
+        <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
+        <h5 class="text-center">ОТДЕЛЫ</h5>
+    </div>
+    <div class="row my-3 mb-2 sticky-top">
+        <form asp-action="Offices" asp-controller="Home">
+            <div class="card rounded m-3 shadow-lg mx-auto" style="width:700px">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4 text-center">
+                            <label>Наименование отдела:</label>
+                        </div>
+                        <div class="col-5">
+                            @Html.TextBox("Search", "", new { @class = "form-control", @placeholder = "Поиск" })
+                        </div>
+                        <div class="col-3 mx-auto">
+                            <button type="submit" class="btn btn-outline-info">Поиск</button>
                         </div>
                     </div>
                 </div>
-            </form>
-        </div>
-        <div class="row my-3">
-            <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
-                <thead>
-                    <tr class="text-center">
-                        <th>ID Отдел</th>
-                        <th>@Html.ActionLink("Наименование отдела", "Offices", new { sort = ViewBag.OffSort })</th>
+            </div>
+        </form>
+    </div>
+    <div class="row my-3">
+        <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
+            <thead>
+                <tr class="text-center">
+                    <th>ID Отдел</th>
+                    <th>@Html.ActionLink("Наименование отдела", "Offices", new { sort = ViewBag.OffSort })</th>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                        {
+                            <th>Действия</th>
+                        }
+                        else if (User.IsInRole(UserRole.Admin.ToString()))
+                        {
+                            <th>Действия</th>
+                        }
+                    }
+                </tr>
+            </thead>
+
+            @foreach (var data in Model.Offices)
+            {
+                <tbody>
+                    <tr class="text-md-start">
+
+                        <td>@data.IdOffice</td>
+                        <td>@data.TitleOffice</td>
                         @if (User.Identity.IsAuthenticated)
                         {
                             if (User.IsInRole(UserRole.SysAdmin.ToString()))
                             {
-                                <th>Действия</th>
+                                <td>
+                                    <a href="@Url.Action("OfficeEdit", "Home", new { id = @data.IdOffice })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdOffice">Редактировать</a>
+                                    <a href="@Url.Action("DelOffice", "Home", new { id = @data.IdOffice })" class="text-danger" data-id="@data.IdOffice">Удалить</a>
+                                </td>
                             }
                             else if (User.IsInRole(UserRole.Admin.ToString()))
                             {
-                                <th>Действия</th>
+                                <td>
+                                    <a href="@Url.Action("OfficeEdit", "Home", new { id = @data.IdOffice })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdOffice">Редактировать</a>
+
+                                </td>
                             }
                         }
                     </tr>
-                </thead>
-
-                @foreach (var data in Model.Offices)
-                {
-                    <tbody>
-                        <tr class="text-md-start">
-
-                            <td>@data.IdOffice</td>
-                            <td>@data.TitleOffice</td>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                                {
-                                    <td>
-                                        <a href="@Url.Action("OfficeEdit", "Home", new { id = @data.IdOffice })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdOffice">Редактировать</a>
-                                        <a href="@Url.Action("DelOffice", "Home", new { id = @data.IdOffice })" class="text-danger" data-id="@data.IdOffice">Удалить</a>
-                                    </td>
-                                }
-                                else if (User.IsInRole(UserRole.Admin.ToString()))
-                                {
-                                    <td>
-                                        <a href="@Url.Action("OfficeEdit", "Home", new { id = @data.IdOffice })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdOffice">Редактировать</a>
-
-                                    </td>
-                                }
-                            }
-                        </tr>
-                    </tbody>
-                }
-            </table>
-
-            @if (User.Identity.IsAuthenticated)
-            {
-                if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                {
-                    <div class="row m-2">
-
-                        <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateOffice", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
-
-                    </div>
-                }
+                </tbody>
             }
+        </table>
 
-            <script>
-                $('.editClick').on('click', function () {
-                    // ...
-                    console.log('edit clicked');
-                    const officeId = $(this).data('id');
-                    // обращение на сервер
-                    $.get('/Home/OfficeEdit/' + officeId, function (result) {
-                        // результат содержит данные о двери
-                        $('#exampleModal #inputTitle').val(result.idOffice);
-                        $('#exampleModal #inputTitle1').val(result.titleOffice);
-                    });
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole(UserRole.SysAdmin.ToString()))
+            {
+                <div class="row m-2">
 
+                    <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateOffice", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
+
+                </div>
+            }
+        }
+
+        <script>
+            $('.editClick').on('click', function () {
+                // ...
+                console.log('edit clicked');
+                const officeId = $(this).data('id');
+                // обращение на сервер
+                $.get('/Home/OfficeEdit/' + officeId, function (result) {
+                    // результат содержит данные о двери
+                    $('#exampleModal #inputTitle').val(result.idOffice);
+                    $('#exampleModal #inputTitle1').val(result.titleOffice);
                 });
 
-            </script>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Редактировать информацию</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form method="post" asp-controller="Home" asp-action="OfficeEdit">
-                            <div class="modal-body">
-                                <div class="row mb-3">
-                                    <input hidden asp-for="@Model.IdOffice" value="@Model?.IdOffice" readonly type="text" class="form-control" id="inputTitle">
-                                    <label for="inputTitle1" class="col-sm-4 col-form-label">Наименование отдела</label>
-                                    <div class="col-sm-8">
-                                        <input asp-for="@Model.TitleOffice" value="@Model?.TitleOffice" type="text" class="form-control" id="inputTitle1">
-                                        <span for="inputTitle" class="text-danger" asp-validation-for="@Model.TitleOffice"></span>
-                                    </div>
-                                </div>
+            });
 
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
-                                <button type="submit" class="btn btn-success">Сохранить</button>
-                            </div>
-                        </form>
+        </script>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Редактировать информацию</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <form method="post" asp-controller="Home" asp-action="OfficeEdit">
+                        <div class="modal-body">
+                            <div class="row mb-3">
+                                <input hidden asp-for="@Model.IdOffice" value="@Model?.IdOffice" readonly type="text" class="form-control" id="inputTitle">
+                                <label for="inputTitle1" class="col-sm-4 col-form-label">Наименование отдела</label>
+                                <div class="col-sm-8">
+                                    <input asp-for="@Model.TitleOffice" value="@Model?.TitleOffice" type="text" class="form-control" id="inputTitle1">
+                                    <span for="inputTitle" class="text-danger" asp-validation-for="@Model.TitleOffice"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
+                            <button type="submit" class="btn btn-success">Сохранить</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-
         </div>
+
     </div>
-</body>
-</html>
+</div>

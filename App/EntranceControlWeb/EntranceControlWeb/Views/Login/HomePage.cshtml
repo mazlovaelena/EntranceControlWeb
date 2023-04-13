@@ -1,8 +1,7 @@
 ﻿@model EntranceControlWeb.Models.UserViewModel;
-
 @{
     ViewData["Title"] = "Home Page";
-   
+    Layout = "";
 }
 
 <!DOCTYPE html>
@@ -26,7 +25,6 @@
 </head>
 <body>
     <header>
-      
     </header>
     <div class="container-fluid" style="width:90%">
         <div class="row my-3">
@@ -40,19 +38,15 @@
                 <br />Для работы с системой в роли начальника охраны прочтите <a class="text-info" href="~/RukAdmin.pdf" target="_blank">Руководство начальника охраны</a>.
                 <br /> Если Ваша роль - системный администратор, ознакомьтесь с <a class="text-info" href="~/RukSysAdmin.pdf" target="_blank">Руководством системного администратора</a>.
             </h5>
-
         </div>
-       
-       
     </div>
-    
     <div class="container my-5" style="width: 50% ">
         <form class="my-4" method="post" asp-controller="Login" asp-action="HomePage">
             <div class="card rounded shadow" style="background-color:transparent">
                 <div class="card-body">
                     <div class="row my-3">
                         <h4 class="text-center">Авторизация</h4>
-                    </div>                    
+                    </div>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Адрес электронной почты</label>
                         <input type="email" asp-for="@Model.Email" class="form-control border-info rounded-lg shadow" id="exampleInputEmail1" placeholder="Введите E-mail..." value="@Model?.Email">
@@ -67,20 +61,14 @@
                         <h6 class="text-center text-danger"><strong> @ViewBag.Message</strong></h6>
                     </div>
                     <div class="row">
-                        <div class="col-md-1 m-3">
-
-                        </div>
+                        <div class="col-md-1 m-3"></div>
                         <div class="col-md-9">
                             <button type="submit" class="btn btn-outline-secondary rounded-lg shadow w-100" style="width:400px">Вход</button>
                         </div>
                     </div>
                 </div>
-
             </div>
         </form>
-
     </div>
-
-    
 </body>
 </html>
