@@ -853,25 +853,18 @@ namespace EntranceControlWeb.Controllers
             vis.LongSelect = new SelectList(_context.LastingStatuses, "IdLong", "TitleLong");
             vis.LevelSelect = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
 
-            ViewBag.VisSort = String.IsNullOrEmpty(sort) ? "Name dsc" : "Name";
             ViewBag.PassSort = sort == "Pass" ? "Pass dsc" : "Pass";
             var find = from s in _context.Visitors select s;
 
             if (!String.IsNullOrEmpty(Search))
             {
-                find = find.Where(s => s.Fio.ToUpper().Contains(Search.ToUpper()));
+                find = find.Where(s => s.Surname.ToUpper().Contains(Search.ToUpper())
+                                       || s.Name.ToUpper().Contains(Search.ToUpper())
+                                       || s.LastName.ToUpper().Contains(Search.ToUpper()));
             }
 
             switch (sort)
             {
-                case "Name":
-                    find = find.OrderBy(s => s.Fio);
-                    break;
-
-                case "Name dsc":
-                    find = find.OrderByDescending(s => s.Fio);
-                    break;
-
                 case "Pass":
                     find = find.OrderBy(s => s.IdPass);
                     break;
@@ -896,7 +889,9 @@ namespace EntranceControlWeb.Controllers
             var edit = _context.Visitors.FirstOrDefault(x => x.Idvisitor == vis.Idvisitor);
 
             edit.Idvisitor = vis.Idvisitor;
-            edit.Fio = vis.Fio;
+            edit.Surname = vis.Surname;
+            edit.Name = vis.Name;
+            edit.LastName = vis.LastName;
             edit.MobilePhone = vis.MobilePhone;            
             edit.IdPass = vis.IdPass;            
 
@@ -910,7 +905,9 @@ namespace EntranceControlWeb.Controllers
             if (edit != null)
             {
                 vis.Idvisitor = edit.Idvisitor;
-                vis.Fio = edit.Fio;
+                vis.Surname = edit.Surname;
+                vis.Name = edit.Name;
+                vis.LastName = edit.LastName;
                 vis.MobilePhone = edit.MobilePhone;                
                 vis.IdPass = edit.IdPass;
             }
@@ -934,7 +931,7 @@ namespace EntranceControlWeb.Controllers
         [HttpPost]
         public IActionResult CreateVisit(VisitorViewModel vis)
         {
-            var create = new Visitor { Fio = vis.Fio, MobilePhone = vis.MobilePhone, IdPass = vis.IdPass };
+            var create = new Visitor { Surname = vis.Surname, Name = vis.Name, LastName = vis.LastName, MobilePhone = vis.MobilePhone, IdPass = vis.IdPass };
 
             _context.Add(create);
             _context.SaveChanges();

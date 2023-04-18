@@ -56,8 +56,7 @@ namespace EntranceControlWeb.Data
 
                 entity.Property(e => e.TitleLevel)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(20);
             });
 
             modelBuilder.Entity<AccessStatus>(entity =>
@@ -71,8 +70,7 @@ namespace EntranceControlWeb.Data
 
                 entity.Property(e => e.TitleStatus)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(20);
             });
 
             modelBuilder.Entity<ActivityStatus>(entity =>
@@ -85,8 +83,7 @@ namespace EntranceControlWeb.Data
 
                 entity.Property(e => e.TitleActiv)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(20);
             });
 
             modelBuilder.Entity<Authorize>(entity =>
@@ -119,8 +116,7 @@ namespace EntranceControlWeb.Data
 
                 entity.Property(e => e.TitleDoor)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(20);
 
                 entity.HasOne(d => d.IdRooms)
                     .WithMany(p => p.Doors)
@@ -184,8 +180,7 @@ namespace EntranceControlWeb.Data
 
                 entity.Property(e => e.TitleLong)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(20);
             });
 
             modelBuilder.Entity<Office>(entity =>
@@ -197,8 +192,7 @@ namespace EntranceControlWeb.Data
 
                 entity.Property(e => e.TitleOffice)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(20);
             });
 
             modelBuilder.Entity<Pass>(entity =>
@@ -216,18 +210,17 @@ namespace EntranceControlWeb.Data
                 entity.HasOne(d => d.IdActivs)
                     .WithMany(p => p.Passes)
                     .HasForeignKey(d => d.IdActiv)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Passes_ActivityStatus");
 
                 entity.HasOne(d => d.IdLevels)
                     .WithMany(p => p.Passes)
                     .HasForeignKey(d => d.IdLevel)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Passes_AccessLevel");
 
                 entity.HasOne(d => d.IdLongs)
                     .WithMany(p => p.Passes)
                     .HasForeignKey(d => d.IdLong)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Passes_LastingStatus");
             });
 
@@ -240,8 +233,7 @@ namespace EntranceControlWeb.Data
 
                 entity.Property(e => e.TitlePost)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(20);
             });
 
             modelBuilder.Entity<Room>(entity =>
@@ -255,8 +247,7 @@ namespace EntranceControlWeb.Data
 
                 entity.Property(e => e.TitleRoom)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(20);
 
                 entity.HasOne(d => d.IdLevels)
                     .WithMany(p => p.Rooms)
@@ -278,8 +269,7 @@ namespace EntranceControlWeb.Data
 
                 entity.Property(e => e.WorkPhone)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(10);
 
                 entity.HasOne(d => d.IdOffices)
                     .WithMany(p => p.SortingByOffices)
@@ -308,13 +298,11 @@ namespace EntranceControlWeb.Data
 
                 entity.Property(e => e.Email)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<Visitor>(entity =>
@@ -323,18 +311,23 @@ namespace EntranceControlWeb.Data
 
                 entity.Property(e => e.Idvisitor).HasColumnName("IDVisitor");
 
-                entity.Property(e => e.Fio)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .HasColumnName("FIO");
-
                 entity.Property(e => e.IdPass).HasColumnName("ID_Pass");
+
+                entity.Property(e => e.LastName)
+                    .IsRequired()
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.MobilePhone)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(15);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.Surname)
+                    .IsRequired()
+                    .HasMaxLength(20);
 
                 entity.HasOne(d => d.IdPasses)
                     .WithMany(p => p.Visitors)
@@ -355,35 +348,29 @@ namespace EntranceControlWeb.Data
 
                 entity.Property(e => e.CorpEmail)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.IdPass).HasColumnName("ID_Pass");
 
                 entity.Property(e => e.Image)
                     .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.LastName)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.MobPhone)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(15);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.Surname)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(20);
 
                 entity.HasOne(d => d.IdPasses)
                     .WithMany(p => p.staff)

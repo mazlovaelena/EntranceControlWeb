@@ -17,7 +17,7 @@ namespace EntranceControlWeb.Data
         public string TitleRoom { get; set; }
         public int IdLevel { get; set; }
 
-        public virtual AccessLevel IdLevels{ get; set; }
+        public virtual AccessLevel IdLevels { get; set; }
         public virtual ICollection<Door> Doors { get; set; }
         public virtual ICollection<Entrance> Entrances { get; set; }
     }

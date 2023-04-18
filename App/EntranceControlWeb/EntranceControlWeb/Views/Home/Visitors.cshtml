@@ -33,7 +33,7 @@
             <thead>
                 <tr class="text-center">
                     <th>ID Гость</th>
-                    <th>@Html.ActionLink("ФИО", "Visitors", new { sort = ViewBag.VisSort })</th>
+                    <th>Фамилия Имя Отчетсво</th>
                     <th>Мобильный телефон</th>
                     <th>@Html.ActionLink("№ пропуска", "Visitors", new { sort = ViewBag.PassSort })</th>
                     @if (User.Identity.IsAuthenticated)
@@ -55,7 +55,7 @@
                 <tbody>
                     <tr class="text-md-start">
                         <td>@data.Idvisitor</td>
-                        <td>@data.Fio</td>
+                        <td>@data.Surname @data.Name @data.LastName</td>
                         <td>@data.MobilePhone</td>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -118,9 +118,11 @@
                 $.get('/Home/VisEdit/' + visId, function (result) {
                     // результат содержит данные о госте
                     $('#exampleModal #inputTitle').val(result.idvisitor);
-                    $('#exampleModal #inputTitle1').val(result.fio);
-                    $('#exampleModal #inputTitle2').val(result.mobilePhone);
-                    $('#exampleModal #inputTitle4').val(result.idPass);
+                    $('#exampleModal #inputTitle1').val(result.surname);
+                    $('#exampleModal #inputTitle2').val(result.name);
+                    $('#exampleModal #inputTitle3').val(result.lastName);
+                    $('#exampleModal #inputTitle4').val(result.mobilePhone);
+                    $('#exampleModal #inputTitle5').val(result.idPass);
                 });
 
             });
@@ -139,24 +141,38 @@
                         <div class="modal-body">
                             <div class="row mb-3">
                                 <input hidden readonly asp-for="@Model.Idvisitor." value="@Model?.Idvisitor" type="text" class="form-control" id="inputTitle">
-                                <label for="inputTitle1" class="col-sm-4 col-form-label">Фамилия Имя Отчетсво</label>
+                                <label for="inputTitle1" class="col-sm-4 col-form-label">Фамилия</label>
                                 <div class="col-sm-8">
-                                    <input asp-for="@Model.Fio" value="@Model?.Fio" type="text" class="form-control" id="inputTitle1">
-                                    <span for="inputTitle1" class="text-danger" asp-validation-for="@Model.Fio"></span>
+                                    <input asp-for="@Model.Surname" value="@Model?.Surname" type="text" class="form-control" id="inputTitle1">
+                                    <span for="inputTitle1" class="text-danger" asp-validation-for="@Model.Surname"></span>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="inputTitle2" class="col-sm-4 col-form-label">Мобильный телефон</label>
+                                <label for="inputTitle2" class="col-sm-4 col-form-label">Имя</label>
+                                <div class="col-sm-8">
+                                    <input asp-for="@Model.Name" value="@Model?.Name" type="text" class="form-control" id="inputTitle2">
+                                    <span for="inputTitle2" class="text-danger" asp-validation-for="@Model.Name"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="inputTitle3" class="col-sm-4 col-form-label">Отчество</label>
+                                <div class="col-sm-8">
+                                    <input asp-for="@Model.LastName" value="@Model?.LastName" type="text" class="form-control" id="inputTitle2">
+                                    <span for="inputTitle3" class="text-danger" asp-validation-for="@Model.LastName"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="inputTitle4" class="col-sm-4 col-form-label">Мобильный телефон</label>
                                 <div class="col-sm-8">
                                     <input asp-for="@Model.MobilePhone" value="@Model?.MobilePhone" type="text" class="form-control" id="inputTitle2">
-                                    <span for="inputTitle2" class="text-danger" asp-validation-for="@Model.MobilePhone"></span>
+                                    <span for="inputTitle4" class="text-danger" asp-validation-for="@Model.MobilePhone"></span>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="inputTitle4" class="col-sm-4 col-form-label">№ пропуска</label>
+                                <label for="inputTitle5" class="col-sm-4 col-form-label">№ пропуска</label>
                                 <div class="col-sm-8">
                                     <input asp-for="@Model.IdPass" value="@Model?.IdPass" type="text" class="form-control" id="inputTitle4">
-                                    <span for="inputTitle4" class="text-danger" asp-validation-for="@Model.IdPass"></span>
+                                    <span for="inputTitle5" class="text-danger" asp-validation-for="@Model.IdPass"></span>
                                 </div>
                             </div>
                         </div>

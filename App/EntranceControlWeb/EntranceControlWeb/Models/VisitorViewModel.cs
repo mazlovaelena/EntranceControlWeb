@@ -14,7 +14,13 @@ namespace EntranceControlWeb.Models
         public int Idvisitor { get; set; }
 
         [Required(ErrorMessage = "Заполните это поле")]
-        public string Fio { get; set; }
+        public string Surname { get; set; }
+
+        [Required(ErrorMessage = "Заполните это поле")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "Заполните это поле")]
+        public string LastName { get; set; }
 
         [Required(ErrorMessage = "Заполните это поле")]
         public string MobilePhone { get; set; }       
