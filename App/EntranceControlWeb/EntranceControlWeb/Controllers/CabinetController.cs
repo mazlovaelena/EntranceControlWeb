@@ -260,36 +260,35 @@ namespace EntranceControlWeb.Controllers
         #endregion
 
         #region УЧЕТ РАБОЧЕГО ВРЕМЕНИ
-        public IActionResult WorkTime(EntranceViewModel vm, SortingByOfficeViewModel sm)
+        public IActionResult WorkTime(Entrance vm, SortingByOffice sm)
         {
             //var vm = new EntranceViewModel();
             //var sm = new SortingByOfficeViewModel();
             //var timefact = Convert.ToDouble(vm.DateExit.TimeOfDay) - Convert.ToDouble(vm.DateEntr.TimeOfDay);
-            //vm.Entrances = _context.Entrances.ToList();
+                        
             //sm.Sortings = _context.SortingByOffices.ToList();
-            //var wm = new WorkTimeCalc();
+            var wm = new WorkTimeCalc();
 
-            //var calc = _context.Entrances
-            //    .GroupBy(x => x.IdStaff)
+            var calc = _context.Entrances
+                .Where(s=>s.IdPasses.IdLong == 2)
+                .GroupBy(x => x.IdPass)
+                .Select(y => new WorkTimeCalc
+                {
+                    ID = y.Key,
+                    TimeEntr = vm.DateEntr.TimeOfDay.ToString(),
+                    TimeExt = vm.DateExit.TimeOfDay.ToString(),
+                    //TimeBeg = (string)sm.TimeBegin.ToString().Where(r => sm.IdStaff == wm.ID),
+                    //TimeEnd = (string)sm.TimeEnd.ToString().Where(r => sm.IdStaff == wm.ID)
 
-            //    .Select(y => new WorkTimeCalc
-            //    {
-            //        ID = y.Key,
-            //        TimeEntr = (string)vm.DateEntr.TimeOfDay.ToString().Where(y => vm.IdStaff == wm.ID),
-            //        TimeExt = (string)vm.DateExit.TimeOfDay.ToString().Where(y => vm.IdStaff == wm.ID),
-            //        TimeBeg = (string)sm.TimeBegin.ToString().Where(y => sm.IdStaff == wm.ID),
-            //        TimeEnd = (string)sm.TimeEnd.ToString().Where(y => sm.IdStaff == wm.ID)
+                })
+                .ToList();
 
-            //    })
-            //    .ToList();
+            var mod = new WorkTimeViewModel
+            {
+                WorkTime = calc
+            };
 
-
-            //var mod = new WorkTimeViewModel
-            //{
-            //    WorkTime = calc
-            //};
-
-            return View();
+            return View(mod);
         }
         #endregion
 
@@ -497,18 +496,22 @@ namespace EntranceControlWeb.Controllers
 
                 var Sheet11 = Ep.Workbook.Worksheets.Add("Посетители");
                 Sheet11.Cells["A1"].Value = "IDПосетитель";
-                Sheet11.Cells["B1"].Value = "ФИО";
-                Sheet11.Cells["C1"].Value = "МобильныйТелефон";
-                Sheet11.Cells["D1"].Value = "№ пропуска";
+                Sheet11.Cells["B1"].Value = "Фамилия";
+                Sheet11.Cells["C1"].Value = "Имя";
+                Sheet11.Cells["D1"].Value = "Отчество";
+                Sheet11.Cells["E1"].Value = "МобильныйТелефон";
+                Sheet11.Cells["F1"].Value = "№ пропуска";
 
 
                 var row11 = 2;
                 foreach (var entrance in _context.Visitors.ToList())
                 {
                     Sheet11.Cells[string.Format("A{0}", row11)].Value = entrance.Idvisitor;
-                    Sheet11.Cells[string.Format("B{0}", row11)].Value = entrance.Fio;
-                    Sheet11.Cells[string.Format("C{0}", row11)].Value = entrance.MobilePhone;
-                    Sheet11.Cells[string.Format("D{0}", row11)].Value = entrance.IdPass;
+                    Sheet11.Cells[string.Format("B{0}", row11)].Value = entrance.Surname;
+                    Sheet11.Cells[string.Format("C{0}", row11)].Value = entrance.Name;
+                    Sheet11.Cells[string.Format("D{0}", row11)].Value = entrance.LastName;
+                    Sheet11.Cells[string.Format("E{0}", row11)].Value = entrance.MobilePhone;
+                    Sheet11.Cells[string.Format("F{0}", row11)].Value = entrance.IdPass;
 
                     row11++;
                 }
@@ -629,17 +632,21 @@ namespace EntranceControlWeb.Controllers
                 {
                     var Sheet11 = Ep.Workbook.Worksheets.Add("Посетители");
                     Sheet11.Cells["A1"].Value = "IDПосетитель";
-                    Sheet11.Cells["B1"].Value = "ФИО";
-                    Sheet11.Cells["C1"].Value = "МобильныйТелефон";
-                    Sheet11.Cells["D1"].Value = "№ пропуска";
+                    Sheet11.Cells["B1"].Value = "Фамилия";
+                    Sheet11.Cells["C1"].Value = "Имя";
+                    Sheet11.Cells["D1"].Value = "Отчество";
+                    Sheet11.Cells["E1"].Value = "МобильныйТелефон";
+                    Sheet11.Cells["F1"].Value = "№ пропуска";
 
                     var row11 = 2;
                     foreach (var entrance in _context.Visitors.ToList())
                     {
                         Sheet11.Cells[string.Format("A{0}", row11)].Value = entrance.Idvisitor;
-                        Sheet11.Cells[string.Format("B{0}", row11)].Value = entrance.Fio;
-                        Sheet11.Cells[string.Format("C{0}", row11)].Value = entrance.MobilePhone;
-                        Sheet11.Cells[string.Format("D{0}", row11)].Value = entrance.IdPass;
+                        Sheet11.Cells[string.Format("B{0}", row11)].Value = entrance.Surname;
+                        Sheet11.Cells[string.Format("C{0}", row11)].Value = entrance.Name;
+                        Sheet11.Cells[string.Format("D{0}", row11)].Value = entrance.LastName;
+                        Sheet11.Cells[string.Format("E{0}", row11)].Value = entrance.MobilePhone;
+                        Sheet11.Cells[string.Format("F{0}", row11)].Value = entrance.IdPass;
 
                         row11++;
                     }
