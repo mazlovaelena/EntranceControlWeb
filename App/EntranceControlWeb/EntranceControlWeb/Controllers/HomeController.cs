@@ -32,16 +32,12 @@ namespace EntranceControlWeb.Controllers
 
             var find = from s in _context.Doors select s;
 
-            if (!String.IsNullOrEmpty(Search))
+            if (!String.IsNullOrEmpty(Search) || IdRoom != 0)
             {
                 find = find.Where(s => s.TitleDoor.ToUpper().Contains(Search.ToUpper()));
-            }
-
-            if(IdRoom != 0)
-            {
                 find = find.Where(s => s.IdRoom.ToString().ToUpper().Contains(IdRoom.ToString().ToUpper()));
             }
-
+            
             switch (sort)
             {
                 case "Room":
@@ -60,7 +56,7 @@ namespace EntranceControlWeb.Controllers
                     find = find.OrderByDescending(s => s.TitleDoor);
                     break;
             }
-
+            
             door.Doors = find.ToList();
             door.Rooms = _context.Rooms.ToList();
 

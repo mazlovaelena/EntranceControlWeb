@@ -269,17 +269,21 @@ namespace EntranceControlWeb.Controllers
             //sm.Sortings = _context.SortingByOffices.ToList();
             var wm = new WorkTimeCalc();
 
+            //var calc = _context.Entrances
+            //    .Where(x=> x.IdPasses.IdLong == 2)
+            //    .GroupBy(x => x.IdPass)
+            //    .Select(g => Tuple.Create(g.Key, _context.Entrances.Where(x => x.IdPass == g.Key)
+            //    .Select(x => x.DateExit.TimeOfDay.Subtract(x.DateEntr.TimeOfDay))))
+            //    .ToList();
+
             var calc = _context.Entrances
-                .Where(s=>s.IdPasses.IdLong == 2)
+                .Where(x => x.IdPasses.IdLong == 2)
                 .GroupBy(x => x.IdPass)
                 .Select(y => new WorkTimeCalc
                 {
                     ID = y.Key,
-                    TimeEntr = vm.DateEntr.TimeOfDay.ToString(),
-                    TimeExt = vm.DateExit.TimeOfDay.ToString(),
-                    //TimeBeg = (string)sm.TimeBegin.ToString().Where(r => sm.IdStaff == wm.ID),
-                    //TimeEnd = (string)sm.TimeEnd.ToString().Where(r => sm.IdStaff == wm.ID)
-
+                    Time = _context.Entrances.Where(x=>x.IdPass == y.Key)
+                    .Select(x => x.DateExit.TimeOfDay.Subtract(x.DateEntr.TimeOfDay)).ToList()
                 })
                 .ToList();
 

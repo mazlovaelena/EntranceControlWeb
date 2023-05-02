@@ -18,7 +18,7 @@ namespace EntranceControlWeb.Models
         public string TitleDoor { get; set; }
 
         public List<Room> Rooms { get; set; }
-        [Required(ErrorMessage = "Выберите значение")]
+      
         public int IdRoom { get; set; }
         [Required(ErrorMessage = "Выберите значение")]
         public string TitleRoom { get; set; }
