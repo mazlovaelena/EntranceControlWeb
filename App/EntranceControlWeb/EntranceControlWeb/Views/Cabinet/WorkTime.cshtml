@@ -8,38 +8,56 @@
     <div class="row my-3">
         <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
         <h5 class="text-center">СИСТЕМА УЧЕТА РАБОЧЕГО ВРЕМЕНИ</h5>
-    </div>   
-    <form>
+    </div>
+    <form asp-action="WorkTime" asp-controller="Cabinet">
         <div class="row my-2">
             <div class="row my-3">
                 <table class="table-dark table-bordered" style="width:1200px; color:black;">
                     <thead>
                         <tr class="text-center">
                             <th>ID Сотрудник</th>
-                            <th>Фактическое время работы</th>
-                            <th>Время работы по плану</th>
+                            <th>Фактическое время работы, часы</th>
+                            <th>Производственный план, часы</th>
+
                         </tr>
                     </thead>
-                    @foreach (var data in Model.WorkTime)
+
+
+                    @foreach (var t in Model.ResultList)
                     {
                         <tbody>
                             <tr class="text-md-start">
 
-                                <td>@data.ID</td>
-                                <td>@data.TimeWork</td>
-                                
+                                <td>@t.Item1.ID</td>
+                                @foreach (var time in t.Item1.TimeW)
+                                {
+                                    <td>@time.TotalHours</td>
+                                }
+                                @foreach (var res in t.Item2.TimeP)
+                                {
+                                    <td>@res.TotalHours</td>
+                                }
+
                             </tr>
                         </tbody>
                     }
+
                 </table>
             </div>
             <div class="col-4">
                 <a class="btn btn-outline-dark" href="@Url.Action("Chart", "Cabinet")">Просмотр диаграммы посещаемости</a>
             </div>
             <div class="col-4">
-                <button type="submit" class="btn btn-outline-dark" asp-controller="Cabinet" asp-action="WorkReport">Cохранить файл отчета</button>
+                @Html.CheckBox("report", false, new { @hidden = true})
+                <button class="btn btn-outline-dark" onclick="changeCheckbox()">Cохранить файл отчета</button>               
             </div>
         </div>
+        <script>
+            function changeCheckbox() {
+                var checkbox = document.getElementById("report");
+                checkbox.checked = !checkbox.checked;
+            }
+        </script>
     </form>
 </div>
 

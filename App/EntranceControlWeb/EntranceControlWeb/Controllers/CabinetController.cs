@@ -10,6 +10,7 @@ using LicenseContext = OfficeOpenXml.LicenseContext;
 using System.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 
 namespace EntranceControlWeb.Controllers
 {
@@ -30,24 +31,14 @@ namespace EntranceControlWeb.Controllers
             return View();
         }
         [Authorize]
-        public IActionResult AdminCab(EntranceViewModel entr)
+        public IActionResult AdminCab()
         {
-            entr.Entrances = _context.Entrances.ToList();
-            entr.Passes = _context.Passes.ToList();
-            entr.Rooms = _context.Rooms.ToList();
-            entr.Doors = _context.Doors.ToList();
-            entr.Statuses = _context.AccessStatuses.ToList();
-            return View(entr);
+            return View();
         }
         [Authorize]
-        public IActionResult SysAdminCab(EntranceViewModel entr)
+        public IActionResult SysAdminCab()
         {
-            entr.Entrances = _context.Entrances.ToList();
-            entr.Passes = _context.Passes.ToList();
-            entr.Rooms = _context.Rooms.ToList();
-            entr.Doors = _context.Doors.ToList();
-            entr.Statuses = _context.AccessStatuses.ToList();
-            return View(entr);
+            return View();
         }
         #region ПРОСМОТР ПОЛЬЗОВАТЕЛЕЙ САЙТА
         [Authorize]       
@@ -260,40 +251,103 @@ namespace EntranceControlWeb.Controllers
         #endregion
 
         #region УЧЕТ РАБОЧЕГО ВРЕМЕНИ
-        public IActionResult WorkTime(Entrance vm, SortingByOffice sm)
-        {
-            //var vm = new EntranceViewModel();
-            //var sm = new SortingByOfficeViewModel();
-            //var timefact = Convert.ToDouble(vm.DateExit.TimeOfDay) - Convert.ToDouble(vm.DateEntr.TimeOfDay);
-                        
-            //sm.Sortings = _context.SortingByOffices.ToList();
-            var wm = new WorkTimeCalc();
+      
+        public IActionResult WorkTime(bool report)
+        {           
+            var resultList = new List<WorkTimeCalc>();
 
-            //var calc = _context.Entrances
-            //    .Where(x=> x.IdPasses.IdLong == 2)
-            //    .GroupBy(x => x.IdPass)
-            //    .Select(g => Tuple.Create(g.Key, _context.Entrances.Where(x => x.IdPass == g.Key)
-            //    .Select(x => x.DateExit.TimeOfDay.Subtract(x.DateEntr.TimeOfDay))))
-            //    .ToList();
-
-            var calc = _context.Entrances
+            foreach (var item in _context.Entrances
                 .Where(x => x.IdPasses.IdLong == 2)
-                .GroupBy(x => x.IdPass)
-                .Select(y => new WorkTimeCalc
+                .AsEnumerable()
+                .GroupBy(x => x.IdPass))
+                
+            {
+                resultList.Add(new WorkTimeCalc()
                 {
-                    ID = y.Key,
-                    Time = _context.Entrances.Where(x=>x.IdPass == y.Key)
-                    .Select(x => x.DateExit.TimeOfDay.Subtract(x.DateEntr.TimeOfDay)).ToList()
-                })
-                .ToList();
+                    ID = item.Key,
+                    Time = item.Select(x => x.DateExit.TimeOfDay.Subtract(x.DateEntr.TimeOfDay)).ToList()
+                });
+            }
+
+            var plantime = new List<PlanTime>();
+
+            foreach (var data in _context.SortingByOffices
+                .AsEnumerable()
+                .GroupBy(x => x.IdStaff)
+                .OrderBy(x => x.Key))
+            {
+                plantime.Add(new PlanTime()
+                {
+                    IDStaff = data.Key,
+                    TimeP = data.Select(x => x.TimeEnd.Subtract(x.TimeBegin).Multiply(20)).ToList(),
+
+                });
+            }
+
+            var worktime = new List<ResultTime>();
+
+            foreach(var time in resultList
+                .AsEnumerable()
+                .GroupBy(x=>x.ID)
+                .OrderBy(x=>x.Key))
+            {
+                worktime.Add(new ResultTime()
+                {
+                    ID = time.Key,
+                    TimeW = time.Select(x => x.Time.ToArray().Aggregate((y, z) => y + z)).ToList(),                    
+                });
+            }
+
+            var final = worktime.Zip(plantime).ToList();
 
             var mod = new WorkTimeViewModel
             {
-                WorkTime = calc
+                ResultList = final
             };
+
+            if(report == true)
+            {
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                FileStream fs = new FileStream("WorkTimeReport.xls", FileMode.Create);
+                using (ExcelPackage Ep = new ExcelPackage(fs))
+                {
+                    var Sheet1 = Ep.Workbook.Worksheets.Add("Лист 1");
+                    Sheet1.Cells["A1"].Value = "ID_Сотрудник";
+                    Sheet1.Cells["B1"].Value = "Фактическое время работы, часы";
+                    Sheet1.Cells["C1"].Value = "Производственный план, часы";
+
+                    var row1 = 2;
+                    foreach (var work in final)
+                    {
+                        Sheet1.Cells[string.Format("A{0}", row1)].Value = work.Item1.ID;
+                        foreach(var h in work.First.TimeW)
+                        {
+                            Sheet1.Cells[string.Format("B{0}", row1)].Value = h.TotalHours;
+                        }
+                        foreach(var g in work.Second.TimeP)
+                        {
+                            Sheet1.Cells[string.Format("C{0}", row1)].Value = g.TotalHours;
+                        }                        
+                        row1++;
+                    }
+                    Sheet1.Cells["A:AZ"].AutoFitColumns();
+
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    var xlFile = new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "WorkTimeReport.xls"));
+
+                    Ep.Save();
+                    fs.Close();
+                }
+
+                string file_path = Path.Combine(_appEnvironment.ContentRootPath, "WorkTimeReport.xls");
+                string file_type = "application/octet-stream";
+                string file_name = "WorkTimeReport.xls";
+                return PhysicalFile(file_path, file_type, file_name); 
+            }
 
             return View(mod);
         }
+        
         #endregion
 
         #region РАБОТА С ОТЧЕТНЫМ ФАЙЛОМ
@@ -304,7 +358,7 @@ namespace EntranceControlWeb.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult EntranceReport(EntranceViewModel model)
+        public IActionResult EntranceReport(int mod)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             FileStream fs = new FileStream("EntranceReport.xls", FileMode.Create);

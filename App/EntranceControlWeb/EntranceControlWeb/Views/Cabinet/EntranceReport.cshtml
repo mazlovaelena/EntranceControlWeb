@@ -6,19 +6,7 @@
     <div class="row my-3">
         <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
         <h5 class="text-center">ЛИЧНЫЙ КАБИНЕТ АДМИНИСТРАТОРА</h5>
-    </div>
-    <div class="row my-2">
-        @if (User.Identity.IsAuthenticated)
-        {
-            <p>
-                Вы вошли под логином @User.Identity.Name.
-
-            </p>
-            <p>
-                Роль на сайте: системный администратор.
-            </p>
-        }
-    </div>
+    </div>   
     <form asp-action="EntranceReportFilter" asp-controller="Cabinet">
         <div class="card rounded m-3 shadow-lg mx-auto">
             <div class="row g-0">
