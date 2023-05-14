@@ -20,7 +20,7 @@
                                 <label>Сотрудник:</label>
                             </div>
                             <div class="col-5">
-                                @Html.DropDownListFor(x => x.IdPass, Model.StaffSelect, "All", new { @class = "form-control" })
+                                @Html.DropDownListFor(x => x.IdPass, Model.StaffSelect, "All", new { @class = "form-control", data_val = false })
                             </div>
                             <div class="col-3 mx-auto">
                                 <button type="submit" class="btn btn-outline-info">Показать</button>
@@ -42,6 +42,7 @@
                         labels: dataStaff,
                         datasets: [
                             {
+                                label: 'Количество посещений',
                                 backgroundColor: ['rgb(150, 204, 255)'],
                                 borderColor: ['rgb(0, 145, 255)'],
                                 borderWidth: 2,
@@ -84,8 +85,9 @@
                         labels: dataPass,
                         datasets: [
                             {
-                                backgroundColor: ['rgb(150, 204, 255)'],
-                                borderColor: ['rgb(0, 145, 255)'],
+                                label: 'Количество посещений',
+                                backgroundColor: ['rgb(79, 63, 191)'],
+                                borderColor: ['rgb(41, 19, 192)'],
                                 borderWidth: 2,
                                 tension: 0.2,
                                 data: dataCount

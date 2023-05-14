@@ -226,19 +226,20 @@ namespace EntranceControlWeb.Controllers
 
         #region ПРОСМОТР ГРАФИКА
         [Authorize]
-        public IActionResult Chart(ChartViewModel model, int IdPass)
+        public IActionResult Chart(ChartViewModel model, int? IdPass)
         {
             model.StaffSelect = new SelectList(_context.staff, "IdPass", "Surname");
 
             var find = from s in _context.Entrances select s;
 
-            if(IdPass != 0)
+            if(IdPass != 0 && IdPass != null )
             {
-                find = find.Where(s => s.IdPass.ToString().Contains(IdPass.ToString().ToUpper()));
+                find = find.Where(s => s.IdPass == IdPass);
 
                 model.Entrances = find.ToList();
 
                 var chart = find
+                    .Where(s=>s.IdPasses.IdLong == 2)
                     .GroupBy(x => x.DateEntr.Day)
                     .Select(t => new ChartItemViewModel { ID = t.Key, Count = t.Count() })
                     .ToList();
@@ -256,6 +257,7 @@ namespace EntranceControlWeb.Controllers
             }
 
             var number = _context.Entrances
+            .Where(s => s.IdPasses.IdLong == 2)
             .GroupBy(p => p.DateEntr.Day)
             .Select(g => new ChartItemViewModel { ID = g.Key, Count = g.Count() })
             .ToList();
