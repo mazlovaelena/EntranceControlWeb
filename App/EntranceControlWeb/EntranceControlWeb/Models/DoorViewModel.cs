@@ -22,6 +22,7 @@ namespace EntranceControlWeb.Models
         public int IdRoom { get; set; }
         [Required(ErrorMessage = "Выберите значение")]
         public string TitleRoom { get; set; }
-        public IEnumerable<SelectListItem> RoomSelect { get; set; }
+        public IList<SelectListItem> RoomSelect { get; set; }
+        
     }
 }

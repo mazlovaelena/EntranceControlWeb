@@ -25,19 +25,21 @@ namespace EntranceControlWeb.Controllers
         //Отображение страницы
         public IActionResult Doors(DoorViewModel door, string sort, string Search, int IdRoom)
         {
-            door.RoomSelect = new SelectList(_context.Rooms, "IdRoom", "TitleRoom");
-
+            ViewBag.Select = new SelectList(_context.Rooms, "IdRoom", "TitleRoom");
+           
             ViewBag.RoomSort = sort == "Room" ? "Room dsc" : "Room";
             ViewBag.DoorSort = String.IsNullOrEmpty(sort) ? "Door dsc" : "Door";
 
             var find = from s in _context.Doors select s;
 
-            if (!String.IsNullOrEmpty(Search) || IdRoom != 0)
+            if (!String.IsNullOrEmpty(Search))
             {
-                find = find.Where(s => s.TitleDoor.ToUpper().Contains(Search.ToUpper()));
-                find = find.Where(s => s.IdRoom.ToString().ToUpper().Contains(IdRoom.ToString().ToUpper()));
+                find = find.Where(s => s.TitleDoor.ToUpper().Contains(Search.ToUpper()));                
             }
-            
+            if(IdRoom != 0)
+            {
+                find = find.Where(s => s.IdRoom.ToString().ToUpper().Contains(IdRoom.ToString().ToUpper()));
+            }            
             switch (sort)
             {
                 case "Room":
@@ -56,6 +58,7 @@ namespace EntranceControlWeb.Controllers
                     find = find.OrderByDescending(s => s.TitleDoor);
                     break;
             }
+            
             
             door.Doors = find.ToList();
             door.Rooms = _context.Rooms.ToList();
@@ -122,9 +125,8 @@ namespace EntranceControlWeb.Controllers
         }
         public IActionResult CreateDoor()
         {
-            var door = new DoorViewModel();
-            SelectList room = new SelectList(_context.Rooms, "IdRoom", "TitleRoom");
-            ViewBag.Room = room;
+            var door = new DoorViewModel();          
+            ViewBag.Room = new SelectList(_context.Rooms, "IdRoom", "TitleRoom"); 
 
             door.Doors = _context.Doors.ToList();
             door.Rooms = _context.Rooms.ToList();

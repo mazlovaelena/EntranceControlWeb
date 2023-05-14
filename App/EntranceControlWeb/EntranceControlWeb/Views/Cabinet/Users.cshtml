@@ -5,13 +5,13 @@
 }
 
 <div class="container">
-    <form method="post" asp-action="UserReport" asp-controller="Cabinet" id="formR"></form>
     <div class="row my-3">
         <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
         <h5 class="text-center">ПРОСМОТР ПОСЕТИТЕЛЕЙ САЙТА</h5>
     </div>
-    <div class="row my-3 mb-2 sticky-top">
-        <form asp-action="Users" asp-controller="Cabinet" id="formF">
+    <form>
+        <div class="row my-3 mb-2 sticky-top">
+
             <div class="card rounded m-3 shadow-lg mx-auto" style="width:500px">
                 <div class="card-body">
                     <div class="row">
@@ -27,46 +27,46 @@
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
-    <div class="row my-3">
-        <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
-            <thead class="text-center">
-                <tr>
-                    <th>
-                        Пользователь
-                    </th>
-                    <th>
-                        Роль на сайте
-                    </th>
-                    <th>
-                        Дата авторизации
-                    </th>
-                </tr>
-            </thead>
-            @foreach (var data in Model.Authorizes)
-            {
-                <tbody>
-                    <tr>
-                        <td>
-                            @data.IdUsers.Email
-                        </td>
-                        <td>
-                            @data.IdUsers.UserRole
-                        </td>
-                        <td>
-                            @data.DateAuth
-                        </td>
-                    </tr>
-                </tbody>
-            }
-        </table>
-    </div>
-    <div class="row my-3 ms-5">
-        <div class="ms-5">
-            <button style="width:400px" type="submit" class="btn btn-outline-dark mx-auto ms-5">Сохранить отчетный файл c фильтрацией</button>
 
-            <button style="width:300px" type="submit" formaction="UserReport" class="btn btn-outline-dark mx-auto ms-3">Сохранить отчетный файл</button>
         </div>
-    </div>
+        <div class="row my-3">
+            <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
+                <thead class="text-center">
+                    <tr>
+                        <th>
+                            Пользователь
+                        </th>
+                        <th>
+                            Роль на сайте
+                        </th>
+                        <th>
+                            Дата авторизации
+                        </th>
+                    </tr>
+                </thead>
+                @foreach (var data in Model.Authorizes)
+                {
+                    <tbody>
+                        <tr>
+                            <td>
+                                @data.IdUsers.Email
+                            </td>
+                            <td>
+                                @data.IdUsers.UserRole
+                            </td>
+                            <td>
+                                @data.DateAuth
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+        </div>
+        <div class="row my-3 ms-5">
+            <div class="ms-5">
+                <a href="@Url.Action("FilterReport", "Cabinet")" style="width:400px" class="btn btn-outline-dark mx-auto ms-5">Сохранить отчетный файл c фильтрацией</a>
+                <a style="width:300px" class="btn btn-outline-dark mx-auto ms-3" href="@Url.Action("UserReport", "Cabinet")">Сохранить отчетный файл</a>
+            </div>
+        </div>
+    </form>
 </div>

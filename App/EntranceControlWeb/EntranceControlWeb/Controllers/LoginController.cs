@@ -28,10 +28,17 @@ namespace EntranceControlWeb.Controllers
                 return View();
             }
 
-            var user = _context.Users.FirstOrDefault(x => x.Email == model.Email && x.Password == model.Password);
+            var user = _context.Users.FirstOrDefault(x => x.Email == model.Email);
             if (user == null)
             {
-                ViewBag.Message = "Неверный логин и/или пароль";
+                ViewBag.Message = "Пользователь не зарегистрирован в системе";
+                return View(model);
+            }
+
+            var pass = _context.Users.FirstOrDefault(x => x.Password == model.Password);
+            if (pass==null)
+            {
+                ViewBag.Message = "Неверный пароль";
                 return View(model);
             }
 

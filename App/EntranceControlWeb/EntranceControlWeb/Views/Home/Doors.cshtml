@@ -1,7 +1,6 @@
 ﻿@model EntranceControlWeb.Models.DoorViewModel;
 @{
     ViewData["Title"] = "Doors";
-
 }
 
 <div class="container">
@@ -18,7 +17,7 @@
                     </button>
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <form>
+                    <form novalidate>
                         <div class="accordion-body border-info shadow">
                             <div class="row mb-3">
                                 <label class="col-sm-4 col-form-label">Наименование турникета</label>
@@ -29,13 +28,12 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="idRoom" class="col-sm-4 col-form-label">Помещение</label>
+                                <label class="col-sm-4 col-form-label">Помещение</label>
                                 <div class="col-sm-8">
 
-                                    @Html.DropDownListFor(x => x.IdRoom, Model.RoomSelect, "", new { @class = "form-control" })
-
-                                </div>
-                               
+                                    @Html.DropDownList("IdRoom", ViewBag.Select as SelectList, "", new { @class = "form-control" })
+                                  
+                                </div>                               
                             </div>
                             <div class="row mb-2">
                                 <label for="button" class="col-sm-8 col-form-label"></label>
@@ -72,7 +70,6 @@
                     }
                 </tr>
             </thead>
-
             @foreach (var data in Model.Doors)
             {
                 <tbody>
@@ -105,6 +102,7 @@
             }
 
         </table>
+       
 
         @if (User.Identity.IsAuthenticated)
         {
@@ -118,6 +116,7 @@
                 </div>
             }
         }
+
 
         <script>
             $('.editClick').on('click', function () {
@@ -160,7 +159,7 @@
                                 <label for="idRoom" class="col-sm-4 col-form-label">Помещение</label>
                                 <div class="col-sm-8">
 
-                                    @Html.DropDownListFor(x => x.IdRoom, Model.RoomSelect, new { @class = "form-control", @id = "idRoom", @value = "IdRoom", @for = "IdRoom" })
+                                    @Html.DropDownListFor(x => x.IdRoom, ViewBag.Select as SelectList, new { @class = "form-control", @id = "idRoom", @value = "IdRoom", @for = "IdRoom" })
 
                                     <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdRoom"></span>
                                     <span for="idRoom" class="text-danger" asp-validation-for="@Model.TitleRoom"></span>
