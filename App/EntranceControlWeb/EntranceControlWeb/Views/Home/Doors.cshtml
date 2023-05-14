@@ -31,7 +31,7 @@
                                 <label class="col-sm-4 col-form-label">Помещение</label>
                                 <div class="col-sm-8">
 
-                                    @Html.DropDownList("IdRoom", ViewBag.Select as SelectList, "", new { @class = "form-control" })
+                                    @Html.DropDownListFor(x=>x.IdRoom, Model.RoomSelect, "", new { @class = "form-control", data_val = false })
                                   
                                 </div>                               
                             </div>
@@ -159,7 +159,7 @@
                                 <label for="idRoom" class="col-sm-4 col-form-label">Помещение</label>
                                 <div class="col-sm-8">
 
-                                    @Html.DropDownListFor(x => x.IdRoom, ViewBag.Select as SelectList, new { @class = "form-control", @id = "idRoom", @value = "IdRoom", @for = "IdRoom" })
+                                    @Html.DropDownListFor(x => x.IdRoom, Model.RoomSelect, new { @class = "form-control", @id = "idRoom", @value = "IdRoom", @for = "IdRoom" })
 
                                     <span for="idRoom" class="text-danger" asp-validation-for="@Model.IdRoom"></span>
                                     <span for="idRoom" class="text-danger" asp-validation-for="@Model.TitleRoom"></span>

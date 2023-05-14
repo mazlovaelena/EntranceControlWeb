@@ -39,7 +39,7 @@
                                 <label for="idRoom" class="col-sm-4 col-form-label">Сотрудник</label>
                                 <div class="col-sm-8">
 
-                                    @Html.DropDownListFor(x => x.IdStaff, Model.StaffSelect, "", new { @class = "form-control" })
+                                    @Html.DropDownListFor(x => x.IdStaff, Model.StaffSelect, "", new { @class = "form-control", data_val = false })
 
                                 </div>
                             </div>
@@ -47,14 +47,14 @@
                                 <label for="idPass" class="col-sm-4 col-form-label">Должность</label>
                                 <div class="col-sm-8">
 
-                                    @Html.DropDownListFor(x => x.IdPost, Model.PostSelect, "", new { @class = "form-control" })
+                                    @Html.DropDownListFor(x => x.IdPost, Model.PostSelect, "", new { @class = "form-control", data_val = false })
 
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="idDoor" class="col-sm-4 col-form-label">Отдел</label>
                                 <div class="col-sm-8">
-                                    @Html.DropDownListFor(x => x.IdOffice, Model.OfficeSelect, "", new { @class = "form-control" })
+                                    @Html.DropDownListFor(x => x.IdOffice, Model.OfficeSelect, "", new { @class = "form-control", data_val = false })
                                 </div>
                             </div>
                             <div class="row mb-2">

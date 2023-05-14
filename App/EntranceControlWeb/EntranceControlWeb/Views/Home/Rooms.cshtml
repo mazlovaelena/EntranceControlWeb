@@ -32,7 +32,7 @@
                                 <label for="idStatus" class="col-sm-4 col-form-label">Уроваень доступа</label>
                                 <div class="col-sm-8">
 
-                                    @Html.DropDownListFor(x => x.IdLevel, Model.LevelSelect, "", new { @class = "form-control" })
+                                    @Html.DropDownListFor(x => x.IdLevel, Model.LevelSelect, "", new { @class = "form-control", data_val = false })
 
                                 </div>
                             </div>
@@ -133,7 +133,7 @@
 
         </script>
 
-        Modal
+        @*Modal*@
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
