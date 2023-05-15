@@ -10,7 +10,7 @@
         <h5 class="text-center">ПРОСМОТР ДИАГРАММЫ ПОСЕЩАЕМОСТИ</h5>
     </div>
     <div class="row my-3">
-        <h6 class="text-center">ДИАГРАММА КОЛИЧЕСТВА ЧЕЛОВЕК В ДЕНЬ</h6>
+        <h6 class="text-center">ДИАГРАММА КОЛИЧЕСТВА ПОСЕЩЕНИЙ ПО СОТРУДНИКАМ</h6>
         <div class="row mx-1">
             <form>
                 <div class="card rounded m-3 shadow-lg mx-auto" style="width:1200px">
@@ -72,7 +72,8 @@
         </script>
     </div>
     <div class="row my-3">
-        <h6 class="text-center">ДИАГРАММА КОЛИЧЕСТВА ПОСЕЩЕНИЙ ПО СОТРУДНИКАМ</h6>
+        <h6 class="text-center">ДИАГРАММА КОЛИЧЕСТВА ЧЕЛОВЕК В ДЕНЬ</h6>
+       
         <canvas id="myChart1" style="background-color: whitesmoke; border-radius: 8px; border-color: darkslategray; border-style: groove; "></canvas>
         <script>
                 var dataPass = @Json.Serialize(Model.Name.Select(y => y.Pass).ToList());

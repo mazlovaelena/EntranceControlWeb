@@ -58,19 +58,12 @@
                                     </div>
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                                        if (User.IsInRole(UserRole.Admin.ToString()))
                                         {
                                             <div class="row">
                                                 № пропуска:<a href="@Url.Action("PassEditStaff", "Home", new { id = @data.IdPass })" class="text-primary editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdPass">@data.IdPass</a>
                                             </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="row">
-                                                № пропуска: @data.IdPass
-                                            </div>
-                                        }
-
+                                        }                                       
                                     }
 
 
