@@ -17,6 +17,15 @@ namespace EntranceControlWeb.Models
 
         public List<Pass> Passes { get; set; }
         public int IdPass { get; set; }
+        public int IdStaff { get; set; }        
+        public string Surname { get; set; }
+        public string Name { get; set; }
+        public string LastName { get; set; }
+        public string Image { get; set; }
+        public int IdPassVis { get; set; }
+        public string SurnameVis { get; set; }
+        public string NameVis { get; set; }
+        public string LastNameVis { get; set; }                 
         public IEnumerable<SelectListItem> PassSelect { get; set; }
         
 

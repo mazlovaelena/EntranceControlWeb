@@ -17,7 +17,7 @@
                     </button>
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <form novalidate>
+                    <form>
                         <div class="accordion-body border-info shadow">
                             <div class="row mb-3">
                                 <label class="col-sm-4 col-form-label">Наименование турникета</label>
@@ -51,10 +51,20 @@
         </div>
     </div>
     <div class="row my-3">
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole(UserRole.SysAdmin.ToString()))
+            {
+                <div class="row mb-2">
+
+                    <div class=" mx-auto" style="width:800px"> <a href="@Url.Action("CreateDoor", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
+
+                </div>
+            }
+        }
         <table class="table-dark table-bordered  mx-auto" style="width:1200px; color:black;">
             <thead>
                 <tr class="text-center">
-                    <th>ID Турникет</th>
                     <th>@Html.ActionLink("Наименование турникета", "Doors", new { sort = ViewBag.DoortSort })</th>
                     <th>@Html.ActionLink("Помещение", "Doors", new { sort = ViewBag.RoomSort })</th>
                     @if (User.Identity.IsAuthenticated)
@@ -74,8 +84,6 @@
             {
                 <tbody>
                     <tr class="text-md-start">
-
-                        <td>@data.IdDoor</td>
                         <td>@data.TitleDoor</td>
                         <td>@data.IdRooms.TitleRoom</td>
 
@@ -102,22 +110,9 @@
             }
 
         </table>
-       
-
-        @if (User.Identity.IsAuthenticated)
-        {
-            if (User.IsInRole(UserRole.SysAdmin.ToString()))
-            {
-
-                <div class="row m-2">
-
-                    <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateDoor", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
-
-                </div>
-            }
-        }
-
-
+        <div class="row my-1">
+            <h6 class="text-center text-danger"><strong> @ViewBag.Message</strong></h6>
+        </div>
         <script>
             $('.editClick').on('click', function () {
                 // ...

@@ -30,45 +30,47 @@
         <div class="row my-3">
             <h2 class="text-center">СИСТЕМА КОНТРОЛЯ ДОСТУПА</h2>
         </div>
-        <div class="row my-2">
-            <h5 class="text-center">
-                Данная система разработана для автоматизации контроля передвижения сотрудников предприятия.
-                Система содержит набор таблиц и позволяет пользователю работать с содержащимися в них данными. <br />
-                Для дальнейшей работы с системой в роли пользователя необходимо <a class="text-danger">авторизоваться</a> на сайте. Более подробная инструкция по работе с системой представлена в <a class="text-info" href="~/RukUser.pdf" target="_blank">Руководстве пользователя</a>.
-                <br />Для работы с системой в роли начальника охраны прочтите <a class="text-info" href="~/RukAdmin.pdf" target="_blank">Руководство администратора</a>.
-                <br /> Если Ваша роль - системный администратор, ознакомьтесь с <a class="text-info" href="/RukSAdmin.pdf" target="_blank">Руководством системного администратора</a>.
-            </h5>
-        </div>
-    </div>
-    <div class="container my-5" style="width: 50% ">
-        <form class="my-4" method="post" asp-controller="Login" asp-action="HomePage">
-            <div class="card rounded shadow" style="background-color:transparent">
-                <div class="card-body">
-                    <div class="row my-3">
-                        <h4 class="text-center">Авторизация</h4>
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Адрес электронной почты</label>
-                        <input type="email" asp-for="@Model.Email" class="form-control border-info rounded-lg shadow" id="exampleInputEmail1" placeholder="Введите E-mail..." value="@Model?.Email">
-                        <span for="exampleInputEmail1" class="text-danger" asp-validation-for="@Model.Email"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Пароль</label>
-                        <input type="password" asp-for="@Model.Password" class="form-control border-info rounded-lg shadow" id="exampleInputPassword1" placeholder="Введите пароль..." value="@Model?.Password">
-                        <span for="exampleInputPassword1" class="text-danger" asp-validation-for="@Model.Password"></span>
-                    </div>
-                    <div class="row my-1">
-                        <h6 class="text-center text-danger"><strong> @ViewBag.Message</strong></h6>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1 m-3"></div>
-                        <div class="col-md-9">
-                            <button type="submit" class="btn btn-outline-secondary rounded-lg shadow w-100" style="width:400px">Вход</button>
+
+        <div class="container my-5" style="width: 50% ">
+            <form class="my-4" method="post" asp-controller="Login" asp-action="HomePage">
+                <div class="card rounded shadow" style="background-color:transparent">
+                    <div class="card-body">
+                        <div class="row my-3">
+                            <h4 class="text-center">Авторизация</h4>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Адрес электронной почты</label>
+                            <input type="email" asp-for="@Model.Email" class="form-control border-info rounded-lg shadow" id="exampleInputEmail1" placeholder="Введите E-mail..." value="@Model?.Email">
+                            <span for="exampleInputEmail1" class="text-danger" asp-validation-for="@Model.Email"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Пароль</label>
+                            <input type="password" asp-for="@Model.Password" class="form-control border-info rounded-lg shadow" id="exampleInputPassword1" placeholder="Введите пароль..." value="@Model?.Password">
+                            <span for="exampleInputPassword1" class="text-danger" asp-validation-for="@Model.Password"></span>
+                        </div>
+                        <div class="row my-1">
+                            <h6 class="text-center text-danger"><strong> @ViewBag.Message</strong></h6>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1 m-3"></div>
+                            <div class="col-md-9">
+                                <button type="submit" class="btn btn-outline-secondary rounded-lg shadow w-100" style="width:400px">Вход</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
+        <div class="row my-2">
+            <h5 class="text-center">
+                Данная система разработана для автоматизации контроля передвижения сотрудников предприятия.<br />
+                Система содержит набор таблиц и позволяет пользователю работать с содержащимися в них данными. <br />
+                Для дальнейшей работы с системой в роли пользователя необходимо <a class="text-danger">авторизоваться</a> на сайте. <br />
+                Более подробная инструкция по работе с системой в роли сотрудника охраны представлена в <a class="text-primary" href="~/RukUser.pdf" target="_blank">Руководстве пользователя</a>.
+                <br />Для работы с системой в роли начальника охраны прочтите <a class="text-primary" href="~/RukAdmin.pdf" target="_blank">Руководство администратора</a>.
+
+            </h5>
+        </div>
     </div>
 </body>
 </html>

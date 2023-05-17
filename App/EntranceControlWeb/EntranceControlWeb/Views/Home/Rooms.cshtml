@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="idStatus" class="col-sm-4 col-form-label">Уроваень доступа</label>
+                                <label for="idStatus" class="col-sm-4 col-form-label">Уровень доступа</label>
                                 <div class="col-sm-8">
 
                                     @Html.DropDownListFor(x => x.IdLevel, Model.LevelSelect, "", new { @class = "form-control", data_val = false })
@@ -52,10 +52,23 @@
         </div>
     </div>
     <div class="row my-3">
+
+        @if (User.Identity.IsAuthenticated)
+        {
+
+            if (User.IsInRole(UserRole.SysAdmin.ToString()))
+            {
+                <div class="row mb-2">
+
+                    <div class=" mx-auto" style="width:800px"> <a href="@Url.Action("CreateRoom", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
+
+                </div>
+
+            }
+        }
         <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
             <thead>
                 <tr class="text-center">
-                    <th>ID Помещение</th>
                     <th>@Html.ActionLink("Наименование помещения", "Rooms", new { sort = ViewBag.RoomSort })</th>
                     <th>@Html.ActionLink("Уровень доступа", "Rooms", new { sort = ViewBag.LevelSort })</th>
                     @if (User.Identity.IsAuthenticated)
@@ -76,8 +89,6 @@
             {
                 <tbody>
                     <tr class="text-md-start">
-
-                        <td>@data.IdRoom</td>
                         <td>@data.TitleRoom</td>
                         <td>@data.IdLevels.TitleLevel</td>
                         @if (User.Identity.IsAuthenticated)
@@ -101,20 +112,9 @@
                 </tbody>
             }
         </table>
-
-        @if (User.Identity.IsAuthenticated)
-        {
-
-            if (User.IsInRole(UserRole.SysAdmin.ToString()))
-            {
-                <div class="row m-2">
-
-                    <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateRoom", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
-
-                </div>
-
-            }
-        }
+        <div class="row my-1">
+            <h6 class="text-center text-danger"><strong> @ViewBag.Message</strong></h6>
+        </div>
 
         <script>
             $('.editClick').on('click', function () {

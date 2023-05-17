@@ -3,8 +3,6 @@
     ViewData["Title"] = "Passes";
 
 }
-
-
 <div class="container">
     <div class="row my-3">
         <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
@@ -67,6 +65,19 @@
         </div>
     </div>
     <div class="row my-3">
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole(UserRole.SysAdmin.ToString()))
+            {
+                <div class="row mb-2">
+
+                    <div class=" mx-auto" style="width:800px"> <a href="@Url.Action("CreatePass", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
+
+                </div>
+            }
+        }
+
         <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
             <thead>
                 <tr class="text-center">
@@ -120,21 +131,9 @@
                 </tbody>
             }
         </table>
-
-        @if (User.Identity.IsAuthenticated)
-        {
-            if (User.IsInRole(UserRole.SysAdmin.ToString()))
-            {
-
-                <div class="row m-2">
-
-                    <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreatePass", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
-
-
-                </div>
-
-            }
-        }
+        <div class="row my-1">
+            <h6 class="text-center text-danger"><strong> @ViewBag.Message</strong></h6>
+        </div>
 
         <script>
             $('.editClick').on('click', function () {

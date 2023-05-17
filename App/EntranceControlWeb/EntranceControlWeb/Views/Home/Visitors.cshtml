@@ -29,10 +29,24 @@
         </form>
     </div>
     <div class="row my-3">
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole(UserRole.SysAdmin.ToString()))
+            {
+
+                <div class="row mb-2">
+
+                    <div class=" mx-auto" style="width:800px"> <a href="@Url.Action("CreateVisit", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
+
+                </div>
+
+            }
+        }
+
         <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
             <thead>
                 <tr class="text-center">
-                    <th>ID Гость</th>
                     <th>Фамилия Имя Отчетсво</th>
                     <th>Мобильный телефон</th>
                     <th>@Html.ActionLink("№ пропуска", "Visitors", new { sort = ViewBag.PassSort })</th>
@@ -54,7 +68,6 @@
             {
                 <tbody>
                     <tr class="text-md-start">
-                        <td>@data.Idvisitor</td>
                         <td>@data.Surname @data.Name @data.LastName</td>
                         <td>@data.MobilePhone</td>
                         @if (User.Identity.IsAuthenticated)
@@ -63,7 +76,11 @@
                             {
                                 <td><a href="@Url.Action("PassEditVis", "Home", new { id = @data.IdPass })" class="text-primary editClick1" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-id="@data.IdPass">@data.IdPass</a></td>
 
-                            }                          
+                            }
+                            else
+                            {
+                                <td><a href="@Url.Action("PassEditVis", "Home", new { id = @data.IdPass })" class="text-primary editClick1" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-id="@data.IdPass">@data.IdPass</a></td>
+                            }
                         }
 
                         @if (User.Identity.IsAuthenticated)
@@ -88,21 +105,9 @@
                 </tbody>
             }
         </table>
-
-        @if (User.Identity.IsAuthenticated)
-        {
-            if (User.IsInRole(UserRole.SysAdmin.ToString()))
-            {
-
-                <div class="row m-2">
-
-                    <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateVisit", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
-
-                </div>
-
-            }
-        }
-
+        <div class="row my-1">
+            <h6 class="text-center text-danger"><strong> @ViewBag.Message</strong></h6>
+        </div>
         @*редактирование информации о госте*@
         <script>
             $('.editClick').on('click', function () {

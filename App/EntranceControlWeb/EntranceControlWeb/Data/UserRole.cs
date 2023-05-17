@@ -9,6 +9,8 @@ namespace EntranceControlWeb.Models
     {
         SysAdmin = 1,
         Admin = 2,
-        User = 3
+        User = 3,
+        HRmanager = 4
+
     }
 }

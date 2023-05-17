@@ -10,6 +10,7 @@ namespace EntranceControlWeb.Data
         public staff()
         {
             SortingByOffices = new HashSet<SortingByOffice>();
+            Users = new HashSet<User>();
         }
 
         public int IdStaff { get; set; }
@@ -24,5 +25,6 @@ namespace EntranceControlWeb.Data
 
         public virtual Pass IdPasses { get; set; }
         public virtual ICollection<SortingByOffice> SortingByOffices { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

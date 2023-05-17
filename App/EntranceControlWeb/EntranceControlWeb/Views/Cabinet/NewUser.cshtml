@@ -1,0 +1,85 @@
+﻿@model EntranceControlWeb.Models.NewUserViewModel;
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="container">
+    <div class="row my-3">
+        <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
+        <h5 class="text-center">СОЗДАНИЕ НОВОГО ПОЛЬЗОВАТЕЛЯ</h5>
+    </div>
+    <form class="my-4" method="post" asp-action="NewUser" asp-controller="Cabinet">
+        <div class="card rounded">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <label for="idvisitor" class="col-sm-4 col-form-label">Выберите сотрудника</label>
+                    <div class="col-sm-8">
+
+                        @Html.DropDownListFor(x => x.IdStaff, Model.StaffSelect, new { @class = "js-example-basic-single form-control" })
+
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="idvisitor" class="col-sm-4 col-form-label">Укажите роль пользователя на сайте</label>
+                    <div class="col-sm-8">
+
+                        @Html.DropDownList("UserRole", ViewData["RoleSelect"] as List<SelectListItem>, new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="idvisitor" class="col-sm-4 col-form-label">Введите email-адрес</label>
+                    <div class="col-sm-8">
+                        <input type="email" asp-for="@Model.Email" value="@Model?.Email" class="form-control" id="inputTitle">
+                        <span for="inputTitle" class="text-danger" asp-validation-for="@Model.Email"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="idvisitor" class="col-sm-4 col-form-label">Придумайте пароль</label>
+                    <div class="col-sm-8">
+                        <input type="text" asp-for="@Model.Password" value="@Model?.Password" class="form-control" id="inputTitle">
+                        <span for="inputTitle" class="text-danger" asp-validation-for="@Model.Password"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="idvisitor" class="col-sm-4 col-form-label">Повторите пароль</label>
+                    <div class="col-sm-8">
+                        <input type="text" asp-for="@Model.PasswordRetry" value="@Model?.PasswordRetry" class="form-control" id="inputTitle">
+                        <span for="inputTitle" class="text-danger" asp-validation-for="@Model.PasswordRetry"></span>
+                    </div>
+                </div>
+                <div class="row my-1">
+                    <h6 class="text-center text-danger"><strong> @ViewBag.Message</strong></h6>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-7">
+                        <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-secondary">Назад</a>
+                        <button type="submit" class="btn btn-outline-success">Сохранить изменения</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                    </div>
+                    <div class="modal-body">
+                        Вы хотите сохранить внесенные изменения?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        <a type="button" href="@Url.Action("NewUser", "Cabinet")" class="btn btn-danger">Не сохранять</a>
+                        <button type="submit" class="btn btn-success">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+            $(document).ready(function () {
+                $('#idStaff').select2();                
+            });
+    </script>
+</div>

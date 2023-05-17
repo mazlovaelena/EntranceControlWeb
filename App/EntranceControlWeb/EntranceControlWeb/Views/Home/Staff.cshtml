@@ -28,12 +28,25 @@
             </div>
         </form>
     </div>
-
+    <div class="row my-1">
+        <h6 class="text-center text-danger"><strong> @ViewBag.Message</strong></h6>
+    </div>
     <div class="row my-3 mb-2">
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole(UserRole.SysAdmin.ToString()))
+            {
+                <div class="row m-2">
+
+                    <div class=" mx-auto" style="width:800px"> <a href="@Url.Action("CreateStaff", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
+
+                </div>
+            }
+        }
 
         @foreach (var data in Model.Staffs)
         {
-
             <div class="card rounded m-3 shadow-lg mx-auto">
                 <div class="row g-0">
                     <div class="col-md-3">
@@ -63,7 +76,13 @@
                                             <div class="row">
                                                 № пропуска:<a href="@Url.Action("PassEditStaff", "Home", new { id = @data.IdPass })" class="text-primary editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdPass">@data.IdPass</a>
                                             </div>
-                                        }                                       
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                № пропуска:<a href="@Url.Action("PassEditStaff", "Home", new { id = @data.IdPass })" class="text-primary editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdPass">@data.IdPass</a>
+                                            </div>
+                                        }
                                     }
 
 
@@ -75,15 +94,9 @@
                                         <div class="col-4">
                                             <div class="row my-1">
                                                 <a class="btn btn-outline-success" data-id="@data.IdStaff" href="@Url.Action("StaffEdit", "Home", new { id = @data.IdStaff })">Редактировать</a> <br />
-
                                             </div>
                                             <div class="row my-1">
-
                                                 <a class="btn btn-outline-danger" data-id="@data.IdStaff" href="@Url.Action("DelStaff", "Home", new { id = @data.IdStaff })">Удалить запись</a>
-                                            </div>
-                                            <div class="row my-1">
-
-                                                <a href="@Url.Action("CreateStaff", "Home")" class="btn btn-outline-primary">Создать запись</a>
                                             </div>
                                         </div>
                                     }
@@ -92,7 +105,6 @@
                                         <div class="col-4">
                                             <div class="row my-1">
                                                 <a class="btn btn-outline-success" data-id="@data.IdStaff" href="@Url.Action("StaffEdit", "Home", new { id = @data.IdStaff })">Редактировать</a> <br />
-
                                             </div>
                                         </div>
                                     }

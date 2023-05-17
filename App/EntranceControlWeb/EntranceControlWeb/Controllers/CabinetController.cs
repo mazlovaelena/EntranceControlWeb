@@ -9,8 +9,8 @@ using System.IO;
 using LicenseContext = OfficeOpenXml.LicenseContext;
 using System.Data;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EntranceControlWeb.Controllers
 {
@@ -25,11 +25,6 @@ namespace EntranceControlWeb.Controllers
             _context = context;
         }
 
-        [Authorize]
-        public IActionResult UserCab()
-        {
-            return View();
-        }
         [Authorize]
         public IActionResult AdminCab()
         {
@@ -52,6 +47,8 @@ namespace EntranceControlWeb.Controllers
 
                 auth.Authorizes = _context.Authorizes.ToList();
                 auth.Users = _context.Users.ToList();
+                auth.Staffs = _context.staff.ToList();
+
 
                 if (User.IsInRole(UserRole.Admin.ToString()))
                 {
@@ -71,6 +68,7 @@ namespace EntranceControlWeb.Controllers
 
             auth.Authorizes = _context.Authorizes.ToList();
             auth.Users = _context.Users.ToList();
+            auth.Staffs = _context.staff.ToList();
 
             if (User.IsInRole(UserRole.Admin.ToString()))
             {
@@ -115,17 +113,18 @@ namespace EntranceControlWeb.Controllers
             using (ExcelPackage Ep = new(fs))
             {
                 var Sheet1 = Ep.Workbook.Worksheets.Add("Посетители сайта");
-                Sheet1.Cells["A1"].Value = "ID_Запись";
-                Sheet1.Cells["B1"].Value = "ДатаАвторизации";
-                Sheet1.Cells["C1"].Value = "Пользователь";
+                Sheet1.Cells["A1"].Value = "ДатаАвторизации";
+                Sheet1.Cells["B1"].Value = "Email";
+                Sheet1.Cells["C1"].Value = "Сотрудник";
 
                 var row1 = 2;
                 foreach (var entrance in find)
                 {
                     auth.Users.ToList();
-                    Sheet1.Cells[string.Format("A{0}", row1)].Value = entrance.IdItem;
-                    Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.DateAuth.ToString();
-                    Sheet1.Cells[string.Format("C{0}", row1)].Value = entrance.IdUsers.Email;
+                    auth.Staffs.ToList();                    
+                    Sheet1.Cells[string.Format("A{0}", row1)].Value = entrance.DateAuth.ToString();
+                    Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.IdUsers.Email;
+                    Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.IdUsers.IdStaffs.Surname;
                     row1++;
                 }
                 Sheet1.Cells["A:AZ"].AutoFitColumns();
@@ -222,58 +221,7 @@ namespace EntranceControlWeb.Controllers
             return PhysicalFile(file_path, file_type, file_name);
 
         }
-        #endregion
-
-        #region ПРОСМОТР ГРАФИКА
-        [Authorize]
-        public IActionResult Chart(ChartViewModel model, int? IdPass)
-        {
-            model.StaffSelect = new SelectList(_context.staff, "IdPass", "Surname");
-
-            var find = from s in _context.Entrances select s;
-
-            if(IdPass != 0 && IdPass != null )
-            {
-                find = find.Where(s => s.IdPass == IdPass);
-
-                model.Entrances = find.ToList();
-
-                var chart = find
-                    .Where(s=>s.IdPasses.IdLong == 2)
-                    .GroupBy(x => x.DateEntr.Day)
-                    .Select(t => new ChartItemViewModel { ID = t.Key, Count = t.Count() })
-                    .ToList();
-
-                var data = _context.Entrances
-                   .Where(s => s.IdPasses.IdLong == 2)
-                   .GroupBy(p => p.IdPass)
-                   .Select(g => new ChartItemViewModel { Pass = g.Key, Sum = g.Count() })
-                   .ToList();
-
-                model.Chart = chart;
-                model.Name = data;
-
-                return View(model);                    
-            }
-
-            var number = _context.Entrances
-            .Where(s => s.IdPasses.IdLong == 2)
-            .GroupBy(p => p.DateEntr.Day)
-            .Select(g => new ChartItemViewModel { ID = g.Key, Count = g.Count() })
-            .ToList();
-
-            var name = _context.Entrances
-                .Where(s=>s.IdPasses.IdLong == 2)
-                .GroupBy(p => p.IdPass)                
-                .Select(g => new ChartItemViewModel { Pass = g.Key, Sum = g.Count() })                
-                .ToList();
-
-            model.Chart = number;
-            model.Name = name;
-
-            return View(model);
-        }
-        #endregion
+        #endregion       
 
         #region УЧЕТ РАБОЧЕГО ВРЕМЕНИ
       
@@ -319,7 +267,8 @@ namespace EntranceControlWeb.Controllers
                 worktime.Add(new ResultTime()
                 {
                     ID = time.Key,
-                    TimeW = time.Select(x => x.Time.ToArray().Aggregate((y, z) => y + z)).ToList(),                    
+                    TimeW = time.Select(x => x.Time.ToArray().Aggregate((y, z) => y + z)).ToList(),
+                    
                 });
             }
 
@@ -939,6 +888,55 @@ namespace EntranceControlWeb.Controllers
 
             string file_name = "EntranceReport.xls";
             return PhysicalFile(file_path, file_type, file_name);
+        }
+        #endregion
+
+        #region ДОБАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯ
+
+        public IActionResult NewUser()
+        {
+            var user = new NewUserViewModel();
+
+            user.StaffSelect = new SelectList(_context.staff, "IdStaff", "Surname");
+
+            List<SelectListItem> RoleSelect = new List<SelectListItem>();
+            RoleSelect.AddRange(new[]{
+                            new SelectListItem() { Text = "SysAdmin", Value = "1" },
+                            new SelectListItem() { Text = "Admin", Value = "2" },
+                            new SelectListItem() { Text = "User", Value = "3" },
+                            new SelectListItem() { Text = "HRmanager", Value = "4" }});
+            ViewData.Add("RoleSelect", RoleSelect);
+
+            return View(user);
+        }
+        [HttpPost]
+        public IActionResult NewUser(NewUserViewModel user)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Message = "Поля заполнены некорректно";
+                return View(user);
+            }
+
+            if (_context.Users.Any(x => x.Email == user.Email))
+            {
+                ViewBag.Message = "Пользователь с таким Email уже зарегистрирован в системе";
+                return View(user);
+            }
+
+            var newuser = new User
+            {
+                Email = user.Email,
+                Password = user.PasswordRetry,
+                UserRole = user.UserRole,
+                IdStaff = user.IdStaff,
+
+            };
+
+            _context.Users.Add(newuser);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(SysAdminCab));
         }
         #endregion
     }

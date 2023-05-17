@@ -34,7 +34,10 @@
                 <thead class="text-center">
                     <tr>
                         <th>
-                            Пользователь
+                            Email 
+                        </th>
+                        <th>
+                            ФИО
                         </th>
                         <th>
                             Роль на сайте
@@ -50,6 +53,9 @@
                         <tr>
                             <td>
                                 @data.IdUsers.Email
+                            </td>
+                            <td>
+                                @data.IdUsers.IdStaffs.Surname @data.IdUsers.IdStaffs.Name @data.IdUsers.IdStaffs.LastName
                             </td>
                             <td>
                                 @data.IdUsers.UserRole

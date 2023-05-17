@@ -25,7 +25,7 @@ namespace EntranceControlWeb.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.Message = "Поля заполнены некорректно";
-                return View();
+                return View(model);
             }
 
             var user = _context.Users.FirstOrDefault(x => x.Email == model.Email);

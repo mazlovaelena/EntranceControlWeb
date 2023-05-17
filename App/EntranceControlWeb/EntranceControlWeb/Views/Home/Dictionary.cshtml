@@ -9,10 +9,22 @@
         <h5 class="text-center">УРОВНИ ДОСТУПА</h5>
     </div>
     <div class="row my-3">
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole(UserRole.SysAdmin.ToString()))
+            {
+                <div class="row my-1">
+
+                    <div class=" mx-auto" style="width:500px"> <a href="@Url.Action("CreateLevel", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
+
+                </div>
+
+            }
+        }
         <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
             <thead>
-                <tr class="text-center">
-                    <th>ID уровня</th>
+                <tr class="text-center">                   
                     <th>Наименование уровня</th>
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -32,8 +44,6 @@
             {
                 <tbody>
                     <tr class="text-md-start">
-
-                        <td>@data.IdLevel</td>
                         <td>@data.TitleLevel</td>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -45,13 +55,7 @@
                                 </td>
 
                             }
-                            else if (User.IsInRole(UserRole.Admin.ToString()))
-                            {
-                                <td>
-                                    <a href="@Url.Action("LevelEdit", "Home", new { id = @data.IdLevel })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdLevel">Редактировать</a>
 
-                                </td>
-                            }
                         }
 
                     </tr>
@@ -61,27 +65,27 @@
         </table>
     </div>
 
-    @if (User.Identity.IsAuthenticated)
-    {
-        if (User.IsInRole(UserRole.SysAdmin.ToString()))
-        {
-            <div class="row m-2">
-
-                <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateLevel", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
-
-            </div>
-
-        }
-    }
 
     <div class="row my-3">
         <h5 class="text-center">СТАТУСЫ ДОСТУПА</h5>
     </div>
     <div class="row my-3">
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole(UserRole.SysAdmin.ToString()))
+            {
+                <div class="row my-2">
+
+                    <div class=" mx-auto" style="width:500px"> <a href="@Url.Action("CreateStatus", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
+
+                </div>
+
+            }
+        }
         <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
             <thead>
-                <tr class="text-center">
-                    <th>ID статус</th>
+                <tr class="text-center">                   
                     <th>Наименование статус</th>
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -101,8 +105,6 @@
             {
                 <tbody>
                     <tr class="text-md-start">
-
-                        <td>@data.IdStatus</td>
                         <td>@data.TitleStatus</td>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -114,13 +116,6 @@
                                 </td>
 
                             }
-                            else if (User.IsInRole(UserRole.Admin.ToString()))
-                            {
-                                <td>
-                                    <a href="@Url.Action("StatusEdit", "Home", new { id = @data.IdStatus })" class="text-success editClick1" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-id="@data.IdStatus">Редактировать</a>
-
-                                </td>
-                            }
                         }
 
                     </tr>
@@ -130,28 +125,25 @@
         </table>
     </div>
 
-    @if (User.Identity.IsAuthenticated)
-    {
-        if (User.IsInRole(UserRole.SysAdmin.ToString()))
-        {
-            <div class="row m-2">
-
-                <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateStatus", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
-
-            </div>
-
-        }
-    }
-
-
     <div class="row my-3">
         <h5 class="text-center">СТАТУСЫ АКТИВНОСТИ</h5>
     </div>
     <div class="row my-3">
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole(UserRole.SysAdmin.ToString()))
+            {
+                <div class="row my-2">
+
+                    <div class=" mx-auto" style="width:500px"> <a href="@Url.Action("CreateActiv", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
+
+                </div>
+            }
+        }
         <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
             <thead>
-                <tr class="text-center">
-                    <th>ID статус</th>
+                <tr class="text-center">                   
                     <th>Наименование статус</th>
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -171,8 +163,6 @@
             {
                 <tbody>
                     <tr class="text-md-start">
-
-                        <td>@data.IdActiv</td>
                         <td>@data.TitleActiv</td>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -184,13 +174,6 @@
                                 </td>
 
                             }
-                            else if (User.IsInRole(UserRole.Admin.ToString()))
-                            {
-                                <td>
-                                    <a href="@Url.Action("ActivEdit", "Home", new { id = @data.IdActiv })" class="text-success editClick2" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-id="@data.IdActiv">Редактировать</a>
-
-                                </td>
-                            }
                         }
 
                     </tr>
@@ -200,27 +183,27 @@
         </table>
     </div>
 
-    @if (User.Identity.IsAuthenticated)
-    {
-        if (User.IsInRole(UserRole.SysAdmin.ToString()))
-        {
-            <div class="row m-2">
-
-                <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateActiv", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
-
-            </div>
-
-        }
-    }
 
     <div class="row my-3">
         <h5 class="text-center">СТАТУСЫ ДЛИТЕЛЬНОСТИ</h5>
     </div>
     <div class="row my-3">
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole(UserRole.SysAdmin.ToString()))
+            {
+                <div class="row my-2">
+
+                    <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateLong", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
+
+                </div>
+
+            }
+        }
         <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
             <thead>
-                <tr class="text-center">
-                    <th>ID статус</th>
+                <tr class="text-center">                   
                     <th>Наименование статус</th>
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -240,8 +223,6 @@
             {
                 <tbody>
                     <tr class="text-md-start">
-
-                        <td>@data.IdLong</td>
                         <td>@data.TitleLong</td>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -253,13 +234,6 @@
                                 </td>
 
                             }
-                            else if (User.IsInRole(UserRole.Admin.ToString()))
-                            {
-                                <td>
-                                    <a href="@Url.Action("LongEdit", "Home", new { id = @data.IdLong })" class="text-success editClick3" data-bs-toggle="modal" data-bs-target="#exampleModal3" data-id="@data.IdLong">Редактировать</a>
-
-                                </td>
-                            }
                         }
 
                     </tr>
@@ -268,20 +242,6 @@
 
         </table>
     </div>
-
-    @if (User.Identity.IsAuthenticated)
-    {
-        if (User.IsInRole(UserRole.SysAdmin.ToString()))
-        {
-            <div class="row m-2">
-
-                <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateLong", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
-
-            </div>
-
-        }
-    }
-
 
     @*модальное окно редактирования уровня доступа*@
     <script>

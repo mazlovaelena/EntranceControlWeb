@@ -22,13 +22,13 @@
                             <div class="row mb-3">
                                 <label for="DateEntr" class="col-sm-4 col-form-label">Дата входа</label>
                                 <div class="col-sm-8">
-                                    @Html.TextBox("Search1", "", new { @class = "form-control", @placeholder = "Поиск", @type = "datetime" })
+                                    @Html.TextBox("Search1", " ", new { @class = "form-control", type = "date" })
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="DateExit" class="col-sm-4 col-form-label">Дата выхода</label>
                                 <div class="col-sm-8">
-                                    @Html.TextBox("Search2", "", new { @class = "form-control", @placeholder = "Поиск", @type = "datetime" })
+                                    @Html.TextBox("Search2", " ", new { @class = "form-control", type = "date" })
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -74,7 +74,6 @@
         <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
             <thead>
                 <tr class="text-center">
-                    <th>@Html.ActionLink("ID Запись", "Entrance", new { sort = ViewBag.IdSort }) </th>
                     <th>@Html.ActionLink("Дата входа", "Entrance", new { sort = ViewBag.DateEntrSort }) </th>
                     <th>Дата выхода </th>
                     <th>@Html.ActionLink("Помещение", "Entrance", new { sort = ViewBag.RoomSort }) </th>
@@ -88,17 +87,157 @@
             {
                 <tbody>
                     <tr class="text-md-start">
-
-                        <td>@data.IdRecord</td>
                         <td>@data.DateEntr</td>
                         <td>@data.DateExit</td>
                         <td>@data.IdRooms.TitleRoom</td>
-                        <td>@data.IdPass</td>
+                        <td>
+                            @if (@data.IdPasses.IdLong == 2)
+                            {
+                                <a href="@Url.Action("ViewStaff", "Home", new { id = @data.IdPass })" class="text-primary editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdPass">@data.IdPass</a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("ViewVisit", "Home", new { id = @data.IdPass })" class="text-primary editClick1" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-id="@data.IdPass">@data.IdPass</a>
+                            }
+                        </td>
                         <td>@data.IdDoors.TitleDoor</td>
                         <td>@data.IdStatuses.TitleStatus</td>
                     </tr>
                 </tbody>
             }
-        </table>       
+        </table>
+        <div class="row my-1">
+            <h6 class="text-center text-danger"><strong> @ViewBag.Message</strong></h6>
+        </div>
+    </div>
+    <script>
+        $('.editClick').on('click', function () {
+            // ...
+            console.log('edit clicked');
+            const passId = $(this).data('id');
+            // обращение на сервер
+            $.get('/Home/ViewStaff/' + passId, function (result) {
+                // результат содержит данные о госте
+                $('#exampleModal #inputIdPass').val(result.idPass);
+                $('#exampleModal #inputSurname').val(result.surname);
+                $('#exampleModal #inputName').val(result.name);
+                $('#exampleModal #inputLastName').val(result.lastName);
+                $('#exampleModal #imgstaff').val(result.image);
+
+            });
+        });
+
+    </script>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Карточка сотрудника</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                @*<input type="image" height="200" width="200" src="@Model.Image" class="img-fluid" id="imgstaff" name="Image" readonly/>*@
+                                <img src="@Model.Image" class="img-fluid" id="imgstaff" name="Image"/>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row mb-2">
+                                    <label for="inputTitle" class="col-4 col-form-label">Фамилия:</label>
+                                    <div class="col-8">
+                                        <input type="text" asp-for="@Model.Surname" class="border-0" id="inputSurname" value="@Model?.Surname" name="Surname" readonly>
+
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <label for="inputTitle" class="col-4 col-form-label">Имя:</label>
+                                    <div class="col-8">
+                                        <input type="text" asp-for="@Model.Name" class="border-0" id="inputName" value="@Model?.Name" name="Name" readonly>
+
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <label for="inputTitle" class="col-4 col-form-label">Отчество:</label>
+                                    <div class="col-8">
+                                        <input type="text" asp-for="@Model.LastName" class="border-0" id="inputLastName" value="@Model?.LastName" name="LastName" readonly>
+
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <label for="inputTitle" class="col-4 col-form-label">№ пропуска</label>
+                                    <div class="col-8">
+                                        <input type="text" asp-for="@Model.IdPass" class="border-0" id="inputIdPass" value="@Model?.IdPass" name="IdPass" readonly>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('.editClick1').on('click', function () {
+            // ...
+            console.log('edit clicked');
+            const visId = $(this).data('id');
+            // обращение на сервер
+            $.get('/Home/ViewVisit/' + visId, function (result) {
+                // результат содержит данные о госте
+                $('#exampleModal1 #inputIdPassVis').val(result.idPassVis);
+                $('#exampleModal1 #inputSurnameVis').val(result.surnameVis);
+                $('#exampleModal1 #inputNameVis').val(result.nameVis);
+                $('#exampleModal1 #inputLastNameVis').val(result.lastNameVis);
+            });
+        });
+
+    </script>
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">Карточка гостя</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <div class="row mb-2">
+                            <label for="inputTitle" class="col-sm-6 col-form-label">Фамилия:</label>
+                            <div class="col-sm-6">
+                                <input type="text" asp-for="@Model.SurnameVis" class="border-0" id="inputSurnameVis" value="@Model?.SurnameVis" name="SurnameVis" readonly>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="inputTitle" class="col-sm-6 col-form-label">Имя:</label>
+                            <div class="col-sm-6">
+                                <input type="text" asp-for="@Model.NameVis" class="border-0" id="inputNameVis" value="@Model?.NameVis" name="NameVis" readonly>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="inputTitle" class="col-sm-6 col-form-label">Отчество:</label>
+                            <div class="col-sm-6">
+                                <input type="text" asp-for="@Model.LastNameVis" class="border-0" id="inputLastNameVis" value="@Model?.LastNameVis" name="LastNameVis" readonly>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="inputTitle" class="col-sm-6 col-form-label">№ пропуска</label>
+                            <div class="col-sm-6">
+                                <input type="text" asp-for="@Model.IdPassVis" class="border-0" id="inputIdPassVis" value="@Model?.IdPassVis" name="IdPassVis" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

@@ -11,6 +11,6 @@ namespace EntranceControlWeb.Data
         public DateTime DateAuth { get; set; }
         public int IdUser { get; set; }
 
-        public virtual User IdUsers{ get; set; }
+        public virtual User IdUsers { get; set; }
     }
 }

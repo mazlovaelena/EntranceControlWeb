@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
     <link rel="icon" href="/img/icon.ico" sizes="64x64" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
     <script src="~/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="~/css/site.css" />
@@ -14,7 +15,8 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/chart.js"></script>
     <script src="~/js/chart.esm.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <link href="/css/select2.min.css" rel="stylesheet" />
+    <script src="/js/select2.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
@@ -30,7 +32,7 @@
                 {
                     <a class="nav-link text-primary">Аккаунт: @User.Identity.Name </a>
                 }
-                <a class="nav-link text-danger" asp-area="" asp-controller="Login" asp-action="LogOut">Выйти</a>
+                <a class="nav-link text-danger" asp-area="" asp-controller="Login" asp-action="LogOut">Выход</a>
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Навигация в системе</h5>
@@ -44,6 +46,18 @@
                                 {
                                     <li class="nav-item">
                                         <a class="nav-link active" asp-controller="Home" asp-action="Entrance">Доступ</a>
+                                    </li>
+                                }
+                                else if (User.IsInRole(UserRole.HRmanager.ToString()))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="Entrance">Доступ</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="Staff">Сотрудники</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Home" asp-action="SortByOff">Распределение по отделам</a>
                                     </li>
                                 }
                                 else
@@ -74,6 +88,7 @@
                                     </li>
 
                                 }
+
                             }
                         </ul>
                         <hr />
@@ -82,9 +97,6 @@
                             {
                                 if (User.IsInRole(UserRole.User.ToString()))
                                 {
-                                    <li class="nav-item">
-                                        <a class="nav-link active" asp-controller="Cabinet" asp-action="UserCab">Личный кабинет</a>
-                                    </li>
                                     <li class="nav-item">
                                         <a class="nav-link active" href="~/RukUser.pdf" target="_blank">Руководство пользователя</a>
                                     </li>
@@ -111,6 +123,15 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link active" href="/RukSAdmin.pdf" target="_blank">Руководство системного администратора</a>
+                                    </li>
+                                }
+                                else if (User.IsInRole(UserRole.HRmanager.ToString()))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link active" asp-controller="Cabinet" asp-action="WorkTime">Отчет о рабочем времени</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="--" target="_blank">Руководство </a>
                                     </li>
                                 }
                             }

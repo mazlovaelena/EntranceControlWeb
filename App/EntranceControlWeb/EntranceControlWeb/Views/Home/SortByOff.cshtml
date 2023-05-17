@@ -39,7 +39,7 @@
                                 <label for="idRoom" class="col-sm-4 col-form-label">Сотрудник</label>
                                 <div class="col-sm-8">
 
-                                    @Html.DropDownListFor(x => x.IdStaff, Model.StaffSelect, "", new { @class = "form-control", data_val = false })
+                                    @Html.DropDownListFor(x => x.IdStaff, Model.StaffSelect, "", new { @class = "js-example-basic-single form-control", data_val = false })
 
                                 </div>
                             </div>
@@ -47,14 +47,14 @@
                                 <label for="idPass" class="col-sm-4 col-form-label">Должность</label>
                                 <div class="col-sm-8">
 
-                                    @Html.DropDownListFor(x => x.IdPost, Model.PostSelect, "", new { @class = "form-control", data_val = false })
+                                    @Html.DropDownListFor(x => x.IdPost, Model.PostSelect, "", new { @class = "js-example-basic-single form-control", data_val = false })
 
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="idDoor" class="col-sm-4 col-form-label">Отдел</label>
                                 <div class="col-sm-8">
-                                    @Html.DropDownListFor(x => x.IdOffice, Model.OfficeSelect, "", new { @class = "form-control", data_val = false })
+                                    @Html.DropDownListFor(x => x.IdOffice, Model.OfficeSelect, "", new { @class = "js-example-basic-single form-control", data_val = false })
                                 </div>
                             </div>
                             <div class="row mb-2">
@@ -72,16 +72,34 @@
             </div>
         </div>
     </div>
+    <script>
+            $(document).ready(function () {
+                $('#idStaff').select2();
+                $('#idPost').select2();
+                $('#idOffice').select2();
+            });
+    </script>
     <div class="row my-3">
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole(UserRole.SysAdmin.ToString()))
+            {
+                <div class="row mb-2">
+
+                    <div class=" mx-auto" style="width:800px"> <a href="@Url.Action("CreateSort", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
+
+                </div>
+            }
+        }
         <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
             <thead>
                 <tr class="text-center">
-                    <th>@Html.ActionLink("ID запись", "SortByOff", new { order = ViewBag.IdSort })</th>
-                    <th>Время начала смены</th>
-                    <th>Время завершения смены</th>
                     <th>@Html.ActionLink("Сотрудник", "SortByOff", new { order = ViewBag.SortStaff })</th>
                     <th>@Html.ActionLink("Должность", "SortByOff", new { order = ViewBag.SortPost })</th>
                     <th>@Html.ActionLink("Отдел", "SortByOff", new { order = ViewBag.SortOffice })</th>
+                    <th>Время начала смены</th>
+                    <th>Время завершения смены</th>
                     <th>Рабочий телефон</th>
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -101,12 +119,11 @@
             {
                 <tbody>
                     <tr class="text-md-start">
-                        <td>@data.IdItem</td>
-                        <td>@data.TimeBegin</td>
-                        <td>@data.TimeEnd</td>
                         <td>@data.IdStaffs.Surname @data.IdStaffs.Name @data.IdStaffs.LastName</td>
                         <td>@data.IdPosts.TitlePost</td>
                         <td>@data.IdOffices.TitleOffice</td>
+                        <td>@data.TimeBegin</td>
+                        <td>@data.TimeEnd</td>
                         <td>@data.WorkPhone</td>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -130,20 +147,9 @@
                 </tbody>
             }
         </table>
-
-        @if (User.Identity.IsAuthenticated)
-        {
-            if (User.IsInRole(UserRole.SysAdmin.ToString()))
-            {
-
-                <div class="row m-2">
-
-                    <div class=" mx-auto" style="width:200px"> <a href="@Url.Action("CreateSort", "Home")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
-
-                </div>
-
-            }
-        }
+        <div class="row my-1">
+            <h6 class="text-center text-danger"><strong> @ViewBag.Message</strong></h6>
+        </div>
 
     </div>
 </div>

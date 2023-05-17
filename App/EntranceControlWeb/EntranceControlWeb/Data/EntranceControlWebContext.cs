@@ -192,7 +192,7 @@ namespace EntranceControlWeb.Data
 
                 entity.Property(e => e.TitleOffice)
                     .IsRequired()
-                    .HasMaxLength(20);
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<Pass>(entity =>
@@ -215,7 +215,6 @@ namespace EntranceControlWeb.Data
                 entity.HasOne(d => d.IdLevels)
                     .WithMany(p => p.Passes)
                     .HasForeignKey(d => d.IdLevel)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Passes_AccessLevel");
 
                 entity.HasOne(d => d.IdLongs)
@@ -233,7 +232,7 @@ namespace EntranceControlWeb.Data
 
                 entity.Property(e => e.TitlePost)
                     .IsRequired()
-                    .HasMaxLength(20);
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<Room>(entity =>
@@ -247,7 +246,7 @@ namespace EntranceControlWeb.Data
 
                 entity.Property(e => e.TitleRoom)
                     .IsRequired()
-                    .HasMaxLength(20);
+                    .HasMaxLength(50);
 
                 entity.HasOne(d => d.IdLevels)
                     .WithMany(p => p.Rooms)
@@ -266,6 +265,10 @@ namespace EntranceControlWeb.Data
                 entity.Property(e => e.IdPost).HasColumnName("ID_Post");
 
                 entity.Property(e => e.IdStaff).HasColumnName("ID_Staff");
+
+                entity.Property(e => e.TimeBegin).HasColumnType("time(0)");
+
+                entity.Property(e => e.TimeEnd).HasColumnType("time(0)");
 
                 entity.Property(e => e.WorkPhone)
                     .IsRequired()
@@ -292,17 +295,23 @@ namespace EntranceControlWeb.Data
                 entity.HasKey(e => e.IdUser)
                     .HasName("PK__Users__ED4DE44294F49FE9");
 
-                entity.Property(e => e.IdUser)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID_User");
+                entity.Property(e => e.IdUser).HasColumnName("ID_User");
 
                 entity.Property(e => e.Email)
                     .IsRequired()
                     .HasMaxLength(50);
 
+                entity.Property(e => e.IdStaff).HasColumnName("ID_Staff");
+
                 entity.Property(e => e.Password)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.HasOne(d => d.IdStaffs)
+                    .WithMany(p => p.Users)
+                    .HasForeignKey(d => d.IdStaff)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Users_Staff");
             });
 
             modelBuilder.Entity<Visitor>(entity =>
@@ -348,13 +357,15 @@ namespace EntranceControlWeb.Data
 
                 entity.Property(e => e.CorpEmail)
                     .IsRequired()
-                    .HasMaxLength(20);
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.IdPass).HasColumnName("ID_Pass");
 
                 entity.Property(e => e.Image)
                     .IsRequired()
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.LastName)
                     .IsRequired()
@@ -362,15 +373,18 @@ namespace EntranceControlWeb.Data
 
                 entity.Property(e => e.MobPhone)
                     .IsRequired()
-                    .HasMaxLength(15);
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(20);
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Surname)
                     .IsRequired()
-                    .HasMaxLength(20);
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.IdPasses)
                     .WithMany(p => p.staff)

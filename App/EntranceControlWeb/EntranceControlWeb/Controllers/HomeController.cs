@@ -27,8 +27,8 @@ namespace EntranceControlWeb.Controllers
         {
             door.RoomSelect = new SelectList(_context.Rooms, "IdRoom", "TitleRoom");
            
-            ViewBag.RoomSort = sort == "Room" ? "Room dsc" : "Room";
-            ViewBag.DoorSort = String.IsNullOrEmpty(sort) ? "Door dsc" : "Door";
+            ViewBag.RoomSort = String.IsNullOrEmpty(sort) ? "Room dsc" : "Room";
+            ViewBag.DoorSort = String.IsNullOrEmpty(sort) ? "Door dsc" : " ";
 
             var find = from s in _context.Doors select s;
 
@@ -39,31 +39,35 @@ namespace EntranceControlWeb.Controllers
             }
             if(IdRoom != 0 && IdRoom != null)
             {
-                find = find.Where(s => s.IdRoom.ToString().ToUpper().Contains(IdRoom.ToString().ToUpper()));
+                find = find.Where(s => s.IdRoom == IdRoom);
             }
 
             switch (sort)
             {
                 case "Room":
-                    find = find.OrderBy(s => s.IdRoom);
+                    find = find.OrderBy(s => s.IdRooms.TitleRoom);
                     break;
 
                 case "Room dsc":
-                    find = find.OrderByDescending(s => s.IdRoom);
+                    find = find.OrderByDescending(s => s.IdRooms.TitleRoom);
                     break;
 
-                case "Door":
+                default:
                     find = find.OrderBy(s => s.TitleDoor);
                     break;
 
                 case "Door dsc":
                     find = find.OrderByDescending(s => s.TitleDoor);
                     break;
-            }
-            
+            }         
             
             door.Doors = find.ToList();
             door.Rooms = _context.Rooms.ToList();
+
+            if(door.Doors == null)
+            {
+                ViewBag.Message = "Результатов не найдено";
+            }
 
             return View(door);
         }
@@ -151,15 +155,21 @@ namespace EntranceControlWeb.Controllers
             switch (sort)
             {
                 case "Off":
-                    find = find.OrderBy(s => s.IdOffice);
+                    find = find.OrderBy(s => s.TitleOffice);
                     break;
 
                 case "Off dsc":
-                    find = find.OrderByDescending(s => s.IdOffice);
+                    find = find.OrderByDescending(s => s.TitleOffice);
                     break;
             }
 
             off.Offices = find.ToList();
+
+            if(off.Offices == null)
+            {
+                ViewBag.Message = "Результатов не найдено";
+            }
+
             return View(off);
         }
         //Удаление записи
@@ -235,15 +245,21 @@ namespace EntranceControlWeb.Controllers
             switch (sort)
             {
                 default:
-                    find = find.OrderBy(s => s.IdPost);
+                    find = find.OrderBy(s => s.TitlePost);
                     break;
 
                 case "Post dsc":
-                    find = find.OrderByDescending(s => s.IdPost);
+                    find = find.OrderByDescending(s => s.TitlePost);
                     break;
             }
 
             pos.Positions = find.ToList();
+
+            if(pos.Positions == null)
+            {
+                ViewBag.Message = "Результатов не найдено";
+            }
+
             return View(pos);
         }
         //Удаление записи
@@ -321,17 +337,17 @@ namespace EntranceControlWeb.Controllers
 
             if (IdLevel != 0 && IdLevel != null)
             {
-                find = find.Where(s => s.IdLevel.ToString().ToUpper().Contains(IdLevel.ToString().ToUpper()));
+                find = find.Where(s => s.IdLevel == IdLevel);
             }
 
             switch (sort)
             {
                 case "Room":
-                    find = find.OrderBy(s => s.IdRoom);
+                    find = find.OrderBy(s => s.TitleRoom);
                     break;
 
                 case "Room dsc":
-                    find = find.OrderByDescending(s => s.IdRoom);
+                    find = find.OrderByDescending(s => s.TitleRoom);
                     break;
 
                 case "Level":
@@ -345,6 +361,12 @@ namespace EntranceControlWeb.Controllers
 
             room.Rooms = find.ToList();
             room.Levels = _context.AccessLevels.ToList();
+
+            if(room.Rooms == null)
+            {
+                ViewBag.Message = "Результатов не найдено";
+            }
+
             return View(room);
         }
 
@@ -432,8 +454,7 @@ namespace EntranceControlWeb.Controllers
 
             ViewBag.SortStaff = order == "Staff" ? "Staff dsc" : "Staff";
             ViewBag.SortPost = order == "Post" ? "Post dsc" : "Post";
-            ViewBag.SortOffice = order == "Office" ? "Office dsc" : "Office";
-            ViewBag.IdSort = order == "Id" ? "Id desc" : "Id";
+            ViewBag.SortOffice = order == "Office" ? "Office dsc" : "Office";         
 
             var find = from s in _context.SortingByOffices select s;
 
@@ -449,58 +470,57 @@ namespace EntranceControlWeb.Controllers
 
             if (IdStaff != 0 && IdStaff != null)
             {
-                find = find.Where(s => s.IdStaff.ToString().ToUpper().Contains(IdStaff.ToString().ToUpper()));
+                find = find.Where(s => s.IdStaff == IdStaff);
             }
 
             if(IdPost != 0 && IdPost != null)
             {
-                find = find.Where(s => s.IdPost.ToString().ToUpper().Contains(IdPost.ToString().ToUpper()));
+                find = find.Where(s => s.IdPost == IdPost);
             }
 
             if (IdOffice != 0 && IdOffice != null)
             {
-                find = find.Where(s => s.IdOffice.ToString().ToUpper().Contains(IdOffice.ToString().ToUpper()));
+                find = find.Where(s => s.IdOffice == IdOffice);
             }
 
             switch (order)
             {
                 case "Staff":
-                    find = find.OrderBy(s => s.IdStaff);
+                    find = find.OrderBy(s => s.IdStaffs.Surname);
                     break;
 
                 case "Staff dsc":
-                    find = find.OrderByDescending(s => s.IdStaff);
+                    find = find.OrderByDescending(s => s.IdStaffs.Surname);
                     break;
 
                 case "Post":
-                    find = find.OrderBy(s => s.IdPost);
+                    find = find.OrderBy(s => s.IdPosts.TitlePost);
                     break;
 
                 case "Post dsc":
-                    find = find.OrderByDescending(s => s.IdPost);
+                    find = find.OrderByDescending(s => s.IdPosts.TitlePost);
                     break;
 
                 case "Office":
-                    find = find.OrderBy(s => s.IdOffice);
+                    find = find.OrderBy(s => s.IdOffices.TitleOffice);
                     break;
 
                 case "Office dsc":
-                    find = find.OrderByDescending(s => s.IdOffice);
+                    find = find.OrderByDescending(s => s.IdOffices.TitleOffice);
                     break;
-
-                case "Id":
-                    find = find.OrderBy(s => s.IdItem);
-                    break;
-
-                case "Id desc":
-                    find = find.OrderByDescending(s => s.IdItem);
-                    break;
+               
             }
 
             sort.Sortings = find.ToList();
             sort.Staffs = _context.staff.ToList();
             sort.Positions = _context.Positions.ToList();
             sort.Offices = _context.Offices.ToList();
+
+            if(sort.Sortings == null)
+            {
+                ViewBag.Message = "Результатов не найдено";
+            }
+
             return View(sort);
         }
 
@@ -625,7 +645,12 @@ namespace EntranceControlWeb.Controllers
             staff.Lastings = _context.LastingStatuses.ToList();
             staff.Activities = _context.ActivityStatuses.ToList();
             staff.Levels = _context.AccessLevels.ToList();
-            staff.Staffs = find.ToList();            
+            staff.Staffs = find.ToList(); 
+            
+            if(staff.Staffs == null)
+            {
+                ViewBag.Message = "Результатов не найдено";
+            }
 
             return View(staff);
         }
@@ -753,7 +778,7 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ДОСТУП"
         //Отображение данных
-        public IActionResult Entrance(EntranceViewModel entr, string sort, string Search1, string Search2, int? IdDoor, int? IdPass, int? IdRoom, int? IdStatus)
+        public IActionResult Entrance(EntranceViewModel entr, string sort, DateTime? Search1, DateTime? Search2, int? IdDoor, int? IdPass, int? IdRoom, int? IdStatus)
         {
             entr.DoorSelect = new SelectList(_context.Doors, "IdDoor", "TitleDoor");
             entr.PassSelect = new SelectList(_context.Passes, "IdPass", "IdPass");
@@ -762,35 +787,34 @@ namespace EntranceControlWeb.Controllers
 
             ViewBag.DateEntrSort = sort == "DateEntr" ? "DateEntr dsc" : "DateEntr";
             ViewBag.DoorSort = sort == "Door" ? "Door desc" : "Door";
-            ViewBag.RoomSort = sort == "Room" ? "Room desc" : "Room";
-            ViewBag.IdSort = sort == "Id" ? "Id desc" : "Id";
+            ViewBag.RoomSort = sort == "Room" ? "Room desc" : "Room";            
 
             var find = from s in _context.Entrances select s;
 
-            if (!String.IsNullOrEmpty(Search1))
+            if (Search1 != null)
             {
-                find = find.Where(s => s.DateEntr > DateTime.Parse(Search1));
+                find = find.Where(s => s.DateEntr > Search1);
             }
-            if (!String.IsNullOrEmpty(Search2))
+            if (Search2 != null)
             {
-                find = find.Where(s => s.DateExit < DateTime.Parse(Search2));
+                find = find.Where(s => s.DateExit < Search2);
             }       
 
             if (IdRoom != 0 && IdRoom != null)
             {
-                find = find.Where(s => s.IdRoom.ToString().ToUpper().Contains(IdRoom.ToString().ToUpper()));
+                find = find.Where(s => s.IdRoom == IdRoom);
             }
             if (IdPass != 0 && IdPass != null)
             {
-                find = find.Where(s => s.IdPass.ToString().ToUpper().Contains(IdPass.ToString().ToUpper()));
+                find = find.Where(s => s.IdPass == IdPass);
             }
             if (IdDoor != 0 && IdDoor != null)
             {
-                find = find.Where(s => s.IdDoor.ToString().ToUpper().Contains(IdDoor.ToString().ToUpper()));
+                find = find.Where(s => s.IdDoor == IdDoor);
             }
             if (IdStatus != 0 && IdStatus != null)
             {
-                find = find.Where(s => s.IdStatus.ToString().ToUpper().Contains(IdStatus.ToString().ToUpper()));
+                find = find.Where(s => s.IdStatus == IdStatus);
             }
 
             switch (sort)
@@ -818,28 +842,56 @@ namespace EntranceControlWeb.Controllers
                 case "Room desc":
                     find = find.OrderByDescending(s => s.IdRoom);
                     break;
-
-                case "Id":
-                    find = find.OrderBy(s => s.IdRecord);                    
-                    break;
-
-                case "Id desc":
-                    find = find.OrderByDescending(s => s.IdRecord);
-                    break;
-
             }
 
             entr.Entrances = find.ToList();
-            entr.Passes = _context.Passes.ToList();
+            entr.Passes = _context.Passes.ToList();               
             entr.Rooms = _context.Rooms.ToList();
             entr.Doors = _context.Doors.ToList();
             entr.Statuses = _context.AccessStatuses.ToList();
+
+            if (entr.Entrances == null)
+            {
+                ViewBag.Message = "Результатов не найдено";
+            }
+
             return View(entr);
         }  
         
         public IActionResult ClearEntr()
         {
             return RedirectToAction(nameof(Entrance));
+        }
+
+        public IActionResult ViewStaff(int id)
+        {
+            var view = new EntranceViewModel();
+            var db = _context.staff.FirstOrDefault(x => x.IdPass == id);           
+            if(db != null)
+            {
+                view.IdPass = db.IdPass;
+                view.Surname = db.Surname;
+                view.Name = db.Name;
+                view.LastName = db.LastName;
+                view.Image = db.Image;
+            }
+            
+            return Json(view);
+                
+        }
+        public IActionResult ViewVisit (int id)
+        {
+            var view = new EntranceViewModel();          
+            var vis = _context.Visitors.FirstOrDefault(x => x.IdPass == id);            
+            if (vis != null)
+            {
+                view.IdPassVis = vis.IdPass;
+                view.SurnameVis = vis.Surname;
+                view.NameVis = vis.Name;
+                view.LastNameVis = vis.LastName;
+            }
+            return Json(view);
+
         }
         #endregion
 
@@ -878,6 +930,11 @@ namespace EntranceControlWeb.Controllers
             vis.Lastings = _context.LastingStatuses.ToList();
             vis.Activities = _context.ActivityStatuses.ToList();
             vis.Levels = _context.AccessLevels.ToList();
+
+            if(vis.Visitors == null)
+            {
+                ViewBag.Message = "Результатов не найдено";
+            }
             return View(vis);
         }
 
@@ -989,17 +1046,17 @@ namespace EntranceControlWeb.Controllers
 
             if (IdActiv != 0 && IdActiv != null)
             {
-                find = find.Where(s => s.IdActiv.ToString().ToUpper().Contains(IdActiv.ToString().ToUpper()));
+                find = find.Where(s => s.IdActiv == IdActiv);
             }
 
             if (IdLong != 0 && IdLong != null)
             {
-                find = find.Where(s => s.IdLong.ToString().ToUpper().Contains(IdLong.ToString().ToUpper()));
+                find = find.Where(s => s.IdLong == IdLong);
             }
 
             if (IdLevel != 0 && IdLevel != null)
             {
-                find = find.Where(s => s.IdLevel.ToString().ToUpper().Contains(IdLevel.ToString().ToUpper()));
+                find = find.Where(s => s.IdLevel == IdLevel);
             }
 
             pass.ActivSelect = new SelectList(_context.ActivityStatuses, "IdActiv", "TitleActiv");
@@ -1010,6 +1067,11 @@ namespace EntranceControlWeb.Controllers
             pass.Lastings = _context.LastingStatuses.ToList();
             pass.Activities = _context.ActivityStatuses.ToList();
             pass.Levels = _context.AccessLevels.ToList();
+
+            if(pass.Passes == null)
+            {
+                ViewBag.Message = "Результатов не найдено";
+            }
 
             return View(pass);
         }
