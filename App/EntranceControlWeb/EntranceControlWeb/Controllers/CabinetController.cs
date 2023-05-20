@@ -11,6 +11,8 @@ using System.Data;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace EntranceControlWeb.Controllers
 {
@@ -925,10 +927,14 @@ namespace EntranceControlWeb.Controllers
                 return View(user);
             }
 
+            var sha512 = new SHA512Managed();
+            var hash = sha512.ComputeHash(Encoding.UTF8.GetBytes(user.PasswordRetry));
+            var hashpass = Convert.ToBase64String(hash);
+
             var newuser = new User
             {
                 Email = user.Email,
-                Password = user.PasswordRetry,
+                Password = hashpass,
                 UserRole = user.UserRole,
                 IdStaff = user.IdStaff,
                 Hidden = false

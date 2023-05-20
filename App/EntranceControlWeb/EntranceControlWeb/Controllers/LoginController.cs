@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace EntranceControlWeb.Controllers
 {
@@ -34,31 +36,46 @@ namespace EntranceControlWeb.Controllers
                 ViewBag.Message = "Пользователь не зарегистрирован в системе";
                 return View(model);
             }
+          
+            var password = HashSHA512(model.Password);
+            var match = password == user.Password;
 
-            var pass = _context.Users.FirstOrDefault(x => x.Password == model.Password);
-            if (pass==null)
+            if(match)
             {
-                ViewBag.Message = "Неверный пароль";
-                return View(model);
+                model.Users = _context.Users.ToList();
+
+                await Authenticate(user);
+
+                if (_context.Users.Any(x => x.IdUser == user.IdUser))
+                {
+                    var DateTimeAuth = new Authorize { DateAuth = DateTime.Now, IdUser = user.IdUser };
+
+                    _context.Authorizes.Add(DateTimeAuth);
+                    _context.SaveChanges();
+                }
+                return RedirectToAction("Entrance", "Home");
             }
 
-            model.Users = _context.Users.ToList();
-
-            await Authenticate(user);
-
-            if (_context.Users.Any(x => x.IdUser == user.IdUser))
-            {
-                var DateTimeAuth = new Authorize { DateAuth = DateTime.Now, IdUser = user.IdUser };
-
-                _context.Authorizes.Add(DateTimeAuth);
-                _context.SaveChanges();
-            }
-            return RedirectToAction("Entrance", "Home");
+            ViewBag.Message = "Неверный пароль";
+            return View(model);
 
         }
         public IActionResult HomePage()
         {
             return View();
+        }
+
+        // Функция хеширования пароля SHA512
+        private string HashSHA512(string str)
+        {
+            using (var sha512 = SHA512.Create())
+            {
+                var bytes = Encoding.UTF8.GetBytes(str);
+                var hashBytes = sha512.ComputeHash(bytes);
+                var hashString = Convert.ToBase64String(hashBytes);
+
+                return hashString;
+            }
         }
 
         public async Task<IActionResult> LogOut()
