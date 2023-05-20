@@ -245,21 +245,6 @@ namespace EntranceControlWeb.Controllers
                 });
             }
 
-            var plantime = new List<PlanTime>();
-
-            foreach (var data in _context.SortingByOffices
-                .AsEnumerable()
-                .GroupBy(x => x.IdStaff)
-                .OrderBy(x => x.Key))
-            {
-                plantime.Add(new PlanTime()
-                {
-                    IDStaff = data.Key,
-                    TimeP = data.Select(x => x.TimeEnd.Subtract(x.TimeBegin).Multiply(20)).ToList(),
-
-                });
-            }
-
             var worktime = new List<ResultTime>();
 
             foreach(var time in resultList
@@ -270,12 +255,55 @@ namespace EntranceControlWeb.Controllers
                 worktime.Add(new ResultTime()
                 {
                     ID = time.Key,
-                    TimeW = time.Select(x => x.Time.ToArray().Aggregate((y, z) => y + z)).ToList(),
+                    TimeW = time.Select(x => Math.Round(x.Time.ToArray().Aggregate((y, z) => y + z).TotalHours, 0)).ToList(),
                     
                 });
             }
 
-            var final = worktime.Zip(plantime).ToList();
+            var plantime = new List<PlanTime>();
+
+            foreach (var data in _context.SortingByOffices
+                .AsEnumerable()
+                .GroupBy(x => x.IdStaff)
+                .OrderBy(x => x.Key))
+            {
+                plantime.Add(new PlanTime()
+                {
+                    IDStaff = data.Key,
+                    TimeP = data
+                    .Select(x => x.TimeEnd.Subtract(x.TimeBegin)
+                    .Multiply(20).TotalHours)
+                    .ToList(),
+                });
+            }
+
+            var percentTime = new List<PercentTime>();
+
+            foreach (var data in resultList
+                .AsEnumerable()
+                .GroupBy(x => x.ID)
+                .OrderBy(x => x.Key))
+            {
+                percentTime.Add(new PercentTime()
+                {
+                    IDStaff = data.Key,
+                    TimePercent = data
+                    .Select(x => Math.Round(x.Time.ToArray()
+                    .Aggregate((y, z) => y + z).TotalHours * 100 / 
+                    plantime.FirstOrDefault(x => x.IDStaff == data.Key).TimeP.FirstOrDefault(), 2))
+                    .ToList(),
+
+                });
+            }
+
+            var staff = _context.staff.ToList();
+
+            var final = new List<(ResultTime, PlanTime, PercentTime, staff)>();
+
+            for (int i = 0; i < percentTime.Count; i++)
+            {
+                final.Add((worktime[i], plantime[i], percentTime[i], staff[i]));
+            }
 
             var mod = new WorkTimeViewModel
             {
@@ -289,22 +317,29 @@ namespace EntranceControlWeb.Controllers
                 using (ExcelPackage Ep = new ExcelPackage(fs))
                 {
                     var Sheet1 = Ep.Workbook.Worksheets.Add("Лист 1");
-                    Sheet1.Cells["A1"].Value = "ID_Сотрудник";
-                    Sheet1.Cells["B1"].Value = "Фактическое время работы, часы";
-                    Sheet1.Cells["C1"].Value = "Производственный план, часы";
+                    Sheet1.Cells["A1"].Value = "Табельный номер";
+                    Sheet1.Cells["B1"].Value = "Фамилия";
+                    Sheet1.Cells["C1"].Value = "Фактическое время работы, часы";
+                    Sheet1.Cells["D1"].Value = "Производственный план, часы";
+                    Sheet1.Cells["E1"].Value = "Процент выполнения плана, %";
 
                     var row1 = 2;
                     foreach (var work in final)
                     {
                         Sheet1.Cells[string.Format("A{0}", row1)].Value = work.Item1.ID;
-                        foreach(var h in work.First.TimeW)
+                        Sheet1.Cells[string.Format("B{0}", row1)].Value = work.Item4.Surname;
+                        foreach(var h in work.Item1.TimeW)
                         {
-                            Sheet1.Cells[string.Format("B{0}", row1)].Value = h.TotalHours;
+                            Sheet1.Cells[string.Format("C{0}", row1)].Value = h;
                         }
-                        foreach(var g in work.Second.TimeP)
+                        foreach(var g in work.Item2.TimeP)
                         {
-                            Sheet1.Cells[string.Format("C{0}", row1)].Value = g.TotalHours;
-                        }                        
+                            Sheet1.Cells[string.Format("D{0}", row1)].Value = g;
+                        }
+                        foreach (var g in work.Item3.TimePercent)
+                        {
+                            Sheet1.Cells[string.Format("E{0}", row1)].Value = g;
+                        }
                         row1++;
                     }
                     Sheet1.Cells["A:AZ"].AutoFitColumns();

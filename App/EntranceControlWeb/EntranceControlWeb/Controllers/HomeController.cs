@@ -6,6 +6,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EntranceControlWeb.Controllers
 {
@@ -23,6 +24,7 @@ namespace EntranceControlWeb.Controllers
         #region  ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ТУРНИКЕТЫ"
 
         //Отображение страницы
+        [Authorize]
         public IActionResult Doors(DoorViewModel door, string sort, string Search, int? IdRoom, bool Hide)
         {
             door.RoomSelect = new SelectList(_context.Rooms, "IdRoom", "TitleRoom");
@@ -114,6 +116,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Редактирование записи
         [HttpPost]
+        [Authorize]
         public IActionResult DoorEdit(DoorViewModel door)
         {
             var edit = _context.Doors.FirstOrDefault(x => x.IdDoor == door.IdDoor);
@@ -126,6 +129,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Doors));
         }
+        [Authorize]
         public IActionResult DoorEdit(int id)
         {
             var viewmodel = new DoorViewModel();           
@@ -142,6 +146,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Создание записи
         [HttpPost]
+        [Authorize]
         public IActionResult CreateDoor(DoorViewModel door)
         {
             var create = new Door { TitleDoor = door.TitleDoor, IdRoom = door.IdRoom, Hidden = false };
@@ -151,6 +156,7 @@ namespace EntranceControlWeb.Controllers
             return RedirectToAction(nameof(Doors));
 
         }
+        [Authorize]
         public IActionResult CreateDoor()
         {
             var door = new DoorViewModel();
@@ -164,6 +170,7 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ОТДЕЛЫ"
         //Отображение страницы
+        [Authorize]
         public IActionResult Offices(OfficeViewModel off, string sort, string Search, bool Hide)
         {
             ViewBag.OffSort = String.IsNullOrEmpty(sort) ? "Off dsc" : "Off";
@@ -233,6 +240,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Редактирование записи
         [HttpPost]
+        [Authorize]
         public IActionResult OfficeEdit(OfficeViewModel off)
         {
             var edit = _context.Offices.FirstOrDefault(x => x.IdOffice == off.IdOffice);
@@ -244,6 +252,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Offices));
         }
+        [Authorize]
         public IActionResult OfficeEdit(int id)
         {
             var viewmodel = new OfficeViewModel();
@@ -260,6 +269,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Создание записи
         [HttpPost]
+        [Authorize]
         public IActionResult CreateOffice(OfficeViewModel off)
         {
             var create = new Office { TitleOffice = off.TitleOffice, Hidden = false };
@@ -268,6 +278,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Offices));
         }
+        [Authorize]
         public IActionResult CreateOffice()
         {
             return View();
@@ -276,6 +287,7 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ДОЛЖНОСТИ"
         //Отображение страницы
+        [Authorize]
         public IActionResult Positions(PositionViewModel pos, string sort, string Search, bool Hide)
         {
             ViewBag.PostSort = String.IsNullOrEmpty(sort) ? "Post dsc" : "";
@@ -326,6 +338,7 @@ namespace EntranceControlWeb.Controllers
             return RedirectToAction(nameof(Positions));
 
         }
+        //Восстановление записи
         public IActionResult PosShow(int id)
         {
             var data = _context.Positions.FirstOrDefault(x => x.IdPost == id);
@@ -341,6 +354,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Редактирование записи
         [HttpPost]
+        [Authorize]
         public IActionResult PosEdit(PositionViewModel pos)
         {
             var edit = _context.Positions.FirstOrDefault(x => x.IdPost == pos.IdPost);
@@ -367,6 +381,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Создание записи
         [HttpPost]
+        [Authorize]
         public IActionResult CreatePost(Position pos, int id)
         {
             var create = new Position { TitlePost = pos.TitlePost, Hidden = false };
@@ -375,6 +390,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Positions));
         }
+        [Authorize]
         public IActionResult CreatePost()
         {
             return View();
@@ -384,6 +400,7 @@ namespace EntranceControlWeb.Controllers
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ПОМЕЩЕНИЯ"
 
         //Отображение данных
+        [Authorize]
         public IActionResult Rooms(RoomViewModel room, string sort, string Search, int? IdLevel, bool Hide)
         {
             room.LevelSelect = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
@@ -476,6 +493,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Редактирование записи
         [HttpPost]
+        [Authorize]
         public IActionResult RoomEdit(RoomViewModel room)
         {
             var edit = _context.Rooms.FirstOrDefault(x => x.IdRoom == room.IdRoom);
@@ -488,6 +506,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Rooms));
         }
+        [Authorize]
         public IActionResult RoomEdit(int id)
         {
             var viewmodel = new RoomViewModel();
@@ -504,6 +523,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Создание записи
         [HttpPost]
+        [Authorize]
         public IActionResult CreateRoom(RoomViewModel room)
         {
             var create = new Room { TitleRoom = room.TitleRoom, IdLevel = room.IdLevel, Hidden = false };
@@ -513,6 +533,7 @@ namespace EntranceControlWeb.Controllers
             return RedirectToAction(nameof(Rooms));
 
         }
+        [Authorize]
         public IActionResult CreateRoom()
         {
             var room = new RoomViewModel();
@@ -527,6 +548,7 @@ namespace EntranceControlWeb.Controllers
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "РАСПРЕДЕЛЕНИЕ ПО ОТДЕЛАМ"
 
         //Отображение страницы
+        [Authorize]
         public IActionResult SortByOff(SortingByOfficeViewModel sort, string order, string Search1, string Search2, int? IdStaff, int? IdPost, int? IdOffice, bool Hide)
         {
             sort.StaffSelect = new SelectList(_context.staff, "IdStaff", "Surname");
@@ -652,6 +674,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Редактирование записи
         [HttpPost]
+        [Authorize]
         public IActionResult SortEdit(SortingByOfficeViewModel sort)
         {
             var edit = _context.SortingByOffices.FirstOrDefault(x => x.IdItem == sort.IdItem);
@@ -668,6 +691,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(SortByOff));
         }
+        [Authorize]
         public IActionResult SortEdit(SortingByOfficeViewModel sort, int id)
         {
             sort.StaffSelect = new SelectList(_context.staff, "IdStaff", "Surname");
@@ -696,6 +720,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Создание записи
         [HttpPost]
+        [Authorize]
         public IActionResult CreateSort(SortingByOfficeViewModel sort)
         {
             var create = new SortingByOffice
@@ -713,6 +738,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(SortByOff));
         }
+        [Authorize]
         public IActionResult CreateSort()
         {
             var sort = new SortingByOfficeViewModel();
@@ -731,6 +757,7 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "СОТРУДНИКИ"
         //Отображение данных
+        [Authorize]
         public IActionResult Staff(StaffViewModel staff, string Search, bool Hide)
         {
             var find = from s in _context.staff select s;
@@ -773,6 +800,7 @@ namespace EntranceControlWeb.Controllers
 
         //Редактирование данных
         [HttpPost]
+        [Authorize]
         public IActionResult StaffEdit(StaffViewModel staff)
         {
             var edit = _context.staff.FirstOrDefault(x => x.IdStaff == staff.IdStaff);
@@ -794,6 +822,7 @@ namespace EntranceControlWeb.Controllers
 
             return RedirectToAction(nameof(Staff));
         }
+        [Authorize]
         public IActionResult StaffEdit(StaffViewModel staff, int id)
         {
             staff.Staffs = _context.staff.ToList();
@@ -820,6 +849,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Редактирование записи
         [HttpPost]
+        [Authorize]
         public IActionResult PassEditStaff(PassesViewModel pass)
         {
             var edit = _context.Passes.FirstOrDefault(x => x.IdPass == pass.IdPass);
@@ -833,6 +863,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Staff));
         }
+        [Authorize]
         public IActionResult PassEditStaff(int id)
         {
             var pass = new PassesViewModel();
@@ -879,6 +910,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Создание записи
         [HttpPost]
+        [Authorize]
         public IActionResult CreateStaff(StaffViewModel staff)
         {
             var create = new staff
@@ -899,6 +931,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Staff));
         }
+        [Authorize]
         public IActionResult CreateStaff()
         {
             var staff = new StaffViewModel();
@@ -911,6 +944,7 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ДОСТУП"
         //Отображение данных
+        [Authorize]
         public IActionResult Entrance(EntranceViewModel entr, string sort, DateTime? Search1, DateTime? Search2, int? IdDoor, int? IdPass, int? IdRoom, int? IdStatus)
         {
             entr.DoorSelect = new SelectList(_context.Doors, "IdDoor", "TitleDoor");
@@ -989,13 +1023,13 @@ namespace EntranceControlWeb.Controllers
             }
 
             return View(entr);
-        }  
-        
+        }
+        [Authorize]
         public IActionResult ClearEntr()
         {
             return RedirectToAction(nameof(Entrance));
         }
-
+        [Authorize]
         public IActionResult ViewStaff(int id)
         {
             var view = new EntranceViewModel();
@@ -1012,6 +1046,7 @@ namespace EntranceControlWeb.Controllers
             return Json(view);
                 
         }
+        [Authorize]
         public IActionResult ViewVisit (int id)
         {
             var view = new EntranceViewModel();          
@@ -1031,6 +1066,7 @@ namespace EntranceControlWeb.Controllers
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ПОСЕТИТЕЛИ"
 
         //Отображение страницы
+        [Authorize]
         public IActionResult Visitors(VisitorViewModel vis, string sort, string Search, bool Hide)
         {
             vis.ActivSelect = new SelectList(_context.ActivityStatuses, "IdActiv", "TitleActiv");
@@ -1084,6 +1120,7 @@ namespace EntranceControlWeb.Controllers
 
         //Редактирование записи
         [HttpPost]
+        [Authorize]
         public IActionResult VisEdit(VisitorViewModel vis)
         {
             var edit = _context.Visitors.FirstOrDefault(x => x.Idvisitor == vis.Idvisitor);
@@ -1143,6 +1180,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Создание записи
         [HttpPost]
+        [Authorize]
         public IActionResult CreateVisit(VisitorViewModel vis)
         {
             var create = new Visitor { Surname = vis.Surname, Name = vis.Name, LastName = vis.LastName, MobilePhone = vis.MobilePhone, IdPass = vis.IdPass, Hidden = false };
@@ -1162,6 +1200,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Редактирование записи пропуска
         [HttpPost]
+        [Authorize]
         public IActionResult PassEditVis(PassesViewModel pass)
         {
             var edit = _context.Passes.FirstOrDefault(x => x.IdPass == pass.IdPass);
@@ -1174,6 +1213,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Visitors));
         }
+        [Authorize]
         public IActionResult PassEditVis(int id)
         {
             var pass = new PassesViewModel();
@@ -1193,6 +1233,7 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ПРОПУСКА"
         //Отображение страницы
+        [Authorize]
         public IActionResult Passes(PassesViewModel pass, string Search, int? IdActiv, int? IdLong, int? IdLevel, bool Hide)
         {
             var find = from s in _context.Passes select s;
@@ -1251,6 +1292,7 @@ namespace EntranceControlWeb.Controllers
 
         //Создание записи
         [HttpPost]
+        [Authorize]
         public IActionResult CreatePass(PassesViewModel pass)
         {
             var create = new Pass { IdPass = pass.IdPass, IdLong = pass.IdLong, IdActiv = pass.IdActiv, IdLevel = pass.IdLevel, Hidden = false };
@@ -1260,6 +1302,7 @@ namespace EntranceControlWeb.Controllers
             return RedirectToAction(nameof(Passes));
 
         }
+        [Authorize]
         public IActionResult CreatePass()
         {
             var pass = new PassesViewModel();
@@ -1277,6 +1320,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Редактирование записи
         [HttpPost]
+        [Authorize]
         public IActionResult PassEdit(PassesViewModel pass)
         {
             var edit = _context.Passes.FirstOrDefault(x => x.IdPass == pass.IdPass);
@@ -1290,6 +1334,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Passes));
         }
+        [Authorize]
         public IActionResult PassEdit(int id)
         {
             var pass = new PassesViewModel();
@@ -1333,7 +1378,7 @@ namespace EntranceControlWeb.Controllers
         #endregion
 
         #region ДЕЙСТВИЯ СО СПРАВОЧНЫМИ ТАБЛИЦАМИ
-
+        [Authorize]
         public IActionResult Dictionary(DictionaryViewModel dict)
         {
             dict.Levels = _context.AccessLevels.ToList();
@@ -1352,7 +1397,6 @@ namespace EntranceControlWeb.Controllers
             if (lev != null)
             {
                 data.Hidden = true;
-
             }
 
             _context.SaveChanges();
@@ -1361,6 +1405,7 @@ namespace EntranceControlWeb.Controllers
 
         //Редактирование записи таблицы "Уровни доступа"
         [HttpPost]
+        [Authorize]
         public IActionResult LevelEdit(DictionaryViewModel acclev)
         {
             var edit = _context.AccessLevels.FirstOrDefault(x => x.IdLevel == acclev.IdLevel);
@@ -1372,6 +1417,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Dictionary));
         }
+        [Authorize]
         public IActionResult LevelEdit(int id)
         {
             var viewmodel = new DictionaryViewModel();
@@ -1387,6 +1433,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Создание записи таблицы "Уровни доступа"
         [HttpPost]
+        [Authorize]
         public IActionResult CreateLevel(DictionaryViewModel lev)
         {
             var create = new AccessLevel { TitleLevel = lev.TitleLevel, Hidden = false };
@@ -1395,6 +1442,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Dictionary));
         }
+        [Authorize]
         public IActionResult CreateLevel()
         {
             return View();
@@ -1417,6 +1465,7 @@ namespace EntranceControlWeb.Controllers
 
         //Редактирование записи таблицы "Статус доступа"
         [HttpPost]
+        [Authorize]
         public IActionResult StatusEdit(DictionaryViewModel accstat)
         {
             var edit = _context.AccessStatuses.FirstOrDefault(x => x.IdStatus == accstat.IdStatus);
@@ -1428,6 +1477,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Dictionary));
         }
+        [Authorize]
         public IActionResult StatusEdit(int id)
         {
             var viewmodel = new DictionaryViewModel();
@@ -1443,6 +1493,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Создание записи таблицы "Статус доступа"
         [HttpPost]
+        [Authorize]
         public IActionResult CreateStatus(DictionaryViewModel stat)
         {
             var create = new AccessStatus { TitleStatus = stat.TitleStatus, Hidden = false };
@@ -1451,6 +1502,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Dictionary));
         }
+        [Authorize]
         public IActionResult CreateStatus()
         {
             return View();
@@ -1473,6 +1525,7 @@ namespace EntranceControlWeb.Controllers
 
         //Редактирование записи таблицы "Статус Активности"
         [HttpPost]
+        [Authorize]
         public IActionResult ActivEdit(DictionaryViewModel act)
         {
             var edit = _context.ActivityStatuses.FirstOrDefault(x => x.IdActiv == act.IdActiv);
@@ -1484,6 +1537,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Dictionary));
         }
+        [Authorize]
         public IActionResult ActivEdit(int id)
         {
             var viewmodel = new DictionaryViewModel();
@@ -1499,6 +1553,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Создание записи таблицы "Статус Активности"
         [HttpPost]
+        [Authorize]
         public IActionResult CreateActiv(DictionaryViewModel act)
         {
             var create = new ActivityStatus { TitleActiv = act.TitleActiv, Hidden = false };
@@ -1507,6 +1562,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Dictionary));
         }
+        [Authorize]
         public IActionResult CreateActiv()
         {
             return View();
@@ -1521,7 +1577,6 @@ namespace EntranceControlWeb.Controllers
             if (lon != null)
             {
                 data.Hidden = false;
-
             }
 
             _context.SaveChanges();
@@ -1530,6 +1585,7 @@ namespace EntranceControlWeb.Controllers
 
         //Редактирование записи таблицы "Статус длительности"
         [HttpPost]
+        [Authorize]
         public IActionResult LongEdit(DictionaryViewModel last)
         {
             var edit = _context.LastingStatuses.FirstOrDefault(x => x.IdLong == last.IdLong);
@@ -1541,6 +1597,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Dictionary));
         }
+        [Authorize]
         public IActionResult LongEdit(int id)
         {
             var viewmodel = new DictionaryViewModel();
@@ -1556,6 +1613,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Создание записи таблицы "Статус длительности"
         [HttpPost]
+        [Authorize]
         public IActionResult CreateLong(DictionaryViewModel last)
         {
             var create = new LastingStatus { TitleLong = last.TitleLong, Hidden = false };
@@ -1564,6 +1622,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Dictionary));
         }
+        [Authorize]
         public IActionResult CreateLong()
         {
             return View();

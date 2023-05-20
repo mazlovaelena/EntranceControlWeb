@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Text;
 
+
 namespace EntranceControlWeb.Controllers
 {
     public class LoginController : Controller
@@ -22,7 +23,7 @@ namespace EntranceControlWeb.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]        
         public async Task<IActionResult> HomePage(UserViewModel model)
         {
             if (!ModelState.IsValid)

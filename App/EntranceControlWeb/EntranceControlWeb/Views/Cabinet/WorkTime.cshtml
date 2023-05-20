@@ -3,7 +3,6 @@
     ViewData["Title"] = "WorkTime";
 
 }
-
 <div class="container">
     <div class="row my-3">
         <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
@@ -15,9 +14,11 @@
                 <table class="table-dark table-bordered  mx-auto" style="width:1200px; color:black;">
                     <thead>
                         <tr class="text-center">
-                            <th>ID Сотрудник</th>
+                            <th>Табельный номер</th>
+                            <th>ФИО</th>
                             <th>Фактическое время работы, часы</th>
                             <th>Производственный план, часы</th>
+                            <th>Доля выполнения плана, %</th>
 
                         </tr>
                     </thead>
@@ -29,15 +30,19 @@
                             <tr class="text-md-start">
 
                                 <td>@t.Item1.ID</td>
+                                <td>@t.Item4.Surname @t.Item4.Name @t.Item4.LastName</td>
                                 @foreach (var time in t.Item1.TimeW)
                                 {
-                                    <td>@time.TotalHours</td>
+                                    <td>@time</td>
                                 }
                                 @foreach (var res in t.Item2.TimeP)
                                 {
-                                    <td>@res.TotalHours</td>
+                                    <td>@res</td>
                                 }
-
+                                @foreach (var res in t.Item3.TimePercent)
+                                {
+                                    <td>@res</td>
+                                }
                             </tr>
                         </tbody>
                     }
@@ -45,9 +50,9 @@
                 </table>
             </div>
             
-            <div class="col-4">
+            <div class="row mx-auto">
                 @Html.CheckBox("report", false, new { @hidden = true})
-                <button class="btn btn-outline-dark" onclick="changeCheckbox()">Cохранить файл отчета</button>               
+                <button class="btn btn-outline-dark" onclick="changeCheckbox()" style="width:500px">Cохранить файл отчета</button>               
             </div>
         </div>
         <script>
