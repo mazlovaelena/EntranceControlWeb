@@ -31,12 +31,15 @@
                                 <label class="col-sm-4 col-form-label">Помещение</label>
                                 <div class="col-sm-8">
 
-                                    @Html.DropDownListFor(x=>x.IdRoom, Model.RoomSelect, "", new { @class = "form-control", data_val = false })
-                                  
-                                </div>                               
-                            </div>
+                                    @Html.DropDownListFor(x => x.IdRoom, Model.RoomSelect, "", new { @class = "form-control", data_val = false })
+
+                                </div>
+                            </div>                         
                             <div class="row mb-2">
-                                <label for="button" class="col-sm-8 col-form-label"></label>
+                                <label for="button" class="col-sm-4 col-form-label"></label>
+                                <div class="col-sm-4">
+                                    @Html.CheckBox("Hide", false)<span> Показать скрытые записи</span>
+                                </div>
                                 <div class="col-sm-2">
                                     <button type="submit" formaction="Doors" class="btn btn-outline-primary">Фильтровать</button>
                                 </div>
@@ -86,21 +89,39 @@
                     <tr class="text-md-start">
                         <td>@data.TitleDoor</td>
                         <td>@data.IdRooms.TitleRoom</td>
+                        @if (data.Hidden == false)
+                        {
 
-                        @if (User.Identity.IsAuthenticated)
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                                {
+                                    <td>
+                                        <a href="@Url.Action("DoorEdit", "Home", new { id = @data.IdDoor })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdDoor">Редактировать</a>
+                                        <a href="@Url.Action("DelDoor", "Home", new { id = @data.IdDoor })" class="text-danger" data-id="@data.IdDoor">Удалить</a>
+                                    </td>
+                                }
+                                else if (User.IsInRole(UserRole.Admin.ToString()))
+                                {
+                                    <td>
+                                        <a href="@Url.Action("DoorEdit", "Home", new { id = @data.IdDoor })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdDoor">Редактировать</a>
+
+                                    </td>
+                                }
+                            }
+                        }
+                        @if (data.Hidden == true)
                         {
                             if (User.IsInRole(UserRole.SysAdmin.ToString()))
                             {
                                 <td>
-                                    <a href="@Url.Action("DoorEdit", "Home", new { id = @data.IdDoor })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdDoor">Редактировать</a>
-                                    <a href="@Url.Action("DelDoor", "Home", new { id = @data.IdDoor })" class="text-danger" data-id="@data.IdDoor">Удалить</a>
+                                    Запись скрыта. <a href="@Url.Action("DoorShow", "Home", new { id = @data.IdDoor })" class="text-dark" data-id="@data.IdDoor">Восстановить</a>
                                 </td>
                             }
-                            else if (User.IsInRole(UserRole.Admin.ToString()))
+                            else
                             {
                                 <td>
-                                    <a href="@Url.Action("DoorEdit", "Home", new { id = @data.IdDoor })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdDoor">Редактировать</a>
-
+                                    Запись скрыта
                                 </td>
                             }
                         }

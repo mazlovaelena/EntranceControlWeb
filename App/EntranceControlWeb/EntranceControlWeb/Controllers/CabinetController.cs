@@ -95,6 +95,7 @@ namespace EntranceControlWeb.Controllers
 
                 auth.Authorizes = _context.Authorizes.ToList();
                 auth.Users = _context.Users.ToList();
+                auth.Staffs = _context.staff.ToList();
 
                 if (User.IsInRole(UserRole.Admin.ToString()))
                 {
@@ -930,6 +931,7 @@ namespace EntranceControlWeb.Controllers
                 Password = user.PasswordRetry,
                 UserRole = user.UserRole,
                 IdStaff = user.IdStaff,
+                Hidden = false
 
             };
 

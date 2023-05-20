@@ -35,7 +35,7 @@
                 <div class="row mb-3">
                     <label for="inputDate" class="col-sm-4 col-form-label">Дата рождения</label>
                     <div class="col-sm-8">
-                        <input type="datetime" asp-for="@Model.Birthday" value="@Model?.Birthday" class="form-control" id="inputDate">
+                        <input type="date" asp-for="@Model.Birthday" value="@Model?.Birthday" class="form-control" id="inputDate">
                         <span for="inputTitle" class="text-danger" asp-validation-for="@Model.Birthday"></span>
                     </div>
                 </div>

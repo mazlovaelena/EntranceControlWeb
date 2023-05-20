@@ -14,6 +14,7 @@ namespace EntranceControlWeb.Data
 
         public int IdPost { get; set; }
         public string TitlePost { get; set; }
+        public bool Hidden { get; set; }
 
         public virtual ICollection<SortingByOffice> SortingByOffices { get; set; }
     }

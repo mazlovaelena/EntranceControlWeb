@@ -13,6 +13,7 @@ namespace EntranceControlWeb.Data
         public string LastName { get; set; }
         public string MobilePhone { get; set; }
         public int IdPass { get; set; }
+        public bool Hidden { get; set; }
 
         public virtual Pass IdPasses { get; set; }
     }

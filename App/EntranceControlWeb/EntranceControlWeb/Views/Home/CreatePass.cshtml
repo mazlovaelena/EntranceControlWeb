@@ -16,7 +16,7 @@
                     <label for="idvisitor" class="col-sm-4 col-form-label">Выберите длительность пропуска</label>
                     <div class="col-sm-8">
 
-                        @Html.DropDownListFor(x => x.IdLong, ViewBag.Lasting as SelectList, new { @class = "form-control" })
+                        @Html.DropDownListFor(x => x.IdLong, Model.LongSelect, new { @class = "form-control" })
 
                         <span for="idvisitor" class="text-danger" asp-validation-for="@Model.IdLong"></span>
                         <span for="idvisitor" class="text-danger" asp-validation-for="@Model.TitleLong"></span>
@@ -26,7 +26,7 @@
                     <label for="idvisitor" class="col-sm-4 col-form-label">Выберите статус активности</label>
                     <div class="col-sm-8">
 
-                        @Html.DropDownListFor(x => x.IdActiv, ViewBag.Activ as SelectList, new { @class = "form-control" })
+                        @Html.DropDownListFor(x => x.IdActiv, Model.ActivSelect, new { @class = "form-control" })
 
                         <span for="idvisitor" class="text-danger" asp-validation-for="@Model.IdLong"></span>
                         <span for="idvisitor" class="text-danger" asp-validation-for="@Model.TitleLong"></span>
@@ -36,7 +36,7 @@
                     <label for="idvisitor" class="col-sm-4 col-form-label">Выберите уровень доступа</label>
                     <div class="col-sm-8">
 
-                        @Html.DropDownListFor(x => x.IdLevel, ViewBag.Level as SelectList, new { @class = "form-control" })
+                        @Html.DropDownListFor(x => x.IdLevel, Model.LevelSelect, new { @class = "form-control" })
 
                         <span for="idvisitor" class="text-danger" asp-validation-for="@Model.IdLevel"></span>
                         <span for="idvisitor" class="text-danger" asp-validation-for="@Model.TitleLevel"></span>

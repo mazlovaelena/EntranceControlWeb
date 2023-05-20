@@ -18,6 +18,7 @@ namespace EntranceControlWeb.Data
         public string Password { get; set; }
         public UserRole UserRole { get; set; }
         public int IdStaff { get; set; }
+        public bool Hidden { get; set; }
 
         public virtual staff IdStaffs { get; set; }
         public virtual ICollection<Authorize> Authorizes { get; set; }

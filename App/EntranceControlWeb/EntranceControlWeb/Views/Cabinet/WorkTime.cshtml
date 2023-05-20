@@ -44,9 +44,7 @@
 
                 </table>
             </div>
-            <div class="col-4">
-                <a class="btn btn-outline-dark" href="@Url.Action("Chart", "Cabinet")">Просмотр диаграммы посещаемости</a>
-            </div>
+            
             <div class="col-4">
                 @Html.CheckBox("report", false, new { @hidden = true})
                 <button class="btn btn-outline-dark" onclick="changeCheckbox()">Cохранить файл отчета</button>               

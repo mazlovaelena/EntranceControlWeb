@@ -23,7 +23,7 @@ namespace EntranceControlWeb.Controllers
         #region  ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ТУРНИКЕТЫ"
 
         //Отображение страницы
-        public IActionResult Doors(DoorViewModel door, string sort, string Search, int? IdRoom)
+        public IActionResult Doors(DoorViewModel door, string sort, string Search, int? IdRoom, bool Hide)
         {
             door.RoomSelect = new SelectList(_context.Rooms, "IdRoom", "TitleRoom");
            
@@ -61,8 +61,17 @@ namespace EntranceControlWeb.Controllers
                     break;
             }         
             
-            door.Doors = find.ToList();
+            if(Hide == true)
+            {
+                door.Doors = find.ToList();
+                door.Rooms = _context.Rooms.ToList();
+
+                return View(door);
+            }
+
+            door.Doors = find.Where(x=>x.Hidden == false).ToList();
             door.Rooms = _context.Rooms.ToList();
+
 
             if(door.Doors == null)
             {
@@ -78,13 +87,25 @@ namespace EntranceControlWeb.Controllers
         //Удаление записи
         public IActionResult DelDoor(int id)
         {
-            var data = _context.Doors.FirstOrDefault(x => x.IdDoor == id);
-            var entr = _context.Entrances.FirstOrDefault(x => x.IdDoor == id);
-
-            if (entr != null)
+            var door = new DoorViewModel();
+            var hide = _context.Doors.FirstOrDefault(x => x.IdDoor == id);
+            if(door != null)
             {
-                _context.Entrances.Remove(entr);
-                _context.Doors.Remove(data);
+                hide.Hidden = true;
+            }            
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Doors));
+
+        }
+        //Восстановление записи
+        public IActionResult DoorShow(int id)
+        {
+            var door = new DoorViewModel();
+            var hide = _context.Doors.FirstOrDefault(x => x.IdDoor == id);
+            if (door != null)
+            {
+                hide.Hidden = false;
             }
 
             _context.SaveChanges();
@@ -100,6 +121,7 @@ namespace EntranceControlWeb.Controllers
             edit.IdDoor = door.IdDoor;
             edit.TitleDoor = door.TitleDoor;
             edit.IdRoom = door.IdRoom;
+            edit.Hidden = false;
 
             _context.SaveChanges();
             return RedirectToAction(nameof(Doors));
@@ -122,7 +144,7 @@ namespace EntranceControlWeb.Controllers
         [HttpPost]
         public IActionResult CreateDoor(DoorViewModel door)
         {
-            var create = new Door { TitleDoor = door.TitleDoor, IdRoom = door.IdRoom };
+            var create = new Door { TitleDoor = door.TitleDoor, IdRoom = door.IdRoom, Hidden = false };
 
             _context.Doors.Add(create);
             _context.SaveChanges();
@@ -131,8 +153,8 @@ namespace EntranceControlWeb.Controllers
         }
         public IActionResult CreateDoor()
         {
-            var door = new DoorViewModel();          
-            ViewBag.Room = new SelectList(_context.Rooms, "IdRoom", "TitleRoom"); 
+            var door = new DoorViewModel();
+            door.RoomSelect = new SelectList(_context.Rooms, "IdRoom", "TitleRoom");
 
             door.Doors = _context.Doors.ToList();
             door.Rooms = _context.Rooms.ToList();
@@ -142,7 +164,7 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ОТДЕЛЫ"
         //Отображение страницы
-        public IActionResult Offices(OfficeViewModel off, string sort, string Search)
+        public IActionResult Offices(OfficeViewModel off, string sort, string Search, bool Hide)
         {
             ViewBag.OffSort = String.IsNullOrEmpty(sort) ? "Off dsc" : "Off";
             var find = from s in _context.Offices select s;
@@ -163,7 +185,14 @@ namespace EntranceControlWeb.Controllers
                     break;
             }
 
-            off.Offices = find.ToList();
+            if(Hide == true)
+            {
+                off.Offices = find.ToList();
+
+                return View(off);
+            }
+
+            off.Offices = find.Where(x=>x.Hidden == false).ToList();
 
             if(off.Offices == null)
             {
@@ -175,13 +204,27 @@ namespace EntranceControlWeb.Controllers
         //Удаление записи
         public IActionResult DelOffice(int id)
         {
+            var off = new OfficeViewModel();
             var data = _context.Offices.FirstOrDefault(x => x.IdOffice == id);
-            var office = _context.SortingByOffices.FirstOrDefault(x => x.IdOffice == id);
-
-            if (data != null)
+           
+            if (off != null)
             {
-                _context.SortingByOffices.Remove(office);
-                _context.Offices.Remove(data);
+                data.Hidden = true;
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Offices));
+
+        }
+        //Восстановление записи
+        public IActionResult OfficeShow(int id)
+        {
+            var off = new OfficeViewModel();
+            var data = _context.Offices.FirstOrDefault(x => x.IdOffice == id);
+
+            if (off != null)
+            {
+                data.Hidden = false;
             }
 
             _context.SaveChanges();
@@ -196,6 +239,7 @@ namespace EntranceControlWeb.Controllers
 
             edit.IdOffice = off.IdOffice;
             edit.TitleOffice = off.TitleOffice;
+            edit.Hidden = false;
 
             _context.SaveChanges();
             return RedirectToAction(nameof(Offices));
@@ -218,7 +262,7 @@ namespace EntranceControlWeb.Controllers
         [HttpPost]
         public IActionResult CreateOffice(OfficeViewModel off)
         {
-            var create = new Office { TitleOffice = off.TitleOffice };
+            var create = new Office { TitleOffice = off.TitleOffice, Hidden = false };
 
             _context.Offices.Add(create);
             _context.SaveChanges();
@@ -232,7 +276,7 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ДОЛЖНОСТИ"
         //Отображение страницы
-        public IActionResult Positions(PositionViewModel pos, string sort, string Search)
+        public IActionResult Positions(PositionViewModel pos, string sort, string Search, bool Hide)
         {
             ViewBag.PostSort = String.IsNullOrEmpty(sort) ? "Post dsc" : "";
             var find = from s in _context.Positions select s;
@@ -253,7 +297,13 @@ namespace EntranceControlWeb.Controllers
                     break;
             }
 
-            pos.Positions = find.ToList();
+            if(Hide == true)
+            {
+                pos.Positions = find.ToList();
+                return View(pos);
+            }
+
+            pos.Positions = find.Where(x=>x.Hidden == false).ToList();
 
             if(pos.Positions == null)
             {
@@ -266,12 +316,23 @@ namespace EntranceControlWeb.Controllers
         public IActionResult DelPos(int id)
         {
             var data = _context.Positions.FirstOrDefault(x => x.IdPost == id);
-            var office = _context.SortingByOffices.FirstOrDefault(x => x.IdPost == id);
-
-            if (data != null)
+            var pos = new PositionViewModel();
+            if (pos != null)
             {
-                _context.SortingByOffices.Remove(office);
-                _context.Positions.Remove(data);
+                data.Hidden = true;
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Positions));
+
+        }
+        public IActionResult PosShow(int id)
+        {
+            var data = _context.Positions.FirstOrDefault(x => x.IdPost == id);
+            var pos = new PositionViewModel();
+            if (pos != null)
+            {
+                data.Hidden = false;
             }
 
             _context.SaveChanges();
@@ -286,6 +347,7 @@ namespace EntranceControlWeb.Controllers
 
             edit.IdPost = pos.IdPost;
             edit.TitlePost = pos.TitlePost;
+            edit.Hidden = false;
 
             _context.SaveChanges();
             return RedirectToAction(nameof(Positions));
@@ -307,7 +369,7 @@ namespace EntranceControlWeb.Controllers
         [HttpPost]
         public IActionResult CreatePost(Position pos, int id)
         {
-            var create = new Position { TitlePost = pos.TitlePost };
+            var create = new Position { TitlePost = pos.TitlePost, Hidden = false };
 
             _context.Positions.Add(create);
             _context.SaveChanges();
@@ -322,7 +384,7 @@ namespace EntranceControlWeb.Controllers
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ПОМЕЩЕНИЯ"
 
         //Отображение данных
-        public IActionResult Rooms(RoomViewModel room, string sort, string Search, int? IdLevel)
+        public IActionResult Rooms(RoomViewModel room, string sort, string Search, int? IdLevel, bool Hide)
         {
             room.LevelSelect = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
 
@@ -359,7 +421,14 @@ namespace EntranceControlWeb.Controllers
                     break;
             }
 
-            room.Rooms = find.ToList();
+            if(Hide == true)
+            {
+                room.Rooms = find.ToList();
+                room.Levels = _context.AccessLevels.ToList();
+                return View(room);
+            }
+
+            room.Rooms = find.Where(x=>x.Hidden == false).ToList();
             room.Levels = _context.AccessLevels.ToList();
 
             if(room.Rooms == null)
@@ -379,14 +448,26 @@ namespace EntranceControlWeb.Controllers
         public IActionResult DelRoom(int id)
         {
             var data = _context.Rooms.FirstOrDefault(x => x.IdRoom == id);
-            var entr = _context.Entrances.FirstOrDefault(x => x.IdRoom == id);
-            var door = _context.Doors.FirstOrDefault(x => x.IdRoom == id);
+            var room = new RoomViewModel();
 
-            if (data != null)
+            if (room != null)
             {
-                _context.Entrances.Remove(entr);
-                _context.Doors.Remove(door);
-                _context.Rooms.Remove(data);
+                data.Hidden = true;
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Rooms));
+
+        }
+        //Восстановление записи
+        public IActionResult RoomShow(int id)
+        {
+            var data = _context.Rooms.FirstOrDefault(x => x.IdRoom == id);
+            var room = new RoomViewModel();
+
+            if (room != null)
+            {
+                data.Hidden = false;
             }
 
             _context.SaveChanges();
@@ -402,6 +483,7 @@ namespace EntranceControlWeb.Controllers
             edit.IdRoom = room.IdRoom;
             edit.TitleRoom = room.TitleRoom;
             edit.IdLevel = room.IdLevel;
+            edit.Hidden = false;
 
             _context.SaveChanges();
             return RedirectToAction(nameof(Rooms));
@@ -424,7 +506,7 @@ namespace EntranceControlWeb.Controllers
         [HttpPost]
         public IActionResult CreateRoom(RoomViewModel room)
         {
-            var create = new Room { TitleRoom = room.TitleRoom, IdLevel = room.IdLevel };
+            var create = new Room { TitleRoom = room.TitleRoom, IdLevel = room.IdLevel, Hidden = false };
 
             _context.Rooms.Add(create);
             _context.SaveChanges();
@@ -434,8 +516,7 @@ namespace EntranceControlWeb.Controllers
         public IActionResult CreateRoom()
         {
             var room = new RoomViewModel();
-            SelectList lev = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
-            ViewBag.Levels = lev;
+            room.LevelSelect = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
 
             room.Rooms = _context.Rooms.ToList();
             room.Levels = _context.AccessLevels.ToList();
@@ -446,7 +527,7 @@ namespace EntranceControlWeb.Controllers
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "РАСПРЕДЕЛЕНИЕ ПО ОТДЕЛАМ"
 
         //Отображение страницы
-        public IActionResult SortByOff(SortingByOfficeViewModel sort, string order, string Search1, string Search2, int? IdStaff, int? IdPost, int? IdOffice)
+        public IActionResult SortByOff(SortingByOfficeViewModel sort, string order, string Search1, string Search2, int? IdStaff, int? IdPost, int? IdOffice, bool Hide)
         {
             sort.StaffSelect = new SelectList(_context.staff, "IdStaff", "Surname");
             sort.PostSelect = new SelectList(_context.Positions, "IdPost", "TitlePost");
@@ -511,7 +592,17 @@ namespace EntranceControlWeb.Controllers
                
             }
 
-            sort.Sortings = find.ToList();
+            if(Hide == true)
+            {
+                sort.Sortings = find.ToList();
+                sort.Staffs = _context.staff.ToList();
+                sort.Positions = _context.Positions.ToList();
+                sort.Offices = _context.Offices.ToList();
+
+                return View(sort);
+            }
+
+            sort.Sortings = find.Where(x=>x.Hidden == false).ToList();
             sort.Staffs = _context.staff.ToList();
             sort.Positions = _context.Positions.ToList();
             sort.Offices = _context.Offices.ToList();
@@ -533,12 +624,29 @@ namespace EntranceControlWeb.Controllers
         public IActionResult DelSort(int id)
         {
             var data = _context.SortingByOffices.FirstOrDefault(x => x.IdItem == id);
-            if (data != null)
+            var sort = new SortingByOffice();
+
+            if (sort != null)
             {
-                _context.SortingByOffices.Remove(data);
-                _context.SaveChanges();
+                data.Hidden = true;
             }
 
+            _context.SaveChanges();
+            return RedirectToAction(nameof(SortByOff));
+
+        }
+        //Восстановление записи
+        public IActionResult SortShow(int id)
+        {
+            var data = _context.SortingByOffices.FirstOrDefault(x => x.IdItem == id);
+            var sort = new SortingByOffice();
+
+            if (sort != null)
+            {
+                data.Hidden = false;
+            }
+
+            _context.SaveChanges();
             return RedirectToAction(nameof(SortByOff));
 
         }
@@ -555,6 +663,7 @@ namespace EntranceControlWeb.Controllers
             edit.IdStaff = sort.IdStaff;
             edit.IdPost = sort.IdPost;
             edit.IdOffice = sort.IdOffice;
+            edit.Hidden = false;
 
             _context.SaveChanges();
             return RedirectToAction(nameof(SortByOff));
@@ -597,6 +706,7 @@ namespace EntranceControlWeb.Controllers
                 IdStaff = sort.IdStaff,
                 IdPost = sort.IdPost,
                 IdOffice = sort.IdOffice,
+                Hidden = false
             };
 
             _context.SortingByOffices.Add(create);
@@ -606,14 +716,9 @@ namespace EntranceControlWeb.Controllers
         public IActionResult CreateSort()
         {
             var sort = new SortingByOfficeViewModel();
-            SelectList staff = new SelectList(_context.staff, "IdStaff", "Surname");
-            ViewBag.Staff = staff;
-
-            SelectList pos = new SelectList(_context.Positions, "IdPost", "TitlePost");
-            ViewBag.Position = pos;
-
-            SelectList of = new SelectList(_context.Offices, "IdOffice", "TitleOffice");
-            ViewBag.Office = of;
+            sort.StaffSelect = new SelectList(_context.staff, "IdStaff", "Surname");
+            sort.PostSelect = new SelectList(_context.Positions, "IdPost", "TitlePost");
+            sort.OfficeSelect = new SelectList(_context.Offices, "IdOffice", "TitleOffice");
 
             sort.Sortings = _context.SortingByOffices.ToList();
             sort.Staffs = _context.staff.ToList();
@@ -626,7 +731,7 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "СОТРУДНИКИ"
         //Отображение данных
-        public IActionResult Staff(StaffViewModel staff, string Search)
+        public IActionResult Staff(StaffViewModel staff, string Search, bool Hide)
         {
             var find = from s in _context.staff select s;
 
@@ -641,11 +746,22 @@ namespace EntranceControlWeb.Controllers
             staff.LongSelect = new SelectList(_context.LastingStatuses, "IdLong", "TitleLong");
             staff.LevelSelect = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
 
+            if(Hide == true)
+            {
+                staff.Passes = _context.Passes.ToList();
+                staff.Lastings = _context.LastingStatuses.ToList();
+                staff.Activities = _context.ActivityStatuses.ToList();
+                staff.Levels = _context.AccessLevels.ToList();
+                staff.Staffs = find.ToList();
+
+                return View(staff);
+            }
+
             staff.Passes = _context.Passes.ToList();
             staff.Lastings = _context.LastingStatuses.ToList();
             staff.Activities = _context.ActivityStatuses.ToList();
             staff.Levels = _context.AccessLevels.ToList();
-            staff.Staffs = find.ToList(); 
+            staff.Staffs = find.Where(x=>x.Hidden == false).ToList(); 
             
             if(staff.Staffs == null)
             {
@@ -672,6 +788,7 @@ namespace EntranceControlWeb.Controllers
             edit.MobPhone = staff.MobPhone;
             edit.Image = staff.Image;            
             edit.IdPass = staff.IdPass;
+            edit.Hidden = false;
 
             _context.SaveChanges();
 
@@ -711,6 +828,7 @@ namespace EntranceControlWeb.Controllers
             edit.IdActiv = pass.IdActiv;
             edit.IdLong = pass.IdLong;
             edit.IdLevel = pass.IdLevel;
+            edit.Hidden = false;
 
             _context.SaveChanges();
             return RedirectToAction(nameof(Staff));
@@ -733,12 +851,26 @@ namespace EntranceControlWeb.Controllers
         public IActionResult DelStaff(int id)
         {
             var data = _context.staff.FirstOrDefault(x => x.IdStaff == id);
-            var sort = _context.SortingByOffices.FirstOrDefault(x => x.IdStaff == id);
+            var staff = new StaffViewModel();
 
-            if (data != null)
+            if (staff != null)
             {
-                _context.SortingByOffices.Remove(sort);
-                _context.staff.Remove(data);
+                data.Hidden = true;
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Staff));
+
+        }
+        //Восстановление записи
+        public IActionResult StaffShow(int id)
+        {
+            var data = _context.staff.FirstOrDefault(x => x.IdStaff == id);
+            var staff = new StaffViewModel();
+
+            if (staff != null)
+            {
+                data.Hidden = false;
             }
 
             _context.SaveChanges();
@@ -757,8 +889,9 @@ namespace EntranceControlWeb.Controllers
                 Birthday = staff.Birthday,
                 CorpEmail = staff.CorpEmail,
                 MobPhone = staff.MobPhone,
-                Image = staff.Image,                
+                Image = staff.Image,
                 IdPass = staff.IdPass,
+                Hidden = false
 
             };
 
@@ -786,8 +919,8 @@ namespace EntranceControlWeb.Controllers
             entr.StatSelect = new SelectList(_context.AccessStatuses, "IdStatus", "TitleStatus");
 
             ViewBag.DateEntrSort = sort == "DateEntr" ? "DateEntr dsc" : "DateEntr";
-            ViewBag.DoorSort = sort == "Door" ? "Door desc" : "Door";
-            ViewBag.RoomSort = sort == "Room" ? "Room desc" : "Room";            
+            ViewBag.DoorSort = String.IsNullOrEmpty(sort) ? "Door desc" : "Door";
+            ViewBag.RoomSort = String.IsNullOrEmpty(sort) ? "Room desc" : "Room";            
 
             var find = from s in _context.Entrances select s;
 
@@ -828,19 +961,19 @@ namespace EntranceControlWeb.Controllers
                     break;
 
                 case "Door desc":
-                    find = find.OrderByDescending(s => s.IdDoor);
+                    find = find.OrderByDescending(s => s.IdDoors.TitleDoor);
                     break;
 
                 case "Door":
-                    find = find.OrderBy(s => s.IdDoor);
+                    find = find.OrderBy(s => s.IdDoors.TitleDoor);
                     break;
 
                 case "Room":
-                    find = find.OrderBy(s => s.IdRoom);
+                    find = find.OrderBy(s => s.IdRooms.TitleRoom);
                     break;
 
                 case "Room desc":
-                    find = find.OrderByDescending(s => s.IdRoom);
+                    find = find.OrderByDescending(s => s.IdRooms.TitleRoom);
                     break;
             }
 
@@ -898,7 +1031,7 @@ namespace EntranceControlWeb.Controllers
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ПОСЕТИТЕЛИ"
 
         //Отображение страницы
-        public IActionResult Visitors(VisitorViewModel vis, string sort, string Search)
+        public IActionResult Visitors(VisitorViewModel vis, string sort, string Search, bool Hide)
         {
             vis.ActivSelect = new SelectList(_context.ActivityStatuses, "IdActiv", "TitleActiv");
             vis.LongSelect = new SelectList(_context.LastingStatuses, "IdLong", "TitleLong");
@@ -925,7 +1058,18 @@ namespace EntranceControlWeb.Controllers
                     break;
             }
 
-            vis.Visitors = find.ToList();
+            if(Hide == true)
+            {
+                vis.Visitors = find.ToList();
+                vis.Passes = _context.Passes.ToList();
+                vis.Lastings = _context.LastingStatuses.ToList();
+                vis.Activities = _context.ActivityStatuses.ToList();
+                vis.Levels = _context.AccessLevels.ToList();
+
+                return View(vis);
+            }
+
+            vis.Visitors = find.Where(x=>x.Hidden == false).ToList();
             vis.Passes = _context.Passes.ToList();
             vis.Lastings = _context.LastingStatuses.ToList();
             vis.Activities = _context.ActivityStatuses.ToList();
@@ -949,7 +1093,8 @@ namespace EntranceControlWeb.Controllers
             edit.Name = vis.Name;
             edit.LastName = vis.LastName;
             edit.MobilePhone = vis.MobilePhone;            
-            edit.IdPass = vis.IdPass;            
+            edit.IdPass = vis.IdPass;
+            edit.Hidden = false;
 
             _context.SaveChanges();
             return RedirectToAction(nameof(Visitors));
@@ -974,20 +1119,33 @@ namespace EntranceControlWeb.Controllers
         public IActionResult DelVis(int id)
         {
             var vis = _context.Visitors.FirstOrDefault(x => x.Idvisitor == id);
-            if (vis != null)
+            var view = new VisitorViewModel();
+            if (view != null)
             {
-                _context.Visitors.Remove(vis);
+                vis.Hidden = true;
             }
 
             _context.SaveChanges();
             return RedirectToAction(nameof(Visitors));
         }
+        //Восстановление записи
+        public IActionResult VisShow(int id)
+        {
+            var vis = _context.Visitors.FirstOrDefault(x => x.Idvisitor == id);
+            var view = new VisitorViewModel();
+            if (view != null)
+            {
+                vis.Hidden = false;
+            }
 
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Visitors));
+        }
         //Создание записи
         [HttpPost]
         public IActionResult CreateVisit(VisitorViewModel vis)
         {
-            var create = new Visitor { Surname = vis.Surname, Name = vis.Name, LastName = vis.LastName, MobilePhone = vis.MobilePhone, IdPass = vis.IdPass };
+            var create = new Visitor { Surname = vis.Surname, Name = vis.Name, LastName = vis.LastName, MobilePhone = vis.MobilePhone, IdPass = vis.IdPass, Hidden = false };
 
             _context.Add(create);
             _context.SaveChanges();
@@ -1035,7 +1193,7 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ПРОПУСКА"
         //Отображение страницы
-        public IActionResult Passes(PassesViewModel pass, string Search, int? IdActiv, int? IdLong, int? IdLevel)
+        public IActionResult Passes(PassesViewModel pass, string Search, int? IdActiv, int? IdLong, int? IdLevel, bool Hide)
         {
             var find = from s in _context.Passes select s;
 
@@ -1063,7 +1221,17 @@ namespace EntranceControlWeb.Controllers
             pass.LongSelect = new SelectList(_context.LastingStatuses, "IdLong", "TitleLong");
             pass.LevelSelect = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
 
-            pass.Passes = find.ToList();
+            if(Hide == true)
+            {
+                pass.Passes = find.ToList();
+                pass.Lastings = _context.LastingStatuses.ToList();
+                pass.Activities = _context.ActivityStatuses.ToList();
+                pass.Levels = _context.AccessLevels.ToList();
+
+                return View(pass);
+            }
+
+            pass.Passes = find.Where(x=>x.Hidden == false).ToList();
             pass.Lastings = _context.LastingStatuses.ToList();
             pass.Activities = _context.ActivityStatuses.ToList();
             pass.Levels = _context.AccessLevels.ToList();
@@ -1085,7 +1253,7 @@ namespace EntranceControlWeb.Controllers
         [HttpPost]
         public IActionResult CreatePass(PassesViewModel pass)
         {
-            var create = new Pass { IdPass = pass.IdPass, IdLong = pass.IdLong, IdActiv = pass.IdActiv, IdLevel = pass.IdLevel };
+            var create = new Pass { IdPass = pass.IdPass, IdLong = pass.IdLong, IdActiv = pass.IdActiv, IdLevel = pass.IdLevel, Hidden = false };
 
             _context.Add(create);
             _context.SaveChanges();
@@ -1095,14 +1263,9 @@ namespace EntranceControlWeb.Controllers
         public IActionResult CreatePass()
         {
             var pass = new PassesViewModel();
-            SelectList last = new SelectList(_context.LastingStatuses, "IdLong", "TitleLong");
-            ViewBag.Lasting = last;
-
-            SelectList act = new SelectList(_context.ActivityStatuses, "IdActiv", "TitleActiv");
-            ViewBag.Activ = act;
-
-            SelectList lev = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
-            ViewBag.Level = lev;
+            pass.ActivSelect = new SelectList(_context.ActivityStatuses, "IdActiv", "TitleActiv");
+            pass.LongSelect = new SelectList(_context.LastingStatuses, "IdLong", "TitleLong");
+            pass.LevelSelect = new SelectList(_context.AccessLevels, "IdLevel", "TitleLevel");
 
             pass.Activities = _context.ActivityStatuses.ToList();
             pass.Lastings = _context.LastingStatuses.ToList();
@@ -1122,6 +1285,7 @@ namespace EntranceControlWeb.Controllers
             edit.IdActiv = pass.IdActiv;
             edit.IdLong = pass.IdLong;
             edit.IdLevel = pass.IdLevel;
+            edit.Hidden = false;
 
             _context.SaveChanges();
             return RedirectToAction(nameof(Passes));
@@ -1144,17 +1308,31 @@ namespace EntranceControlWeb.Controllers
         public IActionResult DelPass(int id)
         {
             var pass = _context.Passes.FirstOrDefault(x => x.IdPass == id);
-            if (pass != null)
+            var data = new PassesViewModel();
+
+            if (data != null)
             {
-                _context.Passes.Remove(pass);
+                pass.Hidden = true;
             }
             _context.SaveChanges();
             return RedirectToAction(nameof(Passes));
         }
+        //Восстановление записи
+        public IActionResult PassShow(int id)
+        {
+            var pass = _context.Passes.FirstOrDefault(x => x.IdPass == id);
+            var data = new PassesViewModel();
 
+            if (data != null)
+            {
+                pass.Hidden = false;
+            }
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Passes));
+        }
         #endregion
 
-        #region ДЕЙСТВИЯ СО СТПРАВОЧНЫМИ ТАБЛИЦАМИ
+        #region ДЕЙСТВИЯ СО СПРАВОЧНЫМИ ТАБЛИЦАМИ
 
         public IActionResult Dictionary(DictionaryViewModel dict)
         {
@@ -1169,14 +1347,11 @@ namespace EntranceControlWeb.Controllers
         public IActionResult DelLevel(int id)
         {
             var data = _context.AccessLevels.FirstOrDefault(x => x.IdLevel == id);
-            var room = _context.Rooms.FirstOrDefault(x => x.IdLevel == id);
-            var pass = _context.Passes.FirstOrDefault(x => x.IdLevel == id);
+            var lev = new DictionaryViewModel();
 
-            if (data != null)
+            if (lev != null)
             {
-                _context.Passes.Remove(pass);
-                _context.Rooms.Remove(room);
-                _context.AccessLevels.Remove(data);
+                data.Hidden = true;
 
             }
 
@@ -1192,6 +1367,7 @@ namespace EntranceControlWeb.Controllers
 
             edit.IdLevel = acclev.IdLevel;
             edit.TitleLevel = acclev.TitleLevel;
+            edit.Hidden = false;
 
             _context.SaveChanges();
             return RedirectToAction(nameof(Dictionary));
@@ -1213,7 +1389,7 @@ namespace EntranceControlWeb.Controllers
         [HttpPost]
         public IActionResult CreateLevel(DictionaryViewModel lev)
         {
-            var create = new AccessLevel { TitleLevel = lev.TitleLevel };
+            var create = new AccessLevel { TitleLevel = lev.TitleLevel, Hidden = false };
 
             _context.AccessLevels.Add(create);
             _context.SaveChanges();
@@ -1228,13 +1404,11 @@ namespace EntranceControlWeb.Controllers
         public IActionResult DelStatus(int id)
         {
             var data = _context.AccessStatuses.FirstOrDefault(x => x.IdStatus == id);
-            var entr = _context.Entrances.FirstOrDefault(x => x.IdStatus == id);           
+            var stat = new DictionaryViewModel();          
 
-            if (data != null)
+            if (stat != null)
             {
-                _context.Entrances.Remove(entr);
-                _context.AccessStatuses.Remove(data);
-
+                data.Hidden = true;
             }
 
             _context.SaveChanges();
@@ -1249,6 +1423,7 @@ namespace EntranceControlWeb.Controllers
 
             edit.IdStatus = accstat.IdStatus;
             edit.TitleStatus = accstat.TitleStatus;
+            edit.Hidden = false;
 
             _context.SaveChanges();
             return RedirectToAction(nameof(Dictionary));
@@ -1270,7 +1445,7 @@ namespace EntranceControlWeb.Controllers
         [HttpPost]
         public IActionResult CreateStatus(DictionaryViewModel stat)
         {
-            var create = new AccessStatus { TitleStatus = stat.TitleStatus };
+            var create = new AccessStatus { TitleStatus = stat.TitleStatus, Hidden = false };
 
             _context.AccessStatuses.Add(create);
             _context.SaveChanges();
@@ -1285,13 +1460,11 @@ namespace EntranceControlWeb.Controllers
         public IActionResult DelActiv(int id)
         {
             var data = _context.ActivityStatuses.FirstOrDefault(x => x.IdActiv == id);
-            var pass = _context.Passes.FirstOrDefault(x => x.IdActiv == id);
+            var act = new DictionaryViewModel();
 
-            if (data != null)
+            if (act != null)
             {
-                _context.Passes.Remove(pass);
-                _context.ActivityStatuses.Remove(data);
-
+                data.Hidden = true;
             }
 
             _context.SaveChanges();
@@ -1306,6 +1479,7 @@ namespace EntranceControlWeb.Controllers
 
             edit.IdActiv = act.IdActiv;
             edit.TitleActiv = act.TitleActiv;
+            edit.Hidden = false;
 
             _context.SaveChanges();
             return RedirectToAction(nameof(Dictionary));
@@ -1327,7 +1501,7 @@ namespace EntranceControlWeb.Controllers
         [HttpPost]
         public IActionResult CreateActiv(DictionaryViewModel act)
         {
-            var create = new ActivityStatus { TitleActiv = act.TitleActiv };
+            var create = new ActivityStatus { TitleActiv = act.TitleActiv, Hidden = false };
 
             _context.ActivityStatuses.Add(create);
             _context.SaveChanges();
@@ -1342,12 +1516,11 @@ namespace EntranceControlWeb.Controllers
         public IActionResult DelLong(int id)
         {
             var data = _context.LastingStatuses.FirstOrDefault(x => x.IdLong == id);
-            var pass = _context.Passes.FirstOrDefault(x => x.IdLong == id);
+            var lon = new DictionaryViewModel();
 
-            if (data != null)
+            if (lon != null)
             {
-                _context.Passes.Remove(pass);
-                _context.LastingStatuses.Remove(data);
+                data.Hidden = false;
 
             }
 
@@ -1363,6 +1536,7 @@ namespace EntranceControlWeb.Controllers
 
             edit.IdLong = last.IdLong;
             edit.TitleLong = last.TitleLong;
+            edit.Hidden = false;
 
             _context.SaveChanges();
             return RedirectToAction(nameof(Dictionary));
@@ -1384,7 +1558,7 @@ namespace EntranceControlWeb.Controllers
         [HttpPost]
         public IActionResult CreateLong(DictionaryViewModel last)
         {
-            var create = new LastingStatus { TitleLong = last.TitleLong };
+            var create = new LastingStatus { TitleLong = last.TitleLong, Hidden = false };
 
             _context.LastingStatuses.Add(create);
             _context.SaveChanges();

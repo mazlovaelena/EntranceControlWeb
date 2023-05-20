@@ -14,6 +14,7 @@ namespace EntranceControlWeb.Data
 
         public int IdLong { get; set; }
         public string TitleLong { get; set; }
+        public bool Hidden { get; set; }
 
         public virtual ICollection<Pass> Passes { get; set; }
     }

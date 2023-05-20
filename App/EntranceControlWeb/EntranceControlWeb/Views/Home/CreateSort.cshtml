@@ -14,14 +14,14 @@
                 <div class="row mb-3">
                     <label for="inputDateBeg" class="col-sm-4 col-form-label">Время начала смены</label>
                     <div class="col-sm-8">
-                        <input asp-for="@Model.TimeBegin" value="@Model?.TimeBegin" type="datetime" class="form-control" id="inputDateBeg">
+                        <input asp-for="@Model.TimeBegin" value="@Model?.TimeBegin" type="time" class="form-control" id="inputDateBeg">
                         <span for="inputTitle" class="text-danger" asp-validation-for="@Model.TimeBegin"></span>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="inputDateEnd" class="col-sm-4 col-form-label">Время завершения смены</label>
                     <div class="col-sm-8">
-                        <input asp-for="@Model.TimeEnd" value="@Model?.TimeEnd" type="datetime" class="form-control" id="inputDateEnd">
+                        <input asp-for="@Model.TimeEnd" value="@Model?.TimeEnd" type="time" class="form-control" id="inputDateEnd">
                         <span for="inputTitle" class="text-danger" asp-validation-for="@Model.TimeEnd"></span>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                     <label for="idStaff" class="col-sm-4 col-form-label">Сотрудник</label>
                     <div class="col-sm-8">
 
-                        @Html.DropDownListFor(x => x.IdStaff, ViewBag.Staff as SelectList, new { @class = "form-control" })
+                        @Html.DropDownListFor(x => x.IdStaff, Model.StaffSelect, new { @class = "form-control" })
 
                         <span for="inputTitle" class="text-danger" asp-validation-for="@Model.IdStaff"></span>
                     </div>
@@ -38,7 +38,7 @@
                     <label for="idPost" class=col-sm-4 col-form-label">Должность</label>
                     <div class="col-sm-8">
 
-                        @Html.DropDownListFor(x => x.IdPost, ViewBag.Position as SelectList, new { @class = "form-control" })
+                        @Html.DropDownListFor(x => x.IdPost, Model.PostSelect, new { @class = "form-control" })
 
                         <span for="inputTitle" class="text-danger" asp-validation-for="@Model.IdPost"></span>
                     </div>
@@ -47,7 +47,7 @@
                     <label for="idOffice" class="col-sm-4 col-form-label">Отдел</label>
                     <div class="col-sm-8">
 
-                        @Html.DropDownListFor(x => x.IdOffice, ViewBag.Office as SelectList, new { @class = "form-control" })
+                        @Html.DropDownListFor(x => x.IdOffice, Model.OfficeSelect, new { @class = "form-control" })
 
                         <span for="inputTitle" class="text-danger" asp-validation-for="@Model.IdOffice"></span>
                     </div>

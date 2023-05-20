@@ -22,6 +22,7 @@ namespace EntranceControlWeb.Data
         public string MobPhone { get; set; }
         public string Image { get; set; }
         public int IdPass { get; set; }
+        public bool Hidden { get; set; }
 
         public virtual Pass IdPasses { get; set; }
         public virtual ICollection<SortingByOffice> SortingByOffices { get; set; }

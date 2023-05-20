@@ -50,7 +50,10 @@
                                 </div>
                             </div>
                             <div class="row mb-2">
-                                <label for="button" class="col-sm-8 col-form-label"></label>
+                                <label for="button" class="col-sm-4 col-form-label"></label>
+                                <div class="col-sm-4">
+                                    @Html.CheckBox("Hide", false)<span> Показать скрытые записи</span>
+                                </div>
                                 <div class="col-sm-2">
                                     <button type="submit" class="btn btn-outline-primary">Фильтровать</button>
                                 </div>
@@ -108,22 +111,39 @@
                         <td>@data.IdLongs.TitleLong</td>
                         <td>@data.IdActivs.TitleActiv</td>
                         <td>@data.IdLevels.TitleLevel</td>
-
-                        @if (User.Identity.IsAuthenticated)
+                        @if (data.Hidden == false)
                         {
+                            @if (User.Identity.IsAuthenticated)
+                            {
 
+                                if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                                {
+                                    <td>
+                                        <a href="@Url.Action("PassEdit", "Home", new { id = @data.IdPass })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdPass">Редактировать</a>
+                                        <a href="@Url.Action("DelPass", "Home", new { id = @data.IdPass })" class="text-danger" data-id="@data.IdPass">Удалить</a>
+                                    </td>
+                                }
+                                else if (User.IsInRole(UserRole.Admin.ToString()))
+                                {
+                                    <td>
+                                        <a href="@Url.Action("PassEdit", "Home", new { id = @data.IdPass })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdPass">Редактировать</a>
+
+                                    </td>
+                                }
+                            }
+                        }
+                        @if (data.Hidden == true)
+                        {
                             if (User.IsInRole(UserRole.SysAdmin.ToString()))
                             {
                                 <td>
-                                    <a href="@Url.Action("PassEdit", "Home", new { id = @data.IdPass })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdPass">Редактировать</a>
-                                    <a href="@Url.Action("DelPass", "Home", new { id = @data.IdPass})" class="text-danger" data-id="@data.IdPass">Удалить</a>
+                                    Запись скрыта. <a href="@Url.Action("PassShow", "Home", new { id = @data.IdPass })" class="text-dark" data-id="@data.IdPass">Восстановить</a>
                                 </td>
                             }
-                            else if (User.IsInRole(UserRole.Admin.ToString()))
+                            else
                             {
                                 <td>
-                                    <a href="@Url.Action("PassEdit", "Home", new { id = @data.IdPass})" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdPass">Редактировать</a>
-
+                                    Запись скрыта.
                                 </td>
                             }
                         }

@@ -14,6 +14,7 @@ namespace EntranceControlWeb.Data
 
         public int IdStatus { get; set; }
         public string TitleStatus { get; set; }
+        public bool Hidden { get; set; }
 
         public virtual ICollection<Entrance> Entrances { get; set; }
     }

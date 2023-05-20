@@ -15,6 +15,7 @@ namespace EntranceControlWeb.Data
         public int IdDoor { get; set; }
         public string TitleDoor { get; set; }
         public int IdRoom { get; set; }
+        public bool Hidden { get; set; }
 
         public virtual Room IdRooms { get; set; }
         public virtual ICollection<Entrance> Entrances { get; set; }

@@ -18,6 +18,7 @@ namespace EntranceControlWeb.Data
         public int IdLong { get; set; }
         public int IdActiv { get; set; }
         public int IdLevel { get; set; }
+        public bool Hidden { get; set; }
 
         public virtual ActivityStatus IdActivs { get; set; }
         public virtual AccessLevel IdLevels { get; set; }

@@ -10,21 +10,24 @@
         <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
         <h5 class="text-center">ОТДЕЛЫ</h5>
     </div>
-    <div class="row my-3 mb-2 sticky-top">
+    <div class="row my-3">
         <form asp-action="Offices" asp-controller="Home">
-            <div class="card rounded m-3 shadow-lg mx-auto" style="width:700px">
+            <div class="card rounded m-3 shadow-lg mx-auto" style="width:1200px">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-4 text-center">
+                        <div class="col-3 text-center">
                             <label>Наименование отдела:</label>
                         </div>
-                        <div class="col-5">
+                        <div class="col-3">
                             @Html.TextBox("Search", "", new { @class = "form-control", @placeholder = "Поиск" })
                         </div>
-                        <div class="col-3 mx-auto">
-                            <button type="submit" class="btn btn-outline-info">Поиск</button>
+                        <div class="col-3">
+                            @Html.CheckBox("Hide", false)<span> Показать скрытые записи</span>
                         </div>
-                    </div>
+                        <div class="col-3 mx-auto">
+                            <button type="submit" class="btn btn-outline-info" style="width:250px">Поиск</button>
+                        </div>
+                    </div>                    
                 </div>
             </div>
         </form>
@@ -66,20 +69,38 @@
                 <tbody>
                     <tr class="text-md-start">
                         <td>@data.TitleOffice</td>
-                        @if (User.Identity.IsAuthenticated)
+                        @if (data.Hidden == false)
+                        {
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                if (User.IsInRole(UserRole.SysAdmin.ToString()))
+                                {
+                                    <td>
+                                        <a href="@Url.Action("OfficeEdit", "Home", new { id = @data.IdOffice })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdOffice">Редактировать</a>
+                                        <a href="@Url.Action("DelOffice", "Home", new { id = @data.IdOffice })" class="text-danger" data-id="@data.IdOffice">Удалить</a>
+                                    </td>
+                                }
+                                else if (User.IsInRole(UserRole.Admin.ToString()))
+                                {
+                                    <td>
+                                        <a href="@Url.Action("OfficeEdit", "Home", new { id = @data.IdOffice })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdOffice">Редактировать</a>
+
+                                    </td>
+                                }
+                            }
+                        }
+                        @if (data.Hidden == true)
                         {
                             if (User.IsInRole(UserRole.SysAdmin.ToString()))
                             {
                                 <td>
-                                    <a href="@Url.Action("OfficeEdit", "Home", new { id = @data.IdOffice })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdOffice">Редактировать</a>
-                                    <a href="@Url.Action("DelOffice", "Home", new { id = @data.IdOffice })" class="text-danger" data-id="@data.IdOffice">Удалить</a>
+                                    Запись скрыта. <a href="@Url.Action("OfficeShow", "Home", new { id = @data.IdOffice })" class="text-dark" data-id="@data.IdOffice">Восстановить</a>
                                 </td>
                             }
-                            else if (User.IsInRole(UserRole.Admin.ToString()))
+                            else
                             {
                                 <td>
-                                    <a href="@Url.Action("OfficeEdit", "Home", new { id = @data.IdOffice })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdOffice">Редактировать</a>
-
+                                    Запись скрыта
                                 </td>
                             }
                         }
