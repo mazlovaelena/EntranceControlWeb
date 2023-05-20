@@ -22,6 +22,7 @@ namespace EntranceControlWeb.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> HomePage(UserViewModel model)
         {
             if (!ModelState.IsValid)

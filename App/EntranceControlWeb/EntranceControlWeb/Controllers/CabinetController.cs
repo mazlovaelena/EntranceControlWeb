@@ -894,8 +894,70 @@ namespace EntranceControlWeb.Controllers
         }
         #endregion
 
-        #region ДОБАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯ
+        #region УПРАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯМИ САЙТА
 
+        public IActionResult ManageUsers(NewUserViewModel user, bool Hide, string Search)
+        {
+            var find = from s in _context.Users select s;
+
+            if(!String.IsNullOrEmpty(Search))
+            {
+                find = find.Where(s => s.Email.ToUpper().Contains(Search.ToUpper()));
+            }
+
+            user.StaffSelect = new SelectList(_context.staff, "IdStaff", "Surname");
+
+            List<SelectListItem> RoleSelect = new List<SelectListItem>();
+            RoleSelect.AddRange(new[]{
+                            new SelectListItem() { Text = "SysAdmin", Value = "1" },
+                            new SelectListItem() { Text = "Admin", Value = "2" },
+                            new SelectListItem() { Text = "User", Value = "3" },
+                            new SelectListItem() { Text = "HRmanager", Value = "4" }});
+            ViewData.Add("RoleSelect", RoleSelect);
+
+            if(Hide == true)
+            {
+                user.Users = find.ToList();
+                user.Staffs = _context.staff.ToList();
+
+                return View(user);
+            }
+
+            user.Users = find.Where(x => x.Hidden == false).ToList();
+            user.Staffs =_context.staff.ToList();
+
+            return View(user);
+        }
+        //Редактирование записи
+        [HttpPost]
+        public IActionResult UserEdit(NewUserViewModel user)
+        {
+            var edit = _context.Users.FirstOrDefault(x => x.IdUser == user.IdUser);
+
+            edit.IdUser = user.IdUser;
+            edit.Email = user.Email;
+            edit.IdStaff = user.IdStaff;
+            edit.UserRole = user.UserRole;
+            edit.Hidden = false;
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(ManageUsers));
+        }
+        public IActionResult UserEdit(int id)
+        {
+            var viewmodel = new NewUserViewModel();
+            var view = _context.Users.FirstOrDefault(x => x.IdUser == id);
+            if (view != null)
+            {
+                viewmodel.IdUser = view.IdUser;
+                viewmodel.Email = view.Email;
+                viewmodel.IdStaff = view.IdStaff;
+                viewmodel.UserRole = view.UserRole;
+            }
+            return Json(viewmodel);
+
+        }
+        //Создание пользователя
         public IActionResult NewUser()
         {
             var user = new NewUserViewModel();
@@ -945,6 +1007,34 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
 
             return RedirectToAction(nameof(SysAdminCab));
+        }
+        //Удаление записи
+        public IActionResult DelUser(int id)
+        {
+            var door = new NewUserViewModel();
+            var hide = _context.Users.FirstOrDefault(x => x.IdUser == id);
+            if (door != null)
+            {
+                hide.Hidden = true;
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(ManageUsers));
+
+        }
+        //Восстановление записи
+        public IActionResult UserShow(int id)
+        {
+            var door = new NewUserViewModel();
+            var hide = _context.Users.FirstOrDefault(x => x.IdUser == id);
+            if (door != null)
+            {
+                hide.Hidden = false;
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(ManageUsers));
+
         }
         #endregion
     }
