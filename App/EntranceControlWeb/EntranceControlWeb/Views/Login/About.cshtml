@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "About";
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="icon" href="/img/icon.ico" sizes="64x64" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    @*@await RenderSectionAsync("Scripts", required: false)*@
+</head>
+<body>
+    <header>
+    </header>
+    <div class="container-fluid" style="width:90%">
+        <div class="row my-3">
+            <h2 class="text-center">СИСТЕМА КОНТРОЛЯ ДОСТУПА</h2>
+            <h5 class="text-center">О ПРОГРАММЕ</h5>
+        </div>
+        <div class="row mx-auto" style="width:1200px">
+            <p style="font-size: 20px; text-align:justify"> Программное обеспечение «Система контроля доступа» предназначено для автоматизации процессов контроля и управления доступом в помещения предприятия, мониторинга перемещений и учета рабочего времени сотрудников.</p>
+            <p style="font-size: 20px; text-align:justify"> Система содержит набор таблиц и позволяет пользователю работать с содержащимися в них данными. </p>
+            <p class="text-center" style="font-size: 20px;">Основные функции программы:</p>
+            <ul style="font-size: 20px; text-align: justify">
+                <li>отображение информации в удобном формате;</li>
+                <li>возможность добавления, редактирования и удаления записей с автоматическим обновлением в базе данных;</li>
+                <li>система учета рабочего времени сотрудников;</li>
+                <li>управление доступом сотрудников и гостей предприятия;</li>
+                <li>формирование и сохранение отчетных документов во внешних файлах.</li>
+            </ul>
+            <p></p>
+            <p style="font-size: 20px; text-align: justify">
+                Для дальнейшей работы с системой необходимо <a class="text-danger" href="@Url.Action("HomePage", "Login")">авторизоваться</a> на сайте. Логин и пароль для авторизации выдается системным администратором<br />
+                Более подробная инструкция по работе с системой в роли сотрудника охраны представлена в <a class="text-primary" href="/UserRuk.pdf" target="_blank">Руководстве пользователя</a>.<br />
+                Для работы с системой в роли начальника охраны прочтите <a class="text-primary" href="/AdminRuk.pdf" target="_blank">Руководство администратора</a>.<br />
+                Для сотрудников HR-отдела разработано <a class="text-primary" href="/HRRuk.pdf" target="_blank">Руководство HR-специалиста</a>.
+            </p>
+            <div class="row m-3">
+                <a class="btn btn-outline-dark mx-auto" href="@Url.Action("HomePage", "Login")">Вход в систему</a>
+            </div>
+            <hr class="mt-5" />
+            <h6 class="m-2 text-center">
+                Программный продукт разработан в рамках выпускной квалификационной работы <br />
+                Разработчик: Мазлова Елена Юрьевна <br />
+                Кафедра "Теплофизика и информатика в металлургии" <br />
+                620002, Россия, г.Екатеринбург, ул.Мира 28, ФГАОУ ВО «УрФУ имени первого Президента России Б.Н.Ельцина» <br />
+                По всем вопросам: parkleehyun2001@gmail.com
+            </h6>
+        </div>
+    </div>
+</body>
+</html>

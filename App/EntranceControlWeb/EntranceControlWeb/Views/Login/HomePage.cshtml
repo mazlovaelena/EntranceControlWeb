@@ -30,9 +30,8 @@
         <div class="row my-3">
             <h2 class="text-center">СИСТЕМА КОНТРОЛЯ ДОСТУПА</h2>
         </div>
-
-        <div class="container my-5" style="width: 50% ">
-            <form class="my-4" method="post" asp-controller="Login" asp-action="HomePage" asp-antiforgery="true">
+        <div class="container center" style="width: 50%">
+            <form method="post" asp-controller="Login" asp-action="HomePage" asp-antiforgery="true">
                 <div class="card rounded shadow" style="background-color:transparent">
                     <div class="card-body">
                         <div class="row my-3">
@@ -61,14 +60,9 @@
                 </div>
             </form>
         </div>
-        <div class="row my-2">
+        <div class="row mt-1">
             <h5 class="text-center">
-                Данная система разработана для автоматизации контроля передвижения сотрудников предприятия.<br />
-                Система содержит набор таблиц и позволяет пользователю работать с содержащимися в них данными. <br />
-                Для дальнейшей работы с системой в роли пользователя необходимо <a class="text-danger">авторизоваться</a> на сайте. <br />
-                Более подробная инструкция по работе с системой в роли сотрудника охраны представлена в <a class="text-primary" href="~/RukUser.pdf" target="_blank">Руководстве пользователя</a>.
-                <br />Для работы с системой в роли начальника охраны прочтите <a class="text-primary" href="~/RukAdmin.pdf" target="_blank">Руководство администратора</a>.
-
+               <a class="text-primary mx-auto" href="@Url.Action("About", "Login")">О программе</a>
             </h5>
         </div>
     </div>

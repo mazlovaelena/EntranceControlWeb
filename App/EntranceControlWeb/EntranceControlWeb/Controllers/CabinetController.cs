@@ -62,6 +62,11 @@ namespace EntranceControlWeb.Controllers
                     auth.Authorizes = find.ToList();
                 }
 
+                if(auth.Authorizes.Count <= 0)
+                {
+                    ViewBag.Message = "Результатов не найдено";
+                }
+
                 if (Search != null)
                     HttpContext.Response.Cookies.Append("SearchValue", Search);
 
@@ -127,7 +132,7 @@ namespace EntranceControlWeb.Controllers
                     auth.Staffs.ToList();                    
                     Sheet1.Cells[string.Format("A{0}", row1)].Value = entrance.DateAuth.ToString();
                     Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.IdUsers.Email;
-                    Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.IdUsers.IdStaffs.Surname;
+                    Sheet1.Cells[string.Format("C{0}", row1)].Value = entrance.IdUsers.IdStaffs.Surname;
                     row1++;
                 }
                 Sheet1.Cells["A:AZ"].AutoFitColumns();
@@ -158,18 +163,19 @@ namespace EntranceControlWeb.Controllers
                     using (ExcelPackage Ep = new(fs))
                     {
                         var Sheet1 = Ep.Workbook.Worksheets.Add("Посетители сайта");
-                        Sheet1.Cells["A1"].Value = "ID_Запись";
-                        Sheet1.Cells["B1"].Value = "ДатаАвторизации";
-                        Sheet1.Cells["C1"].Value = "Пользователь";
+                        Sheet1.Cells["A1"].Value = "ДатаАвторизации";
+                        Sheet1.Cells["B1"].Value = "Email";
+                        Sheet1.Cells["C1"].Value = "Сотрудник";
 
                         var row1 = 2;
                         foreach (var entrance in _context.Authorizes
                         .Where(x => x.IdUsers.UserRole == UserRole.User).ToList())
                         {
                             _context.Users.ToList();
-                            Sheet1.Cells[string.Format("A{0}", row1)].Value = entrance.IdItem;
-                            Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.DateAuth.ToString();
-                            Sheet1.Cells[string.Format("C{0}", row1)].Value = entrance.IdUsers.Email;
+                            _context.staff.ToList();
+                            Sheet1.Cells[string.Format("A{0}", row1)].Value = entrance.DateAuth.ToString();
+                            Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.IdUsers.Email;
+                            Sheet1.Cells[string.Format("C{0}", row1)].Value = entrance.IdUsers.IdStaffs.Surname;
                             row1++;
                         }
                         Sheet1.Cells["A:AZ"].AutoFitColumns();
@@ -191,17 +197,18 @@ namespace EntranceControlWeb.Controllers
                     using (ExcelPackage Ep = new(fs))
                     {
                         var Sheet1 = Ep.Workbook.Worksheets.Add("Посетители сайта");
-                        Sheet1.Cells["A1"].Value = "ID_Запись";
-                        Sheet1.Cells["B1"].Value = "ДатаАвторизации";
-                        Sheet1.Cells["C1"].Value = "Пользователь";
+                        Sheet1.Cells["A1"].Value = "ДатаАвторизации";
+                        Sheet1.Cells["B1"].Value = "Email";
+                        Sheet1.Cells["C1"].Value = "Сотрудник";
 
                         var row1 = 2;
                         foreach (var entrance in _context.Authorizes.ToList())
                         {
                             _context.Users.ToList();
-                            Sheet1.Cells[string.Format("A{0}", row1)].Value = entrance.IdItem;
-                            Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.DateAuth.ToString();
-                            Sheet1.Cells[string.Format("C{0}", row1)].Value = entrance.IdUsers.Email;
+                            _context.staff.ToList();
+                            Sheet1.Cells[string.Format("A{0}", row1)].Value = entrance.DateAuth.ToString();
+                            Sheet1.Cells[string.Format("B{0}", row1)].Value = entrance.IdUsers.Email;
+                            Sheet1.Cells[string.Format("C{0}", row1)].Value = entrance.IdUsers.IdStaffs.Surname;
                             row1++;
                         }
                         Sheet1.Cells["A:AZ"].AutoFitColumns();
@@ -1007,6 +1014,11 @@ namespace EntranceControlWeb.Controllers
 
             user.Users = find.Where(x => x.Hidden == false).ToList();
             user.Staffs =_context.staff.ToList();
+
+            if(user.Users.Count <= 0)
+            {
+                ViewBag.Message = "Результатов не найдено";
+            }
 
             return View(user);
         }

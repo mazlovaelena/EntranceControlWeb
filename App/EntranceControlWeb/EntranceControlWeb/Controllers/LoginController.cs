@@ -66,6 +66,11 @@ namespace EntranceControlWeb.Controllers
         {
             return View();
         }
+        //О программе
+        public IActionResult About()
+        {
+            return View();
+        }
 
         // Функция хеширования пароля SHA512
         private string HashSHA512(string str)

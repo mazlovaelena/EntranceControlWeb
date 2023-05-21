@@ -8,10 +8,7 @@
     <div class="row my-3">
         <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
         <h5 class="text-center">ПРОСМОТР ПОСЕТИТЕЛЕЙ САЙТА</h5>
-    </div>
-    <div class="row mb-2">
-        <div class=" mx-auto" style="width:800px"> <a href="@Url.Action("NewUser", "Cabinet")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
-    </div>
+    </div>    
     <form>
         <div class="row my-3">
 
@@ -33,7 +30,9 @@
                     </div>
                 </div>
             </div>
-
+        </div>
+        <div class="row mb-2">
+            <div class=" mx-auto" style="width:800px"> <a href="@Url.Action("NewUser", "Cabinet")" class="btn btn-outline-primary" style="width: 100%">Создать запись</a></div>
         </div>
         <div class="row my-3">
             <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
@@ -83,6 +82,9 @@
                     </tbody>
                 }
             </table>
+        </div>
+        <div class="row my-1">
+            <h6 class="text-center text-danger"><strong> @ViewBag.Message</strong></h6>
         </div>
     </form>
     <script>
