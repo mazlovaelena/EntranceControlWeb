@@ -158,7 +158,7 @@
                         <h5 class="modal-title" id="exampleModalLabel">Редактировать информацию</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="post" asp-action="VisEdit" asp-controller="Home">
+                    <form method="post" asp-action="VisEdit" asp-controller="Home" asp-antiforgery="true">
                         <div class="modal-body">
                             <div class="row mb-3">
                                 <input hidden readonly asp-for="@Model.Idvisitor." value="@Model?.Idvisitor" type="text" class="form-control" id="inputTitle">
@@ -233,7 +233,7 @@
                         <h5 class="modal-title" id="exampleModal1Label">Редактировать информацию</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="post" asp-action="PassEditVis" asp-controller="Home">
+                    <form method="post" asp-action="PassEditVis" asp-controller="Home" asp-antiforgery="true">
                         <div class="modal-body">
                             <div class="row mb-3">
                                 <label for="#inputTitle" class="col-sm-4 col-form-label">№ пропуска</label>

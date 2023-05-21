@@ -29,8 +29,8 @@ namespace EntranceControlWeb.Controllers
         {
             door.RoomSelect = new SelectList(_context.Rooms, "IdRoom", "TitleRoom");
            
-            ViewBag.RoomSort = String.IsNullOrEmpty(sort) ? "Room dsc" : "Room";
-            ViewBag.DoorSort = String.IsNullOrEmpty(sort) ? "Door dsc" : " ";
+            ViewBag.RoomSort = sort == "Room" ? "Room dsc" : "Room";
+            ViewBag.DoorSort = sort == "Door" ? "Door dsc" : "Door";
 
             var find = from s in _context.Doors select s;
 
@@ -54,7 +54,7 @@ namespace EntranceControlWeb.Controllers
                     find = find.OrderByDescending(s => s.IdRooms.TitleRoom);
                     break;
 
-                default:
+                case "Door":
                     find = find.OrderBy(s => s.TitleDoor);
                     break;
 
@@ -75,7 +75,7 @@ namespace EntranceControlWeb.Controllers
             door.Rooms = _context.Rooms.ToList();
 
 
-            if(door.Doors == null)
+            if(door.Doors.Count <= 0)
             {
                 ViewBag.Message = "Результатов не найдено";
             }
@@ -117,6 +117,7 @@ namespace EntranceControlWeb.Controllers
         //Редактирование записи
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult DoorEdit(DoorViewModel door)
         {
             var edit = _context.Doors.FirstOrDefault(x => x.IdDoor == door.IdDoor);
@@ -129,7 +130,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Doors));
         }
-        [Authorize]
+        [Authorize]      
         public IActionResult DoorEdit(int id)
         {
             var viewmodel = new DoorViewModel();           
@@ -147,6 +148,7 @@ namespace EntranceControlWeb.Controllers
         //Создание записи
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateDoor(DoorViewModel door)
         {
             var create = new Door { TitleDoor = door.TitleDoor, IdRoom = door.IdRoom, Hidden = false };
@@ -156,7 +158,7 @@ namespace EntranceControlWeb.Controllers
             return RedirectToAction(nameof(Doors));
 
         }
-        [Authorize]
+        [Authorize] 
         public IActionResult CreateDoor()
         {
             var door = new DoorViewModel();
@@ -170,10 +172,10 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ С ТАБЛИЦЕЙ "ОТДЕЛЫ"
         //Отображение страницы
-        [Authorize]
+        [Authorize]       
         public IActionResult Offices(OfficeViewModel off, string sort, string Search, bool Hide)
         {
-            ViewBag.OffSort = String.IsNullOrEmpty(sort) ? "Off dsc" : "Off";
+            ViewBag.OffSort = sort == "Off" ? "Off dsc" : "Off";
             var find = from s in _context.Offices select s;
 
             if (!String.IsNullOrEmpty(Search))
@@ -201,7 +203,7 @@ namespace EntranceControlWeb.Controllers
 
             off.Offices = find.Where(x=>x.Hidden == false).ToList();
 
-            if(off.Offices == null)
+            if(off.Offices.Count <= 0)
             {
                 ViewBag.Message = "Результатов не найдено";
             }
@@ -241,6 +243,7 @@ namespace EntranceControlWeb.Controllers
         //Редактирование записи
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult OfficeEdit(OfficeViewModel off)
         {
             var edit = _context.Offices.FirstOrDefault(x => x.IdOffice == off.IdOffice);
@@ -252,7 +255,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Offices));
         }
-        [Authorize]
+        [Authorize]      
         public IActionResult OfficeEdit(int id)
         {
             var viewmodel = new OfficeViewModel();
@@ -270,6 +273,7 @@ namespace EntranceControlWeb.Controllers
         //Создание записи
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateOffice(OfficeViewModel off)
         {
             var create = new Office { TitleOffice = off.TitleOffice, Hidden = false };
@@ -278,7 +282,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Offices));
         }
-        [Authorize]
+        [Authorize]       
         public IActionResult CreateOffice()
         {
             return View();
@@ -290,7 +294,7 @@ namespace EntranceControlWeb.Controllers
         [Authorize]
         public IActionResult Positions(PositionViewModel pos, string sort, string Search, bool Hide)
         {
-            ViewBag.PostSort = String.IsNullOrEmpty(sort) ? "Post dsc" : "";
+            ViewBag.PostSort = sort == "Post" ? "Post dsc" : "Post";
             var find = from s in _context.Positions select s;
 
             if (!String.IsNullOrEmpty(Search))
@@ -300,7 +304,7 @@ namespace EntranceControlWeb.Controllers
 
             switch (sort)
             {
-                default:
+                case "Post":
                     find = find.OrderBy(s => s.TitlePost);
                     break;
 
@@ -317,7 +321,7 @@ namespace EntranceControlWeb.Controllers
 
             pos.Positions = find.Where(x=>x.Hidden == false).ToList();
 
-            if(pos.Positions == null)
+            if(pos.Positions.Count <= 0)
             {
                 ViewBag.Message = "Результатов не найдено";
             }
@@ -355,6 +359,7 @@ namespace EntranceControlWeb.Controllers
         //Редактирование записи
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult PosEdit(PositionViewModel pos)
         {
             var edit = _context.Positions.FirstOrDefault(x => x.IdPost == pos.IdPost);
@@ -366,6 +371,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Positions));
         }
+        [Authorize]
         public IActionResult PosEdit(int id)
         {
             var viewmodel = new PositionViewModel();
@@ -382,6 +388,7 @@ namespace EntranceControlWeb.Controllers
         //Создание записи
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult CreatePost(Position pos, int id)
         {
             var create = new Position { TitlePost = pos.TitlePost, Hidden = false };
@@ -390,7 +397,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Positions));
         }
-        [Authorize]
+        [Authorize]        
         public IActionResult CreatePost()
         {
             return View();
@@ -448,7 +455,7 @@ namespace EntranceControlWeb.Controllers
             room.Rooms = find.Where(x=>x.Hidden == false).ToList();
             room.Levels = _context.AccessLevels.ToList();
 
-            if(room.Rooms == null)
+            if(room.Rooms.Count <= 0)
             {
                 ViewBag.Message = "Результатов не найдено";
             }
@@ -494,6 +501,7 @@ namespace EntranceControlWeb.Controllers
         //Редактирование записи
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult RoomEdit(RoomViewModel room)
         {
             var edit = _context.Rooms.FirstOrDefault(x => x.IdRoom == room.IdRoom);
@@ -506,7 +514,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Rooms));
         }
-        [Authorize]
+        [Authorize]        
         public IActionResult RoomEdit(int id)
         {
             var viewmodel = new RoomViewModel();
@@ -524,6 +532,7 @@ namespace EntranceControlWeb.Controllers
         //Создание записи
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateRoom(RoomViewModel room)
         {
             var create = new Room { TitleRoom = room.TitleRoom, IdLevel = room.IdLevel, Hidden = false };
@@ -533,7 +542,7 @@ namespace EntranceControlWeb.Controllers
             return RedirectToAction(nameof(Rooms));
 
         }
-        [Authorize]
+        [Authorize]    
         public IActionResult CreateRoom()
         {
             var room = new RoomViewModel();
@@ -629,7 +638,7 @@ namespace EntranceControlWeb.Controllers
             sort.Positions = _context.Positions.ToList();
             sort.Offices = _context.Offices.ToList();
 
-            if(sort.Sortings == null)
+            if(sort.Sortings.Count <= 0)
             {
                 ViewBag.Message = "Результатов не найдено";
             }
@@ -675,6 +684,7 @@ namespace EntranceControlWeb.Controllers
         //Редактирование записи
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult SortEdit(SortingByOfficeViewModel sort)
         {
             var edit = _context.SortingByOffices.FirstOrDefault(x => x.IdItem == sort.IdItem);
@@ -721,6 +731,7 @@ namespace EntranceControlWeb.Controllers
         //Создание записи
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateSort(SortingByOfficeViewModel sort)
         {
             var create = new SortingByOffice
@@ -790,7 +801,7 @@ namespace EntranceControlWeb.Controllers
             staff.Levels = _context.AccessLevels.ToList();
             staff.Staffs = find.Where(x=>x.Hidden == false).ToList(); 
             
-            if(staff.Staffs == null)
+            if(staff.Staffs.Count <= 0)
             {
                 ViewBag.Message = "Результатов не найдено";
             }
@@ -801,6 +812,7 @@ namespace EntranceControlWeb.Controllers
         //Редактирование данных
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult StaffEdit(StaffViewModel staff)
         {
             var edit = _context.staff.FirstOrDefault(x => x.IdStaff == staff.IdStaff);
@@ -850,6 +862,7 @@ namespace EntranceControlWeb.Controllers
         //Редактирование записи
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult PassEditStaff(PassesViewModel pass)
         {
             var edit = _context.Passes.FirstOrDefault(x => x.IdPass == pass.IdPass);
@@ -911,6 +924,7 @@ namespace EntranceControlWeb.Controllers
         //Создание записи
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateStaff(StaffViewModel staff)
         {
             var create = new staff
@@ -953,8 +967,8 @@ namespace EntranceControlWeb.Controllers
             entr.StatSelect = new SelectList(_context.AccessStatuses, "IdStatus", "TitleStatus");
 
             ViewBag.DateEntrSort = sort == "DateEntr" ? "DateEntr dsc" : "DateEntr";
-            ViewBag.DoorSort = String.IsNullOrEmpty(sort) ? "Door desc" : "Door";
-            ViewBag.RoomSort = String.IsNullOrEmpty(sort) ? "Room desc" : "Room";            
+            ViewBag.DoorSort = sort == "Door" ? "Door desc" : "Door";
+            ViewBag.RoomSort = sort == "Room" ? "Room desc" : "Room";            
 
             var find = from s in _context.Entrances select s;
 
@@ -1017,7 +1031,7 @@ namespace EntranceControlWeb.Controllers
             entr.Doors = _context.Doors.ToList();
             entr.Statuses = _context.AccessStatuses.ToList();
 
-            if (entr.Entrances == null)
+            if (entr.Entrances.Count <= 0)
             {
                 ViewBag.Message = "Результатов не найдено";
             }
@@ -1030,6 +1044,7 @@ namespace EntranceControlWeb.Controllers
             return RedirectToAction(nameof(Entrance));
         }
         [Authorize]
+        //Отображение данных о сотруднике
         public IActionResult ViewStaff(int id)
         {
             var view = new EntranceViewModel();
@@ -1047,6 +1062,7 @@ namespace EntranceControlWeb.Controllers
                 
         }
         [Authorize]
+        //Отображение данных о посетителе
         public IActionResult ViewVisit (int id)
         {
             var view = new EntranceViewModel();          
@@ -1111,7 +1127,7 @@ namespace EntranceControlWeb.Controllers
             vis.Activities = _context.ActivityStatuses.ToList();
             vis.Levels = _context.AccessLevels.ToList();
 
-            if(vis.Visitors == null)
+            if(vis.Visitors.Count <= 0)
             {
                 ViewBag.Message = "Результатов не найдено";
             }
@@ -1121,6 +1137,7 @@ namespace EntranceControlWeb.Controllers
         //Редактирование записи
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult VisEdit(VisitorViewModel vis)
         {
             var edit = _context.Visitors.FirstOrDefault(x => x.Idvisitor == vis.Idvisitor);
@@ -1136,6 +1153,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Visitors));
         }
+        [Authorize]
         public IActionResult VisEdit(int id)
         {
             var vis = new VisitorViewModel();           
@@ -1180,6 +1198,7 @@ namespace EntranceControlWeb.Controllers
         }
         //Создание записи
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize]
         public IActionResult CreateVisit(VisitorViewModel vis)
         {
@@ -1189,6 +1208,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Visitors));
         }
+        [Authorize]
         public IActionResult CreateVisit()
         {
             var vis = new VisitorViewModel();
@@ -1201,6 +1221,7 @@ namespace EntranceControlWeb.Controllers
         //Редактирование записи пропуска
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult PassEditVis(PassesViewModel pass)
         {
             var edit = _context.Passes.FirstOrDefault(x => x.IdPass == pass.IdPass);
@@ -1213,7 +1234,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Visitors));
         }
-        [Authorize]
+        [Authorize]      
         public IActionResult PassEditVis(int id)
         {
             var pass = new PassesViewModel();
@@ -1277,7 +1298,7 @@ namespace EntranceControlWeb.Controllers
             pass.Activities = _context.ActivityStatuses.ToList();
             pass.Levels = _context.AccessLevels.ToList();
 
-            if(pass.Passes == null)
+            if(pass.Passes.Count <= 0)
             {
                 ViewBag.Message = "Результатов не найдено";
             }
@@ -1293,6 +1314,7 @@ namespace EntranceControlWeb.Controllers
         //Создание записи
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult CreatePass(PassesViewModel pass)
         {
             var create = new Pass { IdPass = pass.IdPass, IdLong = pass.IdLong, IdActiv = pass.IdActiv, IdLevel = pass.IdLevel, Hidden = false };
@@ -1321,6 +1343,7 @@ namespace EntranceControlWeb.Controllers
         //Редактирование записи
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult PassEdit(PassesViewModel pass)
         {
             var edit = _context.Passes.FirstOrDefault(x => x.IdPass == pass.IdPass);
@@ -1379,12 +1402,22 @@ namespace EntranceControlWeb.Controllers
 
         #region ДЕЙСТВИЯ СО СПРАВОЧНЫМИ ТАБЛИЦАМИ
         [Authorize]
-        public IActionResult Dictionary(DictionaryViewModel dict)
+        public IActionResult Dictionary(DictionaryViewModel dict, bool Hide)
         {
-            dict.Levels = _context.AccessLevels.ToList();
-            dict.Lastings = _context.LastingStatuses.ToList();
-            dict.Statuses = _context.AccessStatuses.ToList();
-            dict.Activities = _context.ActivityStatuses.ToList();
+            if(Hide == true)
+            {
+                dict.Levels = _context.AccessLevels.ToList();
+                dict.Lastings = _context.LastingStatuses.ToList();
+                dict.Statuses = _context.AccessStatuses.ToList();
+                dict.Activities = _context.ActivityStatuses.ToList();
+
+                return View(dict);
+            }
+
+            dict.Levels = _context.AccessLevels.Where(x=>x.Hidden == false).ToList();
+            dict.Lastings = _context.LastingStatuses.Where(x => x.Hidden == false).ToList();
+            dict.Statuses = _context.AccessStatuses.Where(x => x.Hidden == false).ToList();
+            dict.Activities = _context.ActivityStatuses.Where(x => x.Hidden == false).ToList();
 
             return View(dict);
         }
@@ -1402,10 +1435,24 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Dictionary));
         }
+        //Восстановление записи таблицы "Уровни доступа"
+        public IActionResult ShowLevel(int id)
+        {
+            var data = _context.AccessLevels.FirstOrDefault(x => x.IdLevel == id);
+            var lev = new DictionaryViewModel();
 
+            if (lev != null)
+            {
+                data.Hidden = false;
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Dictionary));
+        }
         //Редактирование записи таблицы "Уровни доступа"
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult LevelEdit(DictionaryViewModel acclev)
         {
             var edit = _context.AccessLevels.FirstOrDefault(x => x.IdLevel == acclev.IdLevel);
@@ -1434,6 +1481,7 @@ namespace EntranceControlWeb.Controllers
         //Создание записи таблицы "Уровни доступа"
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateLevel(DictionaryViewModel lev)
         {
             var create = new AccessLevel { TitleLevel = lev.TitleLevel, Hidden = false };
@@ -1462,10 +1510,26 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Dictionary));
         }
+        //Восстановление записи таблицы "Статус доступа"
+        public IActionResult ShowStatus(int id)
+        {
+            var data = _context.AccessStatuses.FirstOrDefault(x => x.IdStatus == id);
+            var stat = new DictionaryViewModel();
+
+            if (stat != null)
+            {
+                data.Hidden = false;
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Dictionary));
+        }
+
 
         //Редактирование записи таблицы "Статус доступа"
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult StatusEdit(DictionaryViewModel accstat)
         {
             var edit = _context.AccessStatuses.FirstOrDefault(x => x.IdStatus == accstat.IdStatus);
@@ -1494,6 +1558,7 @@ namespace EntranceControlWeb.Controllers
         //Создание записи таблицы "Статус доступа"
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateStatus(DictionaryViewModel stat)
         {
             var create = new AccessStatus { TitleStatus = stat.TitleStatus, Hidden = false };
@@ -1522,10 +1587,25 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Dictionary));
         }
+        //Восстановление записи таблицы "Статус Активности"
+        public IActionResult ShowActiv(int id)
+        {
+            var data = _context.ActivityStatuses.FirstOrDefault(x => x.IdActiv == id);
+            var act = new DictionaryViewModel();
+
+            if (act != null)
+            {
+                data.Hidden = false;
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Dictionary));
+        }
 
         //Редактирование записи таблицы "Статус Активности"
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult ActivEdit(DictionaryViewModel act)
         {
             var edit = _context.ActivityStatuses.FirstOrDefault(x => x.IdActiv == act.IdActiv);
@@ -1554,6 +1634,7 @@ namespace EntranceControlWeb.Controllers
         //Создание записи таблицы "Статус Активности"
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateActiv(DictionaryViewModel act)
         {
             var create = new ActivityStatus { TitleActiv = act.TitleActiv, Hidden = false };
@@ -1576,6 +1657,20 @@ namespace EntranceControlWeb.Controllers
 
             if (lon != null)
             {
+                data.Hidden = true;
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Dictionary));
+        }
+        //Восстановление записи таблицы "Статус длительности"
+        public IActionResult ShowLong(int id)
+        {
+            var data = _context.LastingStatuses.FirstOrDefault(x => x.IdLong == id);
+            var lon = new DictionaryViewModel();
+
+            if (lon != null)
+            {
                 data.Hidden = false;
             }
 
@@ -1586,6 +1681,7 @@ namespace EntranceControlWeb.Controllers
         //Редактирование записи таблицы "Статус длительности"
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult LongEdit(DictionaryViewModel last)
         {
             var edit = _context.LastingStatuses.FirstOrDefault(x => x.IdLong == last.IdLong);
@@ -1614,6 +1710,7 @@ namespace EntranceControlWeb.Controllers
         //Создание записи таблицы "Статус длительности"
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateLong(DictionaryViewModel last)
         {
             var create = new LastingStatus { TitleLong = last.TitleLong, Hidden = false };

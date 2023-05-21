@@ -8,7 +8,31 @@
         <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
         <h5 class="text-center">СИСТЕМА УЧЕТА РАБОЧЕГО ВРЕМЕНИ</h5>
     </div>
+
     <form asp-action="WorkTime" asp-controller="Cabinet">
+        <div class="row my-3">
+            <div class="card rounded m-3 shadow-lg mx-auto" style="width:1200px">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2 text-center">
+                            <label>Выберите период:</label>
+                        </div>
+                        <div class="col-3">
+                            @Html.TextBox("Date1", "", new { @class = "form-control", type = "date" })
+                        </div>
+                        <div class="col-3">
+                            @Html.TextBox("Date2", "", new { @class = "form-control", type = "date" })
+                        </div>
+                        <div class="col-2 mx-auto">
+                            <button type="submit" formaction="WorkTime" class="btn btn-outline-info" style="width:150px">Поиск</button>
+                        </div>
+                        <div class="col-2 mx-auto">
+                            <button type="submit" formaction="ClearTime" class="btn btn-outline-danger" style="width:150px">Сброс</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row my-2">
             <div class="row my-3">
                 <table class="table-dark table-bordered  mx-auto" style="width:1200px; color:black;">
@@ -26,33 +50,29 @@
 
                     @foreach (var t in Model.ResultList)
                     {
-                        <tbody>
-                            <tr class="text-md-start">
-
-                                <td>@t.Item1.ID</td>
-                                <td>@t.Item4.Surname @t.Item4.Name @t.Item4.LastName</td>
-                                @foreach (var time in t.Item1.TimeW)
-                                {
-                                    <td>@time</td>
-                                }
-                                @foreach (var res in t.Item2.TimeP)
-                                {
-                                    <td>@res</td>
-                                }
-                                @foreach (var res in t.Item3.TimePercent)
-                                {
-                                    <td>@res</td>
-                                }
-                            </tr>
-                        </tbody>
-                    }
-
+        <tbody>
+            <tr class="text-md-start">
+                <td>@t.Item1.ID</td>
+                <td>@t.Item4.Surname @t.Item4.Name @t.Item4.LastName</td>
+                @foreach (var time in t.Item1.TimeW)
+                {
+<td>@time</td>}
+                @foreach (var res in t.Item2.TimeP)
+                {
+<td>@res</td>}
+                @foreach (var res in t.Item3.TimePercent)
+                {
+<td>@res</td>
+}
+            </tr>
+        </tbody>}
                 </table>
             </div>
-            
+
             <div class="row mx-auto">
-                @Html.CheckBox("report", false, new { @hidden = true})
-                <button class="btn btn-outline-dark" onclick="changeCheckbox()" style="width:500px">Cохранить файл отчета</button>               
+                <div class="col-4"></div>
+                @Html.CheckBox("report", false, new { @hidden = true })
+                <button class="btn btn-outline-dark" onclick="changeCheckbox()" style="width:500px">Cохранить файл отчета</button>
             </div>
         </div>
         <script>

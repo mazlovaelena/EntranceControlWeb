@@ -227,12 +227,25 @@ namespace EntranceControlWeb.Controllers
         #endregion       
 
         #region УЧЕТ РАБОЧЕГО ВРЕМЕНИ
-      
-        public IActionResult WorkTime(bool report)
-        {           
+        [Authorize]
+        public IActionResult WorkTime(bool report, DateTime? Date1, DateTime? Date2)
+        {    
+            var entr = from s in _context.Entrances select s;
+            var sort = from t in _context.SortingByOffices select t;
+
+            if(Date1 != null && Date2 != null)
+            {
+                entr = entr.Where(x => x.DateEntr > Date1);
+                entr = entr.Where(x => x.DateExit < Date2);
+            }
+
+            string val = (Date2 - Date1).ToString();
+           
+            bool days = Double.TryParse(val, out double datae);
+
             var resultList = new List<WorkTimeCalc>();
 
-            foreach (var item in _context.Entrances
+            foreach (var item in entr
                 .Where(x => x.IdPasses.IdLong == 2)
                 .AsEnumerable()
                 .GroupBy(x => x.IdPass))
@@ -267,14 +280,30 @@ namespace EntranceControlWeb.Controllers
                 .GroupBy(x => x.IdStaff)
                 .OrderBy(x => x.Key))
             {
-                plantime.Add(new PlanTime()
+                if (datae != 0)
                 {
-                    IDStaff = data.Key,
-                    TimeP = data
-                    .Select(x => x.TimeEnd.Subtract(x.TimeBegin)
-                    .Multiply(20).TotalHours)
-                    .ToList(),
-                });
+                    plantime.Add(new PlanTime()
+                    {
+                        IDStaff = data.Key,
+                        TimeP = data
+                        .Select(x => Math.Round(x.TimeEnd.Subtract(x.TimeBegin)
+                        .Multiply(datae).TotalHours, 0))
+                        .ToList(),
+                    });
+                }
+                else
+                {
+                    plantime.Add(new PlanTime()
+                    {
+                        IDStaff = data.Key,
+                        TimeP = data
+                       .Select(x => Math.Round(x.TimeEnd.Subtract(x.TimeBegin)
+                       .Multiply(20).TotalHours, 0))
+                       .ToList(),
+                    });
+                }
+
+
             }
 
             var percentTime = new List<PercentTime>();
@@ -317,11 +346,25 @@ namespace EntranceControlWeb.Controllers
                 using (ExcelPackage Ep = new ExcelPackage(fs))
                 {
                     var Sheet1 = Ep.Workbook.Worksheets.Add("Лист 1");
-                    Sheet1.Cells["A1"].Value = "Табельный номер";
-                    Sheet1.Cells["B1"].Value = "Фамилия";
-                    Sheet1.Cells["C1"].Value = "Фактическое время работы, часы";
-                    Sheet1.Cells["D1"].Value = "Производственный план, часы";
-                    Sheet1.Cells["E1"].Value = "Процент выполнения плана, %";
+                    if (Date1 != null && Date2 != null)
+                    {
+                        Sheet1.Cells["A1"].Value = "Период";
+                        Sheet1.Cells["B1"].Value = Date1.ToString();
+                        Sheet1.Cells["C1"].Value = Date2.ToString();
+                        Sheet1.Cells["A2"].Value = "Табельный номер";
+                        Sheet1.Cells["B2"].Value = "Фамилия";
+                        Sheet1.Cells["C2"].Value = "Фактическое время работы, часы";
+                        Sheet1.Cells["D2"].Value = "Производственный план, часы";
+                        Sheet1.Cells["E2"].Value = "Процент выполнения плана, %";
+                    }
+                    else
+                    {
+                        Sheet1.Cells["A1"].Value = "Табельный номер";
+                        Sheet1.Cells["B1"].Value = "Фамилия";
+                        Sheet1.Cells["C1"].Value = "Фактическое время работы, часы";
+                        Sheet1.Cells["D1"].Value = "Производственный план, часы";
+                        Sheet1.Cells["E1"].Value = "Процент выполнения плана, %";
+                    }
 
                     var row1 = 2;
                     foreach (var work in final)
@@ -359,10 +402,14 @@ namespace EntranceControlWeb.Controllers
 
             return View(mod);
         }
-        
+        public IActionResult ClearTime()
+        {
+            return RedirectToAction(nameof(WorkTime));
+        }
         #endregion
 
         #region РАБОТА С ОТЧЕТНЫМ ФАЙЛОМ
+        [Authorize]
         public IActionResult EntranceReport()
         {
             return View();
@@ -930,7 +977,7 @@ namespace EntranceControlWeb.Controllers
         #endregion
 
         #region УПРАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯМИ САЙТА
-
+        [Authorize]
         public IActionResult ManageUsers(NewUserViewModel user, bool Hide, string Search)
         {
             var find = from s in _context.Users select s;
@@ -965,6 +1012,8 @@ namespace EntranceControlWeb.Controllers
         }
         //Редактирование записи
         [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult UserEdit(NewUserViewModel user)
         {
             var edit = _context.Users.FirstOrDefault(x => x.IdUser == user.IdUser);
@@ -978,6 +1027,7 @@ namespace EntranceControlWeb.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(ManageUsers));
         }
+        [Authorize]
         public IActionResult UserEdit(int id)
         {
             var viewmodel = new NewUserViewModel();
@@ -993,6 +1043,7 @@ namespace EntranceControlWeb.Controllers
 
         }
         //Создание пользователя
+        [Authorize]
         public IActionResult NewUser()
         {
             var user = new NewUserViewModel();
@@ -1010,6 +1061,8 @@ namespace EntranceControlWeb.Controllers
             return View(user);
         }
         [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult NewUser(NewUserViewModel user)
         {
             if (!ModelState.IsValid)
@@ -1043,7 +1096,8 @@ namespace EntranceControlWeb.Controllers
 
             return RedirectToAction(nameof(SysAdminCab));
         }
-        //Удаление записи
+        //Удаление записи       
+        [Authorize]
         public IActionResult DelUser(int id)
         {
             var door = new NewUserViewModel();
@@ -1058,6 +1112,7 @@ namespace EntranceControlWeb.Controllers
 
         }
         //Восстановление записи
+        [Authorize]
         public IActionResult UserShow(int id)
         {
             var door = new NewUserViewModel();
@@ -1069,7 +1124,6 @@ namespace EntranceControlWeb.Controllers
 
             _context.SaveChanges();
             return RedirectToAction(nameof(ManageUsers));
-
         }
         #endregion
     }

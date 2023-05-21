@@ -116,6 +116,7 @@
             // ...
             console.log('edit clicked');
             const passId = $(this).data('id');
+          
             // обращение на сервер
             $.get('/Home/ViewStaff/' + passId, function (result) {
                 // результат содержит данные о госте
@@ -123,8 +124,7 @@
                 $('#exampleModal #inputSurname').val(result.surname);
                 $('#exampleModal #inputName').val(result.name);
                 $('#exampleModal #inputLastName').val(result.lastName);
-                $('#exampleModal #imgstaff').val(result.image);
-
+                $('#exampleModal img').attr('src', result.image);
             });
         });
 
@@ -139,8 +139,7 @@
                 <form>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-4">
-                                @*<input type="image" height="200" width="200" src="@Model.Image" class="img-fluid" id="imgstaff" name="Image" readonly/>*@
+                            <div class="col-md-4">                                
                                 <img src="@Model.Image" class="img-fluid" id="imgstaff" name="Image"/>
                             </div>
                             <div class="col-md-8">

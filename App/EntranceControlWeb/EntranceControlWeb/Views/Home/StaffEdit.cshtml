@@ -8,7 +8,7 @@
         <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
         <h5 class="text-center">РЕДАКТИРОВАТЬ ИНФОРМАЦИЮ О СОТРУДНИКЕ</h5>
     </div>
-    <form class="my-4" method="post" asp-action="StaffEdit" asp-controller="Home" id="formStaff">
+    <form class="my-4" method="post" asp-action="StaffEdit" asp-controller="Home" id="formStaff" asp-antiforgery="true">
         <div class="card rounded">
             <div class="card-body">
                 <input type="text" hidden readonly asp-for="@Model.IdStaff" value="@Model?.IdStaff" class="form-control" id="inputIdStaff">

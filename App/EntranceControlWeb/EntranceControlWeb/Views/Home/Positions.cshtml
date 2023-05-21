@@ -134,7 +134,7 @@
                         <h5 class="modal-title" id="exampleModalLabel">Редактировать информацию</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="post" asp-controller="Home" asp-action="PosEdit">
+                    <form method="post" asp-controller="Home" asp-action="PosEdit" asp-antiforgery="true">
                         <div class="modal-body">
                             <div class="row mb-3">
                                 <input hidden asp-for="@Model.IdPost" value="@Model?.IdPost" readonly type="text" class="form-control" id="inputTitle">

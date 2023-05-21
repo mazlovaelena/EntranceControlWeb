@@ -6,38 +6,39 @@
 <div class="container">
     <div class="row my-3">
         <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
+        <h5 class="text-center">СПРАВОЧНЫЕ ТАБЛИЦЫ</h5>
+    </div>
+    <div class="row my-3">
         <h5 class="text-center">УРОВНИ ДОСТУПА</h5>
     </div>
     <div class="row my-3">
-
-        @if (User.Identity.IsAuthenticated)
-        {
-            if (User.IsInRole(UserRole.SysAdmin.ToString()))
-            {
-                <div class="row my-1">
-
-                    <div class="mx-auto" style="width:500px"> <a href="@Url.Action("CreateLevel", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
-
+        <form>
+            <div class="card rounded m-3 shadow-lg mx-auto" style="width:400px">
+                <div class="card-body">
+                    <div class="row">
+                        @Html.CheckBox("Hide", false, new { @hidden = true })
+                        <button class="btn btn-outline-info mx-auto" style="width:250px" onclick="changeCheckbox()">Показать скрытые записи</button>
+                    </div>
                 </div>
+            </div>
+            <script>
+                function changeCheckbox() {
+                    var checkbox = document.getElementById("Hide");
+                    checkbox.checked = !checkbox.checked;
+                }
+            </script>
+        </form>
+    </div>
+    <div class="row my-3">
+        <div class="row my-2">
+            <a href="@Url.Action("CreateLevel", "Home")" class="btn btn-outline-primary mx-auto" style="width:500px">Создать запись</a>
+        </div>
 
-            }
-        }
         <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
             <thead>
-                <tr class="text-center">                   
+                <tr class="text-center">
                     <th>Наименование уровня</th>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                        {
-                            <th>Действия</th>
-                        }
-                        else if (User.IsInRole(UserRole.Admin.ToString()))
-                        {
-                            <th>Действия</th>
-                        }
-                    }
-
+                    <th>Действия</th>
                 </tr>
             </thead>
             @foreach (var data in Model.Levels)
@@ -45,17 +46,20 @@
                 <tbody>
                     <tr class="text-md-start">
                         <td>@data.TitleLevel</td>
-                        @if (User.Identity.IsAuthenticated)
+
+                        @if (data.Hidden == false)
                         {
-                            if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                            {
-                                <td>
-                                    <a href="@Url.Action("LevelEdit", "Home", new { id = @data.IdLevel })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdLevel">Редактировать</a>
-                                    <a href="@Url.Action("DelLevel", "Home", new { id = @data.IdLevel })" class="text-danger" data-id="@data.IdLevel">Удалить</a>
-                                </td>
+                            <td>
+                                <a href="@Url.Action("LevelEdit", "Home", new { id = @data.IdLevel })" class="text-success editClick" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="@data.IdLevel">Редактировать</a>
+                                <a href="@Url.Action("DelLevel", "Home", new { id = @data.IdLevel })" class="text-danger" data-id="@data.IdLevel">Удалить</a>
+                            </td>
+                        }
 
-                            }
-
+                        @if (data.Hidden == true)
+                        {
+                            <td>
+                                Запись скрыта. <a href="@Url.Action("ShowLevel", "Home", new { id = @data.IdLevel })" class="text-dark" data-id="@data.IdLevel">Восстановить</a>
+                            </td>
                         }
 
                     </tr>
@@ -71,34 +75,16 @@
     </div>
     <div class="row my-3">
 
-        @if (User.Identity.IsAuthenticated)
-        {
-            if (User.IsInRole(UserRole.SysAdmin.ToString()))
-            {
-                <div class="row my-2">
+        <div class="row my-2">
+            <a href="@Url.Action("CreateStatus", "Home")" class="btn btn-outline-primary mx-auto" style="width:500px">Создать запись</a>
+        </div>
 
-                    <div class="mx-auto" style="width:500px"> <a href="@Url.Action("CreateStatus", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
 
-                </div>
-
-            }
-        }
         <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
             <thead>
-                <tr class="text-center">                   
+                <tr class="text-center">
                     <th>Наименование статус</th>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                        {
-                            <th>Действия</th>
-                        }
-                        else if (User.IsInRole(UserRole.Admin.ToString()))
-                        {
-                            <th>Действия</th>
-                        }
-                    }
-
+                    <th>Действия</th>
                 </tr>
             </thead>
             @foreach (var data in Model.Statuses)
@@ -106,18 +92,21 @@
                 <tbody>
                     <tr class="text-md-start">
                         <td>@data.TitleStatus</td>
-                        @if (User.Identity.IsAuthenticated)
+                        @if (data.Hidden == false)
                         {
-                            if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                            {
-                                <td>
-                                    <a href="@Url.Action("StatusEdit", "Home", new { id = @data.IdStatus })" class="text-success editClick1" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-id="@data.IdStatus">Редактировать</a>
-                                    <a href="@Url.Action("DelStatus", "Home", new { id = @data.IdStatus })" class="text-danger" data-id="@data.IdStatus">Удалить</a>
-                                </td>
-
-                            }
+                            <td>
+                                <a href="@Url.Action("StatusEdit", "Home", new { id = @data.IdStatus })" class="text-success editClick1" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-id="@data.IdStatus">Редактировать</a>
+                                <a href="@Url.Action("DelStatus", "Home", new { id = @data.IdStatus })" class="text-danger" data-id="@data.IdStatus">Удалить</a>
+                            </td>
                         }
 
+
+                        @if (data.Hidden == true)
+                        {
+                            <td>
+                                Запись скрыта. <a href="@Url.Action("ShowStatus", "Home", new { id = @data.IdStatus })" class="text-dark" data-id="@data.IdStatus">Восстановить</a>
+                            </td>
+                        }
                     </tr>
                 </tbody>
             }
@@ -129,34 +118,15 @@
         <h5 class="text-center">СТАТУСЫ АКТИВНОСТИ</h5>
     </div>
     <div class="row my-3">
+        <div class="row my-2">
+            <a href="@Url.Action("CreateActiv", "Home")" class="btn btn-outline-primary mx-auto" style="width:500px">Создать запись</a>
+        </div>
 
-        @if (User.Identity.IsAuthenticated)
-        {
-            if (User.IsInRole(UserRole.SysAdmin.ToString()))
-            {
-                <div class="row my-2">
-
-                    <div class="mx-auto" style="width:500px"> <a href="@Url.Action("CreateActiv", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
-
-                </div>
-            }
-        }
         <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
             <thead>
-                <tr class="text-center">                   
+                <tr class="text-center">
                     <th>Наименование статус</th>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                        {
-                            <th>Действия</th>
-                        }
-                        else if (User.IsInRole(UserRole.Admin.ToString()))
-                        {
-                            <th>Действия</th>
-                        }
-                    }
-
+                    <th>Действия</th>
                 </tr>
             </thead>
             @foreach (var data in Model.Activities)
@@ -164,22 +134,22 @@
                 <tbody>
                     <tr class="text-md-start">
                         <td>@data.TitleActiv</td>
-                        @if (User.Identity.IsAuthenticated)
+                        @if (data.Hidden == false)
                         {
-                            if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                            {
-                                <td>
-                                    <a href="@Url.Action("ActivEdit", "Home", new { id = @data.IdActiv })" class="text-success editClick2" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-id="@data.IdActiv">Редактировать</a>
-                                    <a href="@Url.Action("DelActiv", "Home", new { id = @data.IdActiv })" class="text-danger" data-id="@data.IdActiv">Удалить</a>
-                                </td>
-
-                            }
+                            <td>
+                                <a href="@Url.Action("ActivEdit", "Home", new { id = @data.IdActiv })" class="text-success editClick2" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-id="@data.IdActiv">Редактировать</a>
+                                <a href="@Url.Action("DelActiv", "Home", new { id = @data.IdActiv })" class="text-danger" data-id="@data.IdActiv">Удалить</a>
+                            </td>
                         }
-
+                        @if (data.Hidden == true)
+                        {
+                            <td>
+                                <a href="@Url.Action("ShowActiv", "Home", new { id = @data.IdActiv })" class="text-dark" data-id="@data.IdActiv">Удалить</a>
+                            </td>
+                        }
                     </tr>
                 </tbody>
             }
-
         </table>
     </div>
 
@@ -188,35 +158,15 @@
         <h5 class="text-center">СТАТУСЫ ДЛИТЕЛЬНОСТИ</h5>
     </div>
     <div class="row my-3">
+        <div class="row my-2">
+            <a href="@Url.Action("CreateLong", "Home")" class="btn btn-outline-primary mx-auto" style="width:500px">Создать запись</a>
+        </div>
 
-        @if (User.Identity.IsAuthenticated)
-        {
-            if (User.IsInRole(UserRole.SysAdmin.ToString()))
-            {
-                <div class="row my-2">
-
-                    <div class="mx-auto" style="width:500px"> <a href="@Url.Action("CreateLong", "Home")" class="btn btn-outline-primary">Создать запись</a></div>
-
-                </div>
-
-            }
-        }
         <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
             <thead>
-                <tr class="text-center">                   
+                <tr class="text-center">
                     <th>Наименование статус</th>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                        {
-                            <th>Действия</th>
-                        }
-                        else if (User.IsInRole(UserRole.Admin.ToString()))
-                        {
-                            <th>Действия</th>
-                        }
-                    }
-
+                    <th>Действия</th>
                 </tr>
             </thead>
             @foreach (var data in Model.Lastings)
@@ -224,22 +174,22 @@
                 <tbody>
                     <tr class="text-md-start">
                         <td>@data.TitleLong</td>
-                        @if (User.Identity.IsAuthenticated)
+                        @if (data.Hidden == false)
                         {
-                            if (User.IsInRole(UserRole.SysAdmin.ToString()))
-                            {
-                                <td>
-                                    <a href="@Url.Action("LongEdit", "Home", new { id = @data.IdLong })" class="text-success editClick3" data-bs-toggle="modal" data-bs-target="#exampleModal3" data-id="@data.IdLong">Редактировать</a>
-                                    <a href="@Url.Action("DelLong", "Home", new { id = @data.IdLong })" class="text-danger" data-id="@data.IdLong">Удалить</a>
-                                </td>
-
-                            }
+                            <td>
+                                <a href="@Url.Action("LongEdit", "Home", new { id = @data.IdLong })" class="text-success editClick3" data-bs-toggle="modal" data-bs-target="#exampleModal3" data-id="@data.IdLong">Редактировать</a>
+                                <a href="@Url.Action("DelLong", "Home", new { id = @data.IdLong })" class="text-danger" data-id="@data.IdLong">Удалить</a>
+                            </td>
                         }
-
+                        @if (data.Hidden == true)
+                        {
+                            <td>
+                                <a href="@Url.Action("ShowLong", "Home", new { id = @data.IdLong })" class="text-dark" data-id="@data.IdLong">Удалить</a>
+                            </td>
+                        }
                     </tr>
                 </tbody>
             }
-
         </table>
     </div>
 
@@ -268,7 +218,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Редактировать информацию</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post" asp-controller="Home" asp-action="LevelEdit">
+                <form method="post" asp-controller="Home" asp-action="LevelEdit" asp-antiforgery="true">
                     <div class="modal-body">
                         <div class="row mb-3">
                             <input hidden type="text" asp-for="@Model.IdLevel" class="form-control" value="@Model?.IdLevel" id="inputTitle" name="IdLevel" readonly>
@@ -314,7 +264,7 @@
                     <h5 class="modal-title" id="exampleModal1Label">Редактировать информацию</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post" asp-controller="Home" asp-action="StatusEdit">
+                <form method="post" asp-controller="Home" asp-action="StatusEdit" asp-antiforgery="true">
                     <div class="modal-body">
                         <div class="row mb-3">
                             <input hidden type="text" asp-for="@Model.IdStatus" class="form-control" value="@Model?.IdStatus" id="inputTitle" name="IdStatus" readonly>
@@ -360,7 +310,7 @@
                     <h5 class="modal-title" id="exampleModal2Label">Редактировать информацию</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post" asp-controller="Home" asp-action="ActivEdit">
+                <form method="post" asp-controller="Home" asp-action="ActivEdit" asp-antiforgery="true">
                     <div class="modal-body">
                         <div class="row mb-3">
                             <input hidden type="text" asp-for="@Model.IdActiv" class="form-control" value="@Model?.IdActiv" id="inputTitle" name="IdActiv" readonly>
@@ -406,7 +356,7 @@
                     <h5 class="modal-title" id="exampleModal3Label">Редактировать информацию</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post" asp-controller="Home" asp-action="LongEdit">
+                <form method="post" asp-controller="Home" asp-action="LongEdit" asp-antiforgery="true">
                     <div class="modal-body">
                         <div class="row mb-3">
                             <input hidden type="text" asp-for="@Model.IdLong" class="form-control" value="@Model?.IdLong" id="inputTitle" name="IdLong" readonly>

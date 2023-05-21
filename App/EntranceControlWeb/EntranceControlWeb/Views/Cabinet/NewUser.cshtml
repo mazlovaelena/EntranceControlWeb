@@ -12,14 +12,14 @@
         <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
         <h5 class="text-center">СОЗДАНИЕ НОВОГО ПОЛЬЗОВАТЕЛЯ</h5>
     </div>
-    <form class="my-4" method="post" asp-action="NewUser" asp-controller="Cabinet">
+    <form class="my-4" method="post" asp-action="NewUser" asp-controller="Cabinet" asp-antiforgery="true">
         <div class="card rounded">
             <div class="card-body">
                 <div class="row mb-3">
                     <label for="idvisitor" class="col-sm-4 col-form-label">Выберите сотрудника</label>
                     <div class="col-sm-8">
 
-                        @Html.DropDownListFor(x => x.IdStaff, Model.StaffSelect, new { @class = "js-example-basic-single form-control" })
+                        @Html.DropDownListFor(x => x.IdStaff, Model.StaffSelect, new { @class = "js-example-basic-single form-control", @id = "idStaff" })
 
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                        <a type="button" href="@Url.Action("NewUser", "Cabinet")" class="btn btn-danger">Не сохранять</a>
+                        <a type="button" href="@Url.Action("ManageUsers", "Cabinet")" class="btn btn-danger">Не сохранять</a>
                         <button type="submit" class="btn btn-success">Сохранить</button>
                     </div>
                 </div>

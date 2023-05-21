@@ -39,7 +39,7 @@
                                 <label for="idRoom" class="col-sm-4 col-form-label">Сотрудник</label>
                                 <div class="col-sm-8">
 
-                                    @Html.DropDownListFor(x => x.IdStaff, Model.StaffSelect, "", new { @class = "js-example-basic-single form-control", data_val = false })
+                                    @Html.DropDownListFor(x => x.IdStaff, Model.StaffSelect, "", new { @class = "js-example-basic-single form-control", data_val = false, @id="idStaff", @style ="width:100%" })
 
                                 </div>
                             </div>
@@ -47,14 +47,14 @@
                                 <label for="idPass" class="col-sm-4 col-form-label">Должность</label>
                                 <div class="col-sm-8">
 
-                                    @Html.DropDownListFor(x => x.IdPost, Model.PostSelect, "", new { @class = "js-example-basic-single form-control", data_val = false })
+                                    @Html.DropDownListFor(x => x.IdPost, Model.PostSelect, "", new { @class = "js-example-basic-single form-control", data_val = false, @id="idPost", @style = "width:100%" })
 
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="idDoor" class="col-sm-4 col-form-label">Отдел</label>
                                 <div class="col-sm-8">
-                                    @Html.DropDownListFor(x => x.IdOffice, Model.OfficeSelect, "", new { @class = "js-example-basic-single form-control", data_val = false })
+                                    @Html.DropDownListFor(x => x.IdOffice, Model.OfficeSelect, "", new { @class = "js-example-basic-single form-control", data_val = false, @id = "idOffice", @style = "width:100%" })
                                 </div>
                             </div>
                             <div class="row mb-2">

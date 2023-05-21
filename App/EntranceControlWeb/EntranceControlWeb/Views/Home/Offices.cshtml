@@ -3,15 +3,13 @@
     ViewData["Title"] = "Offices";
 
 }
-
-
 <div class="container">
     <div class="row my-3">
         <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
         <h5 class="text-center">ОТДЕЛЫ</h5>
     </div>
     <div class="row my-3">
-        <form asp-action="Offices" asp-controller="Home">
+        <form asp-action="Offices" asp-controller="Home" >
             <div class="card rounded m-3 shadow-lg mx-auto" style="width:1200px">
                 <div class="card-body">
                     <div class="row">
@@ -134,7 +132,7 @@
                         <h5 class="modal-title" id="exampleModalLabel">Редактировать информацию</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="post" asp-controller="Home" asp-action="OfficeEdit">
+                    <form method="post" asp-controller="Home" asp-action="OfficeEdit" asp-antiforgery="true">
                         <div class="modal-body">
                             <div class="row mb-3">
                                 <input hidden asp-for="@Model.IdOffice" value="@Model?.IdOffice" readonly type="text" class="form-control" id="inputTitle">
