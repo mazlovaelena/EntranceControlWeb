@@ -26,19 +26,21 @@ namespace EntranceControlWeb.Controllers
             _appEnvironment = appEnvironment;
             _context = context;
         }
-
         [Authorize]
+        //Отображение страницы ЛК администратора
         public IActionResult AdminCab()
         {
             return View();
         }
         [Authorize]
+        //Отображение страницы ЛК системного администратора
         public IActionResult SysAdminCab()
         {
             return View();
         }
         #region ПРОСМОТР ПОЛЬЗОВАТЕЛЕЙ САЙТА
         [Authorize]       
+        //Отображение страницы
         public IActionResult Users(AuthorizeViewModel auth, string Search)
         {
             var find = from s in _context.Authorizes select s;
@@ -90,6 +92,8 @@ namespace EntranceControlWeb.Controllers
             return View(auth);
         }
 
+        [Authorize]
+        //Формирование отчета с фильтрацией
         public IActionResult FilterReport(AuthorizeViewModel auth, string Search)
         {
             Search = HttpContext.Request.Cookies["SearchValue"];
@@ -151,6 +155,7 @@ namespace EntranceControlWeb.Controllers
         }
         
         [Authorize]      
+        //Формирование отчета без фильтрации
         public IActionResult UserReport()
         {
             if (User.Identity.IsAuthenticated)
@@ -237,8 +242,7 @@ namespace EntranceControlWeb.Controllers
         [Authorize]
         public IActionResult WorkTime(bool report, DateTime? Date1, DateTime? Date2)
         {    
-            var entr = from s in _context.Entrances select s;
-            var sort = from t in _context.SortingByOffices select t;
+            var entr = from s in _context.Entrances select s;           
 
             if(Date1 != null && Date2 != null)
             {
@@ -246,12 +250,13 @@ namespace EntranceControlWeb.Controllers
                 entr = entr.Where(x => x.DateExit < Date2);
             }
 
-            string val = (Date2 - Date1).ToString();
-           
-            bool days = Double.TryParse(val, out double datae);
+            var val = Date2 - Date1;
+
+            var datae = val == null ? 0 : val.Value.TotalDays;            
 
             var resultList = new List<WorkTimeCalc>();
 
+            //Поиск фактического времени работы по сотрудникам
             foreach (var item in entr
                 .Where(x => x.IdPasses.IdLong == 2)
                 .AsEnumerable()
@@ -266,7 +271,7 @@ namespace EntranceControlWeb.Controllers
             }
 
             var worktime = new List<ResultTime>();
-
+            //Расчет фактического времени работы
             foreach(var time in resultList
                 .AsEnumerable()
                 .GroupBy(x=>x.ID)
@@ -281,7 +286,7 @@ namespace EntranceControlWeb.Controllers
             }
 
             var plantime = new List<PlanTime>();
-
+            //Расчет планового времени работы
             foreach (var data in _context.SortingByOffices
                 .AsEnumerable()
                 .GroupBy(x => x.IdStaff)
@@ -309,12 +314,10 @@ namespace EntranceControlWeb.Controllers
                        .ToList(),
                     });
                 }
-
-
             }
 
             var percentTime = new List<PercentTime>();
-
+            //Расчет процента отработанного времени
             foreach (var data in resultList
                 .AsEnumerable()
                 .GroupBy(x => x.ID)
@@ -346,6 +349,7 @@ namespace EntranceControlWeb.Controllers
                 ResultList = final
             };
 
+            //Формирование отчетного файла
             if(report == true)
             {
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -363,6 +367,26 @@ namespace EntranceControlWeb.Controllers
                         Sheet1.Cells["C2"].Value = "Фактическое время работы, часы";
                         Sheet1.Cells["D2"].Value = "Производственный план, часы";
                         Sheet1.Cells["E2"].Value = "Процент выполнения плана, %";
+
+                        var row = 3;
+                        foreach (var work in final)
+                        {
+                            Sheet1.Cells[string.Format("A{0}", row)].Value = work.Item1.ID;
+                            Sheet1.Cells[string.Format("B{0}", row)].Value = work.Item4.Surname;
+                            foreach (var h in work.Item1.TimeW)
+                            {
+                                Sheet1.Cells[string.Format("C{0}", row)].Value = h;
+                            }
+                            foreach (var g in work.Item2.TimeP)
+                            {
+                                Sheet1.Cells[string.Format("D{0}", row)].Value = g;
+                            }
+                            foreach (var g in work.Item3.TimePercent)
+                            {
+                                Sheet1.Cells[string.Format("E{0}", row)].Value = g;
+                            }
+                            row++;
+                        }
                     }
                     else
                     {
@@ -371,27 +395,27 @@ namespace EntranceControlWeb.Controllers
                         Sheet1.Cells["C1"].Value = "Фактическое время работы, часы";
                         Sheet1.Cells["D1"].Value = "Производственный план, часы";
                         Sheet1.Cells["E1"].Value = "Процент выполнения плана, %";
-                    }
 
-                    var row1 = 2;
-                    foreach (var work in final)
-                    {
-                        Sheet1.Cells[string.Format("A{0}", row1)].Value = work.Item1.ID;
-                        Sheet1.Cells[string.Format("B{0}", row1)].Value = work.Item4.Surname;
-                        foreach(var h in work.Item1.TimeW)
+                        var row1 = 2;
+                        foreach (var work in final)
                         {
-                            Sheet1.Cells[string.Format("C{0}", row1)].Value = h;
+                            Sheet1.Cells[string.Format("A{0}", row1)].Value = work.Item1.ID;
+                            Sheet1.Cells[string.Format("B{0}", row1)].Value = work.Item4.Surname;
+                            foreach (var h in work.Item1.TimeW)
+                            {
+                                Sheet1.Cells[string.Format("C{0}", row1)].Value = h;
+                            }
+                            foreach (var g in work.Item2.TimeP)
+                            {
+                                Sheet1.Cells[string.Format("D{0}", row1)].Value = g;
+                            }
+                            foreach (var g in work.Item3.TimePercent)
+                            {
+                                Sheet1.Cells[string.Format("E{0}", row1)].Value = g;
+                            }
+                            row1++;
                         }
-                        foreach(var g in work.Item2.TimeP)
-                        {
-                            Sheet1.Cells[string.Format("D{0}", row1)].Value = g;
-                        }
-                        foreach (var g in work.Item3.TimePercent)
-                        {
-                            Sheet1.Cells[string.Format("E{0}", row1)].Value = g;
-                        }
-                        row1++;
-                    }
+                    }                    
                     Sheet1.Cells["A:AZ"].AutoFitColumns();
 
                     Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
@@ -417,6 +441,7 @@ namespace EntranceControlWeb.Controllers
 
         #region РАБОТА С ОТЧЕТНЫМ ФАЙЛОМ
         [Authorize]
+        //Отображение страницы
         public IActionResult EntranceReport()
         {
             return View();
@@ -690,6 +715,7 @@ namespace EntranceControlWeb.Controllers
             FileStream fs = new FileStream("EntranceReport.xls", FileMode.Create);
             using (ExcelPackage Ep = new ExcelPackage(fs))
             {
+                //Условие выбора таблицы
                 if(Entrance == true)
                 {
                     var Sheet1 = Ep.Workbook.Worksheets.Add("Доступ");
@@ -985,13 +1011,16 @@ namespace EntranceControlWeb.Controllers
 
         #region УПРАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯМИ САЙТА
         [Authorize]
+        //Отображение страницы
         public IActionResult ManageUsers(NewUserViewModel user, bool Hide, string Search)
         {
             var find = from s in _context.Users select s;
 
             if(!String.IsNullOrEmpty(Search))
             {
-                find = find.Where(s => s.Email.ToUpper().Contains(Search.ToUpper()));
+                find = find.Where(s => s.IdStaffs.Surname.ToUpper().Contains(Search.ToUpper())
+                || s.IdStaffs.Name.ToUpper().Contains(Search.ToUpper())
+                || s.IdStaffs.LastName.ToUpper().Contains(Search.ToUpper()));
             }
 
             user.StaffSelect = new SelectList(_context.staff, "IdStaff", "Surname");
@@ -1089,6 +1118,7 @@ namespace EntranceControlWeb.Controllers
                 return View(user);
             }
 
+            //Функция хеширования пароля
             var sha512 = new SHA512Managed();
             var hash = sha512.ComputeHash(Encoding.UTF8.GetBytes(user.PasswordRetry));
             var hashpass = Convert.ToBase64String(hash);

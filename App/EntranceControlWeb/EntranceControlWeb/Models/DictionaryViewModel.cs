@@ -6,6 +6,7 @@ using EntranceControlWeb.Data;
 
 namespace EntranceControlWeb.Models
 {
+    //Модель представления таблиц "Статусы доступа", "Статусы Активности", "Статусы длительности", "Уровни доступа"
     public class DictionaryViewModel
     {
         public List<AccessLevel> Levels { get; set; }

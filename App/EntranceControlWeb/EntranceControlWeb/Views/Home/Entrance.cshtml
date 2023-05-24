@@ -34,19 +34,19 @@
                             <div class="row mb-3">
                                 <label for="idRoom" class="col-sm-4 col-form-label">Помещение</label>
                                 <div class="col-sm-8">
-                                    @Html.DropDownListFor(x => x.IdRoom, Model.RoomSelect, "", new { @class = "form-control", data_val = false })
+                                    @Html.DropDownListFor(x => x.IdRoom, Model.RoomSelect, "", new { @class = "js-example-basic-single form-control", data_val = false, @id = "idRoom", style = "width:100%" })
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="idPass" class="col-sm-4 col-form-label">№ пропуска</label>
                                 <div class="col-sm-8">
-                                    @Html.DropDownListFor(x => x.IdPass, Model.PassSelect, "", new { @class = "form-control", data_val = false })
+                                    @Html.DropDownListFor(x => x.IdPass, Model.PassSelect, "", new { @class = "js-example-basic-single form-control", data_val = false, @id = "idPass", style = "width:100%" })
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="idDoor" class="col-sm-4 col-form-label">Турникет</label>
                                 <div class="col-sm-8">
-                                    @Html.DropDownListFor(x => x.IdDoor, Model.DoorSelect, "", new { @class = "form-control", data_val = false })
+                                    @Html.DropDownListFor(x => x.IdDoor, Model.DoorSelect, "", new { @class = "js-example-basic-single form-control", data_val = false, @id = "idDoor", style = "width:100%" })
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -70,6 +70,17 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            $('#idRoom').select2();
+        });
+        $(document).ready(function () {
+            $('#idPass').select2();
+        });
+        $(document).ready(function () {
+            $('#idDoor').select2();
+        });
+    </script>
     <div class="row my-3">
         <table class="table-dark table-bordered mx-auto" style="width:1200px; color:black;">
             <thead>
@@ -104,11 +115,11 @@
                         <td>@data.IdStatuses.TitleStatus</td>
                     </tr>
                 </tbody>
-                
+
             }
         </table>
-        <div class="row my-1">           
-            <h6 class="text-center text-danger"><strong> @ViewBag.Message</strong></h6>            
+        <div class="row my-1">
+            <h6 class="text-center text-danger"><strong> @ViewBag.Message</strong></h6>
         </div>
     </div>
     <script>
@@ -116,7 +127,7 @@
             // ...
             console.log('edit clicked');
             const passId = $(this).data('id');
-          
+
             // обращение на сервер
             $.get('/Home/ViewStaff/' + passId, function (result) {
                 // результат содержит данные о госте
@@ -124,13 +135,15 @@
                 $('#exampleModal #inputSurname').val(result.surname);
                 $('#exampleModal #inputName').val(result.name);
                 $('#exampleModal #inputLastName').val(result.lastName);
+                $('#exampleModal #inputPost').val(result.titlePost);
+                $('#exampleModal #inputOffice').val(result.titleOffice);
                 $('#exampleModal img').attr('src', result.image);
             });
         });
 
     </script>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Карточка сотрудника</h5>
@@ -139,28 +152,42 @@
                 <form>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-4">                                
-                                <img src="@Model.Image" class="img-fluid" id="imgstaff" name="Image"/>
+                            <div class="col-md-4">
+                                <img src="@Model.Image" class="img-fluid" id="imgstaff" name="Image" />
                             </div>
                             <div class="col-md-8">
                                 <div class="row mb-2">
                                     <label for="inputTitle" class="col-4 col-form-label">Фамилия:</label>
                                     <div class="col-8">
-                                        <input type="text" asp-for="@Model.Surname" class="border-0" id="inputSurname" value="@Model?.Surname" name="Surname" readonly>
+                                        <input type="text" style="width:100%" asp-for="@Model.Surname" class="border-0" id="inputSurname" value="@Model?.Surname" name="Surname" readonly>
 
                                     </div>
                                 </div>
                                 <div class="row mb-2">
                                     <label for="inputTitle" class="col-4 col-form-label">Имя:</label>
                                     <div class="col-8">
-                                        <input type="text" asp-for="@Model.Name" class="border-0" id="inputName" value="@Model?.Name" name="Name" readonly>
+                                        <input type="text" style="width:100%" asp-for="@Model.Name" class="border-0" id="inputName" value="@Model?.Name" name="Name" readonly>
 
                                     </div>
                                 </div>
                                 <div class="row mb-2">
                                     <label for="inputTitle" class="col-4 col-form-label">Отчество:</label>
                                     <div class="col-8">
-                                        <input type="text" asp-for="@Model.LastName" class="border-0" id="inputLastName" value="@Model?.LastName" name="LastName" readonly>
+                                        <input type="text" style="width:100%" asp-for="@Model.LastName" class="border-0" id="inputLastName" value="@Model?.LastName" name="LastName" readonly>
+
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <label for="inputTitle" class="col-4 col-form-label">Должность:</label>
+                                    <div class="col-8">
+                                        <input type="text" style="width:100%" asp-for="@Model.TitlePost" class="border-0" id="inputPost" value="@Model?.TitlePost" name="TitlePost" readonly>
+
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <label for="inputTitle" class="col-4 col-form-label">Отдел:</label>
+                                    <div class="col-8">
+                                        <input type="text" style="width:100%" asp-for="@Model.TitleOffice" class="border-0" id="inputOffice" value="@Model?.TitleOffice" name="TitleOffice" readonly>
 
                                     </div>
                                 </div>

@@ -69,12 +69,51 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-7">
-                        <a href="@Url.Action("Staff", "Home")" type="button" class="btn btn-outline-primary">Назад</a>
+                        <a id="back" class="btn btn-outline-primary">Назад</a>
                         <button type="submit" class="btn btn-outline-success">Сохранить изменения</button>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                    </div>
+                    <div class="modal-body">
+                        Вы хотите сохранить внесенные изменения?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        <a type="button" href="@Url.Action("Staff", "Home")" class="btn btn-danger">Не сохранять</a>
+                        <button type="submit" class="btn btn-success">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                // установим флаг о том, что данные не изменены
+                var dataChanged = false;
+                var url = '/Home/Staff';
+                // обработчик события изменения данных
+                $('form').on('input', function () {
+                    dataChanged = true; // изменяем флаг на true
+                });
+                // обработчик нажатия кнопки
+                $('#back').on('click', function () {
+                    if (dataChanged) { // если данные были изменены
+                        // вывести модальное окно
+                        $('#exampleModal').modal('show');
+                    }
+                    else {
+                        window.location.href = url;
+                    }
+                });
+            });
+        </script>
     </form>
 </div>
 

@@ -8,6 +8,7 @@ using EntranceControlWeb.Data;
 
 namespace EntranceControlWeb.Models
 {
+    //Модель представления таблицы "Должности"
     public class PositionViewModel
     {
         public List<Position> Positions { get; set; }

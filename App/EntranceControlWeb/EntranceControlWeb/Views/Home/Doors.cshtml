@@ -31,10 +31,10 @@
                                 <label class="col-sm-4 col-form-label">Помещение</label>
                                 <div class="col-sm-8">
 
-                                    @Html.DropDownListFor(x => x.IdRoom, Model.RoomSelect, "", new { @class = "form-control", data_val = false })
+                                    @Html.DropDownListFor(x => x.IdRoom, Model.RoomSelect, "", new { @class = "js-example-basic-single form-control", data_val = false, @id = "idDoor", style = "width:100%" })
 
                                 </div>
-                            </div>                         
+                            </div>
                             <div class="row mb-2">
                                 <label for="button" class="col-sm-4 col-form-label"></label>
                                 <div class="col-sm-4">
@@ -53,6 +53,11 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            $('#idDoor').select2();
+        });       
+    </script>
     <div class="row my-3">
         @if (User.Identity.IsAuthenticated)
         {

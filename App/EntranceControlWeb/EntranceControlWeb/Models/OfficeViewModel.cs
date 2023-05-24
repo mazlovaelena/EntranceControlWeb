@@ -8,6 +8,7 @@ using EntranceControlWeb.Data;
 
 namespace EntranceControlWeb.Models
 {
+    //Модель представления таблицы "Отделы"
     public class OfficeViewModel
     {
         public List<Office> Offices { get; set; }

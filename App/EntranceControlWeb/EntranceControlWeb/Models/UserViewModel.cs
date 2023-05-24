@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EntranceControlWeb.Models
 {
+    //Модель авторизации пользователя
     public partial class UserViewModel
     {
 

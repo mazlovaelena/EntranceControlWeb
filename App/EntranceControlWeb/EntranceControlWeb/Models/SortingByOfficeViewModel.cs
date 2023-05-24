@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EntranceControlWeb.Models
 {
+    //Модель представления таблицы "Распределение по отделам"
     public partial class SortingByOfficeViewModel
     {
         public List<SortingByOffice> Sortings { get; set; }
@@ -25,7 +26,8 @@ namespace EntranceControlWeb.Models
 
         public List<staff> Staffs { get; set; }
         [Required(ErrorMessage = "Выберите значение")]
-        public int IdStaff { get; set; }
+        public int IdStaff { get; set; }     
+       
         [Required(ErrorMessage = "Выберите значение")]
         public IEnumerable<SelectListItem> StaffSelect { get; set; }
         public List<Position> Positions { get; set; }

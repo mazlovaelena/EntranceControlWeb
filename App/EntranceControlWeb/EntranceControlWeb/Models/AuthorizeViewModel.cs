@@ -7,6 +7,7 @@ using EntranceControlWeb.Data;
 
 namespace EntranceControlWeb.Models
 {
+    //Модель представления таблицы "Authorize"
     public class AuthorizeViewModel
     {
         public List<Authorize> Authorizes { get; set; }

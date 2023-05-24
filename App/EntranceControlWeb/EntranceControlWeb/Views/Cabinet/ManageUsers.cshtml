@@ -8,7 +8,7 @@
     <div class="row my-3">
         <h3 class="text-center"><strong>CИСТЕМА КОНТРОЛЯ ДОСТУПА</strong></h3>
         <h5 class="text-center">ПРОСМОТР ПОСЕТИТЕЛЕЙ САЙТА</h5>
-    </div>    
+    </div>
     <form>
         <div class="row my-3">
 
@@ -16,7 +16,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-2 text-center">
-                            <label>Email:</label>
+                            <label>ФИО:</label>
                         </div>
                         <div class="col-3">
                             @Html.TextBox("Search", "", new { @class = "form-control", @placeholder = "Поиск" })
@@ -86,7 +86,7 @@
         <div class="row my-1">
             <h6 class="text-center text-danger"><strong> @ViewBag.Message</strong></h6>
         </div>
-    </form>
+    </form>    
     <script>
         $('.editClick').on('click', function () {
             // ...
@@ -138,7 +138,7 @@
                             <label for="idRoom" class="col-sm-4 col-form-label">Выберите роль пользователя</label>
                             <div class="col-sm-8">
 
-                                @Html.DropDownList("UserRole", ViewData["RoleSelect"] as List<SelectListItem>, new { @class = "form-control", @value = "UserRole", @id="userRole", @for = "UserRole" })
+                                @Html.DropDownList("UserRole", ViewData["RoleSelect"] as List<SelectListItem>, new { @class = "form-control", @value = "UserRole", @id = "userRole", @for = "UserRole" })
 
                                 <span for="idRoom" class="text-danger" asp-validation-for="@Model.UserRole"></span>
                             </div>

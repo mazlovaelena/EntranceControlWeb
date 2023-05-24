@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EntranceControlWeb.Models
 {
+    //Модель представления таблицы "Доступ"
     public class EntranceViewModel
     {
         public List<Entrance> Entrances { get; set; }
@@ -22,12 +23,15 @@ namespace EntranceControlWeb.Models
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Image { get; set; }
+        public string TitlePost { get; set; }
+        public string TitleOffice { get; set; }
         public int IdPassVis { get; set; }
         public string SurnameVis { get; set; }
         public string NameVis { get; set; }
         public string LastNameVis { get; set; }                 
         public IEnumerable<SelectListItem> PassSelect { get; set; }
         
+        public List<SortingByOffice> Sort { get; set; }
 
         public List<Room> Rooms { get; set; }
         public int IdRoom { get; set; }

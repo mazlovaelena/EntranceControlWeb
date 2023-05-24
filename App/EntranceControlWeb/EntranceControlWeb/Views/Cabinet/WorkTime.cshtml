@@ -41,34 +41,36 @@
                             <th>Табельный номер</th>
                             <th>ФИО</th>
                             <th>Фактическое время работы, часы</th>
-                            <th>Производственный план, часы</th>
-                            <th>Доля выполнения плана, %</th>
-
+                            <th>Планируемое время работы, часы</th>
+                            <th>Доля отработанного времени, %</th>
                         </tr>
                     </thead>
 
-
                     @foreach (var t in Model.ResultList)
                     {
-        <tbody>
-            <tr class="text-md-start">
-                <td>@t.Item1.ID</td>
-                <td>@t.Item4.Surname @t.Item4.Name @t.Item4.LastName</td>
-                @foreach (var time in t.Item1.TimeW)
-                {
-<td>@time</td>}
-                @foreach (var res in t.Item2.TimeP)
-                {
-<td>@res</td>}
-                @foreach (var res in t.Item3.TimePercent)
-                {
-<td>@res</td>
+                <tbody>
+                    <tr class="text-md-start">
+                        <td>@t.Item1.ID</td>
+                        <td>@t.Item4.Surname @t.Item4.Name @t.Item4.LastName</td>
+                        @foreach (var time in t.Item1.TimeW)
+                        {
+                <td>@time</td>
 }
-            </tr>
-        </tbody>}
+                        @foreach (var res in t.Item2.TimeP)
+                        {
+                <td>@res</td>
+}
+                        @foreach (var res in t.Item3.TimePercent)
+                        {
+                <td>@res</td>}
+                    </tr>
+                </tbody>
+}
                 </table>
             </div>
-
+            <div class="row my-1">
+                <h6 class="text-center text-danger"><strong> @ViewBag.Message</strong></h6>
+            </div>
             <div class="row mx-auto">
                 <div class="col-4"></div>
                 @Html.CheckBox("report", false, new { @hidden = true })

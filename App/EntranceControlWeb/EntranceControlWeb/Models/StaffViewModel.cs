@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EntranceControlWeb.Models
 {
+    //Модель представления таблицы "Сотрудники"
     public partial class StaffViewModel
     {
         public List<staff> Staffs { get; set; }

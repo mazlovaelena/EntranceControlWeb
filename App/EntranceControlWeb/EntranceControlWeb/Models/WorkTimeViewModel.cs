@@ -8,6 +8,7 @@ namespace EntranceControlWeb.Models
 {
     public class WorkTimeViewModel
     {
+        //Модель для расчета рабочего времени сотрудников
         public List<WorkTimeCalc> WorkTime { get; set; }
         public List<ResultTime> TimeCalc { get; set; }
         public List<PlanTime> PlanTimes { get; set; }

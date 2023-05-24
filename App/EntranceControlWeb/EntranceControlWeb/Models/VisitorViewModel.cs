@@ -8,6 +8,7 @@ namespace EntranceControlWeb.Models
 {
     public class VisitorViewModel
     {
+        //Модель представления таблицы "Посетители"
         public List<Visitor> Visitors { get; set; }
 
         [Required(ErrorMessage = "Заполните это поле")]

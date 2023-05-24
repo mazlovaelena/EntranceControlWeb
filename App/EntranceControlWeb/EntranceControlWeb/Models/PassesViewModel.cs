@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EntranceControlWeb.Models
 {
+    //Модель представления таблицы "Пропуска"
     public class PassesViewModel
     {
         public List<Pass> Passes { get; set; }

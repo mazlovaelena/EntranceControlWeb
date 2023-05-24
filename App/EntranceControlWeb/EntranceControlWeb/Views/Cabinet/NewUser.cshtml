@@ -57,7 +57,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-7">
-                        <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-secondary">Назад</a>
+                        <a id="back" class="btn btn-outline-secondary">Назад</a>
                         <button type="submit" class="btn btn-outline-success">Сохранить изменения</button>
                     </div>
                 </div>
@@ -81,6 +81,27 @@
                 </div>
             </div>
         </div>
+        <script>
+            $(document).ready(function () {
+                // установим флаг о том, что данные не изменены
+                var dataChanged = false;
+                var url = '/Cabinet/ManageUsers';
+                // обработчик события изменения данных
+                $('form').on('input', function () {
+                    dataChanged = true; // изменяем флаг на true
+                });
+                // обработчик нажатия кнопки
+                $('#back').on('click', function () {
+                    if (dataChanged) { // если данные были изменены
+                        // вывести модальное окно
+                        $('#exampleModal').modal('show');
+                    }
+                    else {
+                        window.location.href = url;
+                    }
+                });
+            });
+        </script>
     </form>
 
 </div>

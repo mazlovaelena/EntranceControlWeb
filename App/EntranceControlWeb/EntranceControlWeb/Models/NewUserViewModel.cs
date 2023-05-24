@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace EntranceControlWeb.Models
 {
+    //Модель добавления нового пользователя системы
     public class NewUserViewModel
     {
         public List<User> Users { get; set; }

@@ -1029,7 +1029,7 @@ namespace EntranceControlWeb.Controllers
             entr.Passes = _context.Passes.ToList();               
             entr.Rooms = _context.Rooms.ToList();
             entr.Doors = _context.Doors.ToList();
-            entr.Statuses = _context.AccessStatuses.ToList();
+            entr.Statuses = _context.AccessStatuses.ToList();           
 
             if (entr.Entrances.Count <= 0)
             {
@@ -1047,15 +1047,21 @@ namespace EntranceControlWeb.Controllers
         //Отображение данных о сотруднике
         public IActionResult ViewStaff(int id)
         {
-            var view = new EntranceViewModel();
-            var db = _context.staff.FirstOrDefault(x => x.IdPass == id);           
-            if(db != null)
+            var view = new EntranceViewModel();            
+            var off = _context.staff.FirstOrDefault(x => x.IdPass == id);
+
+            if(off != null)
             {
-                view.IdPass = db.IdPass;
-                view.Surname = db.Surname;
-                view.Name = db.Name;
-                view.LastName = db.LastName;
-                view.Image = db.Image;
+                view.IdPass = off.IdPass;
+                view.Surname = off.Surname;
+                view.Name = off.Name;
+                view.LastName = off.LastName;
+                view.Image = off.Image;
+                var sort = _context.SortingByOffices.FirstOrDefault(x => x.IdStaff == off.IdStaff);
+                var post = _context.Positions.FirstOrDefault(x => x.IdPost == sort.IdPost);
+                view.TitlePost = post.TitlePost;
+                var db = _context.Offices.FirstOrDefault(x => x.IdOffice == sort.IdOffice);
+                view.TitleOffice = db.TitleOffice;
             }
             
             return Json(view);
